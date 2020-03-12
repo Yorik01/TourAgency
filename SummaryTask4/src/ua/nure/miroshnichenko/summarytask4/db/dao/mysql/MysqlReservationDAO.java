@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
+import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
+import ua.nure.miroshnichenko.summarytask4.db.dao.ReservationDAO;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Reservation;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
@@ -13,7 +15,7 @@ import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
 
-public class MysqlReservationDAO implements DAO<Reservation> {
+public class MysqlReservationDAO implements ReservationDAO {
 
 	private MysqlTourDAO tourDAO = new MysqlTourDAO();
 
@@ -146,5 +148,69 @@ public class MysqlReservationDAO implements DAO<Reservation> {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<Reservation> getUserReservations(User user) throws DAOException {
+		Transaction transaction = null;
+		List<Reservation> reservations = new ArrayList<>();
+
+		try {
+			transaction = DBUtil.getTransaction();
+			reservations = (List<Reservation>) (List<?>) transaction.customQuery(
+					Queries.USER_RESERVATIONS, Reservation.class, user.getId().toString());
+
+			for (Reservation reservation : reservations) {
+				Tour tour = tourDAO.find(reservation.getTourId());
+				User user2 = userDAO.find(reservation.getUserId());
+
+				reservation.setTour(tour);
+				reservation.setUser(user);
+			}
+
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return reservations;
+	}
+
+	@Override
+	public List<Reservation> getTourReservations(Tour tour) throws DAOException {
+		Transaction transaction = null;
+		List<Reservation> reservations = new ArrayList<>();
+
+		try {
+			transaction = DBUtil.getTransaction();
+			reservations = (List<Reservation>) (List<?>) transaction.customQuery(
+					Queries.TOUR_RESERVATIONS, Reservation.class, tour.getId().toString());
+
+			for (Reservation reservation : reservations) {
+				Tour tour2 = tourDAO.find(reservation.getTourId());
+				User user = userDAO.find(reservation.getUserId());
+
+				reservation.setTour(tour);
+				reservation.setUser(user);
+			}
+
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return reservations;
 	}
 }

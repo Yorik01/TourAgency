@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
-import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
+import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
+import ua.nure.miroshnichenko.summarytask4.db.dao.UserDAO;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
 
-public class MysqlUserDAO implements DAO<User> {
+public class MysqlUserDAO implements UserDAO {
 
 	@Override
 	public User find(int id) throws DAOException {
@@ -124,5 +125,33 @@ public class MysqlUserDAO implements DAO<User> {
 			}
 		}
 		return result;
+	}
+	
+	@Override
+	public User getUserByEmail(String email) throws DAOException {
+		Transaction transaction = null;
+		User user = null;
+		
+		try {
+			transaction = DBUtil.getTransaction();
+			List<User> users = (List<User>) (List<?>) transaction.customQuery(
+					Queries.USER_BY_EMAIL, User.class, email);
+			
+			if(users.size() == 1) {
+				user = users.get(0);
+			}
+			
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return user;
 	}
 }

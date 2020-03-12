@@ -14,36 +14,39 @@ public class Tour implements Entity {
 
 	@Column("tour_id")
 	private Integer id;
-	
+
 	@Column("agency_procent")
 	private Byte agencyProcent;
-	
+
 	@Column("start_date")
 	private Date startDate;
-	
+
 	@Column("end_date")
 	private Date endDate;
-	
+
 	@Column("is_fired")
 	private Boolean isFired;
-	
+
 	@Enumerated
 	@Column("tour_type_id")
 	private TourType type;
 
+	@Column("tour_max_discount")
+	private Double maxDiscount;
+
 	@Column("hotel_id")
 	private Integer hotelId;
-	
+
 	private Hotel hotel;
-	
+
 	@Column("transport_to_id")
 	private Integer transportToId;
-	
+
 	private Transport transportTo;
 
 	@Column("transport_back_id")
 	private Integer transportBackId;
-	
+
 	private Transport transportBack;
 
 	public Integer getId() {
@@ -140,5 +143,13 @@ public class Tour implements Entity {
 
 	public void setTransportBack(Transport transportBack) {
 		this.transportBack = transportBack;
+	}
+
+	public Double getMaxDiscount() {
+		return maxDiscount;
+	}
+
+	public void setMaxDiscount(Double maxDiscount) {
+		this.maxDiscount = maxDiscount;
 	}
 }

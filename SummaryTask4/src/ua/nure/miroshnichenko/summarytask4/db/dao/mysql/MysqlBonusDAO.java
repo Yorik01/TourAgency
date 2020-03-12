@@ -2,6 +2,7 @@ package ua.nure.miroshnichenko.summarytask4.db.dao.mysql;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;

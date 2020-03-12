@@ -10,7 +10,6 @@ public class Demo {
 	public static void main(String[] args) throws DAOException {
 		MysqlUserDAO userDAO = new MysqlUserDAO();
 		List<User> users = userDAO.findAll();
-//////
 		System.out.println(users + "dsad");
 	}
 }

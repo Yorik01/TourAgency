@@ -39,9 +39,6 @@ public class Hotel implements Entity {
 	@Column("hotel_price")
 	private Double price;
 
-	@Column("hotel_max_discount")
-	private Integer maxDiscount;
-
 	@Enumerated
 	@Column("hotel_type_id")
 	private HotelType type;
@@ -128,14 +125,6 @@ public class Hotel implements Entity {
 
 	public void setPrice(Double price) {
 		this.price = price;
-	}
-
-	public Integer getMaxDiscount() {
-		return maxDiscount;
-	}
-
-	public void setMaxDiscount(Integer maxDiscount) {
-		this.maxDiscount = maxDiscount;
 	}
 
 	public HotelType getType() {

@@ -36,4 +36,8 @@ public abstract class DAOFactory {
 	public DAO<?> getDAO(String name) {
 		return DAOEntities.get(name);
 	}
+	
+	public abstract ReservationDAO getReservationDAO();
+	
+	public abstract UserDAO getUserDAO();
 }

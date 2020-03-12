@@ -19,7 +19,7 @@ public class Reservation implements Entity {
 	private Date resrveDate;
 
 	@Column("people_count")
-	private Integer peopleCount;
+	private Byte peopleCount;
 
 	@Enumerated
 	@Column("reservation_status_id")
@@ -51,11 +51,11 @@ public class Reservation implements Entity {
 		this.resrveDate = resrveDate;
 	}
 
-	public Integer getPeopleCount() {
+	public Byte getPeopleCount() {
 		return peopleCount;
 	}
 
-	public void setPeopleCount(Integer peopleCount) {
+	public void setPeopleCount(Byte peopleCount) {
 		this.peopleCount = peopleCount;
 	}
 

@@ -2,11 +2,13 @@ package ua.nure.miroshnichenko.summarytask4.db.dao.mysql;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
+import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;

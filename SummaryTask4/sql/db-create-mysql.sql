@@ -82,7 +82,6 @@ CREATE TABLE hotel (
 	hotel_stars TINYINT(6) UNSIGNED NOT NULL,
 	hotel_max_rooms INT NOT NULL,
 	hotel_price DOUBLE NOT NULL,
-	hotel_max_discount INT NOT NULL,
 	hotel_type_id INT NOT NULL REFERENCES hotel_type(hotel_type_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
@@ -166,6 +165,7 @@ CREATE TABLE tour (
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
 	is_fired BOOLEAN NOT NULL DEFAULT FALSE,
+	tour_max_discount DOUBLE NOT NULL,
 	tour_type_id INT NOT NULL REFERENCES tour_type(tour_type_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
@@ -189,7 +189,7 @@ CREATE TABLE reservation_status(
 CREATE TABLE reservation (
 	 reservation_id INT AUTO_INCREMENT PRIMARY KEY,
 	 reserve_date DATETIME NOT NULL,
-	 people_count INT NOT NULL,
+	 people_count TINYINT NOT NULL,
 	 reservation_status_id INT NOT NULL REFERENCES reservation_status(reservation_status_id)
 	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT,

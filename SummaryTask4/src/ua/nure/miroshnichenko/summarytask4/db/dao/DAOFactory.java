@@ -6,12 +6,13 @@ import java.util.Map;
 import java.util.Properties;
 
 import ua.nure.miroshnichenko.summarytask4.AppPropertiesConstants;
+import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 
 public abstract class DAOFactory {
 
 	private static DAOFactory instance;
 
-	protected Map<String, DAO<?>> DAOEntities;
+	protected Map<String, DAO<? extends Entity>> DAOEntities;
 
 	public static synchronized DAOFactory getInstance() {
 		if (instance == null) {
@@ -28,9 +29,6 @@ public abstract class DAOFactory {
 	}
 
 	protected DAOFactory() {
-		DAOEntities = new HashMap<>();
-		//TODO
-		
 	}
 
 	public DAO<?> getDAO(String name) {
@@ -40,4 +38,6 @@ public abstract class DAOFactory {
 	public abstract ReservationDAO getReservationDAO();
 	
 	public abstract UserDAO getUserDAO();
+	
+	public abstract TourDAO geTourDAO();
 }

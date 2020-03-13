@@ -4,13 +4,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
+import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.dao.UserDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.mysql.MysqlDAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
 public class AuthentificationServiceImpl implements AuthentificationService {
 
-	private MysqlDAOFactory factoryDAO = new MysqlDAOFactory();
+	private DAOFactory factoryDAO = DAOFactory.getInstance();
 
 	@Override
 	public User login(String email, String password) throws ServiceException {

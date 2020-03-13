@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.summarytask4.db.entity;
 
+import java.util.Map;
 import java.util.Set;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
@@ -51,7 +52,7 @@ public class Hotel implements Entity {
 	@Column("beach_type_id")
 	private Beach beach;
 
-	private Set<Servicing> servicings;
+	private Map<TypeServicing, Set<Servicing>> servicings;
 
 	private Set<Facility> facilities;
 
@@ -143,11 +144,11 @@ public class Hotel implements Entity {
 		this.food = food;
 	}
 
-	public Set<Servicing> getServicings() {
+	public Map<TypeServicing, Set<Servicing>> getServicings() {
 		return servicings;
 	}
-
-	public void setServicings(Set<Servicing> servicings) {
+	
+	public void setServicings(Map<TypeServicing, Set<Servicing>> servicings) {
 		this.servicings = servicings;
 	}
 

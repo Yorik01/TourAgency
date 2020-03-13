@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.el.stream.Stream;
+
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.mapping.CrudOperation;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.mapping.Mapper;
@@ -78,7 +80,7 @@ class TransactionFactoryImpl implements TransactionFactory {
 		}
 
 		@Override
-		public List<Entity> customQuery(String query, Class<? extends Entity> type, String... parametrs)
+		public List<Entity> customQuery(String query, Class<? extends Entity> type, Object... parametrs)
 				throws TransactionException {
 
 			try {
@@ -86,6 +88,24 @@ class TransactionFactoryImpl implements TransactionFactory {
 				result = getEntities(resultSet, type);
 				return result;
 			} catch (DBConnectionException | MappingReflectiveException e) {
+				throw new TransactionException(e);
+			}
+		}
+		
+		@Override
+		public boolean callProcedure(String name, Object... parametrs) throws TransactionException {
+			try {
+				StringBuilder args = new StringBuilder();
+				for(int i = 0; i < parametrs.length; i++) {
+					args.append('?');
+					if(i != parametrs.length - 1) {
+						args.append(',');
+					}
+				}
+			
+				String query = String.format("{CALL %s(%s)}", name, args);
+				return connection.callProcedure(query, parametrs);
+			} catch (DBConnectionException e) {
 				throw new TransactionException(e);
 			}
 		}

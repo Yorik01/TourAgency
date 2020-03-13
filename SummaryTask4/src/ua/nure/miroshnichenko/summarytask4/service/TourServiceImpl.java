@@ -2,13 +2,21 @@ package ua.nure.miroshnichenko.summarytask4.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import sun.net.www.content.audio.x_aiff;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.dao.ReservationDAO;
+import ua.nure.miroshnichenko.summarytask4.db.dao.TourDAO;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Place;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Reservation;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Servicing;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
@@ -45,11 +53,45 @@ public class TourServiceImpl implements TourService {
 			throw new ServiceException(e);
 		}
 	}
-	
-	@Override
-	public List<Tour> filter(Tour tour) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+
+	@Override// TODO
+	public List<Tour> filter(Map<String, String> values, List<Servicing> servicings, double maxPrice) throws ServiceException {
+		try {
+			TourDAO dao = factoryDAO.geTourDAO();
+
+//			Map<String, String> values = new HashMap<>();
+			
+//			Hotel hotel = tour.getHotel();
+//			Place place = tour.getTransportTo().getRoute().getTo();
+			
+//			values.put("hotelType", String.valueOf(hotel.getType().ordinal()));
+//			values.put("food", String.valueOf(hotel.getFood().ordinal()));
+//			values.put("beach", String.valueOf(hotel.getBeach().ordinal()));
+//			values.put("startDate", tour.getStartDate().toString());
+//			values.put("endDate", tour.getEndDate().toString());
+//			values.put("isFired", String.valueOf(tour.getIsFired()));
+//			values.put("tourType", String.valueOf(tour.getType().ordinal()));
+//			values.put("country", place.getCountry());
+//			values.put("tourType", place.getCity());
+//			
+//			List<Servicing> servicingsList = hotel.getServicings().values()
+//					.stream()
+//					.flatMap(list -> list.stream())
+//					.collect(Collectors.toList());
+			
+			List<Tour> tours = dao.filter(values, servicings);
+			
+			tours = tours
+					.stream()
+					.filter(element -> element.getPrice() <= maxPrice)
+					.collect(Collectors.toList());
+			
+			return tours;
+			
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override

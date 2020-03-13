@@ -1,8 +1,10 @@
 package ua.nure.miroshnichenko.summarytask4.service;
 
 import java.util.List;
+import java.util.Map;
 
 import ua.nure.miroshnichenko.summarytask4.db.entity.Reservation;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Servicing;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
@@ -12,7 +14,7 @@ public interface TourService {
 
 	Tour get(int id) throws ServiceException;
 
-	List<Tour> filter(Tour tour) throws ServiceException;
+	List<Tour> filter(Map<String, String> values, List<Servicing> servicings, double maxPrice) throws ServiceException;
 	
 	boolean add(Tour tour) throws ServiceException;
 

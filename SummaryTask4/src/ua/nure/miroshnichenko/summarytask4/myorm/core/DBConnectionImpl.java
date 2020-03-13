@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.sql.CallableStatement;
 
 /**
  * Implementation of {@link ua.myorm.core.DBConnection} interface.
@@ -76,7 +77,7 @@ class DBConnectionImpl implements DBConnection {
 	}
 
 	@Override
-	public ResultSet executeQuery(String query, String... parametrs) throws DBConnectionException {
+	public ResultSet executeQuery(String query, Object... parametrs) throws DBConnectionException {
 		try {
 			statement = prepareStatement(query, parametrs);
 			resultSet = ((PreparedStatement) statement).executeQuery();
@@ -97,10 +98,20 @@ class DBConnectionImpl implements DBConnection {
 	}
 
 	@Override
-	public boolean executeUpdate(String query, String... parametrs) throws DBConnectionException {
+	public boolean executeUpdate(String query, Object... parametrs) throws DBConnectionException {
 		try {
 			statement = prepareStatement(query, parametrs);
 			return ((PreparedStatement) statement).executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new DBConnectionException(e.getMessage(), e.getCause());
+		}
+	}
+	
+	@Override
+	public boolean callProcedure(String query, Object... parametrs) throws DBConnectionException {
+		try {
+			statement = prepareCollableStatement(query, parametrs);
+			return ((CallableStatement) statement).executeUpdate() > 0;
 		} catch (SQLException e) {
 			throw new DBConnectionException(e.getMessage(), e.getCause());
 		}
@@ -124,10 +135,18 @@ class DBConnectionImpl implements DBConnection {
 		}
 	}
 
-	private PreparedStatement prepareStatement(String query, String... parametrs) throws SQLException {
+	private PreparedStatement prepareStatement(String query, Object... parametrs) throws SQLException {
 		PreparedStatement statement = sqlConnection.prepareStatement(query);
 		for (int i = 0; i < parametrs.length; i++) {
-			statement.setString(i, parametrs[i]);
+			statement.setString(i, parametrs[i].toString());
+		}
+		return statement;
+	}
+	
+	private CallableStatement prepareCollableStatement(String query, Object... parametrs) throws SQLException {
+		CallableStatement statement = sqlConnection.prepareCall(query);
+		for (int i = 0; i < parametrs.length; i++) {
+			statement.setString(i, parametrs[i].toString());
 		}
 		return statement;
 	}

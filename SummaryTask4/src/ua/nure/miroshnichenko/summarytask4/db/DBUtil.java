@@ -39,6 +39,11 @@ public final class DBUtil {
 		return transactionFactory.createTransaction();
 	}
 
+	public static boolean callProcedure(String name, Object...parametrs) throws TransactionFactoryException, TransactionException {
+		Transaction transaction = getTransaction();
+		return transaction.callProcedure(name, parametrs);
+	}
+	
 	public static void close(Transaction transaction) throws TransactionException {
 		if (transaction != null) {
 			transaction.close();

@@ -32,6 +32,8 @@ interface Queries extends Crud {
 	 * @return class which implements {@link ua.nure.miroshnichenko.summarytask4.myorm.Entity} and can be mapped to a
 	 *         table in the database;
 	 */
-	List<Entity> customQuery(String query, Class<? extends Entity> type, String... parametrs)
+	List<Entity> customQuery(String query, Class<? extends Entity> type, Object... parametrs)
 			throws TransactionException;
+	
+	boolean callProcedure(String name, Object...parametrs) throws TransactionException;
 }

@@ -48,6 +48,8 @@ public class Tour implements Entity {
 	private Integer transportBackId;
 
 	private Transport transportBack;
+	
+	private Double price;
 
 	public Integer getId() {
 		return id;
@@ -151,5 +153,13 @@ public class Tour implements Entity {
 
 	public void setMaxDiscount(Double maxDiscount) {
 		this.maxDiscount = maxDiscount;
+	}
+	
+	public Double getPrice() {
+		return price;
+	}
+	
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 }

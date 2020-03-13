@@ -29,7 +29,7 @@ public interface DBConnection extends AutoCloseable {
 	 * @return the {@link java.sql.ResultSet} object.
 	 * @throws DBConnectionException
 	 */
-	ResultSet executeQuery(String query, String... parametrs) throws DBConnectionException;
+	ResultSet executeQuery(String query, Object... parametrs) throws DBConnectionException;
 
 	/**
 	 * Execute sql query and return true if there are one or more updates in a
@@ -52,8 +52,21 @@ public interface DBConnection extends AutoCloseable {
 	 *         no changes in a database;
 	 * @throws DBConnectionException
 	 */
-	boolean executeUpdate(String query, String... parametrs) throws DBConnectionException;
+	boolean executeUpdate(String query, Object... parametrs) throws DBConnectionException;
 
+	/**
+	 * Call a sql procedure and return true if there are one or more updates in a
+	 * database. This method uses
+	 * {@link java.sql.Connection#prepareStatement(String)}.
+	 * 
+	 * @param query     the sql query.
+	 * @param parametrs values which replace '?' in the query.
+	 * @return true there are one or more updates in a database; false if there are
+	 *         no changes in a database;
+	 * @throws DBConnectionException
+	 */
+	boolean callProcedure(String query, Object...parametrs) throws DBConnectionException;
+	
 	/**
 	 * Save all changes made in the current transaction.
 	 * 

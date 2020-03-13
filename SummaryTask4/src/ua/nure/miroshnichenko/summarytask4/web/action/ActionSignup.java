@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ua.nure.miroshnichenko.summarytask4.db.entity.Role;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 import ua.nure.miroshnichenko.summarytask4.service.AuthentificationService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
@@ -22,11 +23,12 @@ public class ActionSignup extends Action {
 
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		
+
 		User user = new User();
 		
 		user.setEmail(email);
 		user.setPassword(password);
+		user.setRole(Role.CLIENT);
 		
 		AuthentificationService authentificationService = 
 				serviceFactory.getAuthentificationService();

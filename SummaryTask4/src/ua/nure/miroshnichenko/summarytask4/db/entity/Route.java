@@ -2,6 +2,7 @@ package ua.nure.miroshnichenko.summarytask4.db.entity;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
 @Table("route")
@@ -9,6 +10,7 @@ public class Route implements Entity {
 
 	private static final long serialVersionUID = -3050538718795497861L;
 
+	@PrimaryKey
 	@Column("route_id")
 	private Integer id;
 

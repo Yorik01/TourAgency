@@ -3,6 +3,7 @@ package ua.nure.miroshnichenko.summarytask4.db.entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
 @Table("users")
@@ -10,6 +11,7 @@ public class User implements Entity {
 
 	private static final long serialVersionUID = -3414487325065065030L;
 
+	@PrimaryKey
 	@Column("user_id")
 	private Integer id;
 
@@ -20,10 +22,10 @@ public class User implements Entity {
 	private String password;
 
 	@Column("is_banned")
-	private Boolean isBanned;
+	private Byte banned = 0;
 
 	@Column("discount_step")
-	private Byte discountStep;
+	private Byte discountStep = 0;
 
 	@Enumerated
 	@Column("role_id")
@@ -53,12 +55,12 @@ public class User implements Entity {
 		this.password = password;
 	}
 
-	public Boolean isBanned() {
-		return isBanned;
+	public Byte isBanned() {
+		return banned;
 	}
 
-	public void setBanned(Boolean isBanned) {
-		this.isBanned = isBanned;
+	public void setBanned(Byte banned) {
+		this.banned = banned;
 	}
 
 	public Byte getDiscountStep() {

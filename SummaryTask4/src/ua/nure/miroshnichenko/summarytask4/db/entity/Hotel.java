@@ -6,6 +6,7 @@ import java.util.Set;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
 @Table("hotel")
@@ -13,6 +14,7 @@ public class Hotel implements Entity {
 
 	private static final long serialVersionUID = -2001830352342554083L;
 
+	@PrimaryKey
 	@Column("hotel_id")
 	private Integer id;
 

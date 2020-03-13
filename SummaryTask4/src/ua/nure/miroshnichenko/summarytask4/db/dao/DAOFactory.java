@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import ua.nure.miroshnichenko.summarytask4.AppPropertiesConstants;
+import ua.nure.miroshnichenko.summarytask4.db.dao.mysql.MysqlDAOFactory;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 
 public abstract class DAOFactory {
@@ -16,11 +17,12 @@ public abstract class DAOFactory {
 
 	public static synchronized DAOFactory getInstance() {
 		if (instance == null) {
-			Properties props = new Properties();
+		//	Properties props = new Properties();
 			try {
-				props.load(new FileInputStream(AppPropertiesConstants.APP_PROPERTIES_FILE));
-				String className = props.getProperty(AppPropertiesConstants.DAO_FACORY_PROPERTY);
-				instance = (DAOFactory) Class.forName(className).newInstance();
+//				props.load(new FileInputStream(AppPropertiesConstants.APP_PROPERTIES_FILE));
+	//			String className = props.getProperty(AppPropertiesConstants.DAO_FACORY_PROPERTY);
+		//		instance = (DAOFactory) Class.forName(className).newInstance();
+				instance = new MysqlDAOFactory();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

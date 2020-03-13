@@ -9,7 +9,7 @@ import ua.nure.miroshnichenko.summarytask4.db.dao.UserDAO;
 
 public class MysqlDAOFactory extends DAOFactory {
 
-	protected MysqlDAOFactory() {
+	public MysqlDAOFactory() {
 		DAOEntities = new HashMap<>();
 		
 		DAOEntities.put("tour", new MysqlTourDAO());

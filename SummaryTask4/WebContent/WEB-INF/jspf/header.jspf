@@ -1,0 +1,26 @@
+<%--=========================================================================== 
+Header (top area). 
+===========================================================================--%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<header id="main-header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <h5 class="my-0 mr-md-auto font-weight-normal">Tour agency</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="#">Features</a>
+    <a class="p-2 text-dark" href="#">Enterprise</a>
+    <a class="p-2 text-dark" href="#">Support</a>
+	<div class="dropdown">
+  		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  	  Dropdown button
+  		</button>
+  		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    		<a class="dropdown-item" href="#">English</a>
+    		<a class="dropdown-item" href="#">Русский</a>
+		</div>
+</div>
+  </nav>
+  <a class="btn btn-outline-primary" href="#">My account</a>
+</header>

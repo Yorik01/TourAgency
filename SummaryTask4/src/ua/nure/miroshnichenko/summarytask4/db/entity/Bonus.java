@@ -2,6 +2,7 @@ package ua.nure.miroshnichenko.summarytask4.db.entity;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
 @Table("bonus")
@@ -9,6 +10,7 @@ public class Bonus implements Entity {
 
 	private static final long serialVersionUID = 1075692988789175738L;
 
+	@PrimaryKey
 	@Column("bonus_id")
 	private Integer id;
 

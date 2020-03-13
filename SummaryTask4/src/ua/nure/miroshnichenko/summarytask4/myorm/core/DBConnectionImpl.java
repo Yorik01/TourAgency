@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+
+import com.sun.jndi.url.corbaname.corbanameURLContextFactory;
+
 import java.sql.CallableStatement;
 
 /**
@@ -27,6 +30,14 @@ class DBConnectionImpl implements DBConnection {
 
 	/* Time when connections pool put this connection into a pool */
 	private long lastUsedTime;
+	
+	static {
+		try {
+			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/* Constructor used only by connections pool to initialize this connection */
 	DBConnectionImpl(String url, Properties info) throws DBConnectionException {
@@ -138,7 +149,7 @@ class DBConnectionImpl implements DBConnection {
 	private PreparedStatement prepareStatement(String query, Object... parametrs) throws SQLException {
 		PreparedStatement statement = sqlConnection.prepareStatement(query);
 		for (int i = 0; i < parametrs.length; i++) {
-			statement.setString(i, parametrs[i].toString());
+			statement.setString(i + 1, parametrs[i].toString());
 		}
 		return statement;
 	}
@@ -146,7 +157,7 @@ class DBConnectionImpl implements DBConnection {
 	private CallableStatement prepareCollableStatement(String query, Object... parametrs) throws SQLException {
 		CallableStatement statement = sqlConnection.prepareCall(query);
 		for (int i = 0; i < parametrs.length; i++) {
-			statement.setString(i, parametrs[i].toString());
+			statement.setString(i + 1, parametrs[i].toString());
 		}
 		return statement;
 	}

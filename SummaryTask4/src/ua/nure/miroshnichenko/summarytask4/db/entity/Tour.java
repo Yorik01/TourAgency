@@ -5,6 +5,7 @@ import java.sql.Date;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
 @Table("tour")
@@ -12,6 +13,7 @@ public class Tour implements Entity {
 
 	private static final long serialVersionUID = -8693081953079281619L;
 
+	@PrimaryKey
 	@Column("tour_id")
 	private Integer id;
 
@@ -25,7 +27,7 @@ public class Tour implements Entity {
 	private Date endDate;
 
 	@Column("is_fired")
-	private Boolean isFired;
+	private Byte fired;
 
 	@Enumerated
 	@Column("tour_type_id")
@@ -83,12 +85,12 @@ public class Tour implements Entity {
 		this.endDate = endDate;
 	}
 
-	public Boolean getIsFired() {
-		return isFired;
+	public Byte IsFired() {
+		return fired;
 	}
 
-	public void setIsFired(Boolean isFired) {
-		this.isFired = isFired;
+	public void setFired(Byte fired) {
+		this.fired = fired;
 	}
 
 	public TourType getType() {

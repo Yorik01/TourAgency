@@ -2,6 +2,7 @@ package ua.nure.miroshnichenko.summarytask4.db.entity;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
 @Table("facility")
@@ -9,6 +10,7 @@ public class Facility implements Entity {
 
 	private static final long serialVersionUID = -214975068663619873L;
 
+	@PrimaryKey
 	@Column("facility_id")
 	private Integer id;
 

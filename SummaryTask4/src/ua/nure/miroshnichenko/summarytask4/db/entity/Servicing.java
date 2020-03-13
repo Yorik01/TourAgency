@@ -3,6 +3,7 @@ package ua.nure.miroshnichenko.summarytask4.db.entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
 @Table("service")
@@ -10,6 +11,7 @@ public class Servicing implements Entity {
 
 	private static final long serialVersionUID = -5908493945535660577L;
 
+	@PrimaryKey
 	@Column("service_id")
 	private Integer id;
 

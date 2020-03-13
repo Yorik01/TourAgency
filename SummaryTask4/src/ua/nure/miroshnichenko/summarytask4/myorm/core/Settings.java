@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.summarytask4.myorm.core;
 
+import java.sql.DriverManager;
 import java.util.Properties;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;

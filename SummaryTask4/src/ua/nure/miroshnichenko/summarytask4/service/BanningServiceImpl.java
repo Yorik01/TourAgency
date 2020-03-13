@@ -5,9 +5,18 @@ import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
-public class BanningServiceImpl implements BanningService {
+class BanningServiceImpl implements BanningService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
+
+	private static BanningServiceImpl instance;
+
+	public static synchronized BanningServiceImpl getInstance() {
+		if (instance == null) {
+			instance = new BanningServiceImpl();
+		}
+		return instance;
+	}
 
 	@Override
 	public boolean banUser(int id) throws ServiceException {
@@ -34,7 +43,7 @@ public class BanningServiceImpl implements BanningService {
 
 			return result;
 		} catch (DAOException e) {
-			e.printStackTrace();	
+			e.printStackTrace();
 			throw new ServiceException(e);
 		}
 	}

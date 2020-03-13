@@ -2,27 +2,32 @@ package ua.nure.miroshnichenko.summarytask4.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import sun.net.www.content.audio.x_aiff;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.dao.ReservationDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.TourDAO;
-import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
-import ua.nure.miroshnichenko.summarytask4.db.entity.Place;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Reservation;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Servicing;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
-public class TourServiceImpl implements TourService {
+class TourServiceImpl implements TourService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
+	
+	private static TourServiceImpl instance;
+	
+	public static synchronized TourServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new TourServiceImpl();
+		}
+		return instance;
+	}
 
 	@Override
 	public List<Tour> getAll() throws ServiceException {

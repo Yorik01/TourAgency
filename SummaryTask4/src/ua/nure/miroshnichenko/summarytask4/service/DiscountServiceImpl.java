@@ -9,23 +9,32 @@ import ua.nure.miroshnichenko.summarytask4.myorm.core.DBConnectionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
 
-public class DiscountServiceImpl implements DiscountService {
+class DiscountServiceImpl implements DiscountService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
-	
+
+	private static DiscountServiceImpl instance;
+
+	public static synchronized DiscountServiceImpl getInstance() {
+		if (instance == null) {
+			instance = new DiscountServiceImpl();
+		}
+		return instance;
+	}
+
 	@Override
 	public boolean setMaxDiscount(int tourId, double value) throws ServiceException {
 		try {
 			DAO<Tour> tourDao = factoryDAO.geTourDAO();
 			Tour tour = tourDao.find(tourId);
-			
-			if(tour != null) {
+
+			if (tour != null) {
 				tour.setMaxDiscount(value);
 			}
 			boolean result = tourDao.update(tour);
-			
+
 			return result;
-		}catch (DAOException e) {
+		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}

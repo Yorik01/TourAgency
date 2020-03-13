@@ -6,12 +6,20 @@ import java.security.NoSuchAlgorithmException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.dao.UserDAO;
-import ua.nure.miroshnichenko.summarytask4.db.dao.mysql.MysqlDAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
-public class AuthentificationServiceImpl implements AuthentificationService {
+class AuthentificationServiceImpl implements AuthentificationService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
+
+	private static AuthentificationServiceImpl instance;
+
+	public static synchronized AuthentificationServiceImpl getInstance() {
+		if (instance == null) {
+			instance = new AuthentificationServiceImpl();
+		}
+		return instance;
+	}
 
 	@Override
 	public User login(String email, String password) throws ServiceException {
@@ -72,7 +80,7 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 		try {
 			UserDAO userDAO = factoryDAO.getUserDAO();
 			User user = userDAO.find(id);
-			
+
 			return user;
 		} catch (DAOException e) {
 			e.printStackTrace();

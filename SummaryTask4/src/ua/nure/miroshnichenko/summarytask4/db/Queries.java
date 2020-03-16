@@ -39,5 +39,5 @@ public final class Queries {
 			+ "t.is_fired = ? AND"
 			+ "t.tour_type_id = ? AND"
 			+ "p.place_country = ? AND"
-			+ "p.place_city = ?";
+			+ "p.place_city = ? AND";
 }

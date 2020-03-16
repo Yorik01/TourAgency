@@ -23,7 +23,7 @@ class BanningServiceImpl implements BanningService {
 		try {
 			DAO<User> userDao = factoryDAO.getUserDAO();
 			User user2 = userDao.find(id);
-			user2.setBanned(true);
+			user2.setBanned((byte) 1);
 			boolean result = userDao.update(user2);
 
 			return result;
@@ -38,7 +38,6 @@ class BanningServiceImpl implements BanningService {
 		try {
 			DAO<User> userDao = factoryDAO.getUserDAO();
 			User user2 = userDao.find(id);
-			user2.setBanned(false);
 			boolean result = userDao.update(user2);
 
 			return result;

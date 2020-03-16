@@ -1,5 +1,12 @@
 body {
 	background-color: #f5f5f5;
+	overflow-x: hidden;
+}
+
+hr {
+	position: relative;
+	width: 100% !important;
+	height: .5px !important;
 }
 
 .form-center {
@@ -22,4 +29,260 @@ body {
 
 #password-help {
 	color: #dc3545 !important;
+}
+
+#tour-fired h1 {
+	align-self: center;
+}
+
+#tour-photos {
+	position: relative;
+	max-width: 70%;
+	margin-top: 20px;
+}
+
+#tour-main-info {
+	position: relative;
+	max-width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+#tour-price {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 30px;
+	color: #25487d;
+}
+
+#total-price-label {
+	position: relative;
+	text-align: center;	
+}
+
+#btn-reserve {
+	position: relative;
+	margin-top: 40px;
+}
+
+#tour-info h3 {
+	position: relative;
+	left: 50%;
+}
+
+#transport-info h3, h4 {
+	position: relative;
+	left: 50%;
+}
+
+.btn-primary {
+	background-color: #b3354e;
+	border-color: #b3354e;
+}
+
+.btn-primary:hover {
+	background-color: #7d2537;
+	border-color: #7d2537;
+}
+
+.btn-primary:active {
+	background-color: #7d2537;
+	border-color: #7d2537;
+}
+
+.btn-primary-outline:active {
+	color: #b3354e;
+	border-color: #b3354e;
+}
+
+.btn-outline-primary {
+	color: #b3354e;
+	border-color: #b3354e;
+}
+
+.btn-outline-primary:hover {
+	background-color: #b3354e;
+	border-color: #b3354e;
+}
+
+.btn-secondary {
+	background-color: #3546b3;
+	border-color: #3546b3;
+}
+
+.btn-secondary:active {
+	background-color: #25487d !important;
+	border-color: #25487d !important;
+}
+
+.btn-secondary:hover {
+	background-color: #25487d !important;
+	border-color: #25487d !important;
+}
+
+.btn-secondary-outline:active {
+	background-color: #25487d !important;
+	border-color: #25487d !important;
+}
+
+.btn-outline-secondary {
+	color: #3546b3;
+	border-color: #3546b3;
+}
+
+.btn-outline-secondary:hover {
+	background-color: #3546b3;
+	border-color: #3546b3;
+}
+
+.datepicker {
+	border-radius: 0;
+	padding: 0;
+}
+
+.datepicker-days table thead, .datepicker-days table tbody,
+	.datepicker-days table tfoot {
+	padding: 10px;
+	display: list-item;
+}
+
+.datepicker-days table thead, .datepicker-months table thead,
+	.datepicker-years table thead, .datepicker-decades table thead,
+	.datepicker-centuries table thead {
+	background: #3546b3;
+	color: #ffffff;
+	border-radius: 0;
+}
+
+.datepicker-days table thead tr:nth-child(2n+0) td, .datepicker-days table thead tr:nth-child(2n+0) th
+	{
+	border-radius: 3px;
+}
+
+.datepicker-days table thead tr:nth-child(3n+0) {
+	text-transform: uppercase;
+	font-weight: 300 !important;
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th,
+	.table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th,
+	.table-condensed>thead>tr>td, .table-condensed>thead>tr>th {
+	padding: 11px 13px;
+}
+
+.datepicker-months table thead td, .datepicker-months table thead th,
+	.datepicker-years table thead td, .datepicker-years table thead th,
+	.datepicker-decades table thead td, .datepicker-decades table thead th,
+	.datepicker-centuries table thead td, .datepicker-centuries table thead th
+	{
+	border-radius: 0;
+}
+
+.datepicker td, .datepicker th {
+	border-radius: 50%;
+	padding: 0 12px;
+}
+
+.datepicker-days table thead, .datepicker-months table thead,
+	.datepicker-years table thead, .datepicker-decades table thead,
+	.datepicker-centuries table thead {
+	background: #3546b3;
+	color: #ffffff;
+	border-radius: 0;
+}
+
+.datepicker table tr td.active, .datepicker table tr td.active:hover,
+	.datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled:hover
+	{
+	background-image: none;
+}
+
+.datepicker .prev, .datepicker .next {
+	color: rgba(255, 255, 255, 0.5);
+	transition: 0.3s;
+	width: 37px;
+	height: 37px;
+}
+
+.datepicker .prev:hover, .datepicker .next:hover {
+	background: transparent;
+	color: rgba(255, 255, 255, 0.99);
+	font-size: 21px;
+}
+
+.datepicker .datepicker-switch {
+	font-size: 24px;
+	font-weight: 400;
+	transition: 0.3s;
+}
+
+.datepicker .datepicker-switch:hover {
+	color: rgba(255, 255, 255, 0.7);
+	background: transparent;
+}
+
+.datepicker table tr td span {
+	border-radius: 2px;
+	margin: 3%;
+	width: 27%;
+}
+
+.datepicker table tr td span.active, .datepicker table tr td span.active:hover,
+	.datepicker table tr td span.active.disabled, .datepicker table tr td span.active.disabled:hover
+	{
+	background-color: #3546b3;
+	background-image: none;
+}
+
+.dropdown-menu {
+	border: 1px solid rgba(0, 0, 0, .1);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.datepicker-dropdown.datepicker-orient-top:before {
+	border-top: 7px solid rgba(0, 0, 0, .1);
+}
+
+.fa-fire {
+	color: #FF4500;
+}
+
+.tour-cards {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.tour-card {
+	position: relative;
+	width: 300px;
+	height: 400px;
+	margin-top: 30px;
+}
+
+.tour-card p {
+	text-overfow: ellipsis;
+}
+
+.tour-info-name {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.tour-info-value {
+	font-size: 16px;
+}
+
+#tour-info h3 {
+	position: relative;
+	left: 50%;
+}
+
+#transport-info h3 {
+	position: relative;
+	left: 50%;
 }

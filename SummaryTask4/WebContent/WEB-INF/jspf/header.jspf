@@ -12,15 +12,6 @@ Header (top area).
     <a class="p-2 text-dark" href="#">Features</a>
     <a class="p-2 text-dark" href="#">Enterprise</a>
     <a class="p-2 text-dark" href="#">Support</a>
-	<div class="dropdown">
-  		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  	  Dropdown button
-  		</button>
-  		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    		<a class="dropdown-item" href="#">English</a>
-    		<a class="dropdown-item" href="#">Русский</a>
-		</div>
-</div>
   </nav>
   <a class="btn btn-outline-primary" href="#">My account</a>
 </header>

@@ -20,9 +20,9 @@ class TourServiceImpl implements TourService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
-	private static TourServiceImpl instance;
+	private static TourService instance;
 	
-	public static synchronized TourServiceImpl getInstance() {
+	public static synchronized TourService getInstance() {
 		if(instance == null) {
 			instance = new TourServiceImpl();
 		}
@@ -100,7 +100,7 @@ class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public boolean add(Tour tour) throws ServiceException {
+	public boolean save(Tour tour) throws ServiceException {
 		try {
 			DAO<Tour> dao = (DAO<Tour>) factoryDAO.getDAO("tour");
 			boolean result = dao.save(tour);

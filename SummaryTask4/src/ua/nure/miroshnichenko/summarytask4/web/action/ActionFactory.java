@@ -13,8 +13,8 @@ public class ActionFactory {
 
 		// LOG.debug("action container was successfully initialized");
 //		LOG.trace("Number of actions --> " + actions.size());
-		actions.put("login", new ActionLogin());
-		actions.put("signup", new ActionSignup());
+		actions.put("login", new LoginAction());
+		actions.put("signup", new SignupAction());
 	}
 
 	/**

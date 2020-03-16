@@ -18,7 +18,7 @@ public class Tour implements Entity {
 	private Integer id;
 
 	@Column("agency_procent")
-	private Byte agencyProcent;
+	private Double agencyProcent;
 
 	@Column("start_date")
 	private Date startDate;
@@ -61,11 +61,11 @@ public class Tour implements Entity {
 		this.id = id;
 	}
 
-	public Byte getAgencyProcent() {
+	public Double getAgencyProcent() {
 		return agencyProcent;
 	}
 
-	public void setAgencyProcent(Byte agencyProcent) {
+	public void setAgencyProcent(Double agencyProcent) {
 		this.agencyProcent = agencyProcent;
 	}
 

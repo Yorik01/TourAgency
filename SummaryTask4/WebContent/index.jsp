@@ -19,60 +19,45 @@
 	<form id="tour-filter" class="container-fluid form-group mt-5">
 		<h1 class="mb-5">Searching of tours</h1>
 		<div id="tour-filter-main" class="shadow-sm p-3 bg-white rounded d-flex flex-row justify-content-around">
-			<div class="dropdown" id="dropdown-country">
- 				 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    			Counrty
-				 </button>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			    <a class="dropdown-item" href="#">Action</a>
-			  </div>
-			</div>
-			<div class="dropdown" id="dropdown-city">
- 				 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    			City
-				 </button>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			    <a class="dropdown-item" href="#">Action</a>
-			  </div>
-			</div>
-			<div class="dropdown" id="dropdown-from">
- 				 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    			From
-				 </button>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			    <a class="dropdown-item" href="#">Action</a>
-			  </div>
-			</div>
+			<div>
+				<select class="form-control">
+					<option selected>Choose...</option>
+					<option>...</option>
+      			</select>
+   			</div>
+			<div>
+				<select class="form-control">
+					<option selected>Choose...</option>
+					<option>...</option>
+      			</select>
+   			</div>
+			<div>
+				<select class="form-control">
+					<option selected>Choose...</option>
+					<option>...</option>
+      			</select>
+   			</div>
 			<div class="dates d-inline-flex">
 			  <div class="start_date input-group ml-3">
-			    <input class="form-control start_date" type="text" placeholder="start date" id="startdate_datepicker">
+			    <input class="form-control start_date" type="text" placeholder="start date" class="startdate_datepicker">
 			    <div class="input-group-append">
 			      <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 			    </div>
 			
 			  </div>
 			  <div class="end_date input-group ml-3 mr-3">
-			    <input class="form-control end_date" type="text" placeholder="end date" id="enddate_datepicker">
+			    <input class="form-control end_date" type="text" placeholder="end date" class="enddate_datepicker">
 			    <div class="input-group-append">
 			      <span class="fa fa-calendar input-group-text end_date_calendar" aria-hidden="true "></span>
 			    </div>
 			  </div>
 			</div>
-         	<div class="dropdown" id="dropdown-count-people">
- 				 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    			Count people
-				 </button>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			    <a class="dropdown-item" href="#">1</a>
-				<a class="dropdown-item" href="#">2</a>
-				<a class="dropdown-item" href="#">3</a>
-			   	<a class="dropdown-item" href="#">4</a>
-				<a class="dropdown-item" href="#">5</a>
-				<a class="dropdown-item" href="#">6</a>
-				<a class="dropdown-item" href="#">7</a>
-				<a class="dropdown-item" href="#">8</a>
-			  </div>
-			</div>
+       		<div>
+				<select class="form-control">
+					<option selected>Choose...</option>
+					<option>...</option>
+      			</select>
+   			</div>
 			<button class="btn btn-primary" type="submit">Seacrh</button>
 		</div>
 		<div id="tour-filter-extended" class="shadow-sm mt-3 p-3 bg-white rounded d-flex flex-column justify-content-around">

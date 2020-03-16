@@ -42,4 +42,8 @@ public abstract class DAOFactory {
 	public abstract UserDAO getUserDAO();
 	
 	public abstract TourDAO geTourDAO();
+	
+	public abstract HotelDAO getHotelDAO();
+	
+	public abstract TransportDAO getTransportDAO();
 }

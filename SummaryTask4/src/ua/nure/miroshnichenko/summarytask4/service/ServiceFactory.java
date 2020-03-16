@@ -26,4 +26,12 @@ public class ServiceFactory {
 	public DiscountService getDiscountService() {
 		return DiscountServiceImpl.getInstance();
 	}
+	
+	public HotelService getHotelService() {
+		return HotelServiceImpl.getInstance();
+	}
+	
+	public TransportService getTransportService() {
+		return TransportServiceImpl.getInstance();
+	}
 }

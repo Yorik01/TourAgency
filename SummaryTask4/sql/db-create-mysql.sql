@@ -151,7 +151,8 @@ CREATE TABLE transport (
 		ON UPDATE RESTRICT,
 	route_id INT NOT NULL REFERENCES route(route_id)
 		ON DELETE CASCADE
-		ON UPDATE RESTRICT
+		ON UPDATE RESTRICT,
+	UNIQUE KEY (transport_code, transport_type_id)
 );
 
 CREATE TABLE tour_type (
@@ -161,7 +162,7 @@ CREATE TABLE tour_type (
 
 CREATE TABLE tour (
 	tour_id INT AUTO_INCREMENT PRIMARY KEY,
-	agency_procent TINYINT(20) NOT NULL,
+	agency_procent DOUBLE NOT NULL,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
 	is_fired BOOLEAN NOT NULL DEFAULT FALSE,

@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
+import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
+import ua.nure.miroshnichenko.summarytask4.db.dao.TransportDAO;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Route;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Transport;
+import ua.nure.miroshnichenko.summarytask4.db.entity.TransportType;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
 
-public class MysqlTransportDAO implements DAO<Transport> {
+public class MysqlTransportDAO implements TransportDAO {
 
 	private MysqlRouteDAO routeDAO = new MysqlRouteDAO();
 
@@ -135,5 +138,33 @@ public class MysqlTransportDAO implements DAO<Transport> {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public Transport geTransportByCodeAndType(String code, TransportType type)
+			throws DAOException {
+		
+		Transaction transaction = null;
+		Transport transport = null;
+
+		try {
+			transaction = DBUtil.getTransaction();
+			transport = (Transport) transaction.customQuery(
+					Queries.TRANSPORT_BY_CODE_AND_TYPE, Transport.class, code, type.ordinal()).get(0);
+
+			Route route = routeDAO.find(transport.getRouteId());
+			transport.setRoute(route);
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return transport;
 	}
 }

@@ -6,18 +6,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.RespectBinding;
 
-import org.apache.tomcat.util.buf.UEncoder.SafeCharsSet;
-
+import ua.nure.miroshnichenko.summarytask4.db.entity.Role;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 import ua.nure.miroshnichenko.summarytask4.service.AuthentificationService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
 
-public class ActionLogin extends Action {
+public class SignupAction extends Action {
 
-	private static final long serialVersionUID = -8527970378246991282L;
+	private static final long serialVersionUID = 4001087808996248354L;
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
@@ -26,22 +24,24 @@ public class ActionLogin extends Action {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 
-		if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
-			throw new ActionException("Email/password cannot be empty!!!");
-		}
-
+		User user = new User();
+		
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setRole(Role.CLIENT);
+		
 		AuthentificationService authentificationService = 
 				serviceFactory.getAuthentificationService();
 		
 		try {
-			User user = authentificationService.login(email, password);
-			
-			HttpSession session = req.getSession();
-			session.setAttribute("user", user);
-			
-			res.setStatus(HttpServletResponse.SC_OK);
-			
-			return Path.INDEX_PAGE;
+			if(authentificationService.signup(user)) {
+				HttpSession session = req.getSession();
+				session.setAttribute("user", user);
+				
+				return Path.INDEX_PAGE;
+			} else {
+				return Path.ERR_PAGE;
+			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			
@@ -49,4 +49,5 @@ public class ActionLogin extends Action {
 			throw new ActionException(e);
 		}
 	}
+
 }

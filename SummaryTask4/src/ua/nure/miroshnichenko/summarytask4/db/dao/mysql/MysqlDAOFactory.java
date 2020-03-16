@@ -3,9 +3,12 @@ package ua.nure.miroshnichenko.summarytask4.db.dao.mysql;
 import java.util.HashMap;
 
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
+import ua.nure.miroshnichenko.summarytask4.db.dao.HotelDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.ReservationDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.TourDAO;
+import ua.nure.miroshnichenko.summarytask4.db.dao.TransportDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.UserDAO;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Beach;
 
 public class MysqlDAOFactory extends DAOFactory {
 
@@ -37,5 +40,15 @@ public class MysqlDAOFactory extends DAOFactory {
 	@Override
 	public TourDAO geTourDAO() {
 		return new MysqlTourDAO();
+	}
+	
+	@Override
+	public HotelDAO getHotelDAO() {
+		return new MysqlHotelDAO();
+	}
+	
+	@Override
+	public TransportDAO getTransportDAO() {
+		return new MysqlTransportDAO();
 	}
 }

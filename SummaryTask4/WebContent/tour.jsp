@@ -3,7 +3,6 @@
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
 <c:set var="title" value="Error" scope="page" />
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>	
@@ -15,6 +14,7 @@
 	<title>Tour</title>
 </head>
 <body>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 	<div class="d-inline-flex w-100">
 		<div id="tour-photos" class="carousel slide ml-5" data-ride="carousel">
 		  <ol class="carousel-indicators">

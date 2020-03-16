@@ -17,6 +17,14 @@ public class Facility implements Entity {
 	@Column("facility_name")
 	private String name;
 
+	public Facility() {
+		
+	}
+	
+	public Facility(String name) {
+		this.name = name;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -35,7 +43,7 @@ public class Facility implements Entity {
 
 	@Override
 	public int hashCode() {
-		return 37 * id;
+		return 37 * name.hashCode();
 	}
 
 	@Override
@@ -49,6 +57,6 @@ public class Facility implements Entity {
 		}
 
 		Facility facility = (Facility) obj;
-		return id == facility.id;
+		return name.equals(facility.name);
 	}
 }

@@ -107,12 +107,27 @@ class DBConnectionImpl implements DBConnection {
 			throw new DBConnectionException(e.getMessage(), e.getCause());
 		}
 	}
-
+	
 	@Override
 	public boolean executeUpdate(String query, Object... parametrs) throws DBConnectionException {
 		try {
 			statement = prepareStatement(query, parametrs);
 			return ((PreparedStatement) statement).executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new DBConnectionException(e.getMessage(), e.getCause());
+		}
+	}
+	
+	@Override
+	public ResultSet executeUpdateAndGenerateKeys(String query) throws DBConnectionException {
+		try {
+			statement = sqlConnection.createStatement();
+			int affected = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+			if(affected > 0) {
+				return statement.getGeneratedKeys();
+			}
+			
+			return null;
 		} catch (SQLException e) {
 			throw new DBConnectionException(e.getMessage(), e.getCause());
 		}

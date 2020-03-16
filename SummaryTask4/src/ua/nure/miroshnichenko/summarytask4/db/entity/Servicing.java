@@ -3,6 +3,7 @@ package ua.nure.miroshnichenko.summarytask4.db.entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Generated;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
@@ -12,6 +13,7 @@ public class Servicing implements Entity {
 	private static final long serialVersionUID = -5908493945535660577L;
 
 	@PrimaryKey
+	@Generated
 	@Column("service_id")
 	private Integer id;
 
@@ -22,6 +24,14 @@ public class Servicing implements Entity {
 	@Column("service_type_id")
 	private TypeServicing type;
 
+	public Servicing() {
+		
+	}
+	
+	public Servicing(String name) {
+		this.name = name;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -48,7 +58,7 @@ public class Servicing implements Entity {
 	
 	@Override
 	public int hashCode() {
-		return 37 * id;
+		return 37 * name.hashCode();
 	}
 
 	@Override
@@ -62,6 +72,6 @@ public class Servicing implements Entity {
 		}
 
 		Servicing servicing = (Servicing) obj;
-		return id == servicing.id;
+		return name.equals(servicing.name);
 	}
 }

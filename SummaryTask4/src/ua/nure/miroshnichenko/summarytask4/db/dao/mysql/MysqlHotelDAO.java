@@ -1,26 +1,27 @@
 package ua.nure.miroshnichenko.summarytask4.db.dao.mysql;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
 import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
+import ua.nure.miroshnichenko.summarytask4.db.dao.FacilityDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.HotelDAO;
+import ua.nure.miroshnichenko.summarytask4.db.dao.ServicingDAO;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Servicing;
-import ua.nure.miroshnichenko.summarytask4.db.entity.TypeServicing;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
 
 public class MysqlHotelDAO implements HotelDAO {
+
+	private ServicingDAO servicingDAO = new MysqlServicingDAO();
+
+	private FacilityDAO facilityDAO = new MysqlFacilityDAO();
 
 	@Override
 	public Hotel find(int id) throws DAOException {
@@ -31,21 +32,13 @@ public class MysqlHotelDAO implements HotelDAO {
 			transaction = DBUtil.getTransaction();
 			hotel = (Hotel) transaction.findByPK(Hotel.class, id);
 
-			List<Servicing> servicings = (List<Servicing>)(List<?>)transaction.customQuery(
-					Queries.HOTEL_SERVICES, Servicing.class, hotel.getId().toString());
-			List<Facility> facilities = (List<Facility>)(List<?>)transaction.customQuery(
-					Queries.HOTEL_FACILITIES, Facility.class, hotel.getId().toString());
+			List<Servicing> servicings = (List<Servicing>) (List<?>) transaction.customQuery(Queries.HOTEL_SERVICES,
+					Servicing.class, hotel.getId().toString());
+			List<Facility> facilities = (List<Facility>) (List<?>) transaction.customQuery(Queries.HOTEL_FACILITIES,
+					Facility.class, hotel.getId().toString());
 
-			Map<TypeServicing, Set<Servicing>> servicingsMap = new HashMap<>();
-			for(TypeServicing type : TypeServicing.values()) {
-				Set<Servicing> servicingSet = servicings.stream().filter(
-						s -> s.getType().equals(type)).collect(Collectors.toSet());
-				
-				servicingsMap.put(type, servicingSet);
-			}
-			
 			hotel.setFacilities(new HashSet<>(facilities));
-			hotel.setServicings(servicingsMap);
+			hotel.setServicings(new HashSet<>(servicings));
 
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
@@ -71,21 +64,14 @@ public class MysqlHotelDAO implements HotelDAO {
 			hotels = (List<Hotel>) (List<?>) transaction.findAll(Hotel.class);
 
 			for (Hotel hotel : hotels) {
-				List<Servicing> servicings = (List<Servicing>)(List<?>)transaction.customQuery(
-						Queries.HOTEL_SERVICES, Servicing.class, hotel.getId().toString());
-				List<Facility> facilities = (List<Facility>)(List<?>)transaction.customQuery(
-						Queries.HOTEL_FACILITIES, Facility.class, hotel.getId().toString());
 
-				Map<TypeServicing, Set<Servicing>> servicingsMap = new HashMap<>();
-				for(TypeServicing type : TypeServicing.values()) {
-					Set<Servicing> servicingSet = servicings.stream().filter(
-							s -> s.getType().equals(type)).collect(Collectors.toSet());
-					
-					servicingsMap.put(type, servicingSet);
-				}
-				
+				List<Servicing> servicings = (List<Servicing>) (List<?>) transaction.customQuery(Queries.HOTEL_SERVICES,
+						Servicing.class, hotel.getId().toString());
+				List<Facility> facilities = (List<Facility>) (List<?>) transaction.customQuery(Queries.HOTEL_FACILITIES,
+						Facility.class, hotel.getId().toString());
+
 				hotel.setFacilities(new HashSet<>(facilities));
-				hotel.setServicings(servicingsMap);
+				hotel.setServicings(new HashSet<>(servicings));
 			}
 
 		} catch (TransactionFactoryException | TransactionException e) {
@@ -110,9 +96,27 @@ public class MysqlHotelDAO implements HotelDAO {
 		try {
 			transaction = DBUtil.getTransaction();
 			result = transaction.insert(entity);
+
+			for (Facility facility : entity.getFacilities()) {
+				Facility facility2 = facilityDAO.getFacilityByName(facility.getName());
+				transaction.customUpdate(Queries.SET_FACILITY_FOR_HOTEL, entity.getId(), facility2.getId());
+			}
+
+			for (Servicing servicing : entity.getServicings()) {
+				Servicing servicing2 = servicingDAO.getServicingByName(servicing.getName());
+				transaction.customUpdate(
+						Queries.SET_SERVICING_FOR_HOTEL, entity.getId(), servicing2.getId());
+			}
+
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
+			try {
+				transaction.rollback();
+			} catch (TransactionException e1) {
+				e1.printStackTrace();
+				throw new DAOException(e);
+			}
 			throw new DAOException(e);
 		} finally {
 			try {
@@ -170,7 +174,7 @@ public class MysqlHotelDAO implements HotelDAO {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public Hotel getHotelByName(String name) throws DAOException {
 		Transaction transaction = null;
@@ -178,24 +182,16 @@ public class MysqlHotelDAO implements HotelDAO {
 
 		try {
 			transaction = DBUtil.getTransaction();
-			hotel = (Hotel) transaction.customQuery(
-					Queries.HOTEL_BY_NAME, Hotel.class, name).get(0);
+			hotel = (Hotel) transaction.customQuery(Queries.HOTEL_BY_NAME, Hotel.class, name).get(0);
 
-			List<Servicing> servicings = (List<Servicing>)(List<?>)transaction.customQuery(
-					Queries.HOTEL_SERVICES, Servicing.class, hotel.getId().toString());
-			List<Facility> facilities = (List<Facility>)(List<?>)transaction.customQuery(
-					Queries.HOTEL_FACILITIES, Facility.class, hotel.getId().toString());
 
-			Map<TypeServicing, Set<Servicing>> servicingsMap = new HashMap<>();
-			for(TypeServicing type : TypeServicing.values()) {
-				Set<Servicing> servicingSet = servicings.stream().filter(
-						s -> s.getType().equals(type)).collect(Collectors.toSet());
-				
-				servicingsMap.put(type, servicingSet);
-			}
-			
+			List<Servicing> servicings = (List<Servicing>) (List<?>) transaction.customQuery(Queries.HOTEL_SERVICES,
+					Servicing.class, hotel.getId().toString());
+			List<Facility> facilities = (List<Facility>) (List<?>) transaction.customQuery(Queries.HOTEL_FACILITIES,
+					Facility.class, hotel.getId().toString());
+
 			hotel.setFacilities(new HashSet<>(facilities));
-			hotel.setServicings(servicingsMap);
+			hotel.setServicings(new HashSet<>(servicings));
 
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();

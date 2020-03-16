@@ -5,15 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
+import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
+import ua.nure.miroshnichenko.summarytask4.db.dao.FacilityDAO;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
 
-public class MysqlFacilityDAO implements DAO<Facility> {
+public class MysqlFacilityDAO implements FacilityDAO {
 
 	@Override
 	public Facility find(int id) throws DAOException {
@@ -126,5 +128,28 @@ public class MysqlFacilityDAO implements DAO<Facility> {
 			}
 		}
 		return result;
+	}
+	
+	@Override
+	public Facility getFacilityByName(String name) throws DAOException {
+		Transaction transaction = null;
+		Facility facility = null;
+
+		try {
+			transaction = DBUtil.getTransaction();
+			facility = (Facility) transaction.customQuery(
+					Queries.FACILITY_BY_NAME, Facility.class, name).get(0);
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return facility;
 	}
 }

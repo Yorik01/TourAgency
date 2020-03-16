@@ -78,6 +78,17 @@ class TransactionFactoryImpl implements TransactionFactory {
 				throw new TransactionException(e);
 			}
 		}
+		
+		@Override
+		public boolean customUpdate(String query, Object... parametrs)
+				throws TransactionException {
+			try {
+				boolean result = connection.executeUpdate(query, parametrs);
+				return result;
+			} catch (DBConnectionException e) {
+				throw new TransactionException(e);
+			}
+		}
 
 		@Override
 		public List<Entity> customQuery(String query, Class<? extends Entity> type, Object... parametrs)
@@ -114,8 +125,13 @@ class TransactionFactoryImpl implements TransactionFactory {
 		public boolean insert(Entity entity) throws TransactionException {
 			try {
 				String query = Mapper.getCrudQuery(entity, CrudOperation.INSERT);
-				return connection.executeUpdate(query);
-			} catch (DBConnectionException | MappingReflectiveException e) {
+				ResultSet resultSet = connection.executeUpdateAndGenerateKeys(query);
+				boolean result = resultSet.next();
+				
+				Mapper.setGneratedKeys(entity, resultSet);
+				
+				return result;
+			} catch (DBConnectionException | MappingReflectiveException | SQLException e) {
 				throw new TransactionException(e);
 			}
 		}

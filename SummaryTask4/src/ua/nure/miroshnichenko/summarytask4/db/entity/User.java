@@ -3,6 +3,7 @@ package ua.nure.miroshnichenko.summarytask4.db.entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Generated;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
@@ -12,6 +13,7 @@ public class User implements Entity {
 	private static final long serialVersionUID = -3414487325065065030L;
 
 	@PrimaryKey
+	@Generated
 	@Column("user_id")
 	private Integer id;
 

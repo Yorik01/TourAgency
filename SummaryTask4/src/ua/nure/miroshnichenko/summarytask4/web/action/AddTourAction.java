@@ -57,6 +57,7 @@ public class AddTourAction extends Action {
 		
 		Tour tour = new Tour();
 		
+		tour.setType(type);
 		tour.setStartDate(startDate);
 		tour.setEndDate(endDate);
 		tour.setAgencyProcent(agencyProcent);

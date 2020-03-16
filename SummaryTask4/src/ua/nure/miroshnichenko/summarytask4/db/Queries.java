@@ -23,8 +23,16 @@ public final class Queries {
 	
 	public static final String HOTEL_BY_NAME = "SELECT * FROM hotel WHERE hotel_name = ?";
 	
+	public static final String SERVICING_BY_NAME = "SELECT * FROM service WHERE service_name = ?";
+	
+	public static final String FACILITY_BY_NAME = "SELECT * FROM facility WHERE facility_name = ?";
+	
 	public static final String TRANSPORT_BY_CODE_AND_TYPE = "SELECT * FROM transport "
 			+ "WHERE transport_code = ? AND transport_type_id = ?";
+	
+	public static final String SET_FACILITY_FOR_HOTEL = "INSERT INTO hotel_facility VALUES(?, ?)";
+	
+	public static final String SET_SERVICING_FOR_HOTEL = "INSERT INTO hotel_service VALUES(?, ?)";
 	
 	public static final String FILTER_TOUR = "SELECT * FROM tour t"
 			+ "INNER JOIN hotel h USING (hotel_id)"

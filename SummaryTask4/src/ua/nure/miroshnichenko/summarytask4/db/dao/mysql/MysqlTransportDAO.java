@@ -150,7 +150,7 @@ public class MysqlTransportDAO implements TransportDAO {
 		try {
 			transaction = DBUtil.getTransaction();
 			transport = (Transport) transaction.customQuery(
-					Queries.TRANSPORT_BY_CODE_AND_TYPE, Transport.class, code, type.ordinal()).get(0);
+					Queries.TRANSPORT_BY_CODE_AND_TYPE, Transport.class, code, type.ordinal() + 1).get(0);
 
 			Route route = routeDAO.find(transport.getRouteId());
 			transport.setRoute(route);

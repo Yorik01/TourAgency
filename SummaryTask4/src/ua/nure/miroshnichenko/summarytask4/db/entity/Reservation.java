@@ -5,6 +5,7 @@ import java.sql.Date;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Generated;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
@@ -14,6 +15,7 @@ public class Reservation implements Entity {
 	private static final long serialVersionUID = 2091406430025116488L;
 
 	@PrimaryKey
+	@Generated
 	@Column("reservation_id")
 	private Integer id;
 

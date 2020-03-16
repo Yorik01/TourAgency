@@ -54,6 +54,8 @@ public interface DBConnection extends AutoCloseable {
 	 */
 	boolean executeUpdate(String query, Object... parametrs) throws DBConnectionException;
 
+	ResultSet executeUpdateAndGenerateKeys(String query) throws DBConnectionException;
+
 	/**
 	 * Call a sql procedure and return true if there are one or more updates in a
 	 * database. This method uses

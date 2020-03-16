@@ -6,6 +6,7 @@ import java.util.Set;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Generated;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
@@ -15,6 +16,7 @@ public class Hotel implements Entity {
 	private static final long serialVersionUID = -2001830352342554083L;
 
 	@PrimaryKey
+	@Generated
 	@Column("hotel_id")
 	private Integer id;
 
@@ -54,7 +56,7 @@ public class Hotel implements Entity {
 	@Column("beach_type_id")
 	private Beach beach;
 
-	private Map<TypeServicing, Set<Servicing>> servicings;
+	private Set<Servicing> servicings;
 
 	private Set<Facility> facilities;
 
@@ -146,11 +148,11 @@ public class Hotel implements Entity {
 		this.food = food;
 	}
 
-	public Map<TypeServicing, Set<Servicing>> getServicings() {
+	public Set<Servicing> getServicings() {
 		return servicings;
 	}
 	
-	public void setServicings(Map<TypeServicing, Set<Servicing>> servicings) {
+	public void setServicings(Set<Servicing> servicings) {
 		this.servicings = servicings;
 	}
 

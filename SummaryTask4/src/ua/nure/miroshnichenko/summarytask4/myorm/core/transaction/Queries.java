@@ -35,5 +35,8 @@ interface Queries extends Crud {
 	List<Entity> customQuery(String query, Class<? extends Entity> type, Object... parametrs)
 			throws TransactionException;
 	
+	boolean customUpdate(String query, Object... parametrs)
+			throws TransactionException;
+	
 	boolean callProcedure(String name, Object...parametrs) throws TransactionException;
 }

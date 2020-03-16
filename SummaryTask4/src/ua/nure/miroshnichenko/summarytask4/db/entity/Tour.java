@@ -5,6 +5,7 @@ import java.sql.Date;
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
+import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Generated;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Table;
 
@@ -14,6 +15,7 @@ public class Tour implements Entity {
 	private static final long serialVersionUID = -8693081953079281619L;
 
 	@PrimaryKey
+	@Generated
 	@Column("tour_id")
 	private Integer id;
 

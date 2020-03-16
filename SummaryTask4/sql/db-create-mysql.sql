@@ -162,7 +162,7 @@ CREATE TABLE tour_type (
 
 CREATE TABLE tour (
 	tour_id INT AUTO_INCREMENT PRIMARY KEY,
-	agency_procent DOUBLE NOT NULL,
+	agency_procent TINYINT(20) NOT NULL,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
 	is_fired BOOLEAN NOT NULL DEFAULT FALSE,

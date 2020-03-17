@@ -3,6 +3,7 @@ package ua.nure.miroshnichenko.summarytask4.web;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import ua.nure.miroshnichenko.summarytask4.web.action.ActionException;
 import ua.nure.miroshnichenko.summarytask4.web.action.ActionFactory;
 
 @WebServlet("/controller")
+@MultipartConfig(maxFileSize = 16177215)
 public class Controller extends HttpServlet {
 
 	private static final long serialVersionUID = -31201244504037211L;

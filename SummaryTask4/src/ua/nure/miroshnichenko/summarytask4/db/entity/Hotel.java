@@ -1,6 +1,5 @@
 package ua.nure.miroshnichenko.summarytask4.db.entity;
 
-import java.util.Map;
 import java.util.Set;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;

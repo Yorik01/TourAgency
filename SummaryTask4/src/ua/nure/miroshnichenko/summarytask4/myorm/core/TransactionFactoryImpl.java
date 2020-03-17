@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.apache.el.stream.Stream;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.mapping.CrudOperation;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.mapping.Mapper;
@@ -125,9 +127,10 @@ class TransactionFactoryImpl implements TransactionFactory {
 		public boolean insert(Entity entity) throws TransactionException {
 			try {
 				String query = Mapper.getCrudQuery(entity, CrudOperation.INSERT);
+
 				ResultSet resultSet = connection.executeUpdateAndGenerateKeys(query);
 				boolean result = resultSet.next();
-				
+
 				Mapper.setGneratedKeys(entity, resultSet);
 				
 				return result;

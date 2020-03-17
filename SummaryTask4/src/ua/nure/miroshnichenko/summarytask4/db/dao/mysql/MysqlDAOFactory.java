@@ -2,13 +2,17 @@ package ua.nure.miroshnichenko.summarytask4.db.dao.mysql;
 
 import java.util.HashMap;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
+import ua.nure.miroshnichenko.summarytask4.db.dao.FacilityDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.HotelDAO;
+import ua.nure.miroshnichenko.summarytask4.db.dao.PlaceDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.ReservationDAO;
+import ua.nure.miroshnichenko.summarytask4.db.dao.ServicingDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.TourDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.TransportDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.UserDAO;
-import ua.nure.miroshnichenko.summarytask4.db.entity.Beach;
 
 public class MysqlDAOFactory extends DAOFactory {
 
@@ -50,5 +54,20 @@ public class MysqlDAOFactory extends DAOFactory {
 	@Override
 	public TransportDAO getTransportDAO() {
 		return new MysqlTransportDAO();
+	}
+	
+	@Override
+	public PlaceDAO getPlaceDAO() {
+		return new MysqlPlaceDAO();
+	}
+	
+	@Override
+	public ServicingDAO getServicingDAO() {
+		return new MysqlServicingDAO();
+	}
+	
+	@Override
+	public FacilityDAO getFacilityDAO() {
+		return new MysqlFacilityDAO();
 	}
 }

@@ -1,5 +1,8 @@
 package ua.nure.miroshnichenko.summarytask4.db.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.PrimaryKey;
@@ -41,6 +44,14 @@ public class Facility implements Entity {
 		this.name = name;
 	}
 
+	public static List<Facility> getFacilities(String[] names) {
+		List<Facility> facilities = new ArrayList<>();
+		for(String name : names) {
+			facilities.add(new Facility(name));
+		}
+		return facilities;
+	}
+	
 	@Override
 	public int hashCode() {
 		return 37 * name.hashCode();
@@ -58,5 +69,10 @@ public class Facility implements Entity {
 
 		Facility facility = (Facility) obj;
 		return name.equals(facility.name);
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }

@@ -1,5 +1,8 @@
 package ua.nure.miroshnichenko.summarytask4.db.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Enumerated;
@@ -56,6 +59,14 @@ public class Servicing implements Entity {
 		this.type = type;
 	}
 	
+	public static List<Servicing> getServicings(String[] names) {
+		List<Servicing> servicings = new ArrayList<>();
+		for(String name : names) {
+			servicings.add(new Servicing(name));
+		}
+		return servicings;
+	}
+	
 	@Override
 	public int hashCode() {
 		return 37 * name.hashCode();
@@ -73,5 +84,10 @@ public class Servicing implements Entity {
 
 		Servicing servicing = (Servicing) obj;
 		return name.equals(servicing.name);
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }

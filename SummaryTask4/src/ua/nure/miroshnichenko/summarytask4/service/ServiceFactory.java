@@ -34,4 +34,8 @@ public class ServiceFactory {
 	public TransportService getTransportService() {
 		return TransportServiceImpl.getInstance();
 	}
+	
+	public RouteService getRouteService() {
+		return RouteServiceImpl.getInstance();
+	}
 }

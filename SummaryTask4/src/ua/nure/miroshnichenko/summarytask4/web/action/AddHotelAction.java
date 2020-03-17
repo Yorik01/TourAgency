@@ -1,14 +1,17 @@
 package ua.nure.miroshnichenko.summarytask4.web.action;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import ua.nure.miroshnichenko.summarytask4.db.entity.Beach;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
@@ -16,9 +19,9 @@ import ua.nure.miroshnichenko.summarytask4.db.entity.Food;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
 import ua.nure.miroshnichenko.summarytask4.db.entity.HotelType;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Servicing;
-import ua.nure.miroshnichenko.summarytask4.db.entity.TypeServicing;
 import ua.nure.miroshnichenko.summarytask4.service.HotelService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
+import ua.nure.miroshnichenko.summarytask4.web.Path;
 
 public class AddHotelAction extends Action {
 
@@ -29,6 +32,8 @@ public class AddHotelAction extends Action {
 			throws IOException, ServletException, ActionException {
 		
 		HotelService hotelService = serviceFactory.getHotelService();
+		
+		Map<String, String[]> parametrs = req.getParameterMap();
 		
 		String name = req.getParameter("name");
 		String info = req.getParameter("info");
@@ -44,22 +49,15 @@ public class AddHotelAction extends Action {
 		
 		Set<Facility> facilities = new HashSet<>();
 		 
-		facilities.add(new Facility(req.getParameter("wifi")));
-		facilities.add(new Facility(req.getParameter("minibar")));
-		facilities.add(new Facility(req.getParameter("hairdryer")));
-		facilities.add(new Facility(req.getParameter("conditioner")));
-		facilities.add(new Facility(req.getParameter("tv")));
-		
+		for(String facility : parametrs.get("facilities")) {
+			facilities.add(new Facility(facility));
+		}
+
 		Set<Servicing> servicings = new HashSet<>();
 		
-		servicings.add(new Servicing(req.getParameter("gym")));
-		servicings.add(new Servicing(req.getParameter("fitnes")));
-		servicings.add(new Servicing(req.getParameter("diving")));
-		servicings.add(new Servicing(req.getParameter("yoga")));
-
-		servicings.add(new Servicing(req.getParameter("aquapark")));
-		servicings.add(new Servicing(req.getParameter("disco")));
-		servicings.add(new Servicing(req.getParameter("restaurant")));
+		for(String servicing : parametrs.get("servicings")) {
+			servicings.add(new Servicing(servicing));
+		}
 
 		Hotel hotel = new Hotel();
 		
@@ -83,6 +81,22 @@ public class AddHotelAction extends Action {
 			e.printStackTrace();
 		}
 		
-		return "/SummaryTask4/admin.jsp";
+		uploadImgs(req, res, hotel.getId());
+		
+		return Path.ADMIN_PAGE;
+	}
+	
+	private void uploadImgs(HttpServletRequest req, HttpServletResponse res, int hotelId) throws IOException, ServletException {
+		List<Part> fileParts = req.getParts()
+				.stream()
+				.filter(part -> "photo".equals(part.getName()))
+				.collect(Collectors.toList());
+		
+		for(Part part : fileParts) {
+			UUID uuid = UUID.randomUUID();
+			String fileName = "hotelPhoto_" + hotelId + "_" + uuid;
+			
+			part.write("/photo/" + fileName);
+		}
 	}
 }

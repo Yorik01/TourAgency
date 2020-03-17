@@ -277,33 +277,37 @@ public final class Mapper {
 		Class<? extends Entity> type = entity.getClass();
 		Table tableAnnotation = type.getAnnotation(Table.class);
 
-		Field[] fields = type.getDeclaredFields();
-
+		List<Field> fields = Arrays.asList(type.getDeclaredFields()).stream()
+				.filter(x -> x.isAnnotationPresent(Column.class)).collect(Collectors.toList());
+		
 		StringBuilder valueStatement = new StringBuilder();
-		for (int i = 0; i < fields.length; i++) {
-			if (fields[i].isAnnotationPresent(Column.class)) {
-				PrimaryKey primaryKey = fields[i].getAnnotation(PrimaryKey.class);
-				if (primaryKey != null && primaryKey.autoIncrement()) {
-					valueStatement.append("DEFAULT");
-				} else {
-					try {
-						PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fields[i].getName(), type);
-						Object value = propertyDescriptor.getReadMethod().invoke(entity);
+		
+		Iterator<Field> iterator = fields.iterator();
+		while (true) {
+			Field field = iterator.next();
+			
+			PrimaryKey primaryKey = field.getAnnotation(PrimaryKey.class);
+			if (primaryKey != null && primaryKey.autoIncrement()) {
+				valueStatement.append("DEFAULT");
+			} else {
+				try {
+					PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field.getName(), type);
+					Object value = propertyDescriptor.getReadMethod().invoke(entity);
 
-						if (fields[i].isAnnotationPresent(Enumerated.class)) {
-							Enum<?> en = Enum.valueOf((Class<? extends Enum>) fields[i].getType(), value.toString());
-							value = en.ordinal() + 1;
-						}
-
-						valueStatement.append('\'').append(value).append('\'');
-					} catch (IllegalAccessException | IntrospectionException | InvocationTargetException e) {
-						throw new MappingReflectiveException(e);
+					if (field.isAnnotationPresent(Enumerated.class)) {
+						Enum<?> en = Enum.valueOf((Class<? extends Enum>) field.getType(), value.toString());
+						value = en.ordinal() + 1;
 					}
-				}
-				if (i != fields.length - 1) {
-					valueStatement.append(',');
+
+					valueStatement.append('\'').append(value).append('\'');
+				} catch (IllegalAccessException | IntrospectionException | InvocationTargetException e) {
+					throw new MappingReflectiveException(e);
 				}
 			}
+			if (!iterator.hasNext()) {
+				break;
+			}
+			valueStatement.append(',');
 		}
 
 		return "INSERT INTO " + tableAnnotation.value() + " VALUES (" + valueStatement + ")";
@@ -351,24 +355,23 @@ public final class Mapper {
 	
 	public static void setGneratedKeys(Entity entity, ResultSet resultSet) throws MappingReflectiveException {
 		Class<? extends Entity> type = entity.getClass();
-		
 		List<Field> fields = Arrays.asList(type.getDeclaredFields()).stream()
-				.filter(x -> x.isAnnotationPresent(Column.class)).collect(Collectors.toList());
+				.filter(x -> x.isAnnotationPresent(Generated.class)).collect(Collectors.toList());
 		
 		if(isEntity(type)) {
 			for(Field field : fields) {
-				if(field.isAnnotationPresent(Generated.class)) {
+				if(field.isAnnotationPresent(Column.class)) {
 					try {
-						Column column = field.getAnnotation(Column.class);
-						
 						PropertyDescriptor propertyDescriptor = 
 								new PropertyDescriptor(field.getName(), type);
-						propertyDescriptor.getWriteMethod().invoke(entity, resultSet.getObject(column.value()));
+						propertyDescriptor.getWriteMethod().invoke(entity, resultSet.getInt(1));
 					} catch (IntrospectionException | IllegalAccessException 
 							| InvocationTargetException | SQLException e) {
 						e.printStackTrace();
 						throw new MappingReflectiveException(e);
 					}
+				} else {
+					throw new MappingException("A field which has annotation 'Genarated' must have annotation 'Column'");
 				}
 			}
 		} else {

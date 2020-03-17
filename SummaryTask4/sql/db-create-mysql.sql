@@ -252,11 +252,11 @@ INSERT INTO service VALUES (DEFAULT, "DISCO", 2);
 INSERT INTO service VALUES (DEFAULT, "RESTAURANT", 2);
 
 -- set facilities
-INSERT INTO facility VALUES (1, "wifi");
-INSERT INTO facility VALUES (2, "minibar");
-INSERT INTO facility VALUES (3, "hairdryer");
-INSERT INTO facility VALUES (4, "conditioner");
-INSERT INTO facility VALUES (5, "tv");
+INSERT INTO facility VALUES (1, "WIFI");
+INSERT INTO facility VALUES (2, "MINIBAR");
+INSERT INTO facility VALUES (3, "HAIRDRYER");
+INSERT INTO facility VALUES (4, "CONDTITIONER");
+INSERT INTO facility VALUES (5, "TV");
 
 -- set types of tours
 INSERT INTO tour_type VALUES (1, "RELAX");

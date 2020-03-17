@@ -123,8 +123,10 @@ class DBConnectionImpl implements DBConnection {
 		try {
 			statement = sqlConnection.createStatement();
 			int affected = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+			System.out.println("DBC: " + affected);
 			if(affected > 0) {
-				return statement.getGeneratedKeys();
+				resultSet = statement.getGeneratedKeys();
+				return resultSet;
 			}
 			
 			return null;

@@ -8,7 +8,6 @@ import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.dao.HotelDAO;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
-import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 
 class HotelServiceImpl implements HotelService {
 	

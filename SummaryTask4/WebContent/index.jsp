@@ -240,19 +240,16 @@
 			</div>
 		</div>
 	</form>
-	
-	<div id="tour-fired" class="p-3">
-	<h1 class="mb-2">Fired tours</h1>
-		<div class="tour-cards">
-			<div class="card tour-card">
-  				<img class="card-img-top" src="https://q-cf.bstatic.com/images/hotel/max1024x768/681/68184730.jpg" alt="Card image cap">
-				  <div class="card-body">
-			  		<h5 class="card-title">Tour name <i class="fa fa-fire"></i></h5>
-			  		<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			   		<a href="#" class="btn btn-primary">Look</a>
- 			 	</div>
-			</div>
-		</div>
+		
+	<div id="tour-all" class="p-3">
+		<h1 class="mb-2">All tours</h1>
+		<c:forEach items="${requestScope.tours}" var="tour">
+			<t:tourCard 
+			title="${tour.hotel.name}" 
+			info="${tour.hotel.info}"
+			photo=""
+			fired="${tour.fired}"/>
+		</c:forEach>
 	</div>
 
 <script src="bootstrap/js/moment.js"></script>	

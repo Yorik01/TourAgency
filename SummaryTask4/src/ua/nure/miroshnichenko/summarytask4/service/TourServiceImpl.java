@@ -1,24 +1,37 @@
 package ua.nure.miroshnichenko.summarytask4.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
+import ua.nure.miroshnichenko.summarytask4.db.dao.FacilityDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.ReservationDAO;
+import ua.nure.miroshnichenko.summarytask4.db.dao.ServicingDAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.TourDAO;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Beach;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Food;
+import ua.nure.miroshnichenko.summarytask4.db.entity.HotelType;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Reservation;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Servicing;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
+import ua.nure.miroshnichenko.summarytask4.db.entity.TourType;
+import ua.nure.miroshnichenko.summarytask4.db.entity.TransportType;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
 class TourServiceImpl implements TourService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
+
+	private List<Servicing> list;
 	
 	private static TourService instance;
 	
@@ -59,36 +72,27 @@ class TourServiceImpl implements TourService {
 		}
 	}
 
-	@Override// TODO
-	public List<Tour> filter(Map<String, String> values, List<Servicing> servicings, double maxPrice) throws ServiceException {
+	@Override
+	public List<Tour> filter(Map<String, String[]> values) throws ServiceException {
 		try {
 			TourDAO dao = factoryDAO.geTourDAO();
-
-//			Map<String, String> values = new HashMap<>();
 			
-//			Hotel hotel = tour.getHotel();
-//			Place place = tour.getTransportTo().getRoute().getTo();
+			double maxPrices = Double.valueOf(values.get("maxPrices")[0]);
 			
-//			values.put("hotelType", String.valueOf(hotel.getType().ordinal()));
-//			values.put("food", String.valueOf(hotel.getFood().ordinal()));
-//			values.put("beach", String.valueOf(hotel.getBeach().ordinal()));
-//			values.put("startDate", tour.getStartDate().toString());
-//			values.put("endDate", tour.getEndDate().toString());
-//			values.put("isFired", String.valueOf(tour.getIsFired()));
-//			values.put("tourType", String.valueOf(tour.getType().ordinal()));
-//			values.put("country", place.getCountry());
-//			values.put("tourType", place.getCity());
-//			
-//			List<Servicing> servicingsList = hotel.getServicings().values()
-//					.stream()
-//					.flatMap(list -> list.stream())
-//					.collect(Collectors.toList());
-			
-			List<Tour> tours = dao.filter(values, servicings);
+			List<Servicing> servicings = Servicing.getServicings(values.get("servicings"));
+			List<Facility> facilities = Facility.getFacilities(values.get("facilities"));
+			List<HotelType> hotelTypes = HotelType.getHotelTypes(values.get("hotelTypes"));
+			List<Food> foods = Food.getFoods(values.get("foods"));
+			List<Beach> beaches = Beach.getBeaches(values.get("beaches"));
+			List<TourType> tourTypes = TourType.getTourTypes(values.get("tourTypes"));
+			List<TransportType> transportTypes = TransportType.getTransportTypes(values.get("transportTypes"));
+							
+			List<Tour> tours = dao.filter(getMainParametrs(values), servicings, facilities,
+					hotelTypes, foods, beaches, tourTypes, transportTypes);
 			
 			tours = tours
 					.stream()
-					.filter(element -> element.getPrice() <= maxPrice)
+					.filter(element -> element.getPrice() <= maxPrices)
 					.collect(Collectors.toList());
 			
 			return tours;
@@ -211,5 +215,19 @@ class TourServiceImpl implements TourService {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
+	}
+	
+	private <T> List<T> filterValuesWithMap(Map<String, String> values, List<T> allValues) {
+		return allValues.stream()
+				.filter(element -> values.containsKey(element.toString()))
+				.collect(Collectors.toList());
+	}
+	
+	private Map<String, String> getMainParametrs(Map<String, String[]> values) {
+		Map<String, String> parametrs = new HashMap<>();
+		for(Entry<String, String[]> entry : values.entrySet()) {
+			parametrs.put(entry.getKey(), entry.getValue()[0]);
+		}
+		return parametrs;
 	}
 }

@@ -34,22 +34,30 @@ public final class Queries {
 	
 	public static final String SET_SERVICING_FOR_HOTEL = "INSERT INTO hotel_service VALUES(?, ?)";
 	
+	public static final String PLACE_BY_COUNTRY_AND_CITY = "SELECT * FROM place WHERE"
+			+ "place_country = ? AND place_city = ?";
+	
 	public static final String FILTER_TOUR = "SELECT * FROM tour t"
 			+ "INNER JOIN hotel h USING (hotel_id)"
 			+ "INNER JOIN hotel_service hs USING (hotel_id)"
 			+ "INNER JOIN hotel_facility hf USING (hotel_id)"
+			+ "INNER JOIN facility f USING (facility_id)"
 			+ "INNER JOIN service s USING (service_id)"
-			+ "INNER JOIN transport tr ON tr.transport_id = t.transport_to_id"
-			+ "INNER JOIN route r USING (route_id)"
-			+ "INNER JOIN place p ON r.route_to = p.place_id"
-			+ "WHERE"
+			+ "INNER JOIN transport trt ON trt.transport_id = t.transport_to_id"
+			+ "INNER JOIN route rt ON trt.route_id = rt.route_id"
+			+ "INNER JOIN place pt ON rt.route_to = pt.place_id"
+			+ "INNER JOIN place pf ON rt.route_from = pt.place_id"
 			+ "h.hotel_type_id IN (%s) AND"
 			+ "h.food_id IN (%s) AND"
 			+ "h.beach_id IN (%s) AND"
-			+ "s.service_name IN (%s) AND"
+			+ "f.facility_name IN (%s) AND"
+			+ "s.service_name IN (%s) AND" 	
 			+ "t.start_date = ? AND"
 			+ "t.end_date = ? AND"
-			+ "t.tour_type_id = ? AND"
-			+ "p.place_country = ? AND"
-			+ "p.place_city = ? AND";
+			+ "t.tour_type_id IN(%s) AND"
+			+ "trt.transport_type_id IN (%s)"
+			+ "pt.place_country = ? AND"
+			+ "pt.place_city = ? AND"
+			+ "pf.place_country = ? AND"
+			+ "pf.place_city = ?";
 }

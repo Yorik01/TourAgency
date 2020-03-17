@@ -1,6 +1,7 @@
 package ua.nure.miroshnichenko.summarytask4.db.dao.mysql;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +9,16 @@ import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
 import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.TourDAO;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Beach;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Food;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
+import ua.nure.miroshnichenko.summarytask4.db.entity.HotelType;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Servicing;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
+import ua.nure.miroshnichenko.summarytask4.db.entity.TourType;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Transport;
+import ua.nure.miroshnichenko.summarytask4.db.entity.TransportType;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
@@ -146,7 +153,12 @@ public class MysqlTourDAO implements TourDAO {
 	}
 	
 	@Override
-	public List<Tour> filter(Map<String, String> values, List<Servicing> servicings) throws DAOException {
+	public List<Tour> filter(Map<String, String> values, 
+			List<Servicing> servicings, List<Facility> facilities,
+			List<HotelType> hotelTypes, List<Food> foods, List<Beach> beaches,
+			List<TourType> tourTypes, List<TransportType> transportTypes)
+			throws DAOException {
+		
 		Transaction transaction = null;
 		List<Tour> tours = new ArrayList<>();
 
@@ -154,21 +166,25 @@ public class MysqlTourDAO implements TourDAO {
 			transaction = DBUtil.getTransaction();
 			
 			String servicingsStr = servicings.toString();
-			final String query = String.format(
-					Queries.FILTER_TOUR,
-					servicingsStr.substring(1, servicingsStr.length() - 1));
+			String facilitiesStr = facilities.toString();
+			String hotelTypesStr = enumListToOrdinalString(hotelTypes);
+			String foodsStr = enumListToOrdinalString(foods);
+			String beachesStr = enumListToOrdinalString(beaches);
+			String tourTypesStr = enumListToOrdinalString(tourTypes);
+			String transportTypesStr = enumListToOrdinalString(transportTypes);
+			
+			final String query = prepareFilterQuery(
+					servicingsStr, facilitiesStr, hotelTypesStr,
+					foodsStr, beachesStr, tourTypesStr, transportTypesStr);
 					
 			tours = (List<Tour>) (List<?>) transaction.customQuery(
 					query, Tour.class,
-					values.get("hotelType"),
-					values.get("food"),
-					values.get("beach"),
 					values.get("startDate"),
 					values.get("endDate"),
-					values.get("isFired"),
-					values.get("tourType"),
-					values.get("counrty"),
-					values.get("city")
+					values.get("toCountry"),
+					values.get("toCity"),
+					values.get("fromCountry"),
+					values.get("fromCity")
 					);
 			
 			for (Tour tour : tours) {
@@ -199,5 +215,35 @@ public class MysqlTourDAO implements TourDAO {
 		tour.setTransportBack(transportBack);
 		
 		tour.setPrice(hotel.getPrice() + transportTo.getPrice() + transportBack.getPrice());
+	}
+	
+	private String prepareFilterQuery(String servicingsStr, String facilitiesStr, 
+			String hotelTypesStr, String foodsStr, String beachesStr, String tourTypesStr,
+			String transportTypesStr) {
+		
+		return String.format(
+				Queries.FILTER_TOUR,
+				hotelTypesStr.substring(1, hotelTypesStr.length() - 1),
+				foodsStr.substring(1, foodsStr.length() - 1),
+				beachesStr.substring(1, beachesStr.length() - 1),
+				facilitiesStr.substring(1, facilitiesStr.length() - 1),
+				servicingsStr.substring(1, servicingsStr.length() - 1),
+				tourTypesStr.substring(1, tourTypesStr.length() - 1),
+				transportTypesStr.substring(1, transportTypesStr.length() - 1));
+	}
+	
+	private String enumListToOrdinalString(List<? extends Enum> list) {
+		StringBuilder result = new StringBuilder();
+
+		Iterator<? extends Enum> iterator = list.iterator();
+		while(true) {
+			Enum en = iterator.next();
+			result.append(en.ordinal());
+			if(!iterator.hasNext()) {
+				break;
+			}
+			result.append(',');
+		}
+		return result.toString();
 	}
 }

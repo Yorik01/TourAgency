@@ -67,7 +67,7 @@ public class AddTourAction extends Action {
 		tour.setTransportToId(transportTo.getId());
 		tour.setTransportBackId(transportBack.getId());
 		
-		try {
+		try {	
 			tourService.save(tour);
 		} catch (ServiceException e) {
 			e.printStackTrace();

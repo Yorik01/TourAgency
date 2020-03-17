@@ -87,7 +87,7 @@ public class Tour implements Entity {
 		this.endDate = endDate;
 	}
 
-	public Byte IsFired() {
+	public Byte isFired() {
 		return fired;
 	}
 

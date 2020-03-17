@@ -15,6 +15,7 @@ public class ActionFactory {
 //		LOG.trace("Number of actions --> " + actions.size());
 		actions.put("login", new LoginAction());
 		actions.put("signup", new SignupAction());
+		actions.put("addHotel", new AddHotelAction());
 	}
 
 	/**

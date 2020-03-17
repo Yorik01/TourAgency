@@ -7,7 +7,6 @@ import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.dao.TransportDAO;
-import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Transport;
 import ua.nure.miroshnichenko.summarytask4.db.entity.TransportType;
 

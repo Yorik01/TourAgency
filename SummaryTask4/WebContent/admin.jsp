@@ -53,6 +53,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="/SummaryTask4/controller?action=allRoutes">
+                <i class="fa fa-search"></i>
+					Search routes
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="#">
                 <i class="fa fa-file-alt"></i>
 					Reservations

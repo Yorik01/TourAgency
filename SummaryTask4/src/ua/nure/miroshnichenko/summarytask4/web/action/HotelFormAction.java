@@ -15,8 +15,8 @@ public class HotelFormAction extends Action {
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
-		System.out.println("assjhgfhjfsfsdsfsdfjk");
 		req.setAttribute("form", Path.HOTEL_FORM);
+		
 		return Path.ADMIN_PAGE;
 	}
 }

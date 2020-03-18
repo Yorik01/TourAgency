@@ -34,6 +34,8 @@ import ua.nure.miroshnichenko.summarytask4.myorm.core.mapping.exception.NotEntit
  * @author Miroshnichenko Y. D
  */
 public final class Mapper {
+	private static List<Field> list;
+
 	private Mapper() {
 	}
 
@@ -320,20 +322,25 @@ public final class Mapper {
 		Class<? extends Entity> type = entity.getClass();
 		Table tableAnnotation = type.getAnnotation(Table.class);
 
-		Field[] fields = type.getDeclaredFields();
-
+		List<Field> fields = Arrays.asList(type.getDeclaredFields()).stream()
+				.filter(x -> x.isAnnotationPresent(Column.class)).collect(Collectors.toList());
+		
 		StringBuilder valueStatement = new StringBuilder();
-		for (int i = 0; i < fields.length; i++) {
-			Column column = fields[i].getAnnotation(Column.class);
+		
+		Iterator<Field> iterator = fields.iterator();
+		while (true) {
+			Field field = iterator.next();
+			
+			Column column = field.getAnnotation(Column.class);
 			if (column != null) {
-				PrimaryKey primaryKey = fields[i].getAnnotation(PrimaryKey.class);
+				PrimaryKey primaryKey = field.getAnnotation(PrimaryKey.class);
 				if (primaryKey == null || (primaryKey != null && !primaryKey.autoIncrement())) {
 					try {
-						PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fields[i].getName(), type);
+						PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field.getName(), type);
 						Object value = propertyDescriptor.getReadMethod().invoke(entity);
 
-						if (fields[i].isAnnotationPresent(Enumerated.class)) {
-							Enum<?> en = Enum.valueOf((Class<? extends Enum>) fields[i].getType(), value.toString());
+						if (field.isAnnotationPresent(Enumerated.class)) {
+							Enum<?> en = Enum.valueOf((Class<? extends Enum>) field.getType(), value.toString());
 							value = en.ordinal() + 1;
 						}
 
@@ -344,9 +351,10 @@ public final class Mapper {
 						throw new MappingReflectiveException(e);
 					}
 
-					if (i != fields.length - 1) {
-						valueStatement.append(", ");
+					if (!iterator.hasNext()) {
+						break;
 					}
+					valueStatement.append(',');
 				}
 			}
 		}

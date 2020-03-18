@@ -144,7 +144,7 @@ class TransactionFactoryImpl implements TransactionFactory {
 			try {
 				Map<String, Object> condition = Mapper.getPrimaryKeysWithValues(entity);
 				String query = Mapper.getCrudQuery(entity, CrudOperation.UPDATE, condition);
-
+System.out.println(query);
 				return connection.executeUpdate(query);
 			} catch (DBConnectionException | MappingReflectiveException e) {
 				throw new TransactionException(e);

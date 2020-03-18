@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 </head>
 	<body>
-		<form method="post" action="/SummaryTask4/controller?action=addRoute">
+		<form method="post" action="/SummaryTask4/controller?action=${op}Route">
 			<div class="form-group">
 				<label for="select-route-country-from">Country from</label>
 				<select id="select-route-country-from" name="countryFrom" class="form-control" class="route-countries">
@@ -37,7 +38,7 @@
 		<script src="js/route.js"></script>
 		<script>
 			let places = JSON.parse('${requestScope.places}');
-			console.log(places)
+			
 			let countryFrom = $("#select-route-country-from");
 			let countryTo = $("#select-route-country-to");
 			
@@ -62,6 +63,20 @@
 				let selectedCountry = $(this).children('option:selected').val();
 				setCities(places[selectedCountry], citiesTo);
 			});
+			
+			<c:if test="${op eq 'edit'}">
+				countryFrom.val("${route.from.country}");
+				countryTo.val("${route.to.country}");
+
+				selectedCountry = countryFrom.children('option:selected').val();
+				setCities(places[selectedCountry], citiesFrom);
+				
+				selectedCountry = countryTo.children('option:selected').val();
+				setCities(places[selectedCountry], citiesTo);
+				
+				cityFrom.val("${route.from.city}");
+				cityTo.val("${route.to.city}");
+			</c:if>
 		</script>
 	</body>
 </html>

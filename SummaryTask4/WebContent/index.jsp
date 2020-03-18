@@ -4,6 +4,7 @@
 
 <c:set var="title" value="Error" scope="page" />
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
+
 <!DOCTYPE html>
 <html>
 <head>

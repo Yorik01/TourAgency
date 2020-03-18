@@ -25,6 +25,7 @@ public class ActionFactory {
 		actions.put("routeForm", new RouteFormAction());
 		actions.put("tourForm", new TourFormAction());
 		actions.put("transportForm", new TransportFormAction());
+		actions.put("allRoutes", new AllRoutesAction());
 	}
 
 	/**

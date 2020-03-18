@@ -38,7 +38,7 @@ public class Controller extends HttpServlet {
 		// extract command name from the request
 		String commandName = request.getParameter("action");
 		//LOG.trace("Request parameter: command --> " + commandName);
-
+System.out.println(commandName);
 		// obtain command object by its name
 		Action action = ActionFactory.get(commandName);
 		//LOG.trace("Obtained command --> " + command);

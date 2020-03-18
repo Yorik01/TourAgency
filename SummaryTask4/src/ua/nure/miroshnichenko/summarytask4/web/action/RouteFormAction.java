@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import ua.nure.miroshnichenko.summarytask4.db.entity.Place;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Route;
 import ua.nure.miroshnichenko.summarytask4.service.RouteService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
@@ -57,6 +58,21 @@ public class RouteFormAction extends Action {
 		
 		req.setAttribute("form", Path.ROUTE_FORM);
 		req.setAttribute("places", jsonPlaces);
+		req.setAttribute("op", "add");
+		
+		if(Boolean.parseBoolean(req.getParameter("edit"))) {
+			Integer id = Integer.parseInt(req.getParameter("id"));
+			Route route;
+			
+			try {
+				route = routeService.get(id);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			}
+			req.setAttribute("route", route);
+			req.setAttribute("op", "edit");
+		}
 		
 		return Path.ADMIN_PAGE;
 	}

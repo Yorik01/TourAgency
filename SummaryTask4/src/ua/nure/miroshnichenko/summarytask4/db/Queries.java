@@ -13,7 +13,7 @@ public final class Queries {
 	public static final String HOTEL_FACILITIES = "SELECT *"
 			+ "FROM facility f "
 			+ "INNER JOIN hotel_facility hf USING (facility_id)"
-			+ " WHERE hs.hotel_id = ?";
+			+ " WHERE hf.hotel_id = ?";
 	
 	public static final String USER_RESERVATIONS = "SELECT * reservation r WHERE user_id = ?";
 	
@@ -35,7 +35,7 @@ public final class Queries {
 	public static final String SET_SERVICING_FOR_HOTEL = "INSERT INTO hotel_service VALUES(?, ?)";
 	
 	public static final String PLACE_BY_COUNTRY_AND_CITY = "SELECT * FROM place WHERE"
-			+ "place_country = ? AND place_city = ?";
+			+ " place_country = ? AND place_city = ?";
 	
 	public static final String FILTER_TOUR = "SELECT * FROM tour t"
 			+ "INNER JOIN hotel h USING (hotel_id)"

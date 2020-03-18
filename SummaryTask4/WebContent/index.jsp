@@ -39,14 +39,14 @@
    			</div>
 			<div class="dates d-inline-flex">
 			  <div class="start_date input-group ml-3">
-			    <input class="form-control start_date" type="text" placeholder="start date" class="startdate_datepicker">
+			    <input class="form-control start_date" type="text" placeholder="start date" id="startdate_datepicker">
 			    <div class="input-group-append">
 			      <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 			    </div>
 			
 			  </div>
 			  <div class="end_date input-group ml-3 mr-3">
-			    <input class="form-control end_date" type="text" placeholder="end date" class="enddate_datepicker">
+			    <input class="form-control end_date" type="text" placeholder="end date" id="enddate_datepicker">
 			    <div class="input-group-append">
 			      <span class="fa fa-calendar input-group-text end_date_calendar" aria-hidden="true "></span>
 			    </div>
@@ -252,7 +252,7 @@
 		</c:forEach>
 	</div>
 
-<script src="bootstrap/js/moment.js"></script>	
+<script src="bootstrap/js/moment.min.js"></script>	
 <script src="js/jquery-3.4.1.min.js" ></script>
 <script src="js/popper.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>

@@ -16,10 +16,10 @@ public class Route implements Entity {
 	@Column("route_id")
 	private Integer id;
 
-	@Column("route_to_id")
+	@Column("route_to")
 	private Integer routeToId;
 
-	@Column("route_from_id")
+	@Column("route_from")
 	private Integer routeFromId;
 
 	private Place to;

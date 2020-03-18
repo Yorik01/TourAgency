@@ -106,4 +106,19 @@ public class RouteServiceImpl implements RouteService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	@Override
+	public List<Place> getAllPlaces() throws ServiceException {
+		List<Place> places = null;
+		
+		try {
+			PlaceDAO dao = factoryDAO.getPlaceDAO();
+			places = dao.findAll();
+			
+			return places;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
 }

@@ -1,6 +1,7 @@
 package ua.nure.miroshnichenko.summarytask4.db.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
@@ -23,10 +24,10 @@ public class Transport implements Entity {
 	private String code;
 
 	@Column("takeoff_time")
-	private Date takeoff;
+	private Timestamp takeoff;
 
 	@Column("arrive_time")
-	private Date arrive;
+	private Timestamp arrive;
 
 	@Column("max_places")
 	private Integer maxPlaces;
@@ -67,19 +68,19 @@ public class Transport implements Entity {
 		this.code = code;
 	}
 
-	public Date getTakeoff() {
+	public Timestamp getTakeoff() {
 		return takeoff;
 	}
 
-	public void setTakeoff(Date takeoff) {
+	public void setTakeoff(Timestamp takeoff) {
 		this.takeoff = takeoff;
 	}
 
-	public Date getArrive() {
+	public Timestamp getArrive() {
 		return arrive;
 	}
 
-	public void setArrive(Date arrive) {
+	public void setArrive(Timestamp arrive) {
 		this.arrive = arrive;
 	}
 

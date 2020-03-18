@@ -9,35 +9,35 @@
 	<form method="post" action="/SummaryTask4/controller?action=addHotel">
 		<div class="form-group row">
 			<label for="set-hotel-name">Name</label>
-			<input id="set-hotel-name" name="name" required>
+			<input id="set-hotel-name" name="name" class="form-control" required>
 		</div>
 		<div class="form-group row">
 			<label for="set-hotel-info">Info</label>
-			<textarea id="set-hotel-info" name="info" required></textarea>
+			<textarea id="set-hotel-info" name="info" class="form-control" required></textarea>
 		</div>
 		<div class="form-group row">
 			<label for="set-hotel-address">Address</label>
-			<input id="set-hotel-address" name="address" required>
+			<input id="set-hotel-address" name="address" class="form-control" required>
 		</div>	
 		<div class="form-group">
 			<label for="set-hotel-tel">Telephone</label>
-			<input id="set-hotel-tel" name="tel" required>
+			<input id="set-hotel-tel" name="tel" class="form-control" required>
 		</div>
 		<div class="form-group">
 			<label for="set-hotel-site">Site</label>
-			<input id="set-hotel-site" name="site" required>
+			<input id="set-hotel-site" name="site" class="form-control" required>
 		</div>
 		<div class="form-group">
 			<label for="set-hotel-stars">Stars</label>
-			<input id="set-hotel-stars" name="stars" type="number" minValue="1" maxValue="5" required>
+			<input id="set-hotel-stars" name="stars" class="form-control" type="number" minValue="1" maxValue="5" required>
 		</div>
 		<div class="form-group">
 			<label for="set-hotel-max-rooms">Max count of rooms</label>
-			<input id="set-hotel-max-rooms" name="maxRooms" required>
+			<input id="set-hotel-max-rooms" class="form-control" name="maxRooms" required>
 		</div>
 		<div class="form-group">
 			<label for="set-hotel-price">Price</label>
-			<input id="set-hotel-price" name="price" type="number" required>
+			<input id="set-hotel-price" name="price" class="form-control" type="number" required>
 		</div>
 		<div class="form-group">
 			<label for="select-hotel-type">Hotel type</label>
@@ -71,23 +71,23 @@
 			<h3>Facilities</h3>
 			<div class="form-group">
 				<label for="choose-falility-wifi">Wifi</label>
-				<input class="form-check-input" name="facilities" value="WIFI" type="checkbox" id="choose-falility-wifi">
+				<input class="form-check-input form-control" name="facilities" value="WIFI" type="checkbox" id="choose-falility-wifi">
 			</div>
 			<div class="form-group">
 				<label for="choose-falility-minibar">Minibar</label>
-				<input class="form-check-input" name="facilities" value="MINIBAR" type="checkbox" id="choose-falility-minibar">
+				<input class="form-check-input form-control" name="facilities" value="MINIBAR" type="checkbox" id="choose-falility-minibar">
 			</div>
 			<div class="form-group">
 				<label for="choose-falility-hairdryer">Hairdryer</label>
-				<input class="form-check-input" name="facilities" value="HAIRDRYER" type="checkbox" id="choose-falility-hairdryer">
+				<input class="form-check-input form-control" name="facilities" value="HAIRDRYER" type="checkbox" id="choose-falility-hairdryer">
 			</div>
 			<div class="form-group">
 				<label for="choose-falility-conditioner">Conditioner</label>
-				<input class="form-check-input" name="facilities" value="CONDITIONER" type="checkbox" id="choose-falility-conditioner">
+				<input class="form-check-input form-control" name="facilities" value="CONDITIONER" type="checkbox" id="choose-falility-conditioner">
 			</div>
 			<div class="form-group">
 				<label for="choose-falility-tv">TV</label>
-				<input class="form-check-input" name="facilities" value="TV" type="checkbox" id="choose-falility-tv">
+				<input class="form-check-input form-control" name="facilities" value="TV" type="checkbox" id="choose-falility-tv">
 			</div>
 		</div>
 		<div class="d-flex flex-column">
@@ -95,32 +95,32 @@
 			<h4>Sport</h4>
 			<div class="form-group">
 				<label for="choose-sport-gym">Gym</label>
-				<input class="form-check-input" name="servicings" value="GYM" type="checkbox" id="choose-sport-gym">
+				<input class="form-check-input form-control" name="servicings" value="GYM" type="checkbox" id="choose-sport-gym">
 			</div>
 			<div class="form-group">
 				<label for="choose-sport-fitnes">Fitnes</label>
-				<input class="form-check-input" name="servicings" value="FITNES" type="checkbox" id="choose-sport-fitnes">
+				<input class="form-check-input form-control" name="servicings" value="FITNES" type="checkbox" id="choose-sport-fitnes">
 			</div>
 			<div class="form-group">
 				<label for="choose-sport-diving">Diving</label>
-				<input class="form-check-input" name="servicings" value="DIVING" type="checkbox" id="choose-sport-diving">
+				<input class="form-check-input form-control" name="servicings" value="DIVING" type="checkbox" id="choose-sport-diving">
 			</div>
 			<div class="form-group">
 				<label for="choose-sport-yoga">Yoga</label>
-				<input class="form-check-input" name="servicings" value="YOGA" type="checkbox" id="choose-sport-yoga">
+				<input class="form-check-input form-control" name="servicings" value="YOGA" type="checkbox" id="choose-sport-yoga">
 			</div>
 			<h4>Entertainment</h4>
 			<div class="form-group">
 				<label for="choose-entertainment-aquapark">Aquapark</label>
-				<input class="form-check-input" name="servicings" value="AQUAPARK" type="checkbox" id="choose-entertainment-aqupark">
+				<input class="form-check-input form-control" name="servicings" value="AQUAPARK" type="checkbox" id="choose-entertainment-aqupark">
 			</div>
 			<div class="form-group">
 				<label for="choose-entertainment-disco">Disco</label>
-				<input class="form-check-input" name="servicings" value="DISCO" type="checkbox" id="choose-entertainment-disco">
+				<input class="form-check-input form-control" name="servicings" value="DISCO" type="checkbox" id="choose-entertainment-disco">
 			</div>
 			<div class="form-group">
 				<label for="choose-entertainment-restaurant">Restaurant</label>
-				<input class="form-check-input" name="servicings" value="RESTAURANT" type="checkbox" id="choose-entertainment-restaurant">
+				<input class="form-check-input form-control" name="servicings" value="RESTAURANT" type="checkbox" id="choose-entertainment-restaurant">
 			</div>
 		</div>		
 		<button class="btn btn-primary" type="submit">Save</button>

@@ -13,7 +13,7 @@ public class Place implements Entity {
 
 	@PrimaryKey
 	@Generated
-	@Column("palce_id")
+	@Column("place_id")
 	private Integer id;
 
 	@Column("place_country")

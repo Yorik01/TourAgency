@@ -29,7 +29,7 @@ public class Tour implements Entity {
 	private Date endDate;
 
 	@Column("is_fired")
-	private Byte fired;
+	private Integer fired;
 
 	@Enumerated
 	@Column("tour_type_id")
@@ -87,11 +87,11 @@ public class Tour implements Entity {
 		this.endDate = endDate;
 	}
 
-	public Byte isFired() {
+	public Integer isFired() {
 		return fired;
 	}
 
-	public void setFired(Byte fired) {
+	public void setFired(Integer fired) {
 		this.fired = fired;
 	}
 

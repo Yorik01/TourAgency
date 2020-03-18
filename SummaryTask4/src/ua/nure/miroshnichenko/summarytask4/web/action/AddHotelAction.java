@@ -40,9 +40,9 @@ public class AddHotelAction extends Action {
 		String address = req.getParameter("address");
 		String tel = req.getParameter("tel");
 		String site = req.getParameter("site");
-		Byte stars = Byte.valueOf(req.getParameter("stars"));
-		Integer maxRooms = Integer.valueOf(req.getParameter("maxRooms"));
-		Double price = Double.valueOf(req.getParameter("price"));
+		Integer stars = Integer.parseInt(req.getParameter("stars"));
+		Integer maxRooms = Integer.parseInt(req.getParameter("maxRooms"));
+		Double price = Double.parseDouble(req.getParameter("price"));
 		HotelType type = HotelType.valueOf(req.getParameter("type"));
 		Food food = Food.valueOf(req.getParameter("food"));
 		Beach beach = Beach.valueOf(req.getParameter("beach"));

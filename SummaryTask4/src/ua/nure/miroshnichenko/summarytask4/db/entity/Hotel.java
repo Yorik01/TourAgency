@@ -35,7 +35,7 @@ public class Hotel implements Entity {
 	private String site;
 
 	@Column("hotel_stars")
-	private Byte stars;
+	private Integer stars;
 
 	@Column("hotel_max_rooms")
 	private Integer maxRooms;
@@ -52,7 +52,7 @@ public class Hotel implements Entity {
 	private Food food;
 
 	@Enumerated
-	@Column("beach_type_id")
+	@Column("beach_id")
 	private Beach beach;
 
 	private Set<Servicing> servicings;
@@ -107,11 +107,11 @@ public class Hotel implements Entity {
 		this.site = site;
 	}
 
-	public Byte getStars() {
+	public Integer getStars() {
 		return stars;
 	}
 
-	public void setStars(Byte stars) {
+	public void setStars(Integer stars) {
 		this.stars = stars;
 	}
 

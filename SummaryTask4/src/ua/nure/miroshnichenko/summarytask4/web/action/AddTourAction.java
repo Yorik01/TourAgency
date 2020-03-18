@@ -11,11 +11,11 @@ import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 import ua.nure.miroshnichenko.summarytask4.db.entity.TourType;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Transport;
-import ua.nure.miroshnichenko.summarytask4.db.entity.TransportType;
 import ua.nure.miroshnichenko.summarytask4.service.HotelService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
 import ua.nure.miroshnichenko.summarytask4.service.TourService;
 import ua.nure.miroshnichenko.summarytask4.service.TransportService;
+import ua.nure.miroshnichenko.summarytask4.web.Path;
 
 public class AddTourAction extends Action {
 
@@ -29,26 +29,25 @@ public class AddTourAction extends Action {
 		HotelService hotelService = serviceFactory.getHotelService();
 		TransportService transportService = serviceFactory.getTransportService();
 		
-		Date startDate = Date.valueOf(req.getParameter("startDate"));
-		Date endDate = Date.valueOf(req.getParameter("endDate"));
-		Double agencyProcent = Double.valueOf(req.getParameter("agencyProcent"));
-		Byte isFired = Byte.valueOf(req.getParameter("isFired"));
-		Double maxDiscount = Double.valueOf(req.getParameter("maxDiscount"));
+		String[] startDate = req.getParameter("startDate").split("/");
+		String[] endDate = req.getParameter("endDate").split("/");
+		Double agencyProcent = Double.parseDouble(req.getParameter("agencyProcent"));
+		Integer isFired = req.getParameterValues("isFired").length > 0 ? 1 : 0;
+		Double maxDiscount = Double.parseDouble(req.getParameter("maxDiscount"));
 		
 		TourType type = TourType.valueOf(req.getParameter("type"));
 		
 		Hotel hotel = null;
 		Transport transportTo = null;
 		Transport transportBack = null;
+		
+		Date start = Date.valueOf(startDate[2] + "-" + startDate[0] + "-" + startDate[1]);
+		Date end = Date.valueOf(endDate[2] + "-" + endDate[0] + "-" + endDate[1]);
 
 		try {
-			hotel = hotelService.getHotelByName(req.getParameter("hotel"));
-			transportTo = transportService.getTransportByCodeAndType(
-					req.getParameter("transportToCode"),
-					TransportType.valueOf(req.getParameter("transportToType")));
-			transportBack = transportService.getTransportByCodeAndType(
-					req.getParameter("transportBackCode"),
-					TransportType.valueOf(req.getParameter("transportBackType")));
+			hotel = hotelService.get(Integer.parseInt(req.getParameter("hotel")));
+			transportTo = transportService.get(Integer.parseInt(req.getParameter("transportTo")));
+			transportBack = transportService.get(Integer.parseInt(req.getParameter("transportBack")));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
@@ -58,8 +57,8 @@ public class AddTourAction extends Action {
 		Tour tour = new Tour();
 		
 		tour.setType(type);
-		tour.setStartDate(startDate);
-		tour.setEndDate(endDate);
+		tour.setStartDate(start);
+		tour.setEndDate(end);
 		tour.setAgencyProcent(agencyProcent);
 		tour.setFired(isFired);
 		tour.setMaxDiscount(maxDiscount);
@@ -74,6 +73,6 @@ public class AddTourAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		return "/SummaryTask4/admin.jsp";
+		return Path.ADMIN_PAGE;
 	}
 }

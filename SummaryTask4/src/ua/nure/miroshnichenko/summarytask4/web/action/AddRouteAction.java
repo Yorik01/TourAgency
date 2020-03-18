@@ -22,14 +22,17 @@ public class AddRouteAction extends Action {
 		
 		RouteService routeService = serviceFactory.getRouteService();
 		
-		String[] from = req.getParameter("from").split(",");
-		String[] to = req.getParameter("to").split(",");
+		String countryFrom = req.getParameter("countryFrom");
+		String cityFrom = req.getParameter("cityFrom");
+		
+		String countryTo = req.getParameter("countryTo");
+		String cityTo = req.getParameter("cityTo");
 
 		Place fromPlace = null;
 		Place toPlace = null;
 		try {
-			fromPlace = routeService.getPlaceByCountryAndCity(from[0], from[1]);
-			toPlace = routeService.getPlaceByCountryAndCity(to[0], to[1]);
+			fromPlace = routeService.getPlaceByCountryAndCity(countryFrom, cityFrom);
+			toPlace = routeService.getPlaceByCountryAndCity(countryTo, cityTo);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
@@ -37,8 +40,15 @@ public class AddRouteAction extends Action {
 
 		Route route = new Route();
 		
-		route.setFrom(fromPlace);
-		route.setTo(toPlace);
+		route.setRouteFromId(fromPlace.getId());
+		route.setRouteToId(toPlace.getId());;
+		
+		try {
+			routeService.save(route);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ActionException(e);
+		}
 		
 		return Path.ADMIN_PAGE;
 	}

@@ -9,7 +9,15 @@ public final class Path {
 	
 	public static final String ERR_PAGE = "/error.jsp";
 	
-	public static final String ADMIN_PAGE = "/SummaryTask4/admin.jsp";
+	public static final String ADMIN_PAGE = "admin.jsp";
 	
 	public static final String TOURS_PAGE = "/SummaryTask4/tours.jsp";
+	
+	public static final String HOTEL_FORM = "/WEB-INF/jsp/HotelForm.jsp";
+	
+	public static final String ROUTE_FORM = "/WEB-INF/jsp/RouteForm.jsp";
+
+	public static final String TRANSPORT_FORM = "/WEB-INF/jsp/TransportForm.jsp";
+
+	public static final String TOUR_FORM = "/WEB-INF/jsp/TourForm.jsp";
 }

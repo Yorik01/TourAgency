@@ -15,7 +15,7 @@
 <body>
 	<div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-white h-100 sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-white h-100 sidebar position-fixed">
           <div class="sidebar-sticky">
            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Tours</span>
@@ -55,7 +55,13 @@
               <li class="nav-item">
                 <a class="nav-link" href="/SummaryTask4/controller?action=allRoutes">
                 <i class="fa fa-search"></i>
-					Search routes
+					Routes
+                </a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link" href="/SummaryTask4/controller?action=allHotels">
+                <i class="fa fa-search"></i>
+					Hotels
                 </a>
               </li>
               <li class="nav-item">

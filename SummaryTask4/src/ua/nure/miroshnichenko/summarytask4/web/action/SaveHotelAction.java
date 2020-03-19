@@ -23,7 +23,7 @@ import ua.nure.miroshnichenko.summarytask4.service.HotelService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
 
-public class AddHotelAction extends Action {
+public class SaveHotelAction extends Action {
 
 	private static final long serialVersionUID = -8849483309313250899L;
 
@@ -75,6 +75,19 @@ public class AddHotelAction extends Action {
 		hotel.setFacilities(facilities);
 		hotel.setServicings(servicings);
 
+		if(Boolean.parseBoolean(req.getParameter("edit"))) {
+			Integer id = Integer.parseInt(req.getParameter("id"));
+			
+			hotel.setId(id);
+			try {
+				hotelService.update(hotel);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			}
+			return Path.ADMIN_PAGE;
+		}
+		
 		try {
 			hotelService.save(hotel);
 		} catch (ServiceException e) {

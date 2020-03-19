@@ -22,4 +22,6 @@ public final class Path {
 	public static final String TOUR_FORM = "/WEB-INF/jsp/TourForm.jsp";
 	
 	public static final String ROUTES_LIST = "/WEB-INF/jsp/Routes.jsp";
+	
+	public static final String HOTELS_LIST = "/WEB-INF/jsp/hotels.jsp";
 }

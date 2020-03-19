@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.el.stream.Stream;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import com.sun.swing.internal.plaf.metal.resources.metal;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.mapping.CrudOperation;
@@ -144,7 +145,7 @@ class TransactionFactoryImpl implements TransactionFactory {
 			try {
 				Map<String, Object> condition = Mapper.getPrimaryKeysWithValues(entity);
 				String query = Mapper.getCrudQuery(entity, CrudOperation.UPDATE, condition);
-System.out.println(query);
+
 				return connection.executeUpdate(query);
 			} catch (DBConnectionException | MappingReflectiveException e) {
 				throw new TransactionException(e);
@@ -236,8 +237,13 @@ System.out.println(query);
 		}
 
 		@Override
-		public void close() {
-			connectionsPool.free(connection);
+		public void close() throws TransactionException {
+			try {
+				connectionsPool.free(connection);
+			} catch (ConnectionsPoolException e) {
+				e.printStackTrace();
+				throw new TransactionException(e);
+			}
 			status = TransactionStatus.CLOSED;
 		}
 

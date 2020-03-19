@@ -30,6 +30,7 @@ public class AllRoutesAction extends Action {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
+		
 		req.setAttribute("routes", routes);
 		req.setAttribute("form", Path.ROUTES_LIST);
 		

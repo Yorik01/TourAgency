@@ -15,9 +15,9 @@ public class ActionFactory {
 //		LOG.trace("Number of actions --> " + actions.size());
 		actions.put("login", new LoginAction());
 		actions.put("signup", new SignupAction());
-		actions.put("addHotel", new AddHotelAction());
+		actions.put("saveHotel", new SaveHotelAction());
 		actions.put("addTour", new AddTourAction());
-		actions.put("addRoute", new AddRouteAction());
+		actions.put("saveRoute", new SaveRouteAction());
 		actions.put("addTransport", new AddTransportAction());
 		actions.put("allTours", new AllToursAction());
 		actions.put("filterTour", new FilterTourAction());
@@ -26,6 +26,7 @@ public class ActionFactory {
 		actions.put("tourForm", new TourFormAction());
 		actions.put("transportForm", new TransportFormAction());
 		actions.put("allRoutes", new AllRoutesAction());
+		actions.put("allHotels", new AllHotelsAction());
 	}
 
 	/**

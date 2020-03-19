@@ -12,7 +12,7 @@ import ua.nure.miroshnichenko.summarytask4.service.RouteService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
 
-public class AddRouteAction extends Action {
+public class SaveRouteAction extends Action {
 
 	private static final long serialVersionUID = -7635684849165292423L;
 
@@ -42,6 +42,19 @@ public class AddRouteAction extends Action {
 		
 		route.setRouteFromId(fromPlace.getId());
 		route.setRouteToId(toPlace.getId());;
+
+		if(Boolean.parseBoolean(req.getParameter("edit"))) {
+			Integer id = Integer.parseInt(req.getParameter("id"));
+			
+			route.setId(id);
+			try {
+				routeService.update(route);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			}
+			return Path.ADMIN_PAGE;
+		}
 		
 		try {
 			routeService.save(route);

@@ -177,10 +177,17 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 	 * If this pool has been blocked it wakes up all threads
 	 */
 	@Override
-	public synchronized void free(DBConnection connection) {
+	public synchronized void free(DBConnection connection) throws ConnectionsPoolException {
 		usedPool.remove(connection);
 		freePool.add((DBConnectionImpl) connection);
 
+		try {
+			((DBConnectionImpl)connection).makeWait();
+		} catch (DBConnectionException e) {
+			e.printStackTrace();
+			throw new ConnectionsPoolException(e);
+		}
+		
 		if (isBlocked) {
 			notifyAll();
 			isBlocked = false;
@@ -212,7 +219,7 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 	public int size() {
 		return freePool.size() + usedPool.size();
 	}
-
+	
 	@Override
 	public int getLimit() {
 		return limit;

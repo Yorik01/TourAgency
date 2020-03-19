@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 </head>
 	<body>
-		<form method="post" action="/SummaryTask4/controller?action=${op}Route">
+		<form method="post" action="/SummaryTask4/controller?action=saveRoute&edit=${param.edit}">
 			<div class="form-group">
 				<label for="select-route-country-from">Country from</label>
 				<select id="select-route-country-from" name="countryFrom" class="form-control" class="route-countries">
@@ -28,6 +28,10 @@
 				<select id="select-route-city-to" name="cityTo" class="form-control">
 				</select>
 			</div>
+			<c:if test="${param.edit eq 'true'}">
+				<input type="hidden" name="id" value="${route.id}" />
+				<input type="hidden" name="edit" value="true" />
+			</c:if>
 			<button class="btn btn-primary" type="submit">Save</button>
 		</form>
 		
@@ -64,7 +68,7 @@
 				setCities(places[selectedCountry], citiesTo);
 			});
 			
-			<c:if test="${op eq 'edit'}">
+			<c:if test="${param.edit eq 'true'}">
 				countryFrom.val("${route.from.country}");
 				countryTo.val("${route.to.country}");
 

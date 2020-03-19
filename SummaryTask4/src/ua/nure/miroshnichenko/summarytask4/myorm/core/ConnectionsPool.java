@@ -37,7 +37,7 @@ public interface ConnectionsPool extends AutoCloseable {
 	 * 
 	 * @param connection which is finished to use.
 	 */
-	void free(DBConnection connection);
+	void free(DBConnection connection) throws ConnectionsPoolException;
 
 	/**
 	 * Set the time interval for working of internal collector which removes unused

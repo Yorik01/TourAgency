@@ -212,6 +212,7 @@ public final class Mapper {
 				Column column = field.getAnnotation(Column.class);
 
 				Object value = resultSet.getObject(column.value());
+
 				if (field.isAnnotationPresent(Enumerated.class)) {
 					if (value instanceof Integer) {
 						Integer index = (Integer) value;

@@ -45,4 +45,9 @@ public class Place implements Entity {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	@Override
+	public String toString() {
+		return "{country: " + country + ", city: " + city + "}";
+	}
 }

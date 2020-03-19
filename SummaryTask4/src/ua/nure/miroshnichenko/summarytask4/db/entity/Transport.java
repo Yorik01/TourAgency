@@ -1,6 +1,5 @@
 package ua.nure.miroshnichenko.summarytask4.db.entity;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;

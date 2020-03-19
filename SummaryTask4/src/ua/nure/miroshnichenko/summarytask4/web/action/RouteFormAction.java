@@ -58,7 +58,6 @@ public class RouteFormAction extends Action {
 		
 		req.setAttribute("form", Path.ROUTE_FORM);
 		req.setAttribute("places", jsonPlaces);
-		req.setAttribute("op", "add");
 		
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
 			Integer id = Integer.parseInt(req.getParameter("id"));
@@ -71,7 +70,6 @@ public class RouteFormAction extends Action {
 				throw new ActionException(e);
 			}
 			req.setAttribute("route", route);
-			req.setAttribute("op", "edit");
 		}
 		
 		return Path.ADMIN_PAGE;

@@ -65,4 +65,9 @@ public class Route implements Entity {
 	public void setFrom(Place from) {
 		this.from = from;
 	}
+	
+	@Override
+	public String toString() {
+		return "{from: " + from.toString() + ", to: " + to + "}";
+	}
 }

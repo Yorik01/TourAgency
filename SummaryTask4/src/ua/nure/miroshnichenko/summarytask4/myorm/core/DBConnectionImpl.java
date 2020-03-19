@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import com.sun.jndi.url.corbaname.corbanameURLContextFactory;
-
 import java.sql.CallableStatement;
 
 /**
@@ -44,6 +42,7 @@ class DBConnectionImpl implements DBConnection {
 		try {
 			sqlConnection = DriverManager.getConnection(url, info);
 			sqlConnection.setAutoCommit(false);
+			sqlConnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 			makeWait();
 		} catch (SQLException e) {
 			throw new DBConnectionException(e.getMessage(), e.getCause());

@@ -34,7 +34,6 @@ import ua.nure.miroshnichenko.summarytask4.myorm.core.mapping.exception.NotEntit
  * @author Miroshnichenko Y. D
  */
 public final class Mapper {
-	private static List<Field> list;
 
 	private Mapper() {
 	}

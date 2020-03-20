@@ -16,9 +16,9 @@ public class ActionFactory {
 		actions.put("login", new LoginAction());
 		actions.put("signup", new SignupAction());
 		actions.put("saveHotel", new SaveHotelAction());
-		actions.put("addTour", new AddTourAction());
+		actions.put("saveTour", new SaveTourAction());
 		actions.put("saveRoute", new SaveRouteAction());
-		actions.put("addTransport", new AddTransportAction());
+		actions.put("saveTransport", new SaveTransportAction());
 		actions.put("allTours", new AllToursAction());
 		actions.put("filterTour", new FilterTourAction());
 		actions.put("hotelForm", new HotelFormAction());

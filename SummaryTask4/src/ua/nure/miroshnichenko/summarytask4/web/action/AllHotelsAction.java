@@ -29,7 +29,7 @@ public class AllHotelsAction extends Action {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
-		System.out.println(hotels.get(0).getStars());
+
 		req.setAttribute("hotels", hotels);
 		req.setAttribute("form", Path.HOTELS_LIST);
 		

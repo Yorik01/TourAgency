@@ -34,6 +34,10 @@ public final class Queries {
 	
 	public static final String SET_SERVICING_FOR_HOTEL = "INSERT INTO hotel_service VALUES(?, ?)";
 	
+	public static final String UPDATE_FACILITY_FOR_HOTEL = "UPDATE hotel_facility SET facility_id = ? WHERE hotel_id = ?";
+	
+	public static final String UPDATE_SERVICING_FOR_HOTEL = "UPDATE hotel_service SET service_id = ? WHERE hotel_id = ?";
+	
 	public static final String PLACE_BY_COUNTRY_AND_CITY = "SELECT * FROM place WHERE"
 			+ " place_country = ? AND place_city = ?";
 	

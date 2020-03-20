@@ -6,9 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.RespectBinding;
-
-import org.apache.tomcat.util.buf.UEncoder.SafeCharsSet;
 
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 import ua.nure.miroshnichenko.summarytask4.service.AuthentificationService;

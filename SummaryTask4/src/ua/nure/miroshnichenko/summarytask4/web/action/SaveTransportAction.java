@@ -9,12 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.summarytask4.db.entity.Transport;
 import ua.nure.miroshnichenko.summarytask4.db.entity.TransportType;
-import ua.nure.miroshnichenko.summarytask4.service.RouteService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
 import ua.nure.miroshnichenko.summarytask4.service.TransportService;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
 
-public class AddTransportAction extends Action {
+public class SaveTransportAction extends Action {
 
 	private static final long serialVersionUID = -8768622351135882140L;
 
@@ -22,7 +21,6 @@ public class AddTransportAction extends Action {
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
 
-		RouteService routeService = serviceFactory.getRouteService();
 		TransportService transportService = serviceFactory.getTransportService();
 		
 		String code = req.getParameter("code");
@@ -54,6 +52,19 @@ public class AddTransportAction extends Action {
 		transport.setPrice(price);
 		transport.setType(type);
 		transport.setRouteId(Integer.valueOf(req.getParameter("routeId")));;
+		
+		if(Boolean.parseBoolean(req.getParameter("edit"))) {
+			Integer id = Integer.parseInt(req.getParameter("id"));
+			
+			transport.setId(id);
+			try {
+				transportService.update(transport);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			}
+			return Path.ADMIN_PAGE;
+		}
 		
 		try {
 			transportService.save(transport);

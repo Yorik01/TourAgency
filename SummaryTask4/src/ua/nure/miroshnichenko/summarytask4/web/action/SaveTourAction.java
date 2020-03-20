@@ -17,7 +17,7 @@ import ua.nure.miroshnichenko.summarytask4.service.TourService;
 import ua.nure.miroshnichenko.summarytask4.service.TransportService;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
 
-public class AddTourAction extends Action {
+public class SaveTourAction extends Action {
 
 	private static final long serialVersionUID = -1268399077232461229L;
 
@@ -25,7 +25,7 @@ public class AddTourAction extends Action {
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
 		
-		TourService tourService = serviceFactory.geTourService();
+		TourService tourService = serviceFactory.getTourService();
 		HotelService hotelService = serviceFactory.getHotelService();
 		TransportService transportService = serviceFactory.getTransportService();
 		

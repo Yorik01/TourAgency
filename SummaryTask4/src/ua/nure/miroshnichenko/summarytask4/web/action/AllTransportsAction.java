@@ -7,31 +7,32 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Transport;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
-import ua.nure.miroshnichenko.summarytask4.service.TourService;
+import ua.nure.miroshnichenko.summarytask4.service.TransportService;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
 
-public class FilterTourAction extends Action {
+public class AllTransportsAction extends Action {
 
-	private static final long serialVersionUID = -3692502748918177449L;
+	private static final long serialVersionUID = -68790491746311415L;
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
 		
-		TourService tourService = serviceFactory.getTourService();
-
-		List<Tour> tours = null;
+		TransportService transportService = serviceFactory.getTransportService();
+		
+		List<Transport> transports;
 		try {
-			tours = tourService.filter(req.getParameterMap());
-			tours.sort((x, y) -> x.isFired().compareTo(y.isFired()));
+			transports = transportService.getAll();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
-		req.setAttribute("tours", tours);
+
+		req.setAttribute("transports", transports);
+		req.setAttribute("form", Path.TRANSPORTS_LIST);
 		
-		return Path.INDEX_PAGE;
+		return Path.ADMIN_PAGE;
 	}
 }

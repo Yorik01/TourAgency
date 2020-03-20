@@ -15,7 +15,7 @@ public class ServiceFactory {
 		return AuthentificationServiceImpl.getInstance();
 	}
 
-	public TourService geTourService() {
+	public TourService getTourService() {
 		return TourServiceImpl.getInstance();
 	}
 

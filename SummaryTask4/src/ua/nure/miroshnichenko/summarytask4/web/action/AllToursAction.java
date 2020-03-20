@@ -20,7 +20,7 @@ public class AllToursAction extends Action {
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
 		
-		TourService tourService = serviceFactory.geTourService();
+		TourService tourService = serviceFactory.getTourService();
 		List<Tour> tours = null;
 		try {
 			tours = tourService.getAll();

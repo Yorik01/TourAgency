@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Route;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Transport;
 import ua.nure.miroshnichenko.summarytask4.service.HotelService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
+import ua.nure.miroshnichenko.summarytask4.service.TourService;
 import ua.nure.miroshnichenko.summarytask4.service.TransportService;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
 
@@ -24,7 +27,7 @@ public class TourFormAction extends Action {
 		
 		TransportService transportService = serviceFactory.getTransportService();
 		HotelService hotelService = serviceFactory.getHotelService();
-		
+		TourService tourService = serviceFactory.getTourService();
 		
 		List<Hotel> hotels = null;
 		List<Transport> transports = null;
@@ -40,6 +43,19 @@ public class TourFormAction extends Action {
 		req.setAttribute("form", Path.TOUR_FORM);
 		req.setAttribute("hotels", hotels);
 		req.setAttribute("transports", transports);
+		
+		if(Boolean.parseBoolean(req.getParameter("edit"))) {
+			Integer id = Integer.parseInt(req.getParameter("id"));
+			Tour tour;
+			
+			try {
+				tour = tourService.get(id);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			}
+			req.setAttribute("tour", tour);
+		}
 		
 		return Path.ADMIN_PAGE;
 	}

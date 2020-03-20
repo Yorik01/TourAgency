@@ -99,12 +99,13 @@ public class MysqlHotelDAO implements HotelDAO {
 
 			for (Facility facility : entity.getFacilities()) {
 				Facility facility2 = facilityDAO.getFacilityByName(facility.getName());
-				transaction.customUpdate(Queries.SET_FACILITY_FOR_HOTEL, entity.getId(), facility2.getId());
+				result = result && transaction.customUpdate(
+						Queries.SET_FACILITY_FOR_HOTEL, entity.getId(), facility2.getId());
 			}
 
 			for (Servicing servicing : entity.getServicings()) {
 				Servicing servicing2 = servicingDAO.getServicingByName(servicing.getName());
-				transaction.customUpdate(
+				result = result && transaction.customUpdate(
 						Queries.SET_SERVICING_FOR_HOTEL, entity.getId(), servicing2.getId());
 			}
 
@@ -137,6 +138,19 @@ public class MysqlHotelDAO implements HotelDAO {
 		try {
 			transaction = DBUtil.getTransaction();
 			result = transaction.update(entity);
+			
+			for (Facility facility : entity.getFacilities()) {
+				Facility facility2 = facilityDAO.getFacilityByName(facility.getName());
+				result = result && transaction.customUpdate(
+						Queries.UPDATE_FACILITY_FOR_HOTEL, facility2.getId(), entity.getId());
+			}
+
+			for (Servicing servicing : entity.getServicings()) {
+				Servicing servicing2 = servicingDAO.getServicingByName(servicing.getName());
+				result = result && transaction.customUpdate(
+						Queries.UPDATE_SERVICING_FOR_HOTEL, servicing2, entity.getId());
+			}
+			
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();

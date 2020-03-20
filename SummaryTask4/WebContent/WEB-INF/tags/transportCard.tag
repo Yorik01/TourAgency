@@ -1,5 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 
+<%@ attribute name="id" required="true" type="java.lang.Integer"%>
 <%@ attribute name="type" required="true" type="java.lang.String"%>
 <%@ attribute name="code" required="true" type="java.lang.String"%>
 <%@ attribute name="takeoff" required="true" type="java.sql.Timestamp"%>
@@ -28,7 +29,7 @@
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/SummaryTask4/controller?action=routeForm&edit=true">
+				<form method="post" action="/SummaryTask4/controller?action=transportForm&edit=true">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-success" type="submit">
 						Edit
@@ -36,7 +37,7 @@
 				</form>
 			</td>
 			<td>
-				<form method="post" action="/SummaryTask4/controller?action=deleteRoute">
+				<form method="post" action="/SummaryTask4/controller?action=deleteTransport">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-danger" type="submit">
 						Delete

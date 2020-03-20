@@ -245,7 +245,7 @@
 	<div id="tour-all" class="p-3">
 		<h1 class="mb-2">All tours</h1>
 		<c:forEach items="${requestScope.tours}" var="tour">
-			<t:tourCard 
+			<t:tourUserCard 
 			title="${tour.hotel.name}" 
 			info="${tour.hotel.info}"
 			photo=""

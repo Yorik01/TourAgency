@@ -1,13 +1,15 @@
 package ua.nure.miroshnichenko.summarytask4.web.action;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.nure.miroshnichenko.summarytask4.db.entity.Route;
+	import ua.nure.miroshnichenko.summarytask4.db.entity.Route;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Transport;
 import ua.nure.miroshnichenko.summarytask4.service.RouteService;
 import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
@@ -46,7 +48,15 @@ public class TransportFormAction extends Action {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
+			long takeOffTime = transport.getTakeoff().getTime();
+			long arriveTime = transport.getArrive().getTime();
+			
 			req.setAttribute("transport", transport);
+			
+			req.setAttribute("takeoffTime", new Time(takeOffTime));
+			req.setAttribute("takeoffDate", new Date(takeOffTime));
+			req.setAttribute("arriveTime", new Time(arriveTime));
+			req.setAttribute("arriveDate", new Date(arriveTime));
 		}
 		
 		return Path.ADMIN_PAGE;

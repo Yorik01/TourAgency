@@ -12,7 +12,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<form method="post" action="/SummaryTask4/controller?action=saveHotel&edit=${param.edit}">
+	<form method="post" enctype="multipart/form-data" action="/SummaryTask4/controller?action=saveHotel&edit=${param.edit}">
 		<div class="form-group row">
 			<label for="set-hotel-name">Name</label>
 			<input id="set-hotel-name" name="name" value="${hotel.name}" class="form-control" required>
@@ -106,7 +106,7 @@
 			<div class="form-group">
 				<label for="choose-falility-conditioner">Conditioner</label>
 				<input class="form-check-input form-control" name="facilities" value="CONDITIONER" type="checkbox" id="choose-falility-conditioner"
-				<c:if test="${fn:contains(hotel.facilities, 'CONDTITIONER')}">checked</c:if>>
+				<c:if test="${fn:contains(hotel.facilities, 'CONDITIONER')}">checked</c:if>>
 			</div>
 			<div class="form-group">
 				<label for="choose-falility-tv">TV</label>
@@ -153,7 +153,8 @@
 				<input class="form-check-input form-control" name="servicings" value="RESTAURANT" type="checkbox" id="choose-entertainment-restaurant"
 				<c:if test="${fn:contains(hotel.servicings, 'RESTAURANT')}">checked</c:if>>
 			</div>
-		</div>		
+		</div>
+		<input type="file" name="photo" multiple />		
 		<c:if test="${param.edit eq 'true'}">
 			<input type="hidden" name="id" value="${hotel.id}">
 		</c:if>

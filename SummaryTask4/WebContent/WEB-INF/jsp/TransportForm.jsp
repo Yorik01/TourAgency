@@ -36,7 +36,7 @@
                 <div class='input-group date'>
                 	<label for="transport-takeoffdate">Takeoff date</label>
                 	<br>
-                    <input type='text' name="takeoffDate" value="${new Date(transport.takeoff.getTime())}" class="form-control" id='transport-takeoffdate' />
+                    <input type='text' name="takeoffDate" value="${takeoffDate}" class="form-control" id='transport-takeoffdate' />
                     <div class="input-group-append">
 			      		<span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 			    	</div>
@@ -44,12 +44,12 @@
             </div>
             <div class="form-group">
 				<label for="transport-takeofftime">Takeoff time</label>
-				<input type="time" class="form-control" value="${new Time(transport.takeoff.getTime())}" name="takeoffTime" id="transport-takeofftime">
+				<input type="time" class="form-control" value="${takeoffTime}" name="takeoffTime" id="transport-takeofftime">
 			</div>
 			<div class="form-group">
                 <div class='input-group date'>
 					<label for="transport-takeoffdate">Arriving date</label>
-                    <input type='text' class="form-control" value="${new Date(transport.takeoff.getTime())}" name="arrivingDate" id='transport-arrivingdate' />
+                    <input type='text' class="form-control" value="${arriveDate}" name="arrivingDate" id='transport-arrivingdate' />
                     <div class="input-group-append">
 			      		<span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 			    	</div>
@@ -57,7 +57,7 @@
             </div>
 			<div class="form-group">
 				<label for="transport-arrivingtime">Arriving time</label>
-				<input type="time" class="form-control" value="${new Time(transport.takeoff.getTime())}" name="arrivingTime" id="transport-arrivingtime">
+				<input type="time" class="form-control" value="${arriveTime}" name="arrivingTime" id="transport-arrivingtime">
 			</div>
 			<div class="form-group">
 				<label for="transport-price">Price</label>
@@ -72,6 +72,10 @@
 					</c:forEach>
 				</select>
 			</div>
+			<c:if test="${param.edit eq 'true'}">
+				<input type="hidden" name="id" value="${transport.id}" />
+				<input type="hidden" name="edit" value="true" />
+			</c:if>
 			<button class="btn btn-primary" type="submit">Save</button>
 		</form>
 		

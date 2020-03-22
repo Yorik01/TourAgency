@@ -5,13 +5,11 @@ public final class Path {
 	private Path() {
 	}
 	
-	public static final String INDEX_PAGE = "/";
+	public static final String INDEX_PAGE = "/index.jsp";
 	
 	public static final String ERR_PAGE = "/error.jsp";
 	
 	public static final String ADMIN_PAGE = "admin.jsp";
-	
-	public static final String TOURS_PAGE = "/SummaryTask4/tours.jsp";
 	
 	public static final String HOTEL_FORM = "/WEB-INF/jsp/HotelForm.jsp";
 	
@@ -24,6 +22,8 @@ public final class Path {
 	public static final String ROUTES_LIST = "/WEB-INF/jsp/Routes.jsp";
 	
 	public static final String HOTELS_LIST = "/WEB-INF/jsp/hotels.jsp";
+	
+	public static final String TOURS_LIST = "/WEB-INF/jsp/tours.jsp";
 	
 	public static final String TRANSPORTS_LIST = "/WEB-INF/jsp/transports.jsp";
 }

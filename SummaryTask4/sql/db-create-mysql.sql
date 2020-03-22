@@ -32,7 +32,7 @@ CREATE TABLE users (
 	user_id INT AUTO_INCREMENT PRIMARY KEY,
 	email VARCHAR(40) NOT NULL UNIQUE,
 	password VARCHAR(40) NOT NULL,
-	is_banned BOOLEAN NOT NULL DEFAULT FALSE,
+	is_banned TINYINT(1) NOT NULL,
 	discount_step INT NOT NULL,
 	role_id INT NOT NULL REFERENCES roles(role_id)
 		ON DELETE CASCADE
@@ -74,7 +74,7 @@ CREATE TABLE service (
 
 CREATE TABLE hotel (
 	hotel_id INT AUTO_INCREMENT PRIMARY KEY,
-	hotel_name VARCHAR(50) NOT NULL,
+	hotel_name VARCHAR(50) NOT NULL UNIQUE,
 	hotel_info TEXT NOT NULL,
 	hotel_address VARCHAR(50) NOT NULL,
 	hotel_tel VARCHAR(15) NOT NULL,
@@ -165,7 +165,7 @@ CREATE TABLE tour (
 	agency_procent TINYINT(20) NOT NULL,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
-	is_fired BOOLEAN NOT NULL DEFAULT FALSE,
+	is_fired TINYINT(1) NOT NULL,
 	tour_max_discount DOUBLE NOT NULL,
 	tour_type_id INT NOT NULL REFERENCES tour_type(tour_type_id)
 		ON DELETE CASCADE
@@ -255,7 +255,7 @@ INSERT INTO service VALUES (DEFAULT, "RESTAURANT", 2);
 INSERT INTO facility VALUES (1, "WIFI");
 INSERT INTO facility VALUES (2, "MINIBAR");
 INSERT INTO facility VALUES (3, "HAIRDRYER");
-INSERT INTO facility VALUES (4, "CONDTITIONER");
+INSERT INTO facility VALUES (4, "CONDITIONER");
 INSERT INTO facility VALUES (5, "TV");
 
 -- set types of tours

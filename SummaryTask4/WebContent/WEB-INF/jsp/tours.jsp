@@ -12,8 +12,8 @@
 				<t:tourCard
 				id="${tour.id}"
 				hotel="${tour.hotel.name}"
-				country="${tour.transportTo.route.country}"
-				city="${tour.transportTo.route.city}"
+				country="${tour.transportTo.route.to.country}"
+				city="${tour.transportTo.route.to.city}"
 				transport="${tour.transportTo.type}"
 				startDate="${tour.startDate}"
 				endDate="${tour.endDate}"

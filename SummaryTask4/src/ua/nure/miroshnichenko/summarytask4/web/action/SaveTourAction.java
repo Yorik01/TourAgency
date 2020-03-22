@@ -31,12 +31,11 @@ public class SaveTourAction extends Action {
 		
 		String[] startDate = req.getParameter("startDate").split("/");
 		String[] endDate = req.getParameter("endDate").split("/");
-		Double agencyProcent = Double.parseDouble(req.getParameter("agencyProcent"));
-		Integer isFired = req.getParameterValues("isFired").length > 0 ? 1 : 0;
+		Integer agencyProcent = Integer.parseInt(req.getParameter("agencyProcent"));
+		Integer isFired = req.getParameterValues("isFired") != null ? 1 : 0;
 		Double maxDiscount = Double.parseDouble(req.getParameter("maxDiscount"));
 		
 		TourType type = TourType.valueOf(req.getParameter("type"));
-		
 		Hotel hotel = null;
 		Transport transportTo = null;
 		Transport transportBack = null;
@@ -65,6 +64,19 @@ public class SaveTourAction extends Action {
 		tour.setHotelId(hotel.getId());
 		tour.setTransportToId(transportTo.getId());
 		tour.setTransportBackId(transportBack.getId());
+		
+		if (Boolean.parseBoolean(req.getParameter("edit"))) {
+			Integer id = Integer.parseInt(req.getParameter("id"));
+
+			tour.setId(id);
+			try {
+				tourService.update(tour);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			}
+			return Path.ADMIN_PAGE;
+		}
 		
 		try {	
 			tourService.save(tour);

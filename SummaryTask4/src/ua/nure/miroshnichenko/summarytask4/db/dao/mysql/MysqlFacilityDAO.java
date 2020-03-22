@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.sound.midi.Soundbank;
+
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
 import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
@@ -11,6 +13,7 @@ import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.FacilityDAO;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
+import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
@@ -133,12 +136,12 @@ public class MysqlFacilityDAO implements FacilityDAO {
 	@Override
 	public Facility getFacilityByName(String name) throws DAOException {
 		Transaction transaction = null;
-		Facility facility = null;
+		List<Entity> facilities = null;
 
 		try {
 			transaction = DBUtil.getTransaction();
-			facility = (Facility) transaction.customQuery(
-					Queries.FACILITY_BY_NAME, Facility.class, name).get(0);
+			facilities = transaction.customQuery(
+					Queries.FACILITY_BY_NAME, Facility.class, name);
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
 			throw new DAOException(e);
@@ -150,6 +153,6 @@ public class MysqlFacilityDAO implements FacilityDAO {
 				throw new DAOException(e);
 			}
 		}
-		return facility;
+		return facilities.size() > 0 ? (Facility)facilities.get(0)  : null;
 	}
 }

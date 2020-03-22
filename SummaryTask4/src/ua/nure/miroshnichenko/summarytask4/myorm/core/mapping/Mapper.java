@@ -215,6 +215,7 @@ public final class Mapper {
 				if (field.isAnnotationPresent(Enumerated.class)) {
 					if (value instanceof Integer) {
 						Integer index = (Integer) value;
+
 						Object[] enumConstants = field.getType().getEnumConstants();
 						if (enumConstants != null) {
 							value = enumConstants[index - 1];
@@ -223,7 +224,11 @@ public final class Mapper {
 						}
 					}
 				}
-
+					
+				if(value instanceof Boolean) {
+					value = (Boolean)value ? 1 : 0;
+				}
+				
 				propertyDescriptor = new PropertyDescriptor(field.getName(), type);
 				propertyDescriptor.getWriteMethod().invoke(entity, value);
 			}

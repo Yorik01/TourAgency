@@ -24,12 +24,13 @@ public class AllToursAction extends Action {
 		List<Tour> tours = null;
 		try {
 			tours = tourService.getAll();
-			tours.sort((x, y) -> x.isFired().compareTo(y.isFired()));
+			tours.sort((x, y) -> y.isFired().compareTo(x.isFired()));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		
 		req.setAttribute("tours", tours);
-		return Path.TOURS_PAGE;
+		req.setAttribute("form", Path.TOURS_LIST);
+		
+		return Path.ADMIN_PAGE;
 	}
 }

@@ -32,7 +32,7 @@ public class SaveTransportAction extends Action {
 		Double price = Double.valueOf(req.getParameter("price"));
 		TransportType type = TransportType.valueOf(req.getParameter("type"));
 		
-		System.out.println(arrivingDate[2] + "-" + arrivingDate[1] + "-" + arrivingDate[0]
+		System.out.println(arrivingDate[2] + "-" + arrivingDate[0] + "-" + arrivingDate[1]
 				+ " " + arrivingTime + ":00");
 		
 		Timestamp arriving = Timestamp.valueOf(

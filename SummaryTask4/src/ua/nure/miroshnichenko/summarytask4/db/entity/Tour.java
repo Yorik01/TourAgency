@@ -20,7 +20,7 @@ public class Tour implements Entity {
 	private Integer id;
 
 	@Column("agency_procent")
-	private Double agencyProcent;
+	private Integer agencyProcent;
 
 	@Column("start_date")
 	private Date startDate;
@@ -31,12 +31,12 @@ public class Tour implements Entity {
 	@Column("is_fired")
 	private Integer fired;
 
+	@Column("tour_max_discount")
+	private Double maxDiscount;
+	
 	@Enumerated
 	@Column("tour_type_id")
 	private TourType type;
-
-	@Column("tour_max_discount")
-	private Double maxDiscount;
 
 	@Column("hotel_id")
 	private Integer hotelId;
@@ -63,11 +63,11 @@ public class Tour implements Entity {
 		this.id = id;
 	}
 
-	public Double getAgencyProcent() {
+	public Integer getAgencyProcent() {
 		return agencyProcent;
 	}
 
-	public void setAgencyProcent(Double agencyProcent) {
+	public void setAgencyProcent(Integer agencyProcent) {
 		this.agencyProcent = agencyProcent;
 	}
 

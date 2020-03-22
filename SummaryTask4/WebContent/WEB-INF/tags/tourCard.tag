@@ -11,16 +11,16 @@
 <table class="table bg-white table-bordered">
 	<tbody>
 		<tr>
-			<td>Hotel: ${hotel.name}</td>
+			<td>Hotel: ${hotel}</td>
 		</tr>
 		<tr>
 			<td>Country: ${country}</td>
 		</tr>
 		<tr>
-			<td>City: ${City}</td>
+			<td>City: ${city}</td>
 		</tr>
 		<tr>
-			<td>Transport: ${transport.type}</td>
+			<td>Transport: ${transport}</td>
 		</tr>
 		<tr>
 			<td>Start date: ${startDate}</td>
@@ -30,13 +30,13 @@
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/SummaryTask4/controller?action=hotelForm&edit=true">
+				<form method="post" action="/SummaryTask4/controller?action=tourForm&edit=true">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
-				<form method="post" action="/SummaryTask4/controller?action=deleteHotel">
+				<form method="post" action="/SummaryTask4/controller?action=deleteTour">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-danger" type="submit">
 						Delete

@@ -24,10 +24,10 @@ public class User implements Entity {
 	private String password;
 
 	@Column("is_banned")
-	private Byte banned = 0;
+	private Integer banned = 0;
 
 	@Column("discount_step")
-	private Byte discountStep = 0;
+	private Integer discountStep = 0;
 
 	@Enumerated
 	@Column("role_id")
@@ -57,19 +57,19 @@ public class User implements Entity {
 		this.password = password;
 	}
 
-	public Byte isBanned() {
+	public Integer isBanned() {
 		return banned;
 	}
 
-	public void setBanned(Byte banned) {
+	public void setBanned(Integer banned) {
 		this.banned = banned;
 	}
 
-	public Byte getDiscountStep() {
+	public Integer getDiscountStep() {
 		return discountStep;
 	}
 
-	public void setDiscountStep(Byte discountStep) {
+	public void setDiscountStep(Integer discountStep) {
 		this.discountStep = discountStep;
 	}
 

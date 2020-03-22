@@ -23,9 +23,9 @@
             </h6>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="/SummaryTask4/controller?action=allTours">
 					<i class="fa fa-search"></i>
-					Search
+					Tours
                 </a>
               </li>
               <li class="nav-item">

@@ -3,7 +3,9 @@ package ua.nure.miroshnichenko.summarytask4.db.dao.mysql;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import sun.java2d.loops.CustomComponent;
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
 import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
@@ -139,21 +141,54 @@ public class MysqlHotelDAO implements HotelDAO {
 			transaction = DBUtil.getTransaction();
 			result = transaction.update(entity);
 			
-			for (Facility facility : entity.getFacilities()) {
-				Facility facility2 = facilityDAO.getFacilityByName(facility.getName());
-				result = result && transaction.customUpdate(
-						Queries.UPDATE_FACILITY_FOR_HOTEL, facility2.getId(), entity.getId());
+			Hotel oldHotel = find(entity.getId());
+			Set<Facility> newFacilities = entity.getFacilities();
+			Set<Facility> oldFacilities = oldHotel.getFacilities();
+			
+			for(Facility oldFacility : oldFacilities) {
+				if(!newFacilities.contains(oldFacility)) {
+					result = result && transaction.customUpdate(
+							Queries.DELETE_FACILITY_FOR_HOTEL, oldFacility.getId(), entity.getId());
+				} 
 			}
-
-			for (Servicing servicing : entity.getServicings()) {
-				Servicing servicing2 = servicingDAO.getServicingByName(servicing.getName());
-				result = result && transaction.customUpdate(
-						Queries.UPDATE_SERVICING_FOR_HOTEL, servicing2, entity.getId());
+			
+			for(Facility newFacility : newFacilities) {
+				if(!oldFacilities.contains(newFacility)) {
+					Facility facility = facilityDAO.getFacilityByName(newFacility.getName());
+					
+					result = result && transaction.customUpdate(
+							Queries.SET_FACILITY_FOR_HOTEL, entity.getId(), facility.getId());
+				}
+			}
+			
+			Set<Servicing> newServicings = entity.getServicings();
+			Set<Servicing> oldServicings = oldHotel.getServicings();
+			
+			for(Servicing oldServicing : oldServicings) {
+				if(!newServicings.contains(oldServicing)) {
+					result = result && transaction.customUpdate(
+							Queries.DELETE_SERVICING_FOR_HOTEL, oldServicing.getId(), entity.getId());
+				} 
+			}
+			
+			for(Servicing newServicing : newServicings) {
+				if(!oldServicings.contains(newServicing)) {
+					Servicing servicing = servicingDAO.getServicingByName(newServicing.getName());
+					
+					result = result && transaction.customUpdate(
+							Queries.SET_SERVICING_FOR_HOTEL, entity.getId(), servicing	.getId());
+				}
 			}
 			
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
+			try {
+				transaction.rollback();
+			} catch (TransactionException e1) {
+				e1.printStackTrace();
+				throw new DAOException(e);
+			}
 			throw new DAOException(e);
 		} finally {
 			try {
@@ -165,7 +200,7 @@ public class MysqlHotelDAO implements HotelDAO {
 		}
 		return result;
 	}
-
+	
 	@Override
 	public boolean delete(Hotel entity) throws DAOException {
 		Transaction transaction = null;

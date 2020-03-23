@@ -11,7 +11,7 @@ public interface TourService extends CRUDService<Tour> {
 
 	List<Tour> filter(Map<String, String[]> values) throws ServiceException;
 	
-	boolean reserve(Tour tour, User user, byte peopleCount) throws ServiceException;
+	boolean reserve(Tour tour, User user, int peopleCount) throws ServiceException;
 
 	boolean revoke(Reservation reservation) throws ServiceException;
 

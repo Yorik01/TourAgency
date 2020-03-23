@@ -31,6 +31,7 @@ public class ActionFactory {
 		actions.put("allTours", new AllToursAction());
 		actions.put("filterTour", new FilterTourAction());
 		actions.put("filterForm", new FilterToursFormAction());
+		actions.put("tourInfo", new TourInfoAction());
 	}
 
 	/**

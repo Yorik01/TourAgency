@@ -13,15 +13,6 @@ class DiscountServiceImpl implements DiscountService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 
-	private static DiscountServiceImpl instance;
-
-	public static synchronized DiscountServiceImpl getInstance() {
-		if (instance == null) {
-			instance = new DiscountServiceImpl();
-		}
-		return instance;
-	}
-
 	@Override
 	public boolean setMaxDiscount(int tourId, double value) throws ServiceException {
 		try {

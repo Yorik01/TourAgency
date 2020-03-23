@@ -33,15 +33,6 @@ class TourServiceImpl implements TourService {
 
 	private List<Servicing> list;
 	
-	private static TourService instance;
-	
-	public static synchronized TourService getInstance() {
-		if(instance == null) {
-			instance = new TourServiceImpl();
-		}
-		return instance;
-	}
-
 	@Override
 	public List<Tour> getAll() throws ServiceException {
 		List<Tour> tours = new ArrayList<>();
@@ -143,7 +134,7 @@ class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public boolean reserve(Tour tour, User user, byte peopleCount) throws ServiceException {
+	public boolean reserve(Tour tour, User user, int peopleCount) throws ServiceException {
 		Reservation reservation = new Reservation();
 
 		reservation.setTourId(tour.getId());

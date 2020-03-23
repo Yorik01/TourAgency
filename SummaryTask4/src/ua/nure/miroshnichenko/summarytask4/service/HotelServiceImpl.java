@@ -11,17 +11,8 @@ import ua.nure.miroshnichenko.summarytask4.db.entity.Hotel;
 
 class HotelServiceImpl implements HotelService {
 	
-	private static HotelService instance;
-	
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
-	public static synchronized HotelService getInstance() {
-		if(instance == null) {
-			instance = new HotelServiceImpl();
-		}
-		return instance;
-	}
-
 	@Override
 	public Hotel get(int id) throws ServiceException {
 		Hotel hotel = null;

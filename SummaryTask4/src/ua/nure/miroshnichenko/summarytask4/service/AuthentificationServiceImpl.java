@@ -12,15 +12,6 @@ class AuthentificationServiceImpl implements AuthentificationService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 
-	private static AuthentificationServiceImpl instance;
-
-	public static synchronized AuthentificationServiceImpl getInstance() {
-		if (instance == null) {
-			instance = new AuthentificationServiceImpl();
-		}
-		return instance;
-	}
-
 	@Override
 	public User login(String email, String password) throws ServiceException {
 		String hash = hashPassword(password);

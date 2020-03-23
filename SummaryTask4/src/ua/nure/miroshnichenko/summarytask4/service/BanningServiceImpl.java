@@ -9,15 +9,6 @@ class BanningServiceImpl implements BanningService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 
-	private static BanningServiceImpl instance;
-
-	public static synchronized BanningServiceImpl getInstance() {
-		if (instance == null) {
-			instance = new BanningServiceImpl();
-		}
-		return instance;
-	}
-
 	@Override
 	public boolean banUser(int id) throws ServiceException {
 		try {

@@ -11,6 +11,8 @@ public final class Path {
 	
 	public static final String ADMIN_PAGE = "admin.jsp";
 	
+	public static final String TOUR_INFO = "tour.jsp";
+	
 	public static final String HOTEL_FORM = "/WEB-INF/jsp/HotelForm.jsp";
 	
 	public static final String ROUTE_FORM = "/WEB-INF/jsp/RouteForm.jsp";

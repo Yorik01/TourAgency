@@ -12,30 +12,30 @@ public class ServiceFactory {
 	}
 
 	public AuthentificationService getAuthentificationService() {
-		return AuthentificationServiceImpl.getInstance();
+		return new AuthentificationServiceImpl();
 	}
 
 	public TourService getTourService() {
-		return TourServiceImpl.getInstance();
+		return new TourServiceImpl();
 	}
 
 	public BanningService getBanningService() {
-		return BanningServiceImpl.getInstance();
+		return new BanningServiceImpl();
 	}
 
 	public DiscountService getDiscountService() {
-		return DiscountServiceImpl.getInstance();
+		return new DiscountServiceImpl();
 	}
 	
 	public HotelService getHotelService() {
-		return HotelServiceImpl.getInstance();
+		return new HotelServiceImpl();
 	}
 	
 	public TransportService getTransportService() {
-		return TransportServiceImpl.getInstance();
+		return new TransportServiceImpl();
 	}
 	
 	public RouteService getRouteService() {
-		return RouteServiceImpl.getInstance();
+		return new RouteServiceImpl();
 	}
 }

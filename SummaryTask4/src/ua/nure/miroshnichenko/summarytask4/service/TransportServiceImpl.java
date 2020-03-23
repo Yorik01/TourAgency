@@ -14,15 +14,6 @@ public class TransportServiceImpl implements TransportService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
-	private static TransportService instance;
-	
-	public static synchronized TransportService getInstance() {
-		if(instance == null) {
-			instance = new TransportServiceImpl();
-		}
-		return instance;
-	}
-	
 	@Override
 	public Transport get(int id) throws ServiceException {
 		Transport transport = null;

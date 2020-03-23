@@ -96,7 +96,6 @@ class TransactionFactoryImpl implements TransactionFactory {
 		@Override
 		public List<Entity> customQuery(String query, Class<? extends Entity> type, Object... parametrs)
 				throws TransactionException {
-
 			try {
 				ResultSet resultSet = connection.executeQuery(query, parametrs);
 				result = getEntities(resultSet, type);

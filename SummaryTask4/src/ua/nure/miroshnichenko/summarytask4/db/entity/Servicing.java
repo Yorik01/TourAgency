@@ -28,13 +28,13 @@ public class Servicing implements Entity {
 	private TypeServicing type;
 
 	public Servicing() {
-		
+
 	}
-	
+
 	public Servicing(String name) {
 		this.name = name;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -58,15 +58,17 @@ public class Servicing implements Entity {
 	public void setType(TypeServicing type) {
 		this.type = type;
 	}
-	
+
 	public static List<Servicing> getServicings(String[] names) {
 		List<Servicing> servicings = new ArrayList<>();
-		for(String name : names) {
-			servicings.add(new Servicing(name));
+		if (names != null) {
+			for (String name : names) {
+				servicings.add(new Servicing(name));
+			}
 		}
 		return servicings;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return 37 * name.hashCode();
@@ -85,7 +87,7 @@ public class Servicing implements Entity {
 		Servicing servicing = (Servicing) obj;
 		return name.equals(servicing.name);
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;

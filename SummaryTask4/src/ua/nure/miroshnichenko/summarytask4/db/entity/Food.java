@@ -8,8 +8,10 @@ public enum Food {
 
 	public static List<Food> getFoods(String[] names) {
 		List<Food> foods = new ArrayList<>();
-		for (String name : names) {
-			foods.add(valueOf(name));
+		if (names != null) {
+			for (String name : names) {
+				foods.add(valueOf(name));
+			}
 		}
 		return foods;
 	}

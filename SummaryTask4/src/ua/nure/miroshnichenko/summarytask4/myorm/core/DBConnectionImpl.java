@@ -165,7 +165,7 @@ class DBConnectionImpl implements DBConnection {
 	private PreparedStatement prepareStatement(String query, Object... parametrs) throws SQLException {
 		PreparedStatement statement = sqlConnection.prepareStatement(query);
 		for (int i = 0; i < parametrs.length; i++) {
-			statement.setString(i + 1, parametrs[i].toString());
+				statement.setString(i + 1, parametrs[i].toString());
 		}
 		return statement;
 	}

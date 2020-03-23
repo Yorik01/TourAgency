@@ -279,4 +279,11 @@ INSERT INTO place VALUES (DEFAULT, "Turkey", "Alania");
 INSERT INTO place VALUES (DEFAULT, "Turkey", "Kimer");
 INSERT INTO place VALUES (DEFAULT, "Tailand", "Samui");
 
+-- set Urkraine cities
+INSERT INTO place VALUES (DEFAULT, "Ukraine", "Kharkiv");
+INSERT INTO place VALUES (DEFAULT, "Ukraine", "Lviv");
+INSERT INTO place VALUES (DEFAULT, "Ukraine", "Kiev");
+INSERT INTO place VALUES (DEFAULT, "Ukraine", "Dnepr");
+INSERT INTO place VALUES (DEFAULT, "Ukraine", "Odesa");
+
 SHOW TABLES;

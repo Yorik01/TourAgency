@@ -8,8 +8,10 @@ public enum HotelType {
 
 	public static List<HotelType> getHotelTypes(String[] names) {
 		List<HotelType> hotelTypes = new ArrayList<>();
-		for (String name : names) {
-			hotelTypes.add(valueOf(name));
+		if (names != null) {
+			for (String name : names) {
+				hotelTypes.add(valueOf(name));
+			}
 		}
 		return hotelTypes;
 	}

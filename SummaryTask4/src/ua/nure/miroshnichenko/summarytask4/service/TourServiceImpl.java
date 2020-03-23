@@ -77,23 +77,23 @@ class TourServiceImpl implements TourService {
 		try {
 			TourDAO dao = factoryDAO.geTourDAO();
 			
-			double maxPrices = Double.valueOf(values.get("maxPrices")[0]);
+			List<Servicing> servicings = Servicing.getServicings(values.get("servicing"));
+			List<Facility> facilities = Facility.getFacilities(values.get("facility"));
+			List<HotelType> hotelTypes = HotelType.getHotelTypes(values.get("hotelType"));
+			List<Food> foods = Food.getFoods(values.get("food"));
+			List<Beach> beaches = Beach.getBeaches(values.get("beach"));
+			List<TourType> tourTypes = TourType.getTourTypes(values.get("tourType"));
+			List<TransportType> transportTypes = TransportType.getTransportTypes(values.get("transportType"));
 			
-			List<Servicing> servicings = Servicing.getServicings(values.get("servicings"));
-			List<Facility> facilities = Facility.getFacilities(values.get("facilities"));
-			List<HotelType> hotelTypes = HotelType.getHotelTypes(values.get("hotelTypes"));
-			List<Food> foods = Food.getFoods(values.get("foods"));
-			List<Beach> beaches = Beach.getBeaches(values.get("beaches"));
-			List<TourType> tourTypes = TourType.getTourTypes(values.get("tourTypes"));
-			List<TransportType> transportTypes = TransportType.getTransportTypes(values.get("transportTypes"));
-							
+			String[] starsArr = values.get("stars");
+			List<String> stars = new ArrayList<>();
+			
+			if(starsArr != null) {
+				stars = Arrays.asList(starsArr);
+			}
+			
 			List<Tour> tours = dao.filter(getMainParametrs(values), servicings, facilities,
-					hotelTypes, foods, beaches, tourTypes, transportTypes);
-			
-			tours = tours
-					.stream()
-					.filter(element -> element.getPrice() <= maxPrices)
-					.collect(Collectors.toList());
+					hotelTypes, foods, beaches, tourTypes, transportTypes, stars);
 			
 			return tours;
 			
@@ -215,12 +215,6 @@ class TourServiceImpl implements TourService {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-	}
-	
-	private <T> List<T> filterValuesWithMap(Map<String, String> values, List<T> allValues) {
-		return allValues.stream()
-				.filter(element -> values.containsKey(element.toString()))
-				.collect(Collectors.toList());
 	}
 	
 	private Map<String, String> getMainParametrs(Map<String, String[]> values) {

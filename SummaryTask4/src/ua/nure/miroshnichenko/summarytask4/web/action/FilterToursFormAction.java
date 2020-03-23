@@ -14,23 +14,24 @@ import ua.nure.miroshnichenko.summarytask4.service.ServiceException;
 import ua.nure.miroshnichenko.summarytask4.service.TourService;
 import ua.nure.miroshnichenko.summarytask4.web.Path;
 
-public class FilterTourAction extends Action {
+public class FilterToursFormAction extends Action {
 
-	private static final long serialVersionUID = -3692502748918177449L;
+	private static final long serialVersionUID = 142736073248551283L;
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
-
+		
 		TourService tourService = serviceFactory.getTourService();
 
 		RouteService routeService = serviceFactory.getRouteService();
-
+		
 		List<Place> places = null;
 		List<Tour> tours = null;
+
 		try {
 			places = routeService.getAllPlaces();
-			tours = tourService.filter(req.getParameterMap());
+			tours = tourService.getAll();
 			
 			tours.sort((x, y) -> x.isFired().compareTo(y.isFired()));
 		} catch (ServiceException e) {

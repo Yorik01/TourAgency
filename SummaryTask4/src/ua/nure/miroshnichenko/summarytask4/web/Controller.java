@@ -34,7 +34,6 @@ public class Controller extends HttpServlet {
 			HttpServletResponse response) throws IOException, ServletException {
 		
 	//	LOG.debug("Controller starts");
-
 		// extract command name from the request
 		String commandName = request.getParameter("action");
 		//LOG.trace("Request parameter: command --> " + commandName);

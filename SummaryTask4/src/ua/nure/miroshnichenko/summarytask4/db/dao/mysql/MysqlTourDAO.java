@@ -1,10 +1,14 @@
 package ua.nure.miroshnichenko.summarytask4.db.dao.mysql;
 
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tomcat.util.buf.StringUtils;
+
+import ua.nure.miroshnichenko.summarytask4.Util;
 import ua.nure.miroshnichenko.summarytask4.db.DBUtil;
 import ua.nure.miroshnichenko.summarytask4.db.Queries;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
@@ -156,7 +160,8 @@ public class MysqlTourDAO implements TourDAO {
 	public List<Tour> filter(Map<String, String> values, 
 			List<Servicing> servicings, List<Facility> facilities,
 			List<HotelType> hotelTypes, List<Food> foods, List<Beach> beaches,
-			List<TourType> tourTypes, List<TransportType> transportTypes)
+			List<TourType> tourTypes, List<TransportType> transportTypes,
+			List<String> stars)
 			throws DAOException {
 		
 		Transaction transaction = null;
@@ -165,26 +170,78 @@ public class MysqlTourDAO implements TourDAO {
 		try {
 			transaction = DBUtil.getTransaction();
 			
-			String servicingsStr = servicings.toString();
-			String facilitiesStr = facilities.toString();
-			String hotelTypesStr = enumListToOrdinalString(hotelTypes);
-			String foodsStr = enumListToOrdinalString(foods);
-			String beachesStr = enumListToOrdinalString(beaches);
-			String tourTypesStr = enumListToOrdinalString(tourTypes);
-			String transportTypesStr = enumListToOrdinalString(transportTypes);
+			String servicingsStr;
+			if (servicings.size() > 0) {
+				servicingsStr = Util.listToString(servicings);
+			} else {
+				servicingsStr = Queries.ALL_SERVICINGS;
+			}
+			
+			String facilitiesStr;
+			if (facilities.size() > 0) {
+				facilitiesStr = Util.listToString(facilities);
+			} else {
+				facilitiesStr = Queries.ALL_FACILITIES;
+			}
+			
+			String starsStr;
+			if (stars.size() > 0) {
+				starsStr = Util.listToString(stars);
+			} else {
+				starsStr = "1, 2, 3, 4, 5";
+			}
+			
+			String hotelTypesStr;
+			if (hotelTypes.size() > 0) {
+				hotelTypesStr = Util.enumListToOrdinalString(hotelTypes);
+			} else {
+				hotelTypesStr = Queries.ALL_HOTEL_TYPES;
+			}
+			
+			String foodsStr;
+			if (foods.size() > 0) {
+				foodsStr = Util.enumListToOrdinalString(foods);
+			} else {
+				foodsStr = Queries.ALL_FOODS;
+			}
+			
+			String beachesStr;
+			if (beaches.size() > 0) {
+				beachesStr = Util.enumListToOrdinalString(beaches);
+			} else {
+				beachesStr = Queries.ALL_BEACHES;
+			}
+			
+			String tourTypesStr;
+			if (tourTypes.size() > 0) {
+				tourTypesStr = Util.enumListToOrdinalString(tourTypes);
+			} else {
+				tourTypesStr = Queries.ALL_TOUR_TYPES;
+			}
+			
+			String transportTypesStr;
+			if (transportTypes.size() > 0) {
+				transportTypesStr = Util.enumListToOrdinalString(transportTypes);
+			} else {
+				transportTypesStr = Queries.ALL_TRANSPORT_TYPES;
+			}
 			
 			final String query = prepareFilterQuery(
 					servicingsStr, facilitiesStr, hotelTypesStr,
-					foodsStr, beachesStr, tourTypesStr, transportTypesStr);
-					
+					foodsStr, beachesStr, tourTypesStr, transportTypesStr, starsStr);
+			
+			String peopleCount = values.get("peopleCount");
+			
 			tours = (List<Tour>) (List<?>) transaction.customQuery(
 					query, Tour.class,
 					values.get("startDate"),
 					values.get("endDate"),
 					values.get("toCountry"),
 					values.get("toCity"),
-					values.get("fromCountry"),
-					values.get("fromCity")
+					values.get("fromCity"),
+					values.get("maxPrice"),
+					peopleCount,
+					peopleCount
 					);
 			
 			for (Tour tour : tours) {
@@ -219,31 +276,17 @@ public class MysqlTourDAO implements TourDAO {
 	
 	private String prepareFilterQuery(String servicingsStr, String facilitiesStr, 
 			String hotelTypesStr, String foodsStr, String beachesStr, String tourTypesStr,
-			String transportTypesStr) {
-		
+			String transportTypesStr, String starsStr) {
+		System.out.println(hotelTypesStr);
 		return String.format(
 				Queries.FILTER_TOUR,
-				hotelTypesStr.substring(1, hotelTypesStr.length() - 1),
-				foodsStr.substring(1, foodsStr.length() - 1),
-				beachesStr.substring(1, beachesStr.length() - 1),
-				facilitiesStr.substring(1, facilitiesStr.length() - 1),
-				servicingsStr.substring(1, servicingsStr.length() - 1),
-				tourTypesStr.substring(1, tourTypesStr.length() - 1),
-				transportTypesStr.substring(1, transportTypesStr.length() - 1));
-	}
-	
-	private String enumListToOrdinalString(List<? extends Enum> list) {
-		StringBuilder result = new StringBuilder();
-
-		Iterator<? extends Enum> iterator = list.iterator();
-		while(true) {
-			Enum en = iterator.next();
-			result.append(en.ordinal());
-			if(!iterator.hasNext()) {
-				break;
-			}
-			result.append(',');
-		}
-		return result.toString();
-	}
+				hotelTypesStr,
+				foodsStr,
+				beachesStr,
+				facilitiesStr,
+				servicingsStr,
+				tourTypesStr,
+				transportTypesStr,
+				starsStr);
+	}	
 }

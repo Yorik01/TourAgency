@@ -21,13 +21,13 @@ public class Facility implements Entity {
 	private String name;
 
 	public Facility() {
-		
+
 	}
-	
+
 	public Facility(String name) {
 		this.name = name;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -46,12 +46,14 @@ public class Facility implements Entity {
 
 	public static List<Facility> getFacilities(String[] names) {
 		List<Facility> facilities = new ArrayList<>();
-		for(String name : names) {
-			facilities.add(new Facility(name));
+		if (names != null) {
+			for (String name : names) {
+				facilities.add(new Facility(name));
+			}
 		}
 		return facilities;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return 37 * name.hashCode();
@@ -70,7 +72,7 @@ public class Facility implements Entity {
 		Facility facility = (Facility) obj;
 		return name.equals(facility.name);
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;

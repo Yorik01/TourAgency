@@ -8,8 +8,10 @@ public enum TransportType {
 
 	public static List<TransportType> getTransportTypes(String[] names) {
 		List<TransportType> transportTypes = new ArrayList<>();
-		for (String name : names) {
-			transportTypes.add(valueOf(name));
+		if (names != null) {
+			for (String name : names) {
+				transportTypes.add(valueOf(name));
+			}
 		}
 		return transportTypes;
 	}

@@ -16,6 +16,6 @@ public interface TourDAO extends DAO<Tour> {
 
 	List<Tour> filter(Map<String, String> values, List<Servicing> servicings, List<Facility> facilities,
 			List<HotelType> hotelTypes, List<Food> foods, List<Beach> beaches, List<TourType> tourTypes,
-			List<TransportType> transportTypes)
+			List<TransportType> transportTypes, List<String> stars)
 			throws DAOException;
 }

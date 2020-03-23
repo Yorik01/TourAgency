@@ -6,6 +6,7 @@
 <%@ attribute name="info" required="true" type="java.lang.String"%>
 <%@ attribute name="photo" required="true" type="java.lang.String"%>
 <%@ attribute name="fired" required="true" type="java.lang.Byte"%>
+<%@ attribute name="id" required="true" type="java.lang.Integer"%>
 
 <div class="tour-cards">
 	<div class="card tour-card">
@@ -20,7 +21,10 @@
 				</c:if>
 			</h5>
 			<p class="card-text">${info}</p>
-			<a href="#" class="btn btn-primary">Look</a>
+			<form action="/SummaryTask4/controller?action=tourInfo">
+				<input type="hidden" value="${id}" />
+				<button class="btn btn-primary" type="submit">Look</button>
+			</form>
 		</div>
 	</div>
 </div>

@@ -8,8 +8,10 @@ public enum Beach {
 
 	public static List<Beach> getBeaches(String[] names) {
 		List<Beach> beaches = new ArrayList<>();
-		for (String name : names) {
-			beaches.add(valueOf(name));
+		if (names != null) {
+			for (String name : names) {
+				beaches.add(valueOf(name));
+			}
 		}
 		return beaches;
 	}

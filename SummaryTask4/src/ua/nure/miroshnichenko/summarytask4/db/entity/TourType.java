@@ -8,8 +8,10 @@ public enum TourType {
 
 	public static List<TourType> getTourTypes(String[] names) {
 		List<TourType> tourTypes = new ArrayList<>();
-		for (String name : names) {
-			tourTypes.add(valueOf(name));
+		if (names != null) {
+			for (String name : names) {
+				tourTypes.add(valueOf(name));
+			}
 		}
 		return tourTypes;
 	}

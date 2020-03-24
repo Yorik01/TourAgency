@@ -9,7 +9,7 @@
 <title>SignUp</title>
 </head>
 <body>
-	<form id="form-signup" class="form-center">
+	<form id="form-signup" class="form-center" action="/SummaryTask4/controller" method="post">
 		<div class="form-group">
 			<label for="input-email">Email address</label> 
 			<input type="email"
@@ -26,6 +26,7 @@
 				placeholder="Password"> <small id="password-help"
 				class="form-text text-muted"></small>
 		</div>
+		<input type="hidden" name="action" value="signup" />
 		<button type="submit" class="btn btn-primary">Sign up</button>
 	</form>
 
@@ -33,30 +34,5 @@
 	<script src="js/popper.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 
-	<script>
-	let passHelp = $('#password-help');
-	let repeatedPass = $('#input-repeat-password');
-	
-	$('#form-signup').submit(e => {
-		e.preventDefault();
-		if($('#input-password').val() === repeatedPass.val()) {
-			let email = $("#input-email").val();
-			let pass = $("#input-password").val();
-
-			let checking = $.post('/SummaryTask4/controller', {action: 'signup', email: email, password: pass});
-			checking.done(res => {
-				if (res.status == 200) {
-					$('#form-login').submit();
-				} else {
-					$('#form-logib').append(`<p>${res.responseText}</p>`);
-				}
-			});
-		} else {
-			repeatedPass.css({'box-shadow': '0 0 0 0.2rem rgba(223,78,95,.25)'});
-			repeatedPass.css({'border-color': 'rgba(223,78,95,.25)'});
-			passHelp.text('The both passwords must be the same!');
-		}	
-	});
-</script>
 </body>
 </html>

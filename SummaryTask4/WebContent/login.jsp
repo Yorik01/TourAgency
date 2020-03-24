@@ -9,7 +9,7 @@
 	<title>login</title>
 </head>
 <body>
-	<form id="form-login" class="form-center" action="/SummaryTask4/">
+	<form id="form-login" class="form-center" action="/SummaryTask4/controller" method="post">
 		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 		<label for="inputEmail" class="sr-only">Email address</label> 
 		<input type="email" id="input-email" class="form-control mb-3"
@@ -23,32 +23,12 @@
 		<span id="reg-offering">Don't you have the account? 
 			<a href="/SummaryTask4/signup.jsp">SignUp</a>
 		</span>
-		<span id="error-login-msg" ></span>
+		<input type="hidden" name="action" value="signup" />
 	</form>
 
 <script src="js/jquery-3.4.1.min.js" ></script>
 <script src="js/popper.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 
-<script>
-	$('#form-login').submit(function(e) {
-		e.preventDefault();
-		
-		let email = $('#input-email').val();
-		let pass = $('#input-password').val();
-		
-		let checking = $.post('/SummaryTask4/controller', {action: "login", email: email, password: pass});
-		checking.always(res => {
-			if (res.status === 200) {
-				$('#form-login').submit();
-			} else {
-				let errLogin = $("#error-login-msg");
-				
-				errLogin.empty();
-				errLogin.append('Incorrect email or password!');
-			}
-		});
-	});
-</script>
 </body>
 </html>

@@ -3,15 +3,18 @@ package ua.nure.miroshnichenko.summarytask4.service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.dao.UserDAO;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Bonus;
+import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
 class AuthentificationServiceImpl implements AuthentificationService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
-
+	
 	@Override
 	public User login(String email, String password) throws ServiceException {
 		String hash = hashPassword(password);
@@ -45,6 +48,7 @@ class AuthentificationServiceImpl implements AuthentificationService {
 
 		try {
 			UserDAO userDAO = factoryDAO.getUserDAO();
+			
 			User user1 = userDAO.getUserByEmail(email);
 
 			if (user1 == null) {
@@ -53,6 +57,7 @@ class AuthentificationServiceImpl implements AuthentificationService {
 					user.setPassword(hash);
 
 					boolean result = userDAO.save(user);
+					
 					return result;
 				} else {
 					throw new ServiceException("Cannot genarate hash of password!!!");

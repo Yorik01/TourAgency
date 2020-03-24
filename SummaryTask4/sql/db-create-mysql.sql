@@ -33,7 +33,7 @@ CREATE TABLE users (
 	email VARCHAR(40) NOT NULL UNIQUE,
 	password VARCHAR(40) NOT NULL,
 	is_banned TINYINT(1) NOT NULL,
-	discount_step INT NOT NULL,
+	discount_step DOUBLE NOT NULL,
 	role_id INT NOT NULL REFERENCES roles(role_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT
@@ -212,6 +212,31 @@ CREATE TABLE bonus(
 	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT
 );
+
+CREATE PROCEDURE riseDiscount (IN user_id INT, IN tour_id INT)
+BEGIN
+	DECLARE max_discount DOUBLE;
+	DECLARE current_discount DOUBLE;
+	DECLARE discount_step DOUBLE;
+	DECLARE new_discount DOUBLE;
+	
+	SELECT tour_max_discount INTO max_discount FROM tour t WHERE t.tour_id = tour_id;
+	SELECT MAX(discount) INTO current_discount FROM bonus b WHERE b.user_id = user_id;
+	SELECT discount_step INTO discount_step FROM users u WHERE u.user_id = user_id;
+	
+	IF current_discount IS NULL THEN
+		SET current_discount := 0;
+	END IF;
+	
+	SET new_discount := current_discount + discount_step;
+	
+	IF new_discount <= max_discount THEN
+		UPDATE users u SET discount = new_discount WHERE u.user_id = user_id;
+	ELSE
+		SIGNAL SQLSTATE '45000' 
+			SET MESSAGE_TEXT = "Error of rising users discount!";
+	END IF;
+END 
 
 -- set roles
 INSERT INTO role VALUES (1, "CLIENT");

@@ -27,7 +27,7 @@ public class User implements Entity {
 	private Integer banned = 0;
 
 	@Column("discount_step")
-	private Integer discountStep = 0;
+	private Double discountStep = 0d;
 
 	@Enumerated
 	@Column("role_id")
@@ -65,11 +65,11 @@ public class User implements Entity {
 		this.banned = banned;
 	}
 
-	public Integer getDiscountStep() {
+	public Double getDiscountStep() {
 		return discountStep;
 	}
 
-	public void setDiscountStep(Integer discountStep) {
+	public void setDiscountStep(Double discountStep) {
 		this.discountStep = discountStep;
 	}
 

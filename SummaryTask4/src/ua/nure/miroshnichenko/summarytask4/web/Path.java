@@ -5,11 +5,13 @@ public final class Path {
 	private Path() {
 	}
 	
-	public static final String INDEX_PAGE = "/index.jsp";
+	public static final String INDEX_PAGE = "index.jsp";
 	
-	public static final String ERR_PAGE = "/error.jsp";
+	public static final String ERR_PAGE = "error.jsp";
 	
 	public static final String ADMIN_PAGE = "admin.jsp";
+	
+	public static final String PROFILE_PAGE = "profile.jsp";
 	
 	public static final String TOUR_INFO = "tour.jsp";
 	

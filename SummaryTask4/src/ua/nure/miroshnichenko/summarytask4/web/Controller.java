@@ -13,7 +13,6 @@ import ua.nure.miroshnichenko.summarytask4.web.action.Action;
 import ua.nure.miroshnichenko.summarytask4.web.action.ActionException;
 import ua.nure.miroshnichenko.summarytask4.web.action.ActionFactory;
 
-@WebServlet("/controller")
 @MultipartConfig(maxFileSize = 16177215)
 public class Controller extends HttpServlet {
 

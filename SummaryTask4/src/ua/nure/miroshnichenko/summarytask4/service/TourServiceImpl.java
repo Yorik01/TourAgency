@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.summarytask4.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -21,6 +22,7 @@ import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Food;
 import ua.nure.miroshnichenko.summarytask4.db.entity.HotelType;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Reservation;
+import ua.nure.miroshnichenko.summarytask4.db.entity.ReservationStatus;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Servicing;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
 import ua.nure.miroshnichenko.summarytask4.db.entity.TourType;
@@ -134,13 +136,15 @@ class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public boolean reserve(Tour tour, User user, int peopleCount) throws ServiceException {
+	public boolean reserve(int tourId, int userId, int peopleCount) throws ServiceException {
 		Reservation reservation = new Reservation();
 
-		reservation.setTourId(tour.getId());
-		reservation.setUserId(user.getId());
+		reservation.setTourId(tourId);
+		reservation.setUserId(userId);
 		reservation.setPeopleCount(peopleCount);
-		reservation.setResrveDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+		
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		reservation.setResrveDate(date);
 
 		try {
 			DAO<Reservation> dao = (DAO<Reservation>) factoryDAO.getDAO("reservation");
@@ -150,15 +154,18 @@ class TourServiceImpl implements TourService {
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
-
 		}
 	}
 
 	@Override
-	public boolean revoke(Reservation reservation) throws ServiceException {
+	public boolean revoke(int reservationId) throws ServiceException {
 		try {
 			DAO<Reservation> dao = (DAO<Reservation>) factoryDAO.getDAO("reservation");
-			boolean result = dao.delete(reservation);
+			Reservation reservation = dao.find(reservationId);
+			
+			reservation.setStatus(ReservationStatus.REVOKED);
+			
+			boolean result = dao.update(reservation);
 
 			return result;
 		} catch (DAOException e) {

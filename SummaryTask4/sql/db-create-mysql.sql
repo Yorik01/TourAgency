@@ -36,7 +36,9 @@ CREATE TABLE users (
 	password VARCHAR(40) NOT NULL,
 	is_banned TINYINT(1) NOT NULL,
 	discount_step DOUBLE NOT NULL,
-	role_id INT NOT NULL REFERENCES roles(role_id)
+	role_id INT NOT NULL,
+	CONSTRAINT role_id_fk FOREIGN KEY(role_id)
+	REFERENCES roles(role_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT
 );
@@ -69,7 +71,9 @@ CREATE TABLE service_type (
 CREATE TABLE service (
 	service_id INT AUTO_INCREMENT PRIMARY KEY,
 	service_name VARCHAR(20) NOT NULL UNIQUE,
-	service_type_id INT NOT NULL REFERENCES service_type(service_type_id)
+	service_type_id INT NOT NULL,
+	CONSTRAINT service_type_id_fk FOREIGN KEY (service_type_id)
+	REFERENCES service_type(service_type_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT
 );
@@ -84,13 +88,19 @@ CREATE TABLE hotel (
 	hotel_stars TINYINT(6) UNSIGNED NOT NULL,
 	hotel_max_rooms INT NOT NULL,
 	hotel_price DOUBLE NOT NULL,
-	hotel_type_id INT NOT NULL REFERENCES hotel_type(hotel_type_id)
+	hotel_type_id INT NOT NULL,
+	CONSTRAINT hotel_type_id_fk FOREIGN KEY (hotel_type_id) 
+	REFERENCES hotel_type(hotel_type_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
-	food_id INT NOT NULL REFERENCES food(food_id)
+	food_id INT NOT NULL,
+	CONSTRAINT food_id_fk FOREIGN KEY (food_id)
+	REFERENCES food(food_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
-	beach_id INT REFERENCES beach(beach_id)
+	beach_id INT,
+	CONSTRAINT beach_id_fk FOREIGN KEY (beach_id)
+	REFERENCES beach(beach_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT
 );
@@ -98,10 +108,12 @@ CREATE TABLE hotel (
 CREATE TABLE hotel_service (
 	hotel_id INT NOT NULL,
 	service_id INT NOT NULL,
-	FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id)
+	CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id)
+	REFERENCES hotel(hotel_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
-	FOREIGN KEY (service_id) REFERENCES service(service_id)
+	CONSTRAINT service_id_fk FOREIGN KEY (service_id)
+	REFERENCES service(service_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
 	PRIMARY KEY(hotel_id, service_id)
@@ -110,10 +122,12 @@ CREATE TABLE hotel_service (
 CREATE TABLE hotel_facility (
 	hotel_id INT NOT NULL,
 	facility_id INT NOT NULL,
-	FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id)
+	CONSTRAINT hotel_id_fk_1 FOREIGN KEY (hotel_id)
+	REFERENCES hotel(hotel_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
-	FOREIGN KEY (facility_id) REFERENCES facility(facility_id)
+	CONSTRAINT facility_id_fk FOREIGN KEY (facility_id)
+	REFERENCES facility(facility_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
 	PRIMARY KEY(hotel_id, facility_id)
@@ -133,10 +147,14 @@ CREATE TABLE place (
 
 CREATE TABLE route (
 	route_id INT AUTO_INCREMENT PRIMARY KEY,
-	route_from INT NOT NULL REFERENCES place(place_id)
+	route_from INT NOT NULL,
+	CONSTRAINT route_from_key FOREIGN KEY (route_from)
+	REFERENCES place(place_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
-	route_to INT NOT NULL REFERENCES place(place_id)
+	route_to INT NOT NULL,
+	CONSTRAINT route_to_fk FOREIGN KEY (route_to) 
+	REFERENCES place(place_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT
 );
@@ -148,10 +166,14 @@ CREATE TABLE transport (
 	arrive_time DATETIME NOT NULL,
 	max_places INT NOT NULL,
 	transport_price DOUBLE NOT NULL,
-	transport_type_id INT NOT NULL REFERENCES transport_type(transport_type_id)
+	transport_type_id INT NOT NULL,
+	CONSTRAINT transport_type_id_fk FOREIGN KEY (transport_type_id)
+	REFERENCES transport_type(transport_type_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
-	route_id INT NOT NULL REFERENCES route(route_id)
+	route_id INT NOT NULL,
+	CONSTRAINT route_Id_fk FOREIGN KEY (route_id)
+	REFERENCES route(route_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
 	UNIQUE KEY (transport_code, transport_type_id)
@@ -169,16 +191,24 @@ CREATE TABLE tour (
 	end_date DATE NOT NULL,
 	is_fired TINYINT(1) NOT NULL,
 	tour_max_discount DOUBLE NOT NULL,
-	tour_type_id INT NOT NULL REFERENCES tour_type(tour_type_id)
+	tour_type_id INT NOT NULL,
+	CONSTRAINT tour_type_id_fk FOREIGN KEY (tour_type_id) 
+	REFERENCES tour_type(tour_type_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
-	hotel_id INT NOT NULL REFERENCES hotel(hotel_id)
+	hotel_id INT NOT NULL,
+	CONSTRAINT hotel_id_fk_2 FOREIGN KEY (hotel_id)
+	REFERENCES hotel(hotel_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT, 
-	transport_to_id INT NOT NULL REFERENCES transport(transport_id)
+	transport_to_id INT NOT NULL,
+	CONSTRAINT transport_to_id_fk FOREIGN KEY (transport_to_id)
+	REFERENCES transport(transport_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT,
-	transport_back_id INT NOT NULL REFERENCES transport(transport_id)
+	transport_back_id INT NOT NULL,
+	CONSTRAINT transport_back_id_fk FOREIGN KEY (transport_back_id)
+	REFERENCES transport(transport_id)
 		ON DELETE CASCADE
 		ON UPDATE RESTRICT, 
 	UNIQUE KEY (start_date, end_date, hotel_id)
@@ -193,13 +223,19 @@ CREATE TABLE reservation (
 	 reservation_id INT AUTO_INCREMENT PRIMARY KEY,
 	 reserve_date DATETIME NOT NULL,
 	 people_count TINYINT NOT NULL,
-	 reservation_status_id INT NOT NULL REFERENCES reservation_status(reservation_status_id)
+	 reservation_status_id INT NOT NULL,
+	 CONSTRAINT reservation_status_id_fk FOREIGN KEY (reservation_status_id)
+	 REFERENCES reservation_status(reservation_status_id)
 	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT,
-	 tour_id INT NOT NULL REFERENCES tour(tour_id)
+	 tour_id INT NOT NULL,
+	 CONSTRAINT tour_id_fk FOREIGN KEY (tour_id)
+	 REFERENCES tour(tour_id)
 	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT,
-	 user_id INT NOT NULL REFERENCES users(user_id)
+	 user_id INT NOT NULL,
+	 CONSTRAINT user_id_fk FOREIGN KEY (user_id)
+	 REFERENCES users(user_id)
 	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT
 );
@@ -207,10 +243,14 @@ CREATE TABLE reservation (
 CREATE TABLE bonus(
 	bonus_id INT AUTO_INCREMENT PRIMARY KEY,
 	discount DOUBLE NOT NULL,
-	tour_id INT NOT NULL REFERENCES tour(tour_id)
+	tour_id INT NOT NULL,
+	CONSTRAINT tour_id_fk_1 FOREIGN KEY (tour_id)
+	REFERENCES tour(tour_id)
 	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT,
-	user_id INT NOT NULL REFERENCES users(user_id)
+	user_id INT NOT NULL,
+	CONSTRAINT user_id_fk_1 FOREIGN KEY (user_id)
+	REFERENCES users(user_id)
 	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT
 );

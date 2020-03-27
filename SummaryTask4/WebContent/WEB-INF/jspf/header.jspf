@@ -10,6 +10,9 @@ Header (top area).
   <h5 class="my-0 mr-md-auto font-weight-normal">Tour agency</h5>
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" href="/SummaryTask4/controller?action=filterForm">Search tours</a>
+    <c:if test="${user.role eq 'ADMIN'}">
+    	<a class="p-2 btn btn-info" href="/SummaryTask4/controller?action=adminPage">Admin panel</a>
+	</c:if>
   </nav>
   <a class="btn btn-outline-primary" href="/SummaryTask4/controller?action=userEditForm">My account</a>
 </header>

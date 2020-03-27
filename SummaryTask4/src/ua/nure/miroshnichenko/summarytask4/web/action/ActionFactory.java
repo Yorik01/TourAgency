@@ -36,10 +36,12 @@ public class ActionFactory {
 		actions.put("userEditForm", new UserEditFormAction());
 		actions.put("reserveTour", new ReserveTourAction());
 		actions.put("revokeReservation", new RevokeReservationAction());
+		actions.put("allReservations", new AllReservationsAction());
+		actions.put("adminPage", new AdminPageAction());
 	}
 
 	/**
-	 * Returns action object with the given name.
+	 * Rdeturns action object with the given name.
 	 * 
 	 * @param actionName Name of the action.
 	 * @return action object.

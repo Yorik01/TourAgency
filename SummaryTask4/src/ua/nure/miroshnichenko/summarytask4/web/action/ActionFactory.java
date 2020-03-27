@@ -31,6 +31,11 @@ public class ActionFactory {
 		actions.put("filterTour", new FilterTourAction());
 		actions.put("filterForm", new FilterToursFormAction());
 		actions.put("tourInfo", new TourInfoAction());
+		actions.put("userReservations", new UserReservationsAction());
+		actions.put("editUser", new EditUserAction());
+		actions.put("userEditForm", new UserEditFormAction());
+		actions.put("reserveTour", new ReserveTourAction());
+		actions.put("revokeReservation", new RevokeReservationAction());
 	}
 
 	/**

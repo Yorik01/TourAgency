@@ -57,8 +57,9 @@
 			</span>
 			<form action="/SummaryTask4/controller?action=reserveTour"
 				method="post">
-				<input type="hidden" value="${tour.id}" />
-				<button id="btn-reserve" class="btn btn-primary" data-toggle="modal" type="button" data-target="#select-count-people">Reserve</button>
+				<input type="hidden" name="id" value="${tour.id}" />
+				<button id="btn-reserve" class="btn btn-primary" data-toggle="modal"
+					type="button" data-target="#select-count-people">Reserve</button>
 
 				<div class="modal fade" id="select-count-people" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
@@ -72,11 +73,23 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div class="modal-body">...</div>
+							<div class="modal-body">
+								<select class="form-control" name="peopleCount">
+									<option value="1" selected>1</option>
+									<option value="2" selected>2</option>
+									<option value="3" selected>3</option>
+									<option value="4" selected>4</option>
+									<option value="5" selected>5</option>
+									<option value="6" selected>6</option>
+									<option value="7" selected>7</option>
+									<option value="8" selected>8</option>
+								</select>
+							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-outline-secondary"
 									data-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary">Save changes</button>
+								<button type="submit" class="btn btn-primary">Save
+									changes</button>
 							</div>
 						</div>
 					</div>
@@ -229,6 +242,6 @@
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	
+
 </body>
 </html>

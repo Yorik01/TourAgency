@@ -59,15 +59,15 @@ public class ActionAccessFilter implements Filter {
 		// LOG.trace("Common commands --> " + commons);
 
 		// out of control
-		// outOfControl = asList(fConfig.getInitParameter("out-of-control"));
+		outOfControl = asList(filterConfig.getInitParameter("out-of-control"));
 		// LOG.trace("Out of control commands --> " + outOfControl);
 
 		// LOG.debug("Filter initialization finished");
 	}
 
 	private boolean accessAllowed(ServletRequest request) {
-		String commandName = request.getParameter("command");
-		
+		String commandName = request.getParameter("action");
+		System.out.println(outOfControl);
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		
 		if (commandName == null || commandName.isEmpty()) {
@@ -84,11 +84,12 @@ public class ActionAccessFilter implements Filter {
 		}
 		
 		User user = (User) session.getAttribute("user");
-		Role userRole = user.getRole();
-		if (userRole == null) {
+		if (user == null) {
 			return false;
 		}
 		
+		Role userRole = user.getRole();
+
 		return accessMap.get(userRole).contains(commandName)
 				|| commons.contains(commandName);
 	}

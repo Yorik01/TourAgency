@@ -12,13 +12,13 @@
 	<form id="form-signup" class="form-center" action="/SummaryTask4/controller" method="post">
 		<div class="form-group">
 			<label for="input-email">Email address</label> 
-			<input type="email"
+			<input type="email" name="email"
 				class="form-control" id="input-email" aria-describedby="emailHelp"
 				placeholder="Enter email">
 		</div>
 		<div class="form-group">
 			<label for="input-password">Password</label> <input type="password"
-				class="form-control" id="input-password" placeholder="Password">
+				class="form-control" name="password" id="input-password" placeholder="Password">
 		</div>
 		<div class="form-group">
 			<label for="input-repeat-pasword">Repeat password</label> <input

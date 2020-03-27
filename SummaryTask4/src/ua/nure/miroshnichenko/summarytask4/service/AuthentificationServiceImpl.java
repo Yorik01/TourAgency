@@ -3,12 +3,9 @@ package ua.nure.miroshnichenko.summarytask4.service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.dao.UserDAO;
-import ua.nure.miroshnichenko.summarytask4.db.entity.Bonus;
-import ua.nure.miroshnichenko.summarytask4.db.entity.Facility;
 import ua.nure.miroshnichenko.summarytask4.db.entity.User;
 
 class AuthentificationServiceImpl implements AuthentificationService {
@@ -57,6 +54,36 @@ class AuthentificationServiceImpl implements AuthentificationService {
 					user.setPassword(hash);
 
 					boolean result = userDAO.save(user);
+					
+					return result;
+				} else {
+					throw new ServiceException("Cannot genarate hash of password!!!");
+				}
+			} else {
+				throw new IncorrectLoginException("The user with the same email already exists!");
+			}
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
+	
+	@Override
+	public boolean editUser(User user) throws ServiceException {
+		String email = user.getEmail();
+		String password = user.getPassword();
+
+		try {
+			UserDAO userDAO = factoryDAO.getUserDAO();
+			
+			User user1 = userDAO.getUserByEmail(email);
+
+			if (user1 == null) {
+				String hash = hashPassword(password);
+				if (hash != null) {
+					user.setPassword(hash);
+
+					boolean result = userDAO.update(user);
 					
 					return result;
 				} else {

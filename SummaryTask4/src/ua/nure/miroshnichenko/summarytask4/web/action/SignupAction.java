@@ -38,14 +38,14 @@ public class SignupAction extends Action {
 				HttpSession session = req.getSession();
 				session.setAttribute("user", user);
 				
-				return Path.INDEX_PAGE;
+				res.sendRedirect(Path.FILTER_FORM);
+				
+				return Path.NO_PATH;
 			} else {
 				return Path.ERR_PAGE;
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
-			
-			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			throw new ActionException(e);
 		}
 	}

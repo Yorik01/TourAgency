@@ -5,7 +5,6 @@ import ua.nure.miroshnichenko.summarytask4.db.dao.DAO;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOException;
 import ua.nure.miroshnichenko.summarytask4.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.summarytask4.db.entity.Tour;
-import ua.nure.miroshnichenko.summarytask4.myorm.core.DBConnectionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.exception.TransactionFactoryException;
 
@@ -34,7 +33,7 @@ class DiscountServiceImpl implements DiscountService {
 	@Override
 	public boolean riseDiscount(int userId, int tourId) throws ServiceException {
 		try {
-			return DBUtil.callProcedure("riseDiscount", userId, tourId);
+			return DBUtil.callProcedure("rise_discount", userId, tourId);
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

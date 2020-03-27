@@ -1,6 +1,6 @@
 package ua.nure.miroshnichenko.summarytask4.db.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import ua.nure.miroshnichenko.summarytask4.myorm.Entity;
 import ua.nure.miroshnichenko.summarytask4.myorm.annotation.Column;
@@ -19,8 +19,8 @@ public class Reservation implements Entity {
 	@Column("reservation_id")
 	private Integer id;
 
-	@Column("reservation_date")
-	private Date resrveDate;
+	@Column("reserve_date")
+	private Timestamp resrveDate;
 
 	@Column("people_count")
 	private Integer peopleCount;
@@ -34,7 +34,7 @@ public class Reservation implements Entity {
 
 	private Tour tour;
 
-	@Column("userId")
+	@Column("user_id")
 	private Integer userId;
 
 	private User user;
@@ -47,11 +47,11 @@ public class Reservation implements Entity {
 		this.id = id;
 	}
 
-	public Date getResrveDate() {
+	public Timestamp getResrveDate() {
 		return resrveDate;
 	}
 
-	public void setResrveDate(Date resrveDate) {
+	public void setResrveDate(Timestamp resrveDate) {
 		this.resrveDate = resrveDate;
 	}
 

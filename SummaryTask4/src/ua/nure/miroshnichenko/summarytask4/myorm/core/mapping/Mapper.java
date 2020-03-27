@@ -228,7 +228,6 @@ public final class Mapper {
 				if(value instanceof Boolean) {
 					value = (Boolean)value ? 1 : 0;
 				}
-				
 				propertyDescriptor = new PropertyDescriptor(field.getName(), type);
 				propertyDescriptor.getWriteMethod().invoke(entity, value);
 			}

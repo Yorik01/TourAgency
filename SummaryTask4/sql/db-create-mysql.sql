@@ -23,6 +23,8 @@ DROP TABLE IF EXISTS reservation_status;
 DROP TABLE IF EXISTS reservation;
 DROP TABLE IF EXISTS bonus;
 
+DROP PROCEDURE IF EXISTS rise_discount;
+
 CREATE TABLE role (
 	role_id INT PRIMARY KEY,
 	role_name VARCHAR(10) NOT NULL UNIQUE
@@ -213,7 +215,9 @@ CREATE TABLE bonus(
 	 	ON UPDATE RESTRICT
 );
 
-CREATE PROCEDURE riseDiscount (IN user_id INT, IN tour_id INT)
+DELIMITER $$
+
+CREATE PROCEDURE rise_discount (IN user_id INT, IN tour_id INT)
 BEGIN
 	DECLARE max_discount DOUBLE;
 	DECLARE current_discount DOUBLE;
@@ -225,18 +229,26 @@ BEGIN
 	SELECT discount_step INTO discount_step FROM users u WHERE u.user_id = user_id;
 	
 	IF current_discount IS NULL THEN
-		SET current_discount := 0;
-	END IF;
-	
-	SET new_discount := current_discount + discount_step;
-	
-	IF new_discount <= max_discount THEN
-		UPDATE users u SET discount = new_discount WHERE u.user_id = user_id;
+		SET current_discount = 0;
+		
+		INSERT INTO bonus VALUES (DEFAULT, current_discount, tour_id, user_id);
 	ELSE
-		SIGNAL SQLSTATE '45000' 
-			SET MESSAGE_TEXT = "Error of rising users discount!";
+		SET new_discount = current_discount + discount_step;
+		
+		IF new_discount <= max_discount THEN
+			UPDATE users u set discount = new_discount WHERE u.user_id = user_id;
+		ELSE
+		SELECT max_discount;
+		SELECT current_discount;
+		SELECT discount_step;
+		SELECT new_discount;
+			SIGNAL SQLSTATE '45000' 
+				SET MESSAGE_TEXT = "Error of rising users discount!";
+		END IF;
 	END IF;
-END 
+END$$
+
+DELIMITER ;
 
 -- set roles
 INSERT INTO role VALUES (1, "CLIENT");
@@ -310,5 +322,8 @@ INSERT INTO place VALUES (DEFAULT, "Ukraine", "Lviv");
 INSERT INTO place VALUES (DEFAULT, "Ukraine", "Kiev");
 INSERT INTO place VALUES (DEFAULT, "Ukraine", "Dnepr");
 INSERT INTO place VALUES (DEFAULT, "Ukraine", "Odesa");
+
+-- set admin for password '1234'
+INSERT INTO users VALUES (DEFAULT, "admin@touragency.com", "81dc9bdb52d04dc20036dbd8313ed055", 0, 0, 3);
 
 SHOW TABLES;

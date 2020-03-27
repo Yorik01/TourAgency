@@ -158,7 +158,7 @@ public class MysqlReservationDAO implements ReservationDAO {
 		try {
 			transaction = DBUtil.getTransaction();
 			reservations = (List<Reservation>) (List<?>) transaction.customQuery(
-					Queries.USER_RESERVATIONS, Reservation.class, user.getId().toString());
+					Queries.USER_RESERVATIONS, Reservation.class, user.getId());
 
 			for (Reservation reservation : reservations) {
 				Tour tour = tourDAO.find(reservation.getTourId());

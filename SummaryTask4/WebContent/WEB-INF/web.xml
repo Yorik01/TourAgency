@@ -46,11 +46,11 @@
 		<filter-name>ActionAccessFilter</filter-name>
 		<filter-class>ua.nure.miroshnichenko.summarytask4.web.filter.ActionAccessFilter</filter-class>
 		<init-param>
-			<param-name>admin</param-name>
-			<param-value>listOrders</param-value>
+			<param-name>client</param-name>
+			<param-value>userReservations reserveTour revokeReservation</param-value>
 		</init-param>
 		<init-param> 
-			<param-name>client</param-name>
+			<param-name>admin</param-name>
 			<param-value>saveHotel saveRoute saveTour saveTransport allTours 
 			hotelForm routeForm tourForm transportForm allHotels allRoutes allTransports</param-value>
 		</init-param>
@@ -60,7 +60,7 @@
 		</init-param>	
 		<init-param>
 			<param-name>common</param-name>
-			<param-value>logout noCommand tourInfo filterForm filterTours</param-value>
+			<param-value>logout noCommand tourInfo filterForm filterTours userEditForm</param-value>
 		</init-param>
 		<init-param>
 			<param-name>out-of-control</param-name>
@@ -77,7 +77,7 @@
 	Context listener
 =============================================================-->
 	<listener>
-		<listener-class>ua.nure.your_last_name.SummaryTask4.web.listener.ContextListener</listener-class>
+		<listener-class>ua.nure.miroshnichenko.summarytask4.web.listener.ContextListener</listener-class>
 	</listener>
 	
 <!--============================================================

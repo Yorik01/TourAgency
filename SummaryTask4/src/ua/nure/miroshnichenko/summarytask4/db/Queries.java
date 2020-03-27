@@ -15,9 +15,9 @@ public final class Queries {
 			+ "INNER JOIN hotel_facility hf USING (facility_id)"
 			+ " WHERE hf.hotel_id = ?";
 	
-	public static final String USER_RESERVATIONS = "SELECT * reservation r WHERE user_id = ?";
+	public static final String USER_RESERVATIONS = "SELECT * FROM reservation WHERE user_id = ?";
 	
-	public static final String TOUR_RESERVATIONS = "SELECT * reservation r WHERE tour_id = ?";
+	public static final String TOUR_RESERVATIONS = "SELECT * FROM reservation WHERE tour_id = ?";
 	
 	public static final String USER_BY_EMAIL = "SELECT * FROM users WHERE email = ?";
 	

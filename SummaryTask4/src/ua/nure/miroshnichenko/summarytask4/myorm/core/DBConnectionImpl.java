@@ -122,7 +122,7 @@ class DBConnectionImpl implements DBConnection {
 		try {
 			statement = sqlConnection.createStatement();
 			int affected = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-			System.out.println("DBC: " + affected);
+	
 			if(affected > 0) {
 				resultSet = statement.getGeneratedKeys();
 				return resultSet;
@@ -138,7 +138,8 @@ class DBConnectionImpl implements DBConnection {
 	public boolean callProcedure(String query, Object... parametrs) throws DBConnectionException {
 		try {
 			statement = prepareCollableStatement(query, parametrs);
-			return ((CallableStatement) statement).executeUpdate() > 0;
+			System.out.println(statement);
+			return ((CallableStatement) statement).execute();
 		} catch (SQLException e) {
 			throw new DBConnectionException(e.getMessage(), e.getCause());
 		}

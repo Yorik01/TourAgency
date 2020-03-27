@@ -271,7 +271,9 @@ public class MysqlTourDAO implements TourDAO {
 		tour.setTransportTo(transportTo);
 		tour.setTransportBack(transportBack);
 		
-		tour.setPrice(hotel.getPrice() + transportTo.getPrice() + transportBack.getPrice());
+		double total = hotel.getPrice() + transportTo.getPrice() + transportBack.getPrice();
+		
+		tour.setPrice(total  - (total * (tour.getAgencyProcent() / 100d)));
 	}
 	
 	private String prepareFilterQuery(String servicingsStr, String facilitiesStr, 

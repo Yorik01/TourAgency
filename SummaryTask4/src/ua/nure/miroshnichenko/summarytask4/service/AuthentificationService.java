@@ -8,5 +8,7 @@ public interface AuthentificationService {
 
 	boolean signup(User user) throws ServiceException;
 
+	boolean editUser(User user) throws ServiceException;
+	
 	User getUserInfo(int id) throws ServiceException;
 }

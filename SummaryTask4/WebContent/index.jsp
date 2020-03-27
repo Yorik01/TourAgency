@@ -57,7 +57,7 @@
 					<option value="6" selected>6</option>
 					<option value="7" selected>7</option>
 					<option value="8" selected>8</option>
-      			</select>
+			  </select>
    			</div>
 			<button class="btn btn-primary" type="submit">Seacrh</button>
 		</div>

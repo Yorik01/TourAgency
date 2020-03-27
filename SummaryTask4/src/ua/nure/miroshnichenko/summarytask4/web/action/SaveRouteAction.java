@@ -37,7 +37,6 @@ public class SaveRouteAction extends Action {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
-
 		Route route = new Route();
 		
 		route.setRouteFromId(fromPlace.getId());

@@ -1,6 +1,6 @@
 package ua.nure.miroshnichenko.summarytask4.service;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -143,8 +143,10 @@ class TourServiceImpl implements TourService {
 		reservation.setUserId(userId);
 		reservation.setPeopleCount(peopleCount);
 		
-		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		Timestamp date = new Timestamp(Calendar.getInstance().getTime().getTime());
+		
 		reservation.setResrveDate(date);
+		reservation.setStatus(ReservationStatus.RESERVED);
 
 		try {
 			DAO<Reservation> dao = (DAO<Reservation>) factoryDAO.getDAO("reservation");
@@ -180,7 +182,10 @@ class TourServiceImpl implements TourService {
 		try {
 			DAO<Reservation> dao = (DAO<Reservation>) factoryDAO.getDAO("reservation");
 			List<Reservation> reservations = dao.findAll();
-
+			
+			reservations.sort((x, y) -> 
+						x.getResrveDate().compareTo(y.getResrveDate()));
+			
 			return reservations;
 		} catch (DAOException e) {
 			e.printStackTrace();

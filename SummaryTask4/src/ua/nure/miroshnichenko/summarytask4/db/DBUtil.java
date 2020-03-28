@@ -1,5 +1,7 @@
 package ua.nure.miroshnichenko.summarytask4.db;
 
+import com.sun.org.apache.regexp.internal.recompile;
+
 import ua.nure.miroshnichenko.summarytask4.myorm.core.Settings;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.summarytask4.myorm.core.transaction.TransactionFactory;
@@ -41,7 +43,10 @@ public final class DBUtil {
 
 	public static boolean callProcedure(String name, Object...parametrs) throws TransactionFactoryException, TransactionException {
 		Transaction transaction = getTransaction();
-		return transaction.callProcedure(name, parametrs);
+		boolean result = transaction.callProcedure(name, parametrs);
+		transaction.commit();
+		
+		return result;
 	}
 	
 	public static void close(Transaction transaction) throws TransactionException {

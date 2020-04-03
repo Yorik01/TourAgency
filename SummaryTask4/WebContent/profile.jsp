@@ -18,13 +18,13 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/SummaryTask4/controller?action=userEditForm&id=${user.id}">
+                <a class="nav-link active" href="/TourAgency/controller?action=userEditForm&id=${user.id}">
 					<i class="fa fa-user"></i>
 					Profile info
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=userReservations&id=${user.id}">
+                <a class="nav-link" href="/TourAgency/controller?action=userReservations&id=${user.id}">
 				<i class="fa fa-list-alt"></i>
 					My reservations
                 </a>

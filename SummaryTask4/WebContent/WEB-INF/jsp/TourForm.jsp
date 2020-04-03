@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-<%@ page import="ua.nure.miroshnichenko.summarytask4.db.entity.TourType"%>
+<%@ page import="ua.nure.miroshnichenko.touragency.db.entity.TourType"%>
  <%@ page import="java.sql.Date"%>
 
 <!DOCTYPE html>
@@ -11,7 +11,8 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<form method="post" action="/SummaryTask4/controller?action=saveTour&edit=${param.edit}">
+	<form method="post" action="/TourAgency/controller?action=saveTour&edit=${param.edit}">
+		<h3>Tour</h3>
 		<div class="form-group">
 			<label for="select-tour-type">Tour type</label>
 			<select name="type" id="select-tour-type" class="form-control">
@@ -23,30 +24,31 @@
 				Shopping</option>
 			</select>
 		</div>
-		<div class="start_date input-group ml-3">
-			<input name="startDate" class="form-control start_date" value="${startDate}" type="text" placeholder="start date" id="startdate-datepicker">
-			<div class="input-group-append">
-			    <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
+		<div class="form-group">
+			<label for="startdate-datepicker">Start date</label>
+			<div class="input-group date">
+				<input name="startDate" class="form-control" value="${startDate}" type="text"  id="startdate-datepicker">
+				<div class="input-group-append">
+				    <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
+				</div>
 			</div>
 		</div>
-		<div class="end_date input-group ml-3 mr-3">
-			<input name="endDate" class="form-control end_date" value="${endDate}" type="text" placeholder="end date" id="enddate-datepicker">
-			<div class="input-group-append">
-				<span class="fa fa-calendar input-group-text end_date_calendar" aria-hidden="true "></span>
+		<div class="form-group">
+			<label for="enddate-datepicker">Start date</label>
+			<div class="input-group date">
+				<input name="endDate" class="form-control" value="${endDate}" type="text" id="enddate-datepicker">
+				<div class="input-group-append">
+					<span class="fa fa-calendar input-group-text end_date_calendar" aria-hidden="true "></span>
+				</div>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="set-max-discount">Max discount</label>
-			<input name="maxDiscount" value="${tour.maxDiscount}" type="number" id="set-max-discount">
+			<input name="maxDiscount" class="form-control" value="${tour.maxDiscount}" type="number" id="set-max-discount">
 		</div>
 		<div class="form-group">
 			<label for="set-max-discount">Agency procent</label>
-			<input name="agencyProcent" value="${tour.agencyProcent}" type="number" id="set-max-discount">
-		</div>
-		<div class="form-group">
-			<label for="set-max-discount">Fired</label>
-			<input name="isFired" type="checkbox" id="set-max-discount"
-			<c:if test="${tour.isFired() eq 1}">checked</c:if>>
+			<input name="agencyProcent" class="form-control" value="${tour.agencyProcent}" type="number" id="set-max-discount">
 		</div>
 		<div class="form-group">
 			<label for="select-hotel">Hotel</label>
@@ -74,11 +76,16 @@
 				</c:forEach>
 			</select>
 		</div>
+		<div class="custom-control custom-checkbox my-1 mr-sm-2">
+			<input name="isFired" type="checkbox" class="custom-control-input" id="set-fired"
+			<c:if test="${tour.isFired() eq 1}">checked</c:if>>
+			<label for="set-fired" class="custom-control-label">Fired</label>
+		</div>
 		<c:if test="${param.edit eq 'true'}">
 				<input type="hidden" name="id" value="${tour.id}" />
 				<input type="hidden" name="edit" value="true" />
 		</c:if>
-		<button class="btn btn-primary" type="submit">Save</button>
+		<button class="btn btn-primary mt-3" type="submit">Save</button>
 	</form>
 	
 <script src="bootstrap/js/moment.min.js"></script>	

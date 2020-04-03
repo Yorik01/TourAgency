@@ -7,7 +7,10 @@
 	<meta charset="UTF-8">
 </head>
 	<body>
-		<div class="d-flex flex-column">
+	<a class="btn btn-success mt-2 mb-5" href="/TourAgency/controller?action=routeForm">
+			Add route
+	</a>
+		<div class="d-flex flex-wrap">
 			<c:forEach items="${requestScope.routes}" var="route">
 				<t:routeCard 
 				countryFrom="${route.from.country}"

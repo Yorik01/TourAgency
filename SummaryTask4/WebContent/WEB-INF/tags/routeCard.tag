@@ -6,7 +6,7 @@
 <%@ attribute name="cityTo" required="true" type="java.lang.String"%>
 <%@ attribute name="id" required="true" type="java.lang.Integer"%>
 
-<table class="table bg-white table-bordered">
+<table class="table bg-white table-bordered card mr-3 mt-3">
 	<tbody>
 		<tr>
 			<td>Country from: ${countryFrom}</td>
@@ -22,13 +22,13 @@
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/SummaryTask4/controller?action=routeForm&edit=true">
+				<form method="post" action="/TourAgency/controller?action=routeForm&edit=true">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
-				<form method="post" action="/SummaryTask4/controller?action=deleteRoute">
+				<form method="post" action="/TourAgency/controller?action=deleteRoute">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-danger" type="submit">
 						Delete

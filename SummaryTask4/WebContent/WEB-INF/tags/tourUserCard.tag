@@ -21,7 +21,7 @@
 				</c:if>
 			</h5>
 			<p class="card-text">${info}</p>
-			<form action="/SummaryTask4/controller">
+			<form action="/TourAgency/controller">
 				<input type="hidden" name="action" value="tourInfo"/> 
 				<input type="hidden" name="id" value="${id}" />
 				<button class="btn btn-primary" type="submit">Look</button>

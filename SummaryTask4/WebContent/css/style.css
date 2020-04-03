@@ -277,6 +277,21 @@ hr {
 	font-size: 16px;
 }
 
+.admin-content {
+	position: relative;
+	
+}
+
+.admin-content .btn {
+	width: 150px !important;
+}
+
+.admin-content form {
+	width: fit-content;
+	height: fit-content;
+	margin-left: 100px;
+}
+
 #tour-info h3 {
 	position: relative;
 	left: 50%;
@@ -285,4 +300,13 @@ hr {
 #transport-info h3 {
 	position: relative;
 	left: 50%;
+}
+
+.card {
+	width: fit-content;
+	height: fir-content;
+}
+
+.card .btn {
+	margin: 10px;
 }

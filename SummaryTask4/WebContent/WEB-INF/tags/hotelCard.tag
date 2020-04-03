@@ -5,7 +5,7 @@
 <%@ attribute name="stars" required="true" type="java.lang.Integer"%>
 <%@ attribute name="id" required="true" type="java.lang.Integer"%>
 
-<table class="table bg-white table-bordered">
+<table class="table bg-white table-bordered card mr-3 mt-3">
 	<tbody>
 		<tr>
 			<td>Name: ${name}</td>
@@ -18,13 +18,13 @@
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/SummaryTask4/controller?action=hotelForm&edit=true">
+				<form method="post" action="/TourAgency/controller?action=hotelForm&edit=true">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
-				<form method="post" action="/SummaryTask4/controller?action=deleteHotel">
+				<form method="post" action="/TourAgency/controller?action=deleteHotel">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-danger" type="submit">
 						Delete

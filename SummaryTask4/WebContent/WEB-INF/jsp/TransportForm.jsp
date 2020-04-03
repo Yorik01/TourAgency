@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
  
- <%@ page import="ua.nure.miroshnichenko.summarytask4.db.entity.TransportType"%>
+ <%@ page import="ua.nure.miroshnichenko.touragency.db.entity.TransportType"%>
  <%@ page import="java.sql.Timestamp"%>
  <%@ page import="java.sql.Time"%>
  <%@ page import="java.sql.Date"%>
@@ -13,7 +13,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<form method="post" action="/SummaryTask4/controller?action=saveTransport&edit=${param.edit}">
+	<form method="post" action="/TourAgency/controller?action=saveTransport&edit=${param.edit}">
 		<h3>Transport</h3>
 			<div class="form-group">
 				<label for="select-transport-type">Transport type</label>
@@ -33,8 +33,8 @@
 				<input class="form-control" value="${transport.maxPlaces}"  name="maxPlaces" id="transport-max-places" type="number">
 			</div>
 			<div class="form-group">
+				<label for="transport-takeoffdate">Takeoff date</label>
                 <div class='input-group date'>
-                	<label for="transport-takeoffdate">Takeoff date</label>
                 	<br>
                     <input type='text' name="takeoffDate" value="${takeoffDate}" class="form-control" id='transport-takeoffdate' />
                     <div class="input-group-append">
@@ -47,8 +47,8 @@
 				<input type="time" class="form-control" value="${takeoffTime}" name="takeoffTime" id="transport-takeofftime">
 			</div>
 			<div class="form-group">
+				<label for="transport-takeoffdate">Arriving date</label>
                 <div class='input-group date'>
-					<label for="transport-takeoffdate">Arriving date</label>
                     <input type='text' class="form-control" value="${arriveDate}" name="arrivingDate" id='transport-arrivingdate' />
                     <div class="input-group-append">
 			      		<span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>

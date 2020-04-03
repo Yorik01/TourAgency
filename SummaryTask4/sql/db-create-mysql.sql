@@ -2,8 +2,6 @@ SET NAMES utf8;
 
 USE tour_agency;
 
-DROP TABLE IF EXISTS role;
-DROP TABLE IF EXISTS bonus;
 DROP TABLE IF EXISTS reservation;
 DROP TABLE IF EXISTS tour;
 DROP TABLE IF EXISTS transport;
@@ -15,6 +13,7 @@ DROP TABLE IF EXISTS service;
 DROP TABLE IF EXISTS facility;
 DROP TABLE IF EXISTS service_type;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS transport_type;
 DROP TABLE IF EXISTS tour_type;
 DROP TABLE IF EXISTS reservation_status;
@@ -23,7 +22,7 @@ DROP TABLE IF EXISTS hotel_type;
 DROP TABLE IF EXISTS beach;
 DROP TABLE IF EXISTS food;
 
-DROP PROCEDURE IF EXISTS rise_discount;
+DROP PROCEDURE IF EXISTS reserve_tour;
 
 CREATE TABLE role (
 	role_id INT PRIMARY KEY,
@@ -223,6 +222,7 @@ CREATE TABLE reservation (
 	 reservation_id INT AUTO_INCREMENT PRIMARY KEY,
 	 reserve_date DATETIME NOT NULL,
 	 people_count TINYINT NOT NULL,
+	 discount DOUBLE NOT NULL DEFAULT 0,
 	 reservation_status_id INT NOT NULL,
 	 CONSTRAINT reservation_status_id_fk FOREIGN KEY (reservation_status_id)
 	 REFERENCES reservation_status(reservation_status_id)
@@ -240,24 +240,9 @@ CREATE TABLE reservation (
 	 	ON UPDATE RESTRICT
 );
 
-CREATE TABLE bonus(
-	bonus_id INT AUTO_INCREMENT PRIMARY KEY,
-	discount DOUBLE NOT NULL,
-	tour_id INT NOT NULL,
-	CONSTRAINT tour_id_fk_1 FOREIGN KEY (tour_id)
-	REFERENCES tour(tour_id)
-	 	ON DELETE CASCADE
-	 	ON UPDATE RESTRICT,
-	user_id INT NOT NULL,
-	CONSTRAINT user_id_fk_1 FOREIGN KEY (user_id)
-	REFERENCES users(user_id)
-	 	ON DELETE CASCADE
-	 	ON UPDATE RESTRICT
-);
-
 DELIMITER $$
 
-CREATE PROCEDURE rise_discount (IN user_id INT, IN tour_id INT)
+CREATE PROCEDURE reserve_tour (IN user_id INT, IN tour_id INT, IN people_count INT, IN reservation_status_id INT)
 BEGIN
 	DECLARE max_discount DOUBLE;
 	DECLARE current_discount DOUBLE;
@@ -265,27 +250,16 @@ BEGIN
 	DECLARE new_discount DOUBLE;
 	
 	SELECT tour_max_discount INTO max_discount FROM tour t WHERE t.tour_id = tour_id;
-	SELECT MAX(discount) INTO current_discount FROM bonus b WHERE b.user_id = user_id;
+	SELECT IFNULL(MAX(discount), 0) INTO current_discount FROM reservation r WHERE b.user_id = user_id;
 	SELECT discount_step INTO discount_step FROM users u WHERE u.user_id = user_id;
 	
-	IF current_discount IS NULL THEN
-		SET current_discount = 0;
-		
-		INSERT INTO bonus VALUES (DEFAULT, current_discount, tour_id, user_id);
-	ELSE
-		SET new_discount = current_discount + discount_step;
-		
-		IF new_discount <= max_discount THEN
-			UPDATE users u set discount = new_discount WHERE u.user_id = user_id;
-		ELSE
-		SELECT max_discount;
-		SELECT current_discount;
-		SELECT discount_step;
-		SELECT new_discount;
-			SIGNAL SQLSTATE '45000' 
-				SET MESSAGE_TEXT = "Error of rising users discount!";
-		END IF;
+	SET new_discount = current_discount + discount_step;
+	
+	IF new_discount <= max_discount THEN
+		SET newuu_discount = current_discount;
 	END IF;
+	
+	INSERT INTO reservation VALUES (DEFAULT, NOW(), people_count, new_discount, reservation_status_id, tour_id, user_id);
 END$$
 
 DELIMITER ;

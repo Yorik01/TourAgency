@@ -8,7 +8,7 @@
 <%@ attribute name="endDate" required="true" type="java.sql.Date"%>
 <%@ attribute name="id" required="true" type="java.lang.Integer"%>
 
-<table class="table bg-white table-bordered">
+<table class="table bg-white table-bordered card mt-3 mr-3">
 	<tbody>
 		<tr>
 			<td>Hotel: ${hotel}</td>
@@ -30,13 +30,13 @@
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/SummaryTask4/controller?action=tourForm&edit=true">
+				<form method="post" action="/TourAgency/controller?action=tourForm&edit=true">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
-				<form method="post" action="/SummaryTask4/controller?action=deleteTour">
+				<form method="post" action="/TourAgency/controller?action=deleteTour">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-danger" type="submit">
 						Delete

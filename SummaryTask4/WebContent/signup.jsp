@@ -9,7 +9,7 @@
 <title>SignUp</title>
 </head>
 <body>
-	<form id="form-signup" class="form-center" action="/SummaryTask4/controller" method="post">
+	<form id="form-signup" class="form-center" action="/TourAgency/controller" method="post">
 		<div class="form-group">
 			<label for="input-email">Email address</label> 
 			<input type="email" name="email"

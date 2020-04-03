@@ -7,7 +7,8 @@
 	<meta charset="UTF-8">
 </head>
 	<body>
-		<form method="post" action="/SummaryTask4/controller?action=saveRoute&edit=${param.edit}">
+		<form method="post" action="/TourAgency/controller?action=saveRoute&edit=${param.edit}">
+			<h3>Route</h3>
 			<div class="form-group">
 				<label for="select-route-country-from">Country from</label>
 				<select id="select-route-country-from" name="countryFrom" class="form-control" class="route-countries">

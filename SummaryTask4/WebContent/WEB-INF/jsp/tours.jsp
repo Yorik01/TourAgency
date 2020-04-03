@@ -7,7 +7,10 @@
 		<meta charset="UTF-8">
 	</head>
 	<body>
-		<div class="d-flex flex-column">
+		<div class="d-flex flex-wrap">
+			<a class="btn btn-success mt-2 mb-5" href="/TourAgency/controller?action=tourForm">
+				Add tour
+			</a>
 			<c:forEach items="${requestScope.tours}" var="tour">
 				<t:tourCard
 				id="${tour.id}"

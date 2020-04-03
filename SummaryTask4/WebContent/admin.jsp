@@ -18,60 +18,36 @@
         <nav class="col-md-2 d-none d-md-block bg-white h-100 sidebar position-fixed">
           <div class="sidebar-sticky">
            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Tours</span>
-				<i class="fa fa-plane"></i>
-            </h6>
+            	<span>Main info</span>
+				<i class="fa fa-info-circle"></i>
+        	</h6>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/SummaryTask4/controller?action=allTours">
-					<i class="fa fa-search"></i>
+                <a class="nav-link active" href="/TourAgency/controller?action=allTours">
+					<i class="fa fa-globe-europe"></i>
 					Tours
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=tourForm">
-                <i class="fa fa-plus"></i>
-					Add tour
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=hotelForm">
-                <i class="fa fa-plus"></i>
-					Add hotel
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=transportForm">
-                <i class="fa fa-plus"></i>
-					Add transport
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=routeForm">
-                <i class="fa fa-plus"></i>
-					Add route
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=allRoutes">
-                <i class="fa fa-search"></i>
+                <a class="nav-link" href="/TourAgency/controller?action=allRoutes">
+                <i class="fa fa-route"></i>
 					Routes
                 </a>
               </li>
                <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=allHotels">
-                <i class="fa fa-search"></i>
+                <a class="nav-link" href="/TourAgency/controller?action=allHotels">
+                <i class="fa fa-hotel"></i>
 					Hotels
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=allTransports">
-                <i class="fa fa-search"></i>
+                <a class="nav-link" href="/TourAgency/controller?action=allTransports">
+                <i class="fa fa-plane"></i>
 					Transports
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/SummaryTask4/controller?action=allReservations">
+                <a class="nav-link" href="/TourAgency/controller?action=allReservations">
                 <i class="fa fa-file-alt"></i>
 					Reservations
                 </a>
@@ -84,47 +60,43 @@
             </h6>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">
-					<i class="fa fa-cog"></i>
+                <a class="nav-link" href="#">
+					<i class="fa fa-edit"></i>
 					Set max discount
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                <i class="fa fa-cog"></i>
+                <i class="fa fa-edit"></i>
 					Set step of discount
                 </a>
               </li>
             </ul>
-
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Users</span>
-			  <i class="fa fa-user"></i>
-            </h6>
-            <ul class="nav flex-column mb-2">
-             <li class="nav-item">
-                <a class="nav-link" href="#">
-                <i class="fa fa-search"></i>
-					Search
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                <i class="fa fa-plus"></i>
-					Create manager
-                </a>
-              </li>
-              <li class="nav-item">
-				<a class="nav-link" href="#">
-                <i class="fa fa-ban"></i>
-					Banned
-                </a>
-              </li>
-            </ul>
+			
+			<c:if test="${sessionScope.user.role eq 'ADMIN'}">
+       		  	<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            		<span>Users</span>
+				 	<i class="fa fa-users"></i>
+    	        </h6>
+	            <ul class="nav flex-column mb-2">
+            		 <li class="nav-item">
+                		<a class="nav-link" href="#">
+		                <i class="fa fa-users"></i>
+							Users
+               			</a>
+		             </li>
+		              <li class="nav-item">
+                		<a class="nav-link" href="#">
+		                <i class="fa fa-plus"></i>
+							Create manager
+               			</a>
+		             </li>
+            	</ul>
+            </c:if>
           </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-4 admin-content">
 	        <c:if test="${requestScope.form != null}">
 	        	<jsp:include page="${requestScope.form}" />
 	        </c:if>

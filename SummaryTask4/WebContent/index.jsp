@@ -17,7 +17,7 @@
 	<title>Tours</title>
 </head>
 <body>
-	<form id="tour-filter" class="container-fluid form-group mt-5" action="/SummaryTask4/controller" method="get">
+	<form id="tour-filter" class="container-fluid form-group mt-5" action="/TourAgency/controller" method="get">
 		<h1 class="mb-5">Searching of tours</h1>
 		<div id="tour-filter-main" class="shadow-sm p-3 bg-white rounded d-flex flex-row justify-content-around">
 			<div>

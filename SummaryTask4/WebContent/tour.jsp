@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
 
 <%@ page
-	import="ua.nure.miroshnichenko.summarytask4.db.entity.TypeServicing"%>
+	import="ua.nure.miroshnichenko.touragency.db.entity.TypeServicing"%>
 
 <c:set var="title" value="Error" scope="page" />
 <!DOCTYPE html>
@@ -55,7 +55,7 @@
 				class="text-secondary">total <i class="fa fa-fire"></i></span> <span
 				id="tour-price">${tour.price} $</span>
 			</span>
-			<form action="/SummaryTask4/controller?action=reserveTour"
+			<form action="/TourAgency/controller?action=reserveTour"
 				method="post">
 				<input type="hidden" name="id" value="${tour.id}" />
 				<button id="btn-reserve" class="btn btn-primary" data-toggle="modal"

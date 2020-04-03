@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<form action="/SummaryTask4/controller">
+	<form action="/TourAgency/controller">
 		<div class="form-group">
 			<label for="input-email">Email address</label> <input type="email"
 				class="form-control" id="input-email" name="email" value="${user.email}" aria-describedby="emailHelp"

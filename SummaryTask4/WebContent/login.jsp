@@ -9,7 +9,7 @@
 	<title>login</title>
 </head>
 <body>
-	<form id="form-login" class="form-center" action="/SummaryTask4/controller" method="post">
+	<form id="form-login" class="form-center" action="/TourAgency/controller" method="post">
 		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 		<label for="inputEmail" class="sr-only">Email address</label> 
 		<input type="email" id="input-email" class="form-control mb-3"
@@ -21,7 +21,7 @@
 			login
 		</button>
 		<span id="reg-offering">Don't you have the account? 
-			<a href="/SummaryTask4/signup.jsp">SignUp</a>
+			<a href="/TourAgency/signup.jsp">SignUp</a>
 		</span>
 		<input type="hidden" name="action" value="login" />
 	</form>

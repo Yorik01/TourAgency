@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 
+import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
 
 public final class ActionUtil {
@@ -14,6 +15,10 @@ public final class ActionUtil {
 	private static final Gson gson = new Gson();
 
 	private ActionUtil() {
+	}
+	
+	public static String entitiesToJson(List<? extends Entity> entities) {
+		return gson.toJson(entities);
 	}
 	
 	public static String PlacesToJson(List<Place> places) {

@@ -2,7 +2,6 @@ package ua.nure.miroshnichenko.touragency.db.dao.mysql;
 
 import java.util.HashMap;
 
-import ua.nure.miroshnichenko.touragency.db.dao.BonusDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.FacilityDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.HotelDAO;
@@ -22,7 +21,6 @@ public class MysqlDAOFactory extends DAOFactory {
 		DAOEntities.put("tour", new MysqlTourDAO());
 		DAOEntities.put("reservation", new MysqlReservationDAO());
 		DAOEntities.put("user", new MysqlUserDAO());
-		DAOEntities.put("bonus", new MysqlBonusDAO());
 		DAOEntities.put("hotel", new MysqlHotelDAO());
 		DAOEntities.put("place", new MysqlPlaceDAO());
 		DAOEntities.put("route", new MysqlRouteDAO());
@@ -69,11 +67,6 @@ public class MysqlDAOFactory extends DAOFactory {
 	@Override
 	public FacilityDAO getFacilityDAO() {
 		return new MysqlFacilityDAO();
-	}
-	
-	@Override
-	public BonusDAO getBonusDAO() {
-		return new MysqlBonusDAO();
 	}
 	
 	@Override

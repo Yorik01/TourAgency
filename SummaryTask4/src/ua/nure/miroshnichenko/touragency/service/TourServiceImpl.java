@@ -10,13 +10,11 @@ import java.util.Map.Entry;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactoryException;
 import ua.nure.miroshnichenko.touragency.db.DBUtil;
-import ua.nure.miroshnichenko.touragency.db.dao.BonusDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.ReservationDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.TourDAO;
 import ua.nure.miroshnichenko.touragency.db.entity.Beach;
-import ua.nure.miroshnichenko.touragency.db.entity.Bonus;
 import ua.nure.miroshnichenko.touragency.db.entity.Facility;
 import ua.nure.miroshnichenko.touragency.db.entity.Food;
 import ua.nure.miroshnichenko.touragency.db.entity.HotelType;
@@ -213,18 +211,5 @@ class TourServiceImpl implements TourService {
 			parametrs.put(entry.getKey(), entry.getValue()[0]);
 		}
 		return parametrs;
-	}
-	
-	@Override
-	public List<Bonus> getUserBonuses(int userId) throws ServiceException {
-		try {
-			BonusDAO bonusDAO = factoryDAO.getBonusDAO();
-			List<Bonus> bonuses = bonusDAO.getUserBonuses(userId);
-			
-			return bonuses;
-		} catch (DAOException e) {
-			e.printStackTrace();
-			throw new ServiceException(e);
-		}
 	}
 }

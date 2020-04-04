@@ -11,6 +11,10 @@ public final class Path {
 	
 	public static final String ADMIN_PAGE = "admin.jsp";
 	
+	public static final String LOGIN_PAGE = "login.jsp";
+	
+	public static final String PAGE_404 = "page404.jsp";
+	
 	public static final String PROFILE_PAGE = "profile.jsp";
 	
 	public static final String ERR_PAGE = "error.jsp";

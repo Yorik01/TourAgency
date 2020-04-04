@@ -3,16 +3,20 @@ package ua.nure.miroshnichenko.touragency.web.action;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 public class ActionFactory {
-	// private static final Logger LOG = Logger.getLogger(ActionFactory.class);
+	
+	private static final Logger LOG = Logger.getLogger(ActionFactory.class);
 
 	private static Map<String, Action> actions = new HashMap<>();
 
 	static {
-		// common actions
+		// all actions
 
-		// LOG.debug("action container was successfully initialized");
-//		LOG.trace("Number of actions --> " + actions.size());
+		LOG.debug("action container was successfully initialized");
+		LOG.trace("Number of actions --> " + actions.size());
+		
 		actions.put("login", new LoginAction());
 		actions.put("signup", new SignupAction());
 		actions.put("saveHotel", new SaveHotelAction());
@@ -38,6 +42,9 @@ public class ActionFactory {
 		actions.put("revokeReservation", new RevokeReservationAction());
 		actions.put("allReservations", new AllReservationsAction());
 		actions.put("adminPage", new AdminPageAction());
+		actions.put("setMaxDiscount", new SetMaxDiscountAction());
+		actions.put("setDiscountStepForAllUsers", new SetDiscountStepForAllUsers());
+		actions.put("createManager", new CreateManagerAction());
 	}
 
 	/**
@@ -48,7 +55,7 @@ public class ActionFactory {
 	 */
 	public static Action get(String actionName) {
 		if (actionName == null || !actions.containsKey(actionName)) {
-			//LOG.trace("action not found, name --> " + actionName);
+			LOG.trace("action not found, name --> " + actionName);
 			return actions.get("noaction");
 		}
 

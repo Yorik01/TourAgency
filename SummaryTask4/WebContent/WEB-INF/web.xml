@@ -51,13 +51,19 @@
 		</init-param>
 		<init-param> 
 			<param-name>admin</param-name>
-			<param-value>saveHotel saveRoute saveTour saveTransport allTours 
-			hotelForm routeForm tourForm transportForm allHotels allRoutes allTransports 
-			allReservations adminPage</param-value>
+			<param-value>saveHotel saveRoute saveTour saveTransport 
+			hotelForm routeForm tourForm transportForm createManager</param-value>
 		</init-param>
 		<init-param>
 			<param-name>manager</param-name>
-			<param-value>listMenu</param-value>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>admin-manager</param-name>
+			<param-value>adminPage setDiscountStepForAllUsers setMaxDiscount 
+			allTours allHotels allRoutes allTransports 
+			allReservations
+			</param-value>
 		</init-param>	
 		<init-param>
 			<param-name>common</param-name>

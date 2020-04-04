@@ -7,9 +7,11 @@
 	<meta charset="UTF-8">
 </head>
 	<body>
-	<a class="btn btn-success mt-2 mb-5" href="/TourAgency/controller?action=routeForm">
-			Add route
-	</a>
+	<c:if test="${user.role eq 'ADMIN'}">
+		<a class="btn btn-success mt-2 mb-5" href="/TourAgency/controller?action=routeForm">
+				Add route
+		</a>
+	</c:if>
 		<div class="d-flex flex-wrap">
 			<c:forEach items="${requestScope.routes}" var="route">
 				<t:routeCard 

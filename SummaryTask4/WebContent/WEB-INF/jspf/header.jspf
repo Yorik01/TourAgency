@@ -10,7 +10,7 @@ Header (top area).
   <h5 class="my-0 mr-md-auto font-weight-normal">Tour agency</h5>
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" href="/TourAgency/controller?action=filterForm">Search tours</a>
-    <c:if test="${user.role eq 'ADMIN'}">
+    <c:if test="${sessionScope.user.role eq 'ADMIN' || sessionScope.user.role eq 'MANAGER'}">
     	<a class="p-2 btn btn-info" href="/TourAgency/controller?action=adminPage">Admin panel</a>
 	</c:if>
   </nav>

@@ -7,10 +7,12 @@
 		<meta charset="UTF-8">
 	</head>
 	<body>
-		<div class="d-flex flex-wrap">
+		<c:if test="${user.role eq 'ADMIN'}">
 			<a class="btn btn-success mt-2 mb-5" href="/TourAgency/controller?action=transportForm">
 				Add transport
 			</a>
+		</c:if>
+		<div class="d-flex flex-wrap">
 			<c:forEach items="${requestScope.transports}" var="transport">
 				<t:transportCard 
 					id="${transport.id}"

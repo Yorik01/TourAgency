@@ -35,8 +35,6 @@
 						Edit
 					</button>
 				</form>
-			</td>
-			<td>
 				<form method="post" action="/TourAgency/controller?action=deleteTransport">
 					<input type="hidden" name="id" value="${id}" />
 					<button class="btn btn-danger" type="submit">

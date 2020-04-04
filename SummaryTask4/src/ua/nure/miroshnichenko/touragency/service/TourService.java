@@ -3,7 +3,6 @@ package ua.nure.miroshnichenko.touragency.service;
 import java.util.List;
 import java.util.Map;
 
-import ua.nure.miroshnichenko.touragency.db.entity.Bonus;
 import ua.nure.miroshnichenko.touragency.db.entity.Reservation;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.db.entity.User;
@@ -21,6 +20,4 @@ public interface TourService extends CRUDService<Tour> {
 	List<Reservation> getUserReservations(User user) throws ServiceException;
 	
 	List<Reservation> getTourReservations(Tour tour) throws ServiceException;
-	
-	List<Bonus> getUserBonuses(int userId) throws ServiceException;
 }

@@ -128,7 +128,7 @@
 				</div>
 				<div id="hotel-food-type">
 					<h5>Food type</h5>
-					<div class="d-inline-flex">
+					<div class="d-flex flex-column">
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
 							<input type="checkbox" class="custom-control-input" name="food" value="AL" id="food-al">
 							<label class="custom-control-label" for="food-al">AL</label>
@@ -246,12 +246,9 @@
 	<div id="tour-all" class="p-3">
 		<h1 class="mb-2">All tours</h1>
 		<c:forEach items="${requestScope.tours}" var="tour">
-			<t:tourUserCard 
-			id="${tour.id}"
-			title="${tour.hotel.name}" 
-			info="${tour.hotel.info}"
-			photo=""
-			fired="${tour.isFired()}"/>
+			<t:tourUserCard
+				tour="${tour.key}" 
+				photo="${tour.value}" />
 		</c:forEach>
 	</div>
 

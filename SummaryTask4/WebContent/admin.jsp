@@ -17,6 +17,14 @@
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-white h-100 sidebar position-fixed">
           <div class="sidebar-sticky">
+           <ul class="nav flex-column">
+              <li class="nav-item mt-4">
+                <a class="nav-link active" href="/TourAgency/controller?action=filterForm">
+					<i class="fa fa-home"></i>
+					Home page
+                </a>
+              </li>
+           	</ul>
            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             	<span>Main info</span>
 				<i class="fa fa-info-circle"></i>

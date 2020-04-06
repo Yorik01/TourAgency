@@ -251,15 +251,9 @@ hr {
 	color: #FF4500;
 }
 
-.tour-cards {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-}
-
 .tour-card {
 	position: relative;
-	width: 300px;
+	width: 300px !important;
 	height: 400px;
 	margin-top: 30px;
 }

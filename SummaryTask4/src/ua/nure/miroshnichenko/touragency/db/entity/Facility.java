@@ -56,11 +56,15 @@ public class Facility implements Entity {
 
 	@Override
 	public int hashCode() {
-		return 37 * name.hashCode();
+		return 31 * name.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
 		if (obj == null) {
 			return false;
 		}

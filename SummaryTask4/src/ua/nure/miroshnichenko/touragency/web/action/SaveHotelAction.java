@@ -54,14 +54,20 @@ public class SaveHotelAction extends Action {
 
 		Set<Facility> facilities = new HashSet<>();
 
-		for (String facility : parametrs.get("facilities")) {
-			facilities.add(new Facility(facility));
+		String[] facilitiesStr = parametrs.get("facilities");
+		if (facilitiesStr != null) {
+			for (String facility : facilitiesStr) {
+				facilities.add(new Facility(facility));
+			}
 		}
 
 		Set<Servicing> servicings = new HashSet<>();
 
-		for (String servicing : parametrs.get("servicings")) {
-			servicings.add(new Servicing(servicing));
+		String[] servicingsStr = parametrs.get("servicings");
+		if (servicingsStr != null) {
+			for (String servicing : servicingsStr) {
+				servicings.add(new Servicing(servicing));
+			}
 		}
 		Hotel hotel = new Hotel();
 
@@ -111,10 +117,11 @@ public class SaveHotelAction extends Action {
 		for (Part part : fileParts) {
 			UUID uuid = UUID.randomUUID();
 			String fileName = "hotelPhoto_" + hotelId + "_" + uuid;
-
+	        
+			String path = ActionUtil.getPhotosFolderPath(req);
 			OutputStream out = null;
 			InputStream fileContent = null;
-			final File file = new File("photo" + File.separator + fileName);
+			final File file = new File(path + File.separator + fileName);
 			try {
 				if (file.createNewFile()) {
 					out = new FileOutputStream(file);

@@ -1,6 +1,7 @@
 package ua.nure.miroshnichenko.touragency.web.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +25,19 @@ public class TourInfoAction extends Action {
 		Integer id = Integer.parseInt(req.getParameter("id"));
 		
 		Tour tour;
+		List<String> photos;
 		try {
 			tour = tourService.get(id);
 		} catch (ServiceException e) {
 			throw new ActionException(e);
 		}
 		
+		photos = ActionUtil.getHotelPhotos(
+				tour.getHotelId(),
+				ActionUtil.getPhotosFolderPath(req));
+		
 		req.setAttribute("tour", tour);
+		req.setAttribute("photos", photos);
 		
 		return Path.TOUR_INFO;
 	}

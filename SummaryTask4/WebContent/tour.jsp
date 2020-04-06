@@ -26,21 +26,13 @@
 				<li data-target="#tour-photos" data-slide-to="2"></li>
 			</ol>
 			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img class="d-block w-100"
-						src="https://q-cf.bstatic.com/images/hotel/max1024x768/681/68184730.jpg"
-						alt="First slide">
-				</div>
-				<div class="carousel-item">
-					<img class="d-block w-100"
-						src="https://q-cf.bstatic.com/images/hotel/max1024x768/681/68184730.jpg"
-						alt="Second slide">
-				</div>
-				<div class="carousel-item">
-					<img class="d-block w-100"
-						src="https://q-cf.bstatic.com/images/hotel/max1024x768/681/68184730.jpg"
-						alt="Third slide">
-				</div>
+				<c:forEach items="${requestScope.photos}" var="photo">
+					<div class="carousel-item">
+						<img class="d-block w-100"
+							src="/TourAgency/photo/${photo}"
+							alt="slide">
+					</div>
+				</c:forEach>
 			</div>
 			<a class="carousel-control-prev" href="#tour-photos" role="button"
 				data-slide="prev"> <span class="carousel-control-prev-icon"
@@ -51,8 +43,14 @@
 			</a>
 		</div>
 		<div id="tour-main-info" class="d-flex flex-column">
-			<span class="d-flex flex-column"> <span id="total-price-label"
-				class="text-secondary">total <i class="fa fa-fire"></i></span> <span
+			<span class="d-flex flex-column"> 
+			<span id="total-price-label"
+				class="text-secondary">total 
+				<c:if test="${tour.isFired() eq 1}">
+					<i class="fa fa-fire"></i>
+				</c:if>
+				</span> 
+				<span
 				id="tour-price">${tour.price} $</span>
 			</span>
 			<form action="/TourAgency/controller?action=reserveTour"

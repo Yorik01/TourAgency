@@ -147,6 +147,26 @@ public class Tour implements Entity {
 		return transportBack;
 	}
 
+	@Override
+	public int hashCode() {
+		return 31 * id;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Tour other = (Tour) obj;
+		return id == other.id;
+	}
+
 	public void setTransportBack(Transport transportBack) {
 		this.transportBack = transportBack;
 	}
@@ -166,4 +186,6 @@ public class Tour implements Entity {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	
+	
 }

@@ -34,7 +34,7 @@ public class ActionAccessFilter implements Filter {
 	private List<String> outOfControl = new ArrayList<>();
 	
 	private final String NO_PERMISSION_MESSAGE = "You do not have permission to access the requested resource";
-;
+
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {

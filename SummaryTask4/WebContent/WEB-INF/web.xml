@@ -99,4 +99,16 @@
 		<error-code>404</error-code>
 		<location>/WEB-INF/jsp/error_page.jsp</location>
 	</error-page>
+	
+	
+<!--============================================================
+	Context params
+=============================================================-->
+
+	<context-param>
+		<description>Uploaded photos directory</description>
+		<param-name>photo-storage</param-name>
+		<param-value>/home/yorik/git/TourAgency/SummaryTask4/WebContent/photo</param-value>
+	</context-param>
+	
 </web-app>

@@ -1,6 +1,7 @@
 package ua.nure.miroshnichenko.touragency.web.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,15 +26,21 @@ public class HotelFormAction extends Action {
 		
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
 			Integer id = Integer.parseInt(req.getParameter("id"));
-			Hotel hotel;
 			
+			Hotel hotel;
+			List<String> photos;
 			try {
 				hotel = hotelService.get(id);
+				photos = ActionUtil.getHotelPhotos(
+						id,
+						ActionUtil.getPhotosFolderPath(req));
 			} catch (ServiceException e) {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
+			
 			req.setAttribute("hotel", hotel);
+			req.setAttribute("photos", photos);
 		}
 		
 		return Path.ADMIN_PAGE;

@@ -21,9 +21,10 @@
 	<div class="d-inline-flex w-100">
 		<div id="tour-photos" class="carousel slide ml-5" data-ride="carousel">
 			<ol class="carousel-indicators">
-				<li data-target="#tour-photos" data-slide-to="0" class="active"></li>
-				<li data-target="#tour-photos" data-slide-to="1"></li>
-				<li data-target="#tour-photos" data-slide-to="2"></li>
+				<c:forEach var="i" begin="0" end="${fn:length(requestScope.photos) - 1}">
+					<li data-target="#tour-photos" data-slide-to="${i}"  
+						<c:if test="${i == 0}">class="active"</c:if>></li>
+				</c:forEach>
 			</ol>
 			<div class="carousel-inner">
 				<c:forEach items="${requestScope.photos}" var="photo">
@@ -240,6 +241,12 @@
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-
+	
+	<script>
+		$(document).ready(() => {
+			let firstSlide = $('.carousel-item')[0];
+			$(firstSlide).addClass('active');
+		});
+	</script>
 </body>
 </html>

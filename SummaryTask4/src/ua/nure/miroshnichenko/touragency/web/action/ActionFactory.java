@@ -45,6 +45,7 @@ public class ActionFactory {
 		actions.put("setMaxDiscount", new SetMaxDiscountAction());
 		actions.put("setDiscountStepForAllUsers", new SetDiscountStepForAllUsers());
 		actions.put("createManager", new CreateManagerAction());
+		actions.put("allUsers", new AllUsersAction());
 	}
 
 	/**

@@ -52,7 +52,7 @@
 		<init-param> 
 			<param-name>admin</param-name>
 			<param-value>saveHotel saveRoute saveTour saveTransport 
-			hotelForm routeForm tourForm transportForm createManager</param-value>
+			hotelForm routeForm tourForm transportForm createManager allUsers</param-value>
 		</init-param>
 		<init-param>
 			<param-name>manager</param-name>

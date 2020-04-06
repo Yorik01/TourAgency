@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.touragency.web.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,23 +57,18 @@ public final class ActionUtil {
 		return request.getServletContext().getInitParameter("photo-storage");
 	}
 	
-	public static List<String> getHotelPhotos(int hotelId, final String path) throws IOException {
+	public static List<String> getHotelPhotos(int hotelId, String path) throws IOException {
 		List<String> photos = new ArrayList<>();
 		
 		try (Stream<Path> paths = Files.list(Paths.get(path))) {
 			paths
-				.forEach(p -> {
-					String pathName = p.toString();
-					String[] pathNameParts = pathName.split("_");
-					if (pathNameParts[1].equals(String.valueOf(hotelId))) {
-						photos.add(p.getFileName().toString());
-					}
-				});
+				.filter(p -> photoBelongToHotel(hotelId, p))
+				.forEach(p -> photos.add(p.getFileName().toString()));
 		}
 		return photos;
 	}
 	
-	public static String getFirstPhoto(int hotelId, final String path) throws IOException {
+	public static String getFirstPhoto(int hotelId, String path) throws IOException {
 		String photo = "";
 		try (Stream<Path> paths = Files.list(Paths.get(path))) {
 			Optional<Path> optional = paths.findFirst();
@@ -81,5 +77,18 @@ public final class ActionUtil {
 			}
 		}
 		return photo;
+	}
+	
+	public static void deleteHotelPhotos(int hotelId, String[] photos, String path) throws IOException {
+		for (String photo : photos) {
+			File file = new File(path + File.separator + photo);
+			file.delete();
+		}
+	}
+	
+	private static boolean photoBelongToHotel(int hotelId, Path path) {
+		String pathName = path.toString();
+		String[] pathNameParts = pathName.split("_");
+		return pathNameParts[1].equals(String.valueOf(hotelId));
 	}
 }

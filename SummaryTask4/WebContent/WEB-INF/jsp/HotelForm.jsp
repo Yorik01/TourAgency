@@ -155,6 +155,16 @@
 					<label for="choose-entertainment-restaurant" class="custom-control-label">Restaurant</label>
 				</div>
 			</div>
+			<c:if test="${param.edit eq 'true'}">
+				<div class="d-flex flex-column mt-2">
+					<c:forEach items="${photos}" var="photo">
+						<div class="d-flex-inline">
+							<img src="/TourAgency/photo/${photo}" class="edit-hotel-photo rounded mx-auto d-block mr-2 mt-5 mb-5 float-left" alt="Hotel photo">
+							<button class="btn btn-danger btn-delete-photo delete ml-2 mt-5 mb-5">remove</button>
+						</div>
+					</c:forEach>
+				</div>
+			</c:if>
 		</div>
 		<input type="file" name="photo" multiple />		
 		<c:if test="${param.edit eq 'true'}">
@@ -162,5 +172,24 @@
 		</c:if>
 		<button class="btn btn-primary" type="submit">Save</button>
 	</form>
+
+	<script src="js/jquery-3.4.1.min.js"></script>
+	
+	<script>
+		$(document).ready(() => {
+			$('.btn-delete-photo').click(function (e) {
+				e.preventDefault();
+				
+				let parent = $(this).parent();
+				let deletedPhoto = parent.children('.edit-hotel-photo');
+				let deletedPhotoInput = parent.append(
+						'<input type="hidden" name="deletedPhotos" value="' + deletedPhoto.attr('src').split('/')[3] + '" />'
+				);
+				
+				deletedPhoto.remove();
+				$(this).remove();
+			});
+		});
+	</script>
 </body>
 </html>

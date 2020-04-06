@@ -304,3 +304,11 @@ hr {
 .card .btn {
 	margin: 10px;
 }
+
+.btn-round {
+	border-radius: 100%;
+}
+
+.edit-hotel-photo {
+	max-width: 300px; 
+}

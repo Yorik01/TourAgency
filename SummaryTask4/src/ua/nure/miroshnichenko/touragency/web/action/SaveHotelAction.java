@@ -90,7 +90,17 @@ public class SaveHotelAction extends Action {
 
 			hotel.setId(id);
 			try {
-				hotelService.update(hotel);
+				if (hotelService.update(hotel)) {
+					String[] removedPhotos = req.getParameterValues("deletedPhotos");
+					
+					if (removedPhotos != null) {
+						ActionUtil.deleteHotelPhotos(
+								id,
+								req.getParameterValues("deletedPhotos"),
+								ActionUtil.getPhotosFolderPath(req));
+					}
+					uploadImgs(req, res, hotel.getId());
+				}
 			} catch (ServiceException e) {
 				e.printStackTrace();
 				throw new ActionException(e);

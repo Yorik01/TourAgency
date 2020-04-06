@@ -2,6 +2,7 @@ package ua.nure.miroshnichenko.touragency.service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
@@ -105,6 +106,17 @@ class AuthentificationServiceImpl implements AuthentificationService {
 			User user = userDAO.find(id);
 
 			return user;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
+	
+	@Override
+	public List<User> getAllUsers() throws ServiceException {
+		try {
+			UserDAO userDAO = factoryDAO.getUserDAO();
+			return userDAO.findAll();
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

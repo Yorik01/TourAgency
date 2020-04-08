@@ -1,4 +1,4 @@
-package ua.nure.miroshnichenko.touragency.web.action;
+package ua.nure.miroshnichenko.touragency.service;
 
 import java.io.IOException;
 
@@ -6,13 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.nure.miroshnichenko.touragency.service.ServiceException;
-import ua.nure.miroshnichenko.touragency.service.TourService;
+import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.web.Path;
+import ua.nure.miroshnichenko.touragency.web.action.Action;
+import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
-public class RevokeReservationAction extends Action {
+public class DeleteTourAction extends Action {
 
-	private static final long serialVersionUID = 516852755858658688L;
+	private static final long serialVersionUID = -7275937969344267240L;
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
@@ -20,15 +21,19 @@ public class RevokeReservationAction extends Action {
 
 		TourService tourService = serviceFactory.getTourService();
 		
-		int id = Integer.parseInt(req.getParameter("id"));
+		Integer id = Integer.parseInt(req.getParameter("id"));
+		
+		Tour tour = new Tour();
+		tour.setId(id);
 		
 		try {
-			tourService.revoke(id);
+			tourService.delete(tour);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
-		res.sendRedirect("/TourAgency/controller?action=userReservations&id=2");
+		
+		res.sendRedirect(Path.getControllerPath("allTours"));
 		
 		return Path.NO_PATH;
 	}

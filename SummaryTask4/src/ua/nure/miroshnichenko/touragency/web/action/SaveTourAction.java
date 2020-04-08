@@ -32,8 +32,8 @@ public class SaveTourAction extends Action {
 		String[] startDate = req.getParameter("startDate").split("/");
 		String[] endDate = req.getParameter("endDate").split("/");
 		Integer agencyProcent = Integer.parseInt(req.getParameter("agencyProcent"));
-		Integer isFired = req.getParameterValues("isFired") != null ? 1 : 0;
-		Double maxDiscount = Double.parseDouble(req.getParameter("maxDiscount"));
+		int isFired = req.getParameterValues("isFired") != null ? 1 : 0;
+		double maxDiscount = Double.parseDouble(req.getParameter("maxDiscount"));
 		
 		TourType type = TourType.valueOf(req.getParameter("type"));
 		Hotel hotel = null;
@@ -66,7 +66,7 @@ public class SaveTourAction extends Action {
 		tour.setTransportBackId(transportBack.getId());
 		
 		if (Boolean.parseBoolean(req.getParameter("edit"))) {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			int id = Integer.parseInt(req.getParameter("id"));
 
 			tour.setId(id);
 			try {
@@ -75,7 +75,9 @@ public class SaveTourAction extends Action {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
-			return Path.ADMIN_PAGE;
+			res.sendRedirect(Path.getControllerPath("allTours"));
+			
+			return Path.NO_PATH;
 		}
 		
 		try {	
@@ -85,6 +87,8 @@ public class SaveTourAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		return Path.ADMIN_PAGE;
+		res.sendRedirect(Path.getControllerPath("allTours"));
+		
+		return Path.NO_PATH;
 	}
 }

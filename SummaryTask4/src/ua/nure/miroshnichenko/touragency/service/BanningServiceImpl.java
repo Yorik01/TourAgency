@@ -13,9 +13,9 @@ class BanningServiceImpl implements BanningService {
 	public boolean banUser(int id) throws ServiceException {
 		try {
 			DAO<User> userDao = factoryDAO.getUserDAO();
-			User user2 = userDao.find(id);
-			user2.setBanned(1);
-			boolean result = userDao.update(user2);
+			User oldUser = userDao.find(id);
+			oldUser.setBanned(1);
+			boolean result = userDao.update(oldUser);
 
 			return result;
 		} catch (DAOException e) {
@@ -28,8 +28,9 @@ class BanningServiceImpl implements BanningService {
 	public boolean unbanUser(int id) throws ServiceException {
 		try {
 			DAO<User> userDao = factoryDAO.getUserDAO();
-			User user2 = userDao.find(id);
-			boolean result = userDao.update(user2);
+			User oldUser = userDao.find(id);
+			oldUser.setBanned(0);
+			boolean result = userDao.update(oldUser);
 
 			return result;
 		} catch (DAOException e) {

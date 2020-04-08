@@ -44,7 +44,7 @@ public class TourFormAction extends Action {
 		req.setAttribute("transports", transports);
 		
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			int id = Integer.parseInt(req.getParameter("id"));
 			Tour tour;
 			
 			try {

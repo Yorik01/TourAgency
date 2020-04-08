@@ -6,29 +6,35 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.nure.miroshnichenko.touragency.service.DiscountService;
+import ua.nure.miroshnichenko.touragency.db.entity.Transport;
 import ua.nure.miroshnichenko.touragency.service.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.TransportService;
 import ua.nure.miroshnichenko.touragency.web.Path;
 
-public class SetMaxDiscountAction extends Action {
-	
-	private static final long serialVersionUID = 705696500222209047L;
+public class DeleteTransportAction extends Action {
+
+	private static final long serialVersionUID = 3651730525677853991L;
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
+
+		TransportService transportService = serviceFactory.getTransportService();
 		
-		DiscountService discountService = serviceFactory.getDiscountService();
+		int id = Integer.parseInt(req.getParameter("id"));
 		
-		int tourId = Integer.parseInt(req.getParameter("tourId"));
-		double maxDiscount = Double.parseDouble(req.getParameter("maxDiscount"));
+		
+		Transport transport = new Transport();
+		transport.setId(id);
 		
 		try {
-			discountService.setMaxDiscount(tourId, maxDiscount);
+			transportService.delete(transport);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
+		
+		res.sendRedirect(Path.getControllerPath("allTransports"));
 		
 		return Path.NO_PATH;
 	}

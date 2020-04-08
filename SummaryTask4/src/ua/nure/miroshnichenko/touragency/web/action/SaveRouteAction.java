@@ -43,7 +43,7 @@ public class SaveRouteAction extends Action {
 		route.setRouteToId(toPlace.getId());;
 
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			int id = Integer.parseInt(req.getParameter("id"));
 			
 			route.setId(id);
 			try {
@@ -52,7 +52,9 @@ public class SaveRouteAction extends Action {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
-			return Path.ADMIN_PAGE;
+			res.sendRedirect(Path.getControllerPath("allRoutes"));
+			
+			return Path.NO_PATH;
 		}
 		
 		try {
@@ -62,6 +64,8 @@ public class SaveRouteAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		return Path.ADMIN_PAGE;
+		res.sendRedirect(Path.getControllerPath("allRoutes"));
+		
+		return Path.NO_PATH;
 	}
 }

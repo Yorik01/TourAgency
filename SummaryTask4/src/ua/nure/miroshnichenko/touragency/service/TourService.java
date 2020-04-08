@@ -20,4 +20,6 @@ public interface TourService extends CRUDService<Tour> {
 	List<Reservation> getUserReservations(User user) throws ServiceException;
 	
 	List<Reservation> getTourReservations(Tour tour) throws ServiceException;
+	
+	boolean setTourStatus(int tourId, int status) throws ServiceException;
 }

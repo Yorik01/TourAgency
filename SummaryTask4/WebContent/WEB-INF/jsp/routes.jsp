@@ -14,12 +14,7 @@
 	</c:if>
 		<div class="d-flex flex-wrap">
 			<c:forEach items="${requestScope.routes}" var="route">
-				<t:routeCard 
-				countryFrom="${route.from.country}"
-				cityFrom="${route.from.city}"
-				countryTo="${route.to.country}"
-				cityTo="${route.to.city}"
-				id="${route.id}" />
+ 				<t:routeCard route="${route}" />
 			</c:forEach>
 		</div>
 	</body>

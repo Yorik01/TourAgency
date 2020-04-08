@@ -36,7 +36,7 @@ public class LoginAction extends Action {
 			HttpSession session = req.getSession();
 			session.setAttribute("user", user);
 			
-			res.sendRedirect(Path.FILTER_FORM);
+			res.sendRedirect(Path.getControllerPath("filterForm"));
 			
 			return Path.NO_PATH;
 		} catch (ServiceException e) {

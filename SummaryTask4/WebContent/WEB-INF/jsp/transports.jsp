@@ -14,13 +14,7 @@
 		</c:if>
 		<div class="d-flex flex-wrap">
 			<c:forEach items="${requestScope.transports}" var="transport">
-				<t:transportCard 
-					id="${transport.id}"
-					code="${transport.code}"
-					takeoff="${transport.takeoff}"
-					arrive="${transport.arrive}"
-					type="${transport.type}"
-					route="${transport.route}" />
+`				<t:transportCard transport="${transport}" />
 			</c:forEach>
 		</div>
 	</body>

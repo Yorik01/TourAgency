@@ -1,42 +1,42 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 
-<%@ attribute name="id" required="true" type="java.lang.Integer"%>
-<%@ attribute name="type" required="true" type="java.lang.String"%>
-<%@ attribute name="code" required="true" type="java.lang.String"%>
-<%@ attribute name="takeoff" required="true" type="java.sql.Timestamp"%>
-<%@ attribute name="arrive" required="true" type="java.sql.Timestamp"%>
-<%@ attribute name="route" required="true" type="ua.nure.miroshnichenko.touragency.db.entity.Route"%>
+<%@ attribute name="transport" required="true" type="ua.nure.miroshnichenko.touragency.db.entity.Transport"%>
 
 <table class="table bg-white table-bordered card mr-3 mt-3">
 	<tbody>
 		<tr>
-			<td>Type: ${type}</td>
+			<td>Type: ${transport.type}</td>
 		</tr>
 		<tr>
-			<td>Code: ${code}</td>
+			<td>Code: ${transport.code}</td>
 		</tr>
 		<tr>
-			<td>Takeoff time: ${takeoff}</td>
+			<td>Takeoff time: ${transport.takeoff}</td>
 		</tr>
 		<tr>
-			<td>Arriving time: ${arrive}</td>
+			<td>Arriving time: ${transport.arrive}</td>
 		</tr>
 		<tr>
-			<td>From: ${route.from.country}, ${route.from.city}</td>
+			<td>Max places: ${transport.maxPlaces}</td>
 		</tr>
 		<tr>
-			<td>To: ${route.to.country}, ${route.to.city}</td>
+			<td>Price: ${transport.price}</td>
+		</tr>
+		<tr>
+			<td>From: ${transport.route.from.country}, ${transport.route.from.city}</td>
+		</tr>
+		<tr>
+			<td>To: ${transport.route.to.country}, ${transport.route.to.city}</td>
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/TourAgency/controller?action=transportForm&edit=true">
-					<input type="hidden" name="id" value="${id}" />
+				<form action="/TourAgency/controller?action=transportForm&edit=true&id=${transport.id}">
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
 				<form method="post" action="/TourAgency/controller?action=deleteTransport">
-					<input type="hidden" name="id" value="${id}" />
+					<input type="hidden" name="id" value="${transport.id}" />
 					<button class="btn btn-danger" type="submit">
 						Delete
 					</button>

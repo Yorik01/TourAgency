@@ -26,8 +26,8 @@ public class ReserveTourAction extends Action {
 		
 		User user = (User) session.getAttribute("user");
 		
-		Integer tourId = Integer.parseInt(req.getParameter("id"));
-		Integer peopleCount = Integer.parseInt(req.getParameter("peopleCount"));
+		int tourId = Integer.parseInt(req.getParameter("id"));
+		int peopleCount = Integer.parseInt(req.getParameter("peopleCount"));
 		
 		try {
 			tourService.reserve(tourId, user.getId(), peopleCount);

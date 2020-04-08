@@ -36,7 +36,7 @@
 		</div>
 		<div class="form-group">
 			<label for="set-hotel-stars">Stars</label>
-			<input id="set-hotel-stars" name="stars" value="${hotel.stars}" class="form-control" type="number" minValue="1" maxValue="5" required>
+			<input id="set-hotel-stars" name="stars" value="${hotel.stars}" class="form-control" type="number" min="1" max="5" required>
 		</div>
 		<div class="form-group">
 			<label for="set-hotel-max-rooms">Max count of rooms</label>

@@ -205,6 +205,21 @@ class TourServiceImpl implements TourService {
 		}
 	}
 	
+	@Override
+	public boolean setTourStatus(int tourId, int status) throws ServiceException {
+		try {
+			TourDAO tourDAO = factoryDAO.geTourDAO();
+			
+			Tour tour = tourDAO.find(tourId);
+			tour.setFired(status);
+			
+			return tourDAO.save(tour);
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
+	
 	private Map<String, String> getMainParametrs(Map<String, String[]> values) {
 		Map<String, String> parametrs = new HashMap<>();
 		for(Entry<String, String[]> entry : values.entrySet()) {

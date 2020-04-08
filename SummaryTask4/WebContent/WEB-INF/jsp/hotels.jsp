@@ -14,11 +14,7 @@
 		</c:if>	
 		<div class="d-flex flex-wrap">
 			<c:forEach items="${requestScope.hotels}" var="hotel">
-				<t:hotelCard 
-					id="${hotel.id}"
-					name="${hotel.name}"
-					address="${hotel.address}"
-					stars="${hotel.stars}" />
+				<t:hotelCard hotel="${hotel}" />
 			</c:forEach>
 		</div>
 	</body>

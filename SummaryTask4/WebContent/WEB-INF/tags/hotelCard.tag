@@ -1,31 +1,42 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 
-<%@ attribute name="name" required="true" type="java.lang.String"%>
-<%@ attribute name="address" required="true" type="java.lang.String"%>
-<%@ attribute name="stars" required="true" type="java.lang.Integer"%>
-<%@ attribute name="id" required="true" type="java.lang.Integer"%>
+<%@ attribute name="hotel" required="true" type="ua.nure.miroshnichenko.touragency.db.entity.Hotel"%>
 
 <table class="table bg-white table-bordered card mr-3 mt-3">
 	<tbody>
 		<tr>
-			<td>Name: ${name}</td>
+			<td>Name: ${hotel.name}</td>
 		</tr>
 		<tr>
-			<td>Address: ${address}</td>
+			<td>Type: ${hotel.type}</td>
 		</tr>
 		<tr>
-			<td>Stars: ${stars}</td>
+			<td>Address: ${hotel.address}</td>
+		</tr>
+		<tr>
+			<td>Stars: ${hotel.stars}</td>
+		</tr>
+		<tr>
+			<td>Telephone: ${hotel.tel}</td>
+		</tr>
+		<tr>
+			<td>Site: <a href="${hotel.site}">${hotel.site}</a></td>
+		</tr>
+		<tr>
+			<td>Max rooms: ${hotel.maxRooms}</td>
+		</tr>
+		<tr>
+			<td>Price: ${hotel.price}</td>
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/TourAgency/controller?action=hotelForm&edit=true">
-					<input type="hidden" name="id" value="${id}" />
+				<form action="/TourAgency/controller?action=hotelForm&edit=true&id=${hotel.id}">
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
 				<form method="post" action="/TourAgency/controller?action=deleteHotel">
-					<input type="hidden" name="id" value="${id}" />
+					<input type="hidden" name="id" value="${hotel.id}" />
 					<button class="btn btn-danger" type="submit">
 						Delete
 					</button>

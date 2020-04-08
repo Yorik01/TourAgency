@@ -1,47 +1,77 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 
-<%@ attribute name="hotel" required="true" type="java.lang.String"%>
-<%@ attribute name="country" required="true" type="java.lang.String"%>
-<%@ attribute name="city" required="true" type="java.lang.String"%>
-<%@ attribute name="transport" required="true" type="java.lang.String"%>
-<%@ attribute name="startDate" required="true" type="java.sql.Date"%>
-<%@ attribute name="endDate" required="true" type="java.sql.Date"%>
-<%@ attribute name="id" required="true" type="java.lang.Integer"%>
+<%@ attribute name="tour" required="true" type="ua.nure.miroshnichenko.touragency.db.entity.Tour"%>
+
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
 <table class="table bg-white table-bordered card mt-3 mr-3">
 	<tbody>
 		<tr>
-			<td>Hotel: ${hotel}</td>
+			<td>Type: ${tour.type}</td>
 		</tr>
 		<tr>
-			<td>Country: ${country}</td>
+			<td>Hotel: ${tour.hotel.name}</td>
 		</tr>
 		<tr>
-			<td>City: ${city}</td>
+			<td>Country: ${tour.transportTo.route.to.country}</td>
 		</tr>
 		<tr>
-			<td>Transport: ${transport}</td>
+			<td>City: ${tour.transportTo.route.to.city}</td>
 		</tr>
 		<tr>
-			<td>Start date: ${startDate}</td>
+			<td>Transport: ${transport.code}</td>
 		</tr>
 		<tr>
-			<td>End date: ${endDate}</td>
+			<td>status: 
+				<c:when test="${tour.isFired() == 0}">
+			 		Not fired
+			 	</c:when>
+			 	<c:otherwise>
+			 		Fired
+			 	</c:otherwise>
+			</td>
+		</tr>
+		<tr>
+			<td>Start date: ${tour.startDate}</td>
+		</tr>
+		<tr>
+			<td>End date: ${tour.endDate}</td>
+		</tr>
+		<tr>
+			<td>Agency percent: ${tour.agencyProcent}</td>
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/TourAgency/controller?action=tourForm&edit=true">
-					<input type="hidden" name="id" value="${id}" />
+				<form action="/TourAgency/controller?action=tourForm&edit=true&id=${tour.id}">
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
 				<form method="post" action="/TourAgency/controller?action=deleteTour">
-					<input type="hidden" name="id" value="${id}" />
+					<input type="hidden" name="id" value="${tour.id}" />
 					<button class="btn btn-danger" type="submit">
 						Delete
 					</button>
 				</form>
+				<form method="post" action="/TourAgency/controller">
+					<input type="hidden" name="id" value="${tour.id}" />
+					<c:choose>
+				 		<c:when test="${tour.isFired() == 0}">
+						 	<input type="hidden" name="action" value="SetTourFired" />
+						 	<input type="hidden" name="status" value="1">
+							<button class="btn btn-warning" type="submit">
+								Make fired
+							</button>
+						 </c:when>
+						<c:otherwise>
+							<input type="hidden" name="action" value="SetTourFired" />
+							<input type="hidden" name="status" value="0">
+							<button class="btn btn-warning" type="submit">
+								Make unfired
+							</button>
+					 	</c:otherwise>
+				 	</c:choose>
+			 	</form>
 			</td>
 		</tr>
 	</tbody>

@@ -24,7 +24,7 @@ public class EditUserAction extends Action {
 		AuthentificationService authentificationService = 
 				serviceFactory.getAuthentificationService();
 		
-		Integer id = Integer.parseInt(req.getParameter("id"));
+		int id = Integer.parseInt(req.getParameter("id"));
 		String email = req.getParameter("emal");
 		String password = req.getParameter("password");
 		Role role = Role.valueOf(req.getParameter("role"));

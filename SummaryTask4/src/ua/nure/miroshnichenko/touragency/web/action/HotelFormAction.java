@@ -25,7 +25,7 @@ public class HotelFormAction extends Action {
 		req.setAttribute("form", Path.HOTEL_FORM);
 		
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			int id = Integer.parseInt(req.getParameter("id"));
 			
 			Hotel hotel;
 			List<String> photos;

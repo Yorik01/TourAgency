@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ua.nure.miroshnichenko.touragency.db.entity.Role;
 import ua.nure.miroshnichenko.touragency.db.entity.User;
 import ua.nure.miroshnichenko.touragency.service.AuthentificationService;
 import ua.nure.miroshnichenko.touragency.service.ServiceException;
@@ -26,12 +27,14 @@ public class AllUsersAction extends Action {
 		List<User> users;
 		try {
 			users = authentificationService.getAllUsers();
+			users.removeIf(user -> user.getRole() == Role.ADMIN);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
 		
 		req.setAttribute("users", users);
+		req.setAttribute("form", Path.USERS_LIST);
 		
 		return Path.ADMIN_PAGE;
 	}

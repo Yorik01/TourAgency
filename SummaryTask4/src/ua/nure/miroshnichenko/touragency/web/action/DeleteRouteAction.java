@@ -21,7 +21,7 @@ public class DeleteRouteAction extends Action {
 		
 		RouteService routeService = serviceFactory.getRouteService();
 		
-		Integer id = Integer.parseInt(req.getParameter("id"));
+		int id = Integer.parseInt(req.getParameter("id"));
 		
 		Route route = new Route();
 		route.setId(id);
@@ -33,6 +33,8 @@ public class DeleteRouteAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		return Path.ROUTES_LIST;
+		res.sendRedirect(Path.getControllerPath("allRoutes"));
+		
+		return Path.NO_PATH;
 	}
 }

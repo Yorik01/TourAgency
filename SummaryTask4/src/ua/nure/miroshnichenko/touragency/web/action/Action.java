@@ -20,6 +20,7 @@ public abstract class Action implements Serializable {
 	
 	@Override
 	public final String toString() {
-		return getClass().getSimpleName();
+		String simpleName = getClass().getSimpleName();
+		return Character.toLowerCase(simpleName.charAt(0)) + simpleName.substring(1);
 	}
 }

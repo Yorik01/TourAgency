@@ -39,7 +39,7 @@ public class TransportFormAction extends Action {
 		req.setAttribute("routes", routes);
 		
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			int id = Integer.parseInt(req.getParameter("id"));
 			Transport transport;
 			
 			try {

@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
-import ua.nure.miroshnichenko.touragency.web.action.ActionFactory;
+import ua.nure.miroshnichenko.touragency.web.action.ActionContainer;
 
 @MultipartConfig(maxFileSize = 16177215)
 public class Controller extends HttpServlet {
@@ -43,12 +43,12 @@ public class Controller extends HttpServlet {
 		System.out.println(commandName);
 		LOG.trace("Request parameter: action --> " + commandName);
 		// obtain command object by its name
-		Action action = ActionFactory.get(commandName);
+		Action action = ActionContainer.get(commandName);
 
 		LOG.trace("Obtained action --> " + commandName);
 
 		if (action == null) {
-			action = ActionFactory.get("noAction");
+			action = ActionContainer.get("noAction");
 		}
 		// execute command and get forward address
 		// String forward = Path.PAGE_ERROR_PAGE;

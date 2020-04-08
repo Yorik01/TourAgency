@@ -29,7 +29,7 @@ public class SaveTransportAction extends Action {
 		String[] takeoffDate = req.getParameter("takeoffDate").split("/");
 		String[] arrivingDate = req.getParameter("arrivingDate").split("/");
 		Integer maxPlaces = Integer.valueOf(req.getParameter("maxPlaces"));
-		Double price = Double.valueOf(req.getParameter("price"));
+		double price = Double.valueOf(req.getParameter("price"));
 		TransportType type = TransportType.valueOf(req.getParameter("type"));
 		
 		Timestamp arriving = Timestamp.valueOf(
@@ -60,7 +60,9 @@ public class SaveTransportAction extends Action {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
-			return Path.ADMIN_PAGE;
+			res.sendRedirect(Path.getControllerPath("allTransports"));
+			
+			return Path.NO_PATH;
 		}
 		
 		try {
@@ -70,6 +72,8 @@ public class SaveTransportAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		return Path.ADMIN_PAGE;
+		res.sendRedirect(Path.getControllerPath("allTransports"));
+		
+		return Path.NO_PATH;
 	}
 }

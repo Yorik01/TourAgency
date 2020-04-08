@@ -45,10 +45,12 @@ public class SaveHotelAction extends Action {
 		String address = req.getParameter("address");
 		String tel = req.getParameter("tel");
 		String site = req.getParameter("site");
-		Integer stars = Integer.parseInt(req.getParameter("stars"));
-		Integer maxRooms = Integer.parseInt(req.getParameter("maxRooms"));
-		Double price = Double.parseDouble(req.getParameter("price"));
+		
+		int stars = Integer.parseInt(req.getParameter("stars"));
+		int maxRooms = Integer.parseInt(req.getParameter("maxRooms"));
+		double price = Double.parseDouble(req.getParameter("price"));
 		HotelType type = HotelType.valueOf(req.getParameter("type"));
+		
 		Food food = Food.valueOf(req.getParameter("food"));
 		Beach beach = Beach.valueOf(req.getParameter("beach"));
 
@@ -86,7 +88,7 @@ public class SaveHotelAction extends Action {
 		hotel.setServicings(servicings);
 
 		if (Boolean.parseBoolean(req.getParameter("edit"))) {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			int id = Integer.parseInt(req.getParameter("id"));
 
 			hotel.setId(id);
 			try {
@@ -105,7 +107,9 @@ public class SaveHotelAction extends Action {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
-			return Path.ADMIN_PAGE;
+			res.sendRedirect(Path.getControllerPath("allHotels"));
+			
+			return Path.NO_PATH;
 		}
 
 		try {
@@ -116,7 +120,9 @@ public class SaveHotelAction extends Action {
 
 		uploadImgs(req, res, hotel.getId());
 
-		return Path.ADMIN_PAGE;
+		res.sendRedirect(Path.getControllerPath("allHotels"));
+		
+		return Path.NO_PATH;
 	}
 
 	private void uploadImgs(HttpServletRequest req, HttpServletResponse res, int hotelId)

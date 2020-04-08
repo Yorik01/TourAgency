@@ -37,7 +37,7 @@ public class RouteFormAction extends Action {
 		req.setAttribute("places", jsonPlaces);
 		
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
-			Integer id = Integer.parseInt(req.getParameter("id"));
+			int id = Integer.parseInt(req.getParameter("id"));
 			Route route;
 			
 			try {

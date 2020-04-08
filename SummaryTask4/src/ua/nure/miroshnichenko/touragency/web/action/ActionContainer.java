@@ -5,9 +5,12 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-public class ActionFactory {
+import ua.nure.miroshnichenko.touragency.service.DeleteHotelAction;
+import ua.nure.miroshnichenko.touragency.service.DeleteTourAction;
+
+public class ActionContainer {
 	
-	private static final Logger LOG = Logger.getLogger(ActionFactory.class);
+	private static final Logger LOG = Logger.getLogger(ActionContainer.class);
 
 	private static Map<String, Action> actions = new HashMap<>();
 
@@ -17,12 +20,17 @@ public class ActionFactory {
 		LOG.debug("action container was successfully initialized");
 		LOG.trace("Number of actions --> " + actions.size());
 		
+		actions.put("no", new NoAction());
 		actions.put("login", new LoginAction());
 		actions.put("signup", new SignupAction());
 		actions.put("saveHotel", new SaveHotelAction());
 		actions.put("saveTour", new SaveTourAction());
 		actions.put("saveRoute", new SaveRouteAction());
 		actions.put("saveTransport", new SaveTransportAction());
+		actions.put("deleteRoute", new DeleteRouteAction());
+		actions.put("deleteTransport", new DeleteTransportAction());
+		actions.put("deleteHotel", new DeleteHotelAction());
+		actions.put("deleteTour", new DeleteTourAction());
 		actions.put("allTours", new AllToursAction());
 		actions.put("filterTour", new FilterTourAction());
 		actions.put("hotelForm", new HotelFormAction());
@@ -46,10 +54,13 @@ public class ActionFactory {
 		actions.put("setDiscountStepForAllUsers", new SetDiscountStepForAllUsers());
 		actions.put("createManager", new CreateManagerAction());
 		actions.put("allUsers", new AllUsersAction());
+		actions.put("bannUser", new BannUserAction());
+		actions.put("unbannUser", new UnbannUserAction());
+		actions.put("setTourFired", new SetTourFiredAction());
 	}
 
 	/**
-	 * Rdeturns action object with the given name.
+	 * Returns action object with the given name.
 	 * 
 	 * @param actionName Name of the action.
 	 * @return action object.
@@ -57,7 +68,7 @@ public class ActionFactory {
 	public static Action get(String actionName) {
 		if (actionName == null || !actions.containsKey(actionName)) {
 			LOG.trace("action not found, name --> " + actionName);
-			return actions.get("noaction");
+			return actions.get("no");
 		}
 
 		return actions.get(actionName);

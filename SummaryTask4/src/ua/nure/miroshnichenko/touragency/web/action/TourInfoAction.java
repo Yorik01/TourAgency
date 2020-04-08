@@ -22,7 +22,7 @@ public class TourInfoAction extends Action {
 		
 		TourService tourService = serviceFactory.getTourService();
 
-		Integer id = Integer.parseInt(req.getParameter("id"));
+		int id = Integer.parseInt(req.getParameter("id"));
 		
 		Tour tour;
 		List<String> photos;

@@ -4,5 +4,6 @@ public enum Access {
 	ALLOW,
 	NO_PERMISSIONS,
 	NO_LOGIN,
-	EMPTY_REQUEST
+	EMPTY_REQUEST,
+	BANNED
 }

@@ -1,6 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 
-<%@ attribute name="route" required="true" type="ua.nure.miroshnichenko.touragency.db.entity.Tour"%>
+<%@ attribute name="route" required="true" type="ua.nure.miroshnichenko.touragency.db.entity.Route"%>
 
 <table class="table bg-white table-bordered card mr-3 mt-3">
 	<tbody>
@@ -18,14 +18,17 @@
 		</tr>
 		<tr>
 			<td>
-				<form method="post" action="/TourAgency/controller?action=routeForm&edit=true&id=${route.id}">
+				<form action="/TourAgency/controller">
+					<input type="hidden" name="action" value="routeForm" />
+					<input type="hidden" name="edit" value="true" />
+					<input type="hidden" name="id" value="${route.id}" />
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
-				<form method="post" action="/TourAgency/controller?action=deleteRoute">
+				<form method="post" class="delete-entity" action="/TourAgency/controller?action=deleteRoute">
 					<input type="hidden" name="id" value="${route.id}" />
-					<button class="btn btn-danger" type="submit">
+					<button class="btn btn-danger btn-delete" type="submit">
 						Delete
 					</button>
 				</form>

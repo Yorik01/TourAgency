@@ -56,7 +56,7 @@ public class ContextListener implements ServletContextListener {
 		// initialize commands container
 		// just load class to JVM
 		try {
-			Class.forName("ua.nure.miroshnichenko.touragency.web.action.ActionFactory");
+			Class.forName("ua.nure.miroshnichenko.touragency.web.action.ActionContainer");
 		} catch (ClassNotFoundException ex) {
 			throw new IllegalStateException("Cannot initialize Action Factory");
 		}

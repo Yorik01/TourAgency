@@ -30,14 +30,17 @@
 		</tr>
 		<tr>
 			<td>
-				<form action="/TourAgency/controller?action=transportForm&edit=true&id=${transport.id}">
+				<form method="get" action="/TourAgency/controller">
+					<input type="hidden" name="action" value="transportForm" />
+					<input type="hidden" name="edit" value="true" />
+					<input type="hidden" name="id" value="${transport.id}" />
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
 				<form method="post" action="/TourAgency/controller?action=deleteTransport">
 					<input type="hidden" name="id" value="${transport.id}" />
-					<button class="btn btn-danger" type="submit">
+					<button class="btn btn-danger btn-delete" type="submit">
 						Delete
 					</button>
 				</form>

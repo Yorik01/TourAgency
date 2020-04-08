@@ -206,6 +206,26 @@
 	    </div>
 	  </div>
 	</div>
+	
+	<div class="modal fade" id="confirm-delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Confirm deleting</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+			Are you sure to delete ?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" id="btn-confirm-delete" data-dismiss="modal">Yes</button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 	<script src="js/jquery-3.4.1.min.js" ></script>
 	<script src="js/popper.min.js"></script>
@@ -217,6 +237,8 @@
 			const tours = JSON.parse('${requestScope.tours}');
 			
 			setTours(tours);
+	
+			let submitForm = null;
 			
 			$("#btn-set-discountstep-for-all-users").click(() => {
 				let discountStepVal = $("#set-discountstep-for-all-users").val();
@@ -269,6 +291,17 @@
 						$("#info-modal").modal("show");
 					});
 				$("#create-manager-modal").modal("hide");
+			});
+			$(".btn-delete").submit(function(e) {
+				alert('ds')
+				e.preventDefault();
+				$("#confirm-delete-modal").modal("show");
+				
+				submitForm = $(this).parent("form");
+			});
+			
+			$("#btn-confirm-delete").click(() => {
+				submitForm.submit();
 			});
 		});
 	</script>

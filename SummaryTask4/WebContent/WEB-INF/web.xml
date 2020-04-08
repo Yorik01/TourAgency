@@ -52,7 +52,9 @@
 		<init-param> 
 			<param-name>admin</param-name>
 			<param-value>saveHotel saveRoute saveTour saveTransport 
-			hotelForm routeForm tourForm transportForm createManager allUsers bannUser unbannUser</param-value>
+			 hotelForm routeForm tourForm transportForm createManager allUsers
+			 bannUser unbannUser 
+			 deleteTour deleteRoute deleteTransport deleteHotel</param-value>
 		</init-param>
 		<init-param>
 			<param-name>manager</param-name>
@@ -62,7 +64,7 @@
 			<param-name>admin-manager</param-name>
 			<param-value>adminPage setDiscountStepForAllUsers setMaxDiscount 
 			allTours allHotels allRoutes allTransports 
-			allReservations
+			allReservations setTourFired
 			</param-value>
 		</init-param>	
 		<init-param>

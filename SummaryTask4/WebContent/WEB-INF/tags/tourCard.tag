@@ -23,12 +23,14 @@
 		</tr>
 		<tr>
 			<td>status: 
-				<c:when test="${tour.isFired() == 0}">
-			 		Not fired
-			 	</c:when>
-			 	<c:otherwise>
-			 		Fired
-			 	</c:otherwise>
+				<c:choose>
+					<c:when test="${tour.isFired() == 0}">
+				 		Not fired
+				 	</c:when>
+				 	<c:otherwise>
+				 		Fired
+				 	</c:otherwise>
+			 	</c:choose>
 			</td>
 		</tr>
 		<tr>
@@ -41,15 +43,21 @@
 			<td>Agency percent: ${tour.agencyProcent}</td>
 		</tr>
 		<tr>
+			<td>Total price: ${tour.price}</td>
+		</tr>
+		<tr>
 			<td>
-				<form action="/TourAgency/controller?action=tourForm&edit=true&id=${tour.id}">
+				<form action="/TourAgency/controller">
+					<input type="hidden" name="action" value="tourForm" />
+					<input type="hidden" name="edit" value="true" />
+					<input type="hidden" name="id" value="${tour.id}" />			
 					<button class="btn btn-success" type="submit">
 						Edit
 					</button>
 				</form>
 				<form method="post" action="/TourAgency/controller?action=deleteTour">
 					<input type="hidden" name="id" value="${tour.id}" />
-					<button class="btn btn-danger" type="submit">
+					<button class="btn btn-danger btn-delete" type="submit">
 						Delete
 					</button>
 				</form>

@@ -185,7 +185,7 @@ CREATE TABLE tour_type (
 
 CREATE TABLE tour (
 	tour_id INT AUTO_INCREMENT PRIMARY KEY,
-	agency_procent TINYINT(20) NOT NULL,
+	agency_procent DOUBLE NOT NULL,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
 	is_fired TINYINT(1) NOT NULL,
@@ -256,7 +256,7 @@ BEGIN
 	SET new_discount = current_discount + discount_step;
 	
 	IF new_discount <= max_discount THEN
-		SET newuu_discount = current_discount;
+		SET new_discount = current_discount;
 	END IF;
 	
 	INSERT INTO reservation VALUES (DEFAULT, NOW(), people_count, new_discount, reservation_status_id, tour_id, user_id);

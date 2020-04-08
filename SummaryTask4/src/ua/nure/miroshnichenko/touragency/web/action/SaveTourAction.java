@@ -31,7 +31,7 @@ public class SaveTourAction extends Action {
 		
 		String[] startDate = req.getParameter("startDate").split("/");
 		String[] endDate = req.getParameter("endDate").split("/");
-		Integer agencyProcent = Integer.parseInt(req.getParameter("agencyProcent"));
+		double agencyProcent = Integer.parseInt(req.getParameter("agencyProcent"));
 		int isFired = req.getParameterValues("isFired") != null ? 1 : 0;
 		double maxDiscount = Double.parseDouble(req.getParameter("maxDiscount"));
 		

@@ -35,7 +35,8 @@ public class ActionAccessFilter implements Filter {
 	
 	private final String NO_PERMISSION_MESSAGE = "You do not have permission to access the requested resource";
 
-
+	private final String USER_BANNED_MESSAGE = "Your account is banned!";
+	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
@@ -53,6 +54,11 @@ public class ActionAccessFilter implements Filter {
 			break;
 		case NO_PERMISSIONS:
 			request.setAttribute("errorMessage", NO_PERMISSION_MESSAGE);
+			request.getRequestDispatcher(Path.ERR_PAGE)
+				.forward(request, response);
+			break;
+		case BANNED:
+			request.setAttribute("errorMessage", USER_BANNED_MESSAGE);
 			request.getRequestDispatcher(Path.ERR_PAGE)
 				.forward(request, response);
 			break;
@@ -106,6 +112,10 @@ public class ActionAccessFilter implements Filter {
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			return Access.NO_LOGIN;
+		}
+		
+		if (user.isBanned() == 1) {
+			return Access.BANNED;
 		}
 		
 		Role userRole = user.getRole();

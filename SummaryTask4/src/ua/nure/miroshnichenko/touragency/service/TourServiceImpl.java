@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.touragency.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ class TourServiceImpl implements TourService {
 		try {
 			TourDAO tourDAO = factoryDAO.geTourDAO();
 			tours = tourDAO.findAll();
+			tours.sort((x, y) -> y.isFired().compareTo(x.isFired()));
 
 			return tours;
 		} catch (DAOException e) {
@@ -95,9 +97,11 @@ class TourServiceImpl implements TourService {
 	public boolean save(Tour tour) throws ServiceException {
 		try {
 			TourDAO tourDAO = factoryDAO.geTourDAO();
-			boolean result = tourDAO.save(tour);
-
-			return result;
+			if (isTourUnique(tour)) {
+				return tourDAO.save(tour);
+			}
+			
+			throw new ServiceException("This tour already exist!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -108,9 +112,11 @@ class TourServiceImpl implements TourService {
 	public boolean update(Tour tour) throws ServiceException {
 		try {
 			TourDAO tourDAO = factoryDAO.geTourDAO();
-			boolean result = tourDAO.update(tour);
-
-			return result;
+			if (isTourUnique(tour)) {
+				return tourDAO.update(tour);
+			}
+			
+			throw new ServiceException("This tour already exist!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -220,11 +226,33 @@ class TourServiceImpl implements TourService {
 		}
 	}
 	
+	@Override
+	public Tour getTourByDateAndHotelName(Date startDate, Date endDate, String hotelName) throws ServiceException {
+		Tour tour = null;
+
+		try {
+			TourDAO tourDAO = factoryDAO.geTourDAO();
+			tour = tourDAO.getTourByDateAndHotelName(startDate, endDate, hotelName);
+
+			return tour;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
+	
 	private Map<String, String> getMainParametrs(Map<String, String[]> values) {
 		Map<String, String> parametrs = new HashMap<>();
 		for(Entry<String, String[]> entry : values.entrySet()) {
 			parametrs.put(entry.getKey(), entry.getValue()[0]);
 		}
 		return parametrs;
+	}
+	
+	private boolean isTourUnique(Tour tour) throws ServiceException {
+		return getTourByDateAndHotelName(
+				tour.getStartDate(),
+				tour.getEndDate(),
+				tour.getHotel().getName()) == null;
 	}
 }

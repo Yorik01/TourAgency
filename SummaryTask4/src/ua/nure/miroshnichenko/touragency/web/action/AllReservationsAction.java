@@ -30,6 +30,8 @@ public class AllReservationsAction extends Action {
 			throw new ActionException(e);
 		}
 		
+		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		
 		req.setAttribute("reservations", reservations);
 		req.setAttribute("form", Path.RESERVATIONS_LIST);
 		

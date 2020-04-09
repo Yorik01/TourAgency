@@ -137,7 +137,7 @@ public class MysqlUserDAO implements UserDAO {
 			List<User> users = transaction.customQuery(
 					Queries.USER_BY_EMAIL, User.class, email);
 			
-			if(users.size() == 1) {
+			if(!users.isEmpty()) {
 				user = users.get(0);
 			}
 			

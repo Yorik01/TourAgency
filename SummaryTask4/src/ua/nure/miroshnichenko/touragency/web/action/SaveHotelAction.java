@@ -116,6 +116,7 @@ public class SaveHotelAction extends Action {
 			hotelService.save(hotel);
 		} catch (ServiceException e) {
 			e.printStackTrace();
+			throw new ActionException(e);
 		}
 
 		uploadImgs(req, res, hotel.getId());

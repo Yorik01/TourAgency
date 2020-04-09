@@ -45,12 +45,14 @@ public class TransportServiceImpl implements TransportService {
 	}
 
 	@Override
-	public boolean save(Transport entity) throws ServiceException {
+	public boolean save(Transport transport) throws ServiceException {
 		try {
 			TransportDAO transportDAO = factoryDAO.getTransportDAO();
-			boolean result = transportDAO.save(entity);
-
-			return result;
+			if (isTransportUnique(transport)) {
+				return transportDAO.save(transport);
+			}
+			
+			throw new ServiceException("This transport already exist!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -58,12 +60,14 @@ public class TransportServiceImpl implements TransportService {
 	}
 
 	@Override
-	public boolean update(Transport entity) throws ServiceException {
+	public boolean update(Transport transport) throws ServiceException {
 		try {
 			TransportDAO transportDAO = factoryDAO.getTransportDAO();
-			boolean result = transportDAO.update(entity);
-
-			return result;
+			if (isTransportUnique(transport)) {
+				return transportDAO.update(transport);
+			}
+			
+			throw new ServiceException("This transport already exist!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -71,10 +75,10 @@ public class TransportServiceImpl implements TransportService {
 	}
 
 	@Override
-	public boolean delete(Transport entity) throws ServiceException {
+	public boolean delete(Transport transport) throws ServiceException {
 		try {
 			TransportDAO transportDAO = factoryDAO.getTransportDAO();
-			boolean result = transportDAO.delete(entity);
+			boolean result = transportDAO.delete(transport);
 
 			return result;
 		} catch (DAOException e) {
@@ -96,5 +100,10 @@ public class TransportServiceImpl implements TransportService {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
+	}
+	
+	private boolean isTransportUnique(Transport transport) throws ServiceException {
+		return getTransportByCodeAndType(
+				transport.getCode(), transport.getType()) == null;
 	}
 }

@@ -63,6 +63,8 @@ public class TourFormAction extends Action {
 			req.setAttribute("tour", tour);
 		}
 		
+		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		
 		return Path.ADMIN_PAGE;
 	}
 }

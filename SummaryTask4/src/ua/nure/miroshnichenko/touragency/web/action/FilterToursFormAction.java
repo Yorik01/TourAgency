@@ -29,12 +29,11 @@ public class FilterToursFormAction extends Action {
 		RouteService routeService = serviceFactory.getRouteService();
 		
 		List<Place> places = null;
-		List<Tour> tours = null;
+		List<Tour> tours = ActionUtil.getAllEntities(tourService);
 
 		Map<Tour, String> toursWithPhotos = new HashMap<>();
 		try {
 			places = routeService.getAllPlaces();
-			tours = tourService.getAll();
 			
 			tours.sort((x, y) -> x.isFired().compareTo(y.isFired()));
 			for (Tour tour : tours) {

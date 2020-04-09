@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.touragency.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import ua.nure.miroshnichenko.touragency.db.entity.User;
 public interface TourService extends CRUDService<Tour> {
 
 	List<Tour> filter(Map<String, String[]> values) throws ServiceException;
+	
+	Tour getTourByDateAndHotelName(Date startDate, Date endDate, String hotelName) throws ServiceException;
 	
 	boolean reserve(int tourId, int userId, int peopleCount) throws ServiceException;
 

@@ -134,8 +134,11 @@ public class MysqlPlaceDAO implements PlaceDAO {
 
 		try {
 			transaction = DBUtil.getTransaction();
-			place = transaction.customQuery(
-					Queries.PLACE_BY_COUNTRY_AND_CITY, Place.class, country, city).get(0);
+			List<Place> res = transaction.customQuery(
+					Queries.PLACE_BY_COUNTRY_AND_CITY, Place.class, country, city);
+			if (!res.isEmpty()) {
+				place = res.get(0);
+			}
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
 			throw new DAOException(e);

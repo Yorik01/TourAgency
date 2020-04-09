@@ -130,12 +130,15 @@ public class MysqlFacilityDAO implements FacilityDAO {
 	@Override
 	public Facility getFacilityByName(String name) throws DAOException {
 		Transaction transaction = null;
-		List<Facility> facilities = null;
+		Facility facility = null;
 
 		try {
 			transaction = DBUtil.getTransaction();
-			facilities = transaction.customQuery(
+			List<Facility> res = transaction.customQuery(
 					Queries.FACILITY_BY_NAME, Facility.class, name);
+			if (!res.isEmpty()) {
+				facility = res.get(0);
+			}
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
 			throw new DAOException(e);
@@ -147,6 +150,6 @@ public class MysqlFacilityDAO implements FacilityDAO {
 				throw new DAOException(e);
 			}
 		}
-		return facilities.size() > 0 ? facilities.get(0)  : null;
+		return facility;
 	}
 }

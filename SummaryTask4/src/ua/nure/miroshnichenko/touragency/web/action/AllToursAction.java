@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
-import ua.nure.miroshnichenko.touragency.service.ServiceException;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.web.Path;
 
@@ -21,13 +20,10 @@ public class AllToursAction extends Action {
 			throws IOException, ServletException, ActionException {
 		
 		TourService tourService = serviceFactory.getTourService();
-		List<Tour> tours = null;
-		try {
-			tours = tourService.getAll();
-			tours.sort((x, y) -> y.isFired().compareTo(x.isFired()));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
+		List<Tour> tours = ActionUtil.getAllEntities(tourService);
+
+		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		
 		req.setAttribute("tours", tours);
 		req.setAttribute("form", Path.TOURS_LIST);
 		

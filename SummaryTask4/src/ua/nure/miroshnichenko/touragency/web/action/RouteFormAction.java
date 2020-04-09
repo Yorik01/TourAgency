@@ -11,6 +11,7 @@ import ua.nure.miroshnichenko.touragency.db.entity.Place;
 import ua.nure.miroshnichenko.touragency.db.entity.Route;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
 import ua.nure.miroshnichenko.touragency.service.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.web.Path;
 
 public class RouteFormAction extends Action {
@@ -48,6 +49,9 @@ public class RouteFormAction extends Action {
 			}
 			req.setAttribute("route", route);
 		}
+		
+		TourService tourService = serviceFactory.getTourService();
+		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
 		
 		return Path.ADMIN_PAGE;
 	}

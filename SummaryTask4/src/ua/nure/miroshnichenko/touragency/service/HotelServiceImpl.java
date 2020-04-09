@@ -43,12 +43,14 @@ class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public boolean save(Hotel entity) throws ServiceException {
+	public boolean save(Hotel hotel) throws ServiceException {
 		try {
 			HotelDAO hotelDAO = factoryDAO.getHotelDAO();
-			boolean result = hotelDAO.save(entity);
-
-			return result;
+			if (isHotelUnique(hotel.getName())) {
+				return hotelDAO.save(hotel);
+			}
+			
+			throw new ServiceException("Hotel with this name already exist!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -56,12 +58,14 @@ class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public boolean update(Hotel entity) throws ServiceException {
+	public boolean update(Hotel hotel) throws ServiceException {
 		try {
 			HotelDAO hotelDAO = factoryDAO.getHotelDAO();
-			boolean result = hotelDAO.update(entity);
-
-			return result;
+			if (isHotelUnique(hotel.getName())) {
+				return hotelDAO.update(hotel);
+			}
+			
+			throw new ServiceException("Hotel with this name already exist!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -69,10 +73,10 @@ class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public boolean delete(Hotel entity) throws ServiceException {
+	public boolean delete(Hotel hotel) throws ServiceException {
 		try {
 			HotelDAO hotelDAO = factoryDAO.getHotelDAO();
-			boolean result = hotelDAO.delete(entity);
+			boolean result = hotelDAO.delete(hotel);
 
 			return result;
 		} catch (DAOException e) {
@@ -94,5 +98,9 @@ class HotelServiceImpl implements HotelService {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
+	}
+	
+	private boolean isHotelUnique(String name) throws ServiceException {
+		return getHotelByName(name) == null;
 	}
 }

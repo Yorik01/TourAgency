@@ -7,6 +7,7 @@ import java.util.List;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.UserDAO;
+import ua.nure.miroshnichenko.touragency.db.entity.Role;
 import ua.nure.miroshnichenko.touragency.db.entity.User;
 
 class AuthentificationServiceImpl implements AuthentificationService {
@@ -116,7 +117,11 @@ class AuthentificationServiceImpl implements AuthentificationService {
 	public List<User> getAllUsers() throws ServiceException {
 		try {
 			UserDAO userDAO = factoryDAO.getUserDAO();
-			return userDAO.findAll();
+			List<User> users = userDAO.findAll();
+			
+			users.removeIf(user -> user.getRole() == Role.ADMIN);
+			
+			return users;
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

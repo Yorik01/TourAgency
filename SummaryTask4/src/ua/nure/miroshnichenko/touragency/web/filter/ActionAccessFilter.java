@@ -71,7 +71,6 @@ public class ActionAccessFilter implements Filter {
 
 		// roles
 		accessMap.put(Role.ADMIN, asList(filterConfig.getInitParameter("admin")));
-		accessMap.put(Role.MANAGER, asList(filterConfig.getInitParameter("manager")));
 		accessMap.put(Role.CLIENT, asList(filterConfig.getInitParameter("client")));
 		LOG.trace("Access map --> " + accessMap);
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Route;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
-import ua.nure.miroshnichenko.touragency.service.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.web.Path;
 
 public class AllRoutesAction extends Action {
@@ -22,14 +22,10 @@ public class AllRoutesAction extends Action {
 		
 		RouteService routeService = serviceFactory.getRouteService();
 		
-		List<Route> routes = null;
+		List<Route> routes = ActionUtil.getAllEntities(routeService);
 		
-		try {
-			routes = routeService.getAll();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			throw new ActionException(e);
-		}
+		TourService tourService = serviceFactory.getTourService();
+		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
 		
 		req.setAttribute("routes", routes);
 		req.setAttribute("form", Path.ROUTES_LIST);

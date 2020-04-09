@@ -5,9 +5,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import ua.nure.miroshnichenko.touragency.service.DeleteHotelAction;
-import ua.nure.miroshnichenko.touragency.service.DeleteTourAction;
-
 public class ActionContainer {
 	
 	private static final Logger LOG = Logger.getLogger(ActionContainer.class);

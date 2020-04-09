@@ -1,5 +1,9 @@
 package ua.nure.miroshnichenko.touragency.web.listener;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -23,8 +27,10 @@ public class ContextListener implements ServletContextListener {
 		log("Servlet context initialization starts");
 
 		ServletContext servletContext = event.getServletContext();
+		
 		initLog4J(servletContext);
 		initActionFactory();
+		initLocales(servletContext);
 
 		log("Servlet context initialization finished");
 	}
@@ -60,6 +66,25 @@ public class ContextListener implements ServletContextListener {
 		} catch (ClassNotFoundException ex) {
 			throw new IllegalStateException("Cannot initialize Action Factory");
 		}
+	}
+	
+	private void initLocales(ServletContext context) {
+    	String localesFileName = context.getInitParameter("locales");
+    	
+    	// obtain reale path on server
+    	String localesFileRealPath = context.getRealPath(localesFileName);
+    	
+    	// locad descriptions
+    	Properties locales = new Properties();
+    	try {
+			locales.load(new FileInputStream(localesFileRealPath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+    	// save descriptions to servlet context
+    	context.setAttribute("locales", locales);
+    	locales.list(System.out);
 	}
 
 	private void log(String msg) {

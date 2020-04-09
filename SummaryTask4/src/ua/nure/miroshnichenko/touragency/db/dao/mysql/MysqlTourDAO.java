@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.touragency.db.dao.mysql;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -256,6 +257,38 @@ public class MysqlTourDAO implements TourDAO {
 			}
 		}
 		return tours;
+	}
+	
+	@Override
+	public Tour getTourByDateAndHotelName(Date startDate, Date endDate, String hotelName) throws DAOException {
+		Transaction transaction = null;
+		Tour tour = null;
+		
+		try {
+			transaction = DBUtil.getTransaction();
+			List<Tour> res = transaction.customQuery(
+					Queries.TOURS_BY_DATE_AND_HOTEL_NAME,
+					Tour.class,
+					startDate,
+					endDate,
+					hotelName);
+			if (!res.isEmpty()) {
+				tour = res.get(0);
+				initTour(tour);
+			}
+
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return tour;
 	}
 	
 	private void initTour(Tour tour) throws DAOException {

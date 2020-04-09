@@ -54,12 +54,14 @@ public class RouteServiceImpl implements RouteService {
 	}
 
 	@Override
-	public boolean save(Route entity) throws ServiceException {
+	public boolean save(Route route) throws ServiceException {
 		try {
 			RouteDAO routeDAO = factoryDAO.getRouteDAO();
-			boolean result = routeDAO.save(entity);
-
-			return result;
+			if (isRouteUnique(route)) {
+				return routeDAO.save(route);
+			}
+			
+			throw new ServiceException("This route already exist!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -67,12 +69,14 @@ public class RouteServiceImpl implements RouteService {
 	}
 
 	@Override
-	public boolean update(Route entity) throws ServiceException {
+	public boolean update(Route route) throws ServiceException {
 		try {
 			RouteDAO routeDAO = factoryDAO.getRouteDAO();
-			boolean result = routeDAO.update(entity);
-
-			return result;
+			if (isRouteUnique(route)) {
+				return routeDAO.update(route);
+			}
+			
+			throw new ServiceException("This route already exist!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -80,10 +84,10 @@ public class RouteServiceImpl implements RouteService {
 	}
 
 	@Override
-	public boolean delete(Route entity) throws ServiceException {
+	public boolean delete(Route route) throws ServiceException {
 		try {
 			RouteDAO routeDAO = factoryDAO.getRouteDAO();
-			boolean result = routeDAO.delete(entity);
+			boolean result = routeDAO.delete(route);
 
 			return result;
 		} catch (DAOException e) {
@@ -120,5 +124,15 @@ public class RouteServiceImpl implements RouteService {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
+	}
+	
+	private boolean isRouteUnique(Route route) throws ServiceException {
+		Place from = route.getFrom();
+		Place to = route.getTo();
+		
+		Place oldFrom = getPlaceByCountryAndCity(from.getCountry(), from.getCity());
+		Place oldTo = getPlaceByCountryAndCity(to.getCountry(), to.getCity());
+		
+		return oldFrom == null && oldTo == null;
 	}
 }

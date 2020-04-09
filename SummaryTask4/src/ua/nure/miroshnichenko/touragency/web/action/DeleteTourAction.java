@@ -1,4 +1,4 @@
-package ua.nure.miroshnichenko.touragency.service;
+package ua.nure.miroshnichenko.touragency.web.action;
 
 import java.io.IOException;
 
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
+import ua.nure.miroshnichenko.touragency.service.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.web.Path;
-import ua.nure.miroshnichenko.touragency.web.action.Action;
-import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
 public class DeleteTourAction extends Action {
 

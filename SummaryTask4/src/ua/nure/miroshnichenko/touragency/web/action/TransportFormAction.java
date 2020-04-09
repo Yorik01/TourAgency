@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ua.nure.miroshnichenko.touragency.db.entity.Transport;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
 import ua.nure.miroshnichenko.touragency.service.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.TransportService;
 import ua.nure.miroshnichenko.touragency.web.Path;
 
@@ -58,6 +59,9 @@ public class TransportFormAction extends Action {
 			req.setAttribute("arriveTime", new Time(arriveTime));
 			req.setAttribute("arriveDate", new Date(arriveTime));
 		}
+		
+		TourService tourService = serviceFactory.getTourService();
+		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
 		
 		return Path.ADMIN_PAGE;
 	}

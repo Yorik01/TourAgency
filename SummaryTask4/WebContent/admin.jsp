@@ -220,7 +220,7 @@
 			Are you sure to delete ?
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" id="btn-confirm-delete" data-dismiss="modal">Yes</button>
+	        <button type="button" class="btn btn-danger" id="btn-confirm-delete" data-dismiss="modal">Yes</button>
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 	      </div>
 	    </div>
@@ -234,7 +234,7 @@
 	
 	<script>
 		$(document).ready(() => {
-			const tours = JSON.parse('${requestScope.tours}');
+			const tours = JSON.parse('${requestScope.toursJSON}');
 			
 			setTours(tours);
 	
@@ -292,8 +292,7 @@
 					});
 				$("#create-manager-modal").modal("hide");
 			});
-			$(".btn-delete").submit(function(e) {
-				alert('ds')
+			$(".btn-delete").click(function(e) {
 				e.preventDefault();
 				$("#confirm-delete-modal").modal("show");
 				

@@ -4,7 +4,7 @@ public final class Queries {
 
 	private Queries() {
 	}
-
+	
 	public static final String HOTEL_SERVICES = "SELECT *"
 			+ "FROM service s "
 			+ "INNER JOIN hotel_service hs USING (service_id)"
@@ -58,6 +58,10 @@ public final class Queries {
 	public static final String USER_BONUSES = "SELECT * FROM bonus WHERE user_id = ?";
 	
 	public static final String SET_DISCOUNT_STEP_FOR_ALL_USERS = "UPDATE users SET discount_step = ?";
+	
+	public static final String TOURS_BY_DATE_AND_HOTEL_NAME = "SELECT t FROM tour t "
+			+ "INNER JOIN hotel h USING(hotel_id) "
+			+ "WHERE t.start_date = ? AND t.end_date = ? AND h.hotel_name = ?";
 	
 	public static final String FILTER_TOUR = "SELECT * FROM tour t "
 			+ "INNER JOIN hotel h USING (hotel_id) "

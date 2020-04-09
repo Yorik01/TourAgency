@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Hotel;
 import ua.nure.miroshnichenko.touragency.service.HotelService;
-import ua.nure.miroshnichenko.touragency.service.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.web.Path;
 
 public class AllHotelsAction extends Action {
@@ -22,14 +22,11 @@ public class AllHotelsAction extends Action {
 	
 		HotelService hotelService = serviceFactory.getHotelService();
 		
-		List<Hotel> hotels;
-		try {
-			hotels = hotelService.getAll();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			throw new ActionException(e);
-		}
+		List<Hotel> hotels = ActionUtil.getAllEntities(hotelService);
 
+		TourService tourService = serviceFactory.getTourService();
+		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		
 		req.setAttribute("hotels", hotels);
 		req.setAttribute("form", Path.HOTELS_LIST);
 		

@@ -18,12 +18,34 @@ import com.google.gson.Gson;
 
 import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
+import ua.nure.miroshnichenko.touragency.db.entity.Tour;
+import ua.nure.miroshnichenko.touragency.service.CRUDService;
+import ua.nure.miroshnichenko.touragency.service.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.TourService;
 
 public final class ActionUtil {
 	
 	private static final Gson gson = new Gson();
 
 	private ActionUtil() {
+	}
+	
+	public static <T extends Entity> List<T> getAllEntities(CRUDService<T> crudService) throws ActionException {
+		List<T> entities;
+		try {
+			entities = crudService.getAll();
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ActionException(e);
+		}
+		return entities;
+	}
+	
+	public static void setAllEntitiesJsonInAttribute(HttpServletRequest req, CRUDService<?> crudService, String nameAttr) throws ActionException {
+		List<? extends Entity> tours = ActionUtil.getAllEntities(crudService);
+
+		String toursJson = ActionUtil.entitiesToJson(tours);
+		req.setAttribute(nameAttr, toursJson);
 	}
 	
 	public static String entitiesToJson(List<? extends Entity> entities) {

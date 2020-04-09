@@ -134,8 +134,11 @@ public class MysqlServicingDAO implements ServicingDAO {
 
 		try {
 			transaction = DBUtil.getTransaction();
-			servicing = transaction.customQuery(
-					Queries.SERVICING_BY_NAME, Servicing.class, name).get(0);
+			List<Servicing> res = transaction.customQuery(
+					Queries.SERVICING_BY_NAME, Servicing.class, name);
+			if (!res.isEmpty()) {
+				servicing = res.get(0);
+			}
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
 			throw new DAOException(e);

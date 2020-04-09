@@ -230,8 +230,10 @@ public class MysqlHotelDAO implements HotelDAO {
 
 		try {
 			transaction = DBUtil.getTransaction();
-			hotel = (Hotel) transaction.customQuery(Queries.HOTEL_BY_NAME, Hotel.class, name).get(0);
-
+			List<Hotel> res = transaction.customQuery(Queries.HOTEL_BY_NAME, Hotel.class, name);
+			if (!res.isEmpty()) {
+				hotel = res.get(0);
+			}
 
 			List<Servicing> servicings = transaction.customQuery(Queries.HOTEL_SERVICES,
 					Servicing.class, hotel.getId().toString());

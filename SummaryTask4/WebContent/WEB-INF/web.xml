@@ -37,8 +37,9 @@
 	Security filter.
 	1) admin: admin commands
 	2) client: client commands
-	3) commons: commands for all roles
-	4) out-of-control: commands without access control
+	3) admin-client: commands for admin and managers
+	4) commons: commands for all roles
+	5) out-of-control: commands without access control
 	Delimiter - space/tab
 =============================================================-->
  
@@ -55,10 +56,6 @@
 			 hotelForm routeForm tourForm transportForm createManager allUsers
 			 bannUser unbannUser 
 			 deleteTour deleteRoute deleteTransport deleteHotel</param-value>
-		</init-param>
-		<init-param>
-			<param-name>manager</param-name>
-			<param-value></param-value>
 		</init-param>
 		<init-param>
 			<param-name>admin-manager</param-name>

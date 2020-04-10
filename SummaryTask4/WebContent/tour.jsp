@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
+<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
 
 <%@ page
 	import="ua.nure.miroshnichenko.touragency.db.entity.TypeServicing"%>
@@ -14,7 +16,7 @@
 <link href="font/font-awesome/css/all.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
-<title>Tour</title>
+<title><fmt:message key="common.tour" /></title>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
@@ -46,7 +48,7 @@
 		<div id="tour-main-info" class="d-flex flex-column">
 			<span class="d-flex flex-column"> 
 			<span id="total-price-label"
-				class="text-secondary">total 
+				class="text-secondary"><fmt:message key="common.price" /> 
 				<c:if test="${tour.isFired() eq 1}">
 					<i class="fa fa-fire"></i>
 				</c:if>
@@ -58,7 +60,7 @@
 				method="post">
 				<input type="hidden" name="id" value="${tour.id}" />
 				<button id="btn-reserve" class="btn btn-primary" data-toggle="modal"
-					type="button" data-target="#select-count-people">Reserve</button>
+					type="button" data-target="#select-count-people"><fmt:message key="tour_jsp.reserve" /></button>
 
 				<div class="modal fade" id="select-count-people" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
@@ -66,7 +68,7 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+								<h5 class="modal-title" id="exampleModalLabel"><fmt:message key="common.reservation" /></h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -86,9 +88,8 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-outline-secondary"
-									data-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary">Save
-									changes</button>
+									data-dismiss="modal"><fmt:message key="admin_jsp.close" /></button>
+								<button type="submit" class="btn btn-primary"><fmt:message key="admin_jsp.save" /></button>
 							</div>
 						</div>
 					</div>
@@ -96,27 +97,27 @@
 			</form>
 			<div class="mt-2">
 				<hr>
-				<span> <span class="tour-info-name mr-2">Country:</span> <span
+				<span> <span class="tour-info-name mr-2"><fmt:message key="common.country" />:</span> <span
 					class="tour-info-value">${tour.transportTo.route.to.country}</span>
 				</span>
 				<hr>
-				<span> <span class="tour-info-name mr-2">City:</span> <span
+				<span> <span class="tour-info-name mr-2"><fmt:message key="common.city" />:</span> <span
 					class="tour-info-value">${tour.transportTo.route.to.city}</span>
 				</span>
 				<hr>
-				<span> <span class="tour-info-name mr-2">From:</span> <span
-					class="tour-info-value">${tour.transportTo.route.from.country}</span>
+				<span> <span class="tour-info-name mr-2"><fmt:message key="common.from" />:</span> <span
+					class="tour-info-value">${tour.transportTo.route.from.country}, ${tour.transportTo.route.from.city}</span>
 				</span>
 				<hr>
-				<span> <span class="tour-info-name mr-2">Date start:</span> <span
+				<span> <span class="tour-info-name mr-2"><fmt:message key="common.start_date" />:</span> <span
 					class="tour-info-value">${tour.startDate}</span>
 				</span>
 				<hr>
-				<span> <span class="tour-info-name mr-2">Date end:</span> <span
+				<span> <span class="tour-info-name mr-2"><fmt:message key="common.end_date" />:</span> <span
 					class="tour-info-value">${tour.endDate}</span>
 				</span>
 				<hr>
-				<span> <span class="tour-info-name mr-2">Tour type:</span> <span
+				<span> <span class="tour-info-name mr-2"><fmt:message key="common.tour_type" />:</span> <span
 					class="tour-info-value">${tour.type}</span>
 				</span>
 			</div>
@@ -124,91 +125,100 @@
 	</div>
 	<hr>
 	<div id="transport-info">
-		<h3>Transport</h3>
-		<h4 class="mt-3">Ticket to</h4>
+		<h3><fmt:message key="common.transport" /></h3>
+		<h4 class="mt-3"><fmt:message key="common.ticket" /></h4>
 		<div class="ml-5">
-			<span> <span class="tour-info-name mr-2">Transport
-					type:</span> <span class="tour-info-value">${tour.transportTo.type}</span>
+			<span>
+				<span class="tour-info-name mr-2"><fmt:message key="common.transport_type" />:</span> 
+				<span class="tour-info-value">${tour.transportTo.type}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Arriving time:
-			</span> <span class="tour-info-value">${tour.transportTo.arrive}</span>
+			<span> 
+				 <span class="tour-info-name mr-2"><fmt:message key="common.arriving_time" />: </span>
+				 <span class="tour-info-value">${tour.transportTo.arrive}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Taking off
-					time: </span> <span class="tour-info-value">${tour.transportTo.takeoff}</span>
+			<span> 
+				<span class="tour-info-name mr-2"><fmt:message key="common.takeoff_time" />:</span> 
+				<span class="tour-info-value">${tour.transportTo.takeoff}</span>
 			</span>
 			<hr>
 		</div>
 		<h4>Ticket back</h4>
 		<div class="ml-5">
-			<span> <span class="tour-info-name mr-2">Transport
-					type:</span> <span class="tour-info-value">${tour.transportBack.type}</span>
+			<span> 
+				<span class="tour-info-name mr-2"><fmt:message key="common.transport_type" />:</span>
+				<span class="tour-info-value">${tour.transportBack.type}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Arriving time:
-			</span> <span class="tour-info-value">${tour.transportBack.arrive}</span>
+			<span> 
+				<span class="tour-info-name mr-2"><fmt:message key="common.arriving_time" />:</span> 
+				<span class="tour-info-value">${tour.transportBack.arrive}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Taking off
-					time: </span> <span class="tour-info-value">${tour.transportBack.takeoff}</span>
+			<span> 
+				<span class="tour-info-name mr-2"><fmt:message key="common.takeoff_time" />:</span>
+				<span class="tour-info-value">${tour.transportBack.takeoff}</span>
 			</span>
 			<hr>
 		</div>
 	</div>
 	<div id="tour-info">
-		<h3>Hotel</h3>
+		<h3><fmt:message key="common.hotel" /></h3>
 		<p class="ml-5">${tour.hotel.info}</p>
 		<hr>
 		<div class="ml-5">
-			<span> <span class="tour-info-name mr-2">Name:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.name" />:</span> <span
 				class="tour-info-value">${tour.hotel.name}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Address:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.address" />:</span> <span
 				class="tour-info-value">${tour.hotel.address}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Site:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.site" />:</span> <span
 				class="tour-info-value">${tour.hotel.site}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Telephone:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.telephone" />:</span> <span
 				class="tour-info-value">${tour.hotel.tel}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Stars:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.hotel_stars" />:</span> <span
 				class="tour-info-value">${tour.hotel.stars}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Max rooms:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.max_rooms" />:</span> <span
 				class="tour-info-value">${tour.hotel.maxRooms}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Food:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.food" />:</span> <span
 				class="tour-info-value">${tour.hotel.food}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Beach:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.beach" />:</span> <span
 				class="tour-info-value">${tour.hotel.beach}</span>
 			</span>
 			<hr>
-			<span> <span class="tour-info-name mr-2">Hotel type:</span> <span
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.hotel_type" />:</span> <span
 				class="tour-info-value">${tour.hotel.type}</span>
 			</span>
 			<hr>
 			<div class="d-inline-flex justify-content-between w-100">
 				<div id="facility-info">
-					<h5>In room</h5>
+					<h5><fmt:message key="common.in_room" /></h5>
 					<ul>
 						<c:if test="${fn:contains(tour.hotel.facilities, 'WIFI')}">
 							<li>Wifi</li>
 						</c:if>
 						<c:if test="${fn:contains(tour.hotel.facilities, 'MINIBAR')}">
-							<li>Minibar</li>
+							<li><fmt:message key="common.minibar" /></li>
+						</c:if>
+						<c:if test="${fn:contains(tour.hotel.facilities, 'HAIRDRYER')}">
+							<li><fmt:message key="common.hairdryer" /></li>
 						</c:if>
 						<c:if test="${fn:contains(tour.hotel.facilities, 'CONDITIONER')}">
-							<li>Conditioner</li>
+							<li><fmt:message key="common.conditioner" /></li>
 						</c:if>
 						<c:if test="${fn:contains(tour.hotel.facilities, 'TV')}">
 							<li>TV</li>
@@ -216,7 +226,7 @@
 					</ul>
 				</div>
 				<div id="sport-info">
-					<h5>Sport</h5>
+					<h5><fmt:message key="common.sport" /></h5>
 					<ul>
 						<c:forEach items="${tour.hotel.servicings}" var="servicing">
 							<c:if test="${servicing.type eq TypeServicing.SPORT}">
@@ -226,7 +236,7 @@
 					</ul>
 				</div>
 				<div id="entertainment" class="mr-3">
-					<h5>Entertainment</h5>
+					<h5><fmt:message key="common.entertainment" /></h5>
 					<ul>
 						<c:forEach items="${tour.hotel.servicings}" var="servicing">
 							<c:if test="${servicing.type eq TypeServicing.ENTERTAINMENT}">

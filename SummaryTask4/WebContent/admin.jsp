@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,7 @@
 	<link href="bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
 	<link href="font/font-awesome/css/all.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
-	<title>Admin</title>
+	<title><fmt:message key="admin_jsp.admin" /></title>
 </head>
 <body>
 	<div class="container-fluid">
@@ -21,82 +23,82 @@
               <li class="nav-item mt-4">
                 <a class="nav-link active" href="/TourAgency/controller?action=filterForm">
 					<i class="fa fa-home"></i>
-					Home page
+					<fmt:message key="admin_jsp.main_page" />
                 </a>
               </li>
            	</ul>
            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            	<span>Main info</span>
+            	<span><fmt:message key="admin_jsp.main_page" /></span>
 				<i class="fa fa-info-circle"></i>
         	</h6>
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active" href="/TourAgency/controller?action=allTours">
 					<i class="fa fa-globe-europe"></i>
-					Tours
+					<fmt:message key="common.tours" />
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/TourAgency/controller?action=allRoutes">
                 <i class="fa fa-route"></i>
-					Routes
+					<fmt:message key="common.routes" />
                 </a>
               </li>
                <li class="nav-item">
                 <a class="nav-link" href="/TourAgency/controller?action=allHotels">
                 <i class="fa fa-hotel"></i>
-					Hotels
+					<fmt:message key="common.hotels" />
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/TourAgency/controller?action=allTransports">
                 <i class="fa fa-plane"></i>
-					Transports
+					<fmt:message key="common.transports" />
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/TourAgency/controller?action=allReservations">
                 <i class="fa fa-file-alt"></i>
-					Reservations
+					<fmt:message key="common.reservations" />
                 </a>
               </li>
             </ul>
             
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Discounts</span>
+              <span><fmt:message key="admin_jsp.discounts" /></span>
 				<i class="fa fa-tags"></i>
             </h6>
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link" href="#" id="show-set-maxdiscount-modal" data-toggle="modal" data-target="#set-maxdiscount-modal">
 					<i class="fa fa-edit"></i>
-					Set max discount
+					<fmt:message key="admin_jsp.set_max_discount" />
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#set-discountstep-for-all-users-modal">
                 <i class="fa fa-edit"></i>
-					Set step of discount
+					<fmt:message key="admin_jsp.set_step_discount" />
                 </a>
               </li>
             </ul>
 			
 			<c:if test="${sessionScope.user.role eq 'ADMIN'}">
        		  	<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            		<span>Users</span>
+            		<span><fmt:message key="admin_jsp.users" /></span>
 				 	<i class="fa fa-users"></i>
     	        </h6>
 	            <ul class="nav flex-column mb-2">
             		 <li class="nav-item">
                 		<a class="nav-link" href="/TourAgency/controller?action=allUsers">
 		                <i class="fa fa-users"></i>
-							Users
+							<fmt:message key="admin_jsp.users" />
                			</a>
 		             </li>
 		              <li class="nav-item">
                 		<a class="nav-link" href="#" data-toggle="modal" data-target="#create-manager-modal">
 		                <i class="fa fa-plus"></i>
-							Create manager
+							<fmt:message key="admin_jsp.create_manager" />
                			</a>
 		             </li>
             	</ul>
@@ -116,23 +118,23 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Setting max discount</h5>
+	        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="admin_jsp.setting_max_discount" /></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
 			<form class="form-group">
-				<label for="select-tour">Tour</label>
+				<label for="select-tour"><fmt:message key="common.tour" /></label>
 				<select class="form-control" id="select-tour">
 				</select>
-				<label for="set-maxdiscount">Max discount</label>
+				<label for="set-maxdiscount"><fmt:message key="common.max_discount" /></label>
 				<input class="form-control" id="set-maxdiscount" type="number" />
 			</form>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="btn-set-maxdiscount">Save changes</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="common.close" /></button>
+	        <button type="button" class="btn btn-primary" id="btn-set-maxdiscount"><fmt:message key="common.save" /></button>
 	      </div>
 	    </div>
 	  </div>
@@ -142,20 +144,20 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Setting Step of discount</h5>
+	        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="admin_jsp.setting_step_discount" /></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
 			<form class="form-group">
-				<label for="set-discountstep-for-all-users">Step of discount</label>
+				<label for="set-discountstep-for-all-users"><fmt:message key="admin_jsp.step_discount" /></label>
 				<input class="form-control" type="number" id="set-discountstep-for-all-users"/>
 			</form>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="btn-set-discountstep-for-all-users">Save changes</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="common.close" /></button>
+	        <button type="button" class="btn btn-primary" id="btn-set-discountstep-for-all-users"><fmt:message key="common.save" /></button>
 	      </div>
 	    </div>
 	  </div>
@@ -165,24 +167,24 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Creating of manager</h5>
+	        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="admin_jsp.creating_manager" /></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
 			<form class="form-group">
-				<label for="manager-email">Email</label>
+				<label for="manager-email"><fmt:message key="common.email" /></label>
 				<input class="form-control" type="email" id="manager-email"/>
 			</form>
 			<form class="form-group">
-				<label for="manager-password">Password</label>
+				<label for="manager-password"><fmt:message key="common.password" /></label>
 				<input class="form-control" type="password" id="manager-password"/>
 			</form>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="btn-create-manager">Save changes</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="common.close" /></button>
+	        <button type="button" class="btn btn-primary" id="btn-create-manager"><fmt:message key="common.save" /></button>
 	      </div>
 	    </div>
 	  </div>
@@ -192,7 +194,7 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Info</h5>
+	        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="common.info" /></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -201,7 +203,7 @@
 			<span id="info-modal-message"></span>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="common.close" /></button>
 	      </div>
 	    </div>
 	  </div>
@@ -211,17 +213,17 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Confirm deleting</h5>
+	        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="admin_jsp.confirm_deleting" /></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
-			Are you sure to delete ?
+			<fmt:message key="admin_jsp.confirm_delete_question" />
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" id="btn-confirm-delete" data-dismiss="modal">Yes</button>
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+	        <button type="button" class="btn btn-danger" id="btn-confirm-delete" data-dismiss="modal"><fmt:message key="common.yes" /></button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="common.no" /></button>
 	      </div>
 	    </div>
 	  </div>

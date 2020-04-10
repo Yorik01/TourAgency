@@ -9,7 +9,7 @@
 	<link href="bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
 	<link href="font/font-awesome/css/all.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
-	<title>Profile</title>
+	<title><fmt:message key="profile_jsp.title" /></title>
 </head>
 <body>
 	<div class="container-fluid">
@@ -20,13 +20,13 @@
               <li class="nav-item">
                 <a class="nav-link active" href="/TourAgency/controller?action=userEditForm&id=${user.id}">
 					<i class="fa fa-user"></i>
-					Profile info
+					<fmt:message key="profile_jsp.profile_info" />
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/TourAgency/controller?action=userReservations&id=${user.id}">
 				<i class="fa fa-list-alt"></i>
-					My reservations
+					<fmt:message key="profile_jsp.my_reservations" />
                 </a>
               </li>
             </ul>

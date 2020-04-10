@@ -67,7 +67,7 @@ public class ActionAccessFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-	    LOG.debug("Filter initialization starts");
+	    LOG.debug("Access filter initialization starts");
 
 		// roles
 		accessMap.put(Role.ADMIN, asList(filterConfig.getInitParameter("admin")));
@@ -91,7 +91,7 @@ public class ActionAccessFilter implements Filter {
 	
 	@Override
 	public void destroy() {
-		System.out.println("Filter has been destroyed!");
+		LOG.debug("Access filter has benn destroyed!");
 	}
 
 	private Access accessAllowed(ServletRequest request) {

@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--============================================================
-	Deployment Descriptor: web.xml
-=============================================================-->
+<!--============================================================ Deployment 
+	Descriptor: web.xml ============================================================= -->
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
 
 	<display-name>Tour Agency</display-name>
-	
+
 	<welcome-file-list>
 		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 
-	
-<!--============================================================
-	Controller
-=============================================================-->
+
+	<!--============================================================ Controller 
+		============================================================= -->
 	<servlet>
 		<servlet-name>Controller</servlet-name>
 		<servlet-class>ua.nure.miroshnichenko.touragency.web.Controller</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>Controller</servlet-name>
 		<url-pattern>/controller</url-pattern>
 	</servlet-mapping>
-	
-	
-<!--============================================================
-	Encoding support filter
-=============================================================-->
 
-	
-<!--============================================================
-	Security filter.
-	1) admin: admin commands
-	2) client: client commands
-	3) admin-client: commands for admin and managers
-	4) commons: commands for all roles
-	5) out-of-control: commands without access control
-	Delimiter - space/tab
-=============================================================-->
- 
+
+	<!--============================================================ Encoding 
+		support filter ============================================================= -->
+
+
+	<!--============================================================ Security 
+		filter. 1) admin: admin commands 2) client: client commands 3) admin-client: 
+		commands for admin and managers 4) commons: commands for all roles 5) out-of-control: 
+		commands without access control Delimiter - space/tab ============================================================= -->
+
 	<filter>
 		<filter-name>ActionAccessFilter</filter-name>
 		<filter-class>ua.nure.miroshnichenko.touragency.web.filter.ActionAccessFilter</filter-class>
@@ -50,7 +42,7 @@
 			<param-name>client</param-name>
 			<param-value>userReservations reserveTour</param-value>
 		</init-param>
-		<init-param> 
+		<init-param>
 			<param-name>admin</param-name>
 			<param-value>saveHotel saveRoute saveTour saveTransport 
 			 hotelForm routeForm tourForm transportForm createManager allUsers
@@ -63,7 +55,7 @@
 			allTours allHotels allRoutes allTransports 
 			allReservations setTourFired
 			</param-value>
-		</init-param>	
+		</init-param>
 		<init-param>
 			<param-name>common</param-name>
 			<param-value>logout noCommand tourInfo filterForm filterTours userEditForm</param-value>
@@ -73,41 +65,42 @@
 			<param-value>login signup</param-value>
 		</init-param>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>ActionAccessFilter</filter-name>
 		<servlet-name>Controller</servlet-name>
 	</filter-mapping>
 
-<!--============================================================
-	Context listener
-=============================================================-->
+	<!--============================================================ Context 
+		listener ============================================================= -->
 	<listener>
 		<listener-class>ua.nure.miroshnichenko.touragency.web.listener.ContextListener</listener-class>
 	</listener>
-	
-<!--============================================================
-	Error page
-=============================================================-->
+
+	<!--============================================================ Error page 
+		============================================================= -->
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/WEB-INF/jsp/error.jsp</location>
 	</error-page>
-	
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/jsp/page404.jsp</location>
 	</error-page>
-	
-	
-<!--============================================================
-	Context params
-=============================================================-->
+
+
+	<!--============================================================ Context 
+		params ============================================================= -->
+	<context-param>
+		<param-name>locales</param-name>
+		<param-value>/WEB-INF/locales.properties</param-value>
+	</context-param>
 
 	<context-param>
 		<description>Uploaded photos directory</description>
 		<param-name>photo-storage</param-name>
 		<param-value>/home/yorik/git/TourAgency/SummaryTask4/WebContent/photo</param-value>
 	</context-param>
-	
+
 </web-app>

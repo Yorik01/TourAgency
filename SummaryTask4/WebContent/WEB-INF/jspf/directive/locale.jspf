@@ -1,5 +1,3 @@
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-
 <%-- set the locale --%>
 <fmt:setLocale value="${locale}" scope="session" />
 

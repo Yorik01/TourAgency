@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
+
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
+
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -12,6 +15,7 @@
 	<title><fmt:message key="profile_jsp.title" /></title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/jspf/header.jspf" %>
 	<div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-white h-100 sidebar position-fixed">

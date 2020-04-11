@@ -3,27 +3,28 @@
 <%@ attribute name="reservation" required="true" type="ua.nure.miroshnichenko.touragency.db.entity.Reservation"%>
 
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
 
 <table class="table bg-white table-bordered card">
 	<tbody>
 		<tr>
 			<td>
 				<a href="/TourAgency/controller?action=tourInfo&id=${reservation.id}">
-				Tour: ${reservation.tour.hotel.name}
+				<fmt:message key="common.tour" />: ${reservation.tour.hotel.name}
 				</a>
 			</td>
 		</tr>
 		<tr>
-			<td>Date: ${reservation.resrveDate}</td>
+			<td><fmt:message key="common.date" />: ${reservation.resrveDate}</td>
 		</tr>
 		<tr>
-			<td>Count of people: ${reservation.peopleCount}</td>
+			<td><fmt:message key="common.people_count" />: ${reservation.peopleCount}</td>
 		</tr>
 		<tr>
-			<td>Status: ${reservation.status}</td>
+			<td><fmt:message key="common.status" />: ${reservation.status}</td>
 		</tr>
 		<tr>
-			<td>Discount: ${reservation.discount}</td>
+			<td><fmt:message key="common.discount" />: ${reservation.discount}</td>
 		</tr>
 		<tr>
 			<td>
@@ -32,7 +33,7 @@
 						<input type="hidden" name="id" value="${reservation.id}" />
 						<input type="hidden" name="action" value="revokeReservation" />
 						<button class="btn btn-danger" type="submit">
-							Revoke
+							<fmt:message key="common.revoke" />
 						</button>
 					</form>
 				</c:if>

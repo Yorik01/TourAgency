@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,24 +11,24 @@
 </head>
 	<body>
 		<form method="post" action="/TourAgency/controller?action=saveRoute&edit=${param.edit}">
-			<h3>Route</h3>
+			<h3>><fmt:message key="common.route" /></h3>
 			<div class="form-group">
-				<label for="select-route-country-from">Country from</label>
+				<label for="select-route-country-from"><fmt:message key="common.country_from" /></label>
 				<select id="select-route-country-from" name="countryFrom" class="form-control" class="route-countries">
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="select-route-city-from">City from</label>
+				<label for="select-route-city-from"><fmt:message key="common.city_from" /></label>
 				<select id="select-route-city-from" name="cityFrom" class="form-control">
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="select-route-country-to">Country to</label>
+				<label for="select-route-country-to"><fmt:message key="common.country_to" /></label>
 				<select id="select-route-country-to" name="countryTo" class="form-control" class="route-countries">
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="select-route-city-to">City to</label>
+				<label for="select-route-city-to"><fmt:message key="common.city_to" /></label>
 				<select id="select-route-city-to" name="cityTo" class="form-control">
 				</select>
 			</div>
@@ -33,7 +36,7 @@
 				<input type="hidden" name="id" value="${route.id}" />
 				<input type="hidden" name="edit" value="true" />
 			</c:if>
-			<button class="btn btn-primary" type="submit">Save</button>
+			<button class="btn btn-primary" type="submit"><fmt:message key="common.save" /></button>
 		</form>
 		
 		<script src="js/jquery-3.4.1.min.js" ></script>

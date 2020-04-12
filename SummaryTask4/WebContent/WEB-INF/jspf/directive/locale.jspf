@@ -1,5 +1,7 @@
-<%-- set the locale --%>
-<fmt:setLocale value="${locale}" scope="session" />
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<fmt:setLocale value="en" scope="session" />
 
 <%-- load the bundle (by locale) --%>
 <fmt:setBundle basename="resources" />
+<%--<c:out value="lang: ${lang.getLocale()}" /> --%>

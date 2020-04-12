@@ -54,6 +54,7 @@ public class ActionContainer {
 		actions.put("bannUser", new BannUserAction());
 		actions.put("unbannUser", new UnbannUserAction());
 		actions.put("setTourFired", new SetTourFiredAction());
+		actions.put("changeLocale", new ChangeLocaleAction());
 	}
 
 	/**

@@ -16,6 +16,19 @@ hr {
 	box-sizing: border-box;
 }
 
+.footer {
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	padding: 10px;
+	bottom: 0;
+	background-color: #343a40 !important;
+}
+
+.footer a {
+	color: #ffffff;
+}
+
 #reg-offering {
 	position: relative;
 	top: 10px;

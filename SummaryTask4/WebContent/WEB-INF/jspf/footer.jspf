@@ -1,0 +1,19 @@
+<%--=========================================================================== 
+Footer (bottom area). 
+===========================================================================--%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<footer class="footer">
+      <div class="container">
+        <span class="text-muted float-left">&copy; <script>document.write(new Date().getFullYear())</script>, Tour agency.</span>
+        <span class="float-right">
+        	<a href=# id="locale-ru">Русский</a>
+        	|
+			<a href="#" id="locale-en">English</a>
+        </span>
+      </div>`
+</footer>
+<script src="js/locale.js"></script>

@@ -69,7 +69,7 @@ public class ActionAccessFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 	    LOG.debug("Access filter initialization starts");
 
-		// roles
+	    // roles
 		accessMap.put(Role.ADMIN, asList(filterConfig.getInitParameter("admin")));
 		accessMap.put(Role.CLIENT, asList(filterConfig.getInitParameter("client")));
 		LOG.trace("Access map --> " + accessMap);
@@ -86,7 +86,7 @@ public class ActionAccessFilter implements Filter {
 		adminManager = asList(filterConfig.getInitParameter("admin-manager"));
 		
 		
-		LOG.debug("Filter initialization finished");
+		LOG.debug("Access filter initialization finished");
 	}
 	
 	@Override

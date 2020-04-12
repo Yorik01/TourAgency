@@ -1,22 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
 
-<c:set var="title" value="Error" scope="page" />
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
+
+<c:set var="title" value="<fmt:message key="index_jsp.title" />" />
+
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
-	<link href="font/font-awesome/css/all.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
-	
-	<title><fmt:message key="index_jsp.title" /></title>
-</head>
 <body>
 	<form id="tour-filter" class="container-fluid form-group mt-5" action="/TourAgency/controller" method="get">
 		<h1 class="mb-5"><fmt:message key="index_jsp.searching_tour" /></h1>
@@ -252,13 +244,6 @@
 				photo="${tour.value}" />
 		</c:forEach>
 	</div>
-
-<script src="bootstrap/js/moment.min.js"></script>	
-<script src="js/jquery-3.4.1.min.js" ></script>
-<script src="js/popper.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="bootstrap/js/moment-with-locales.min.js"></script>
-<script src="bootstrap/js/bootstrap-datepicker.min.js"></script>
 	
 <script src="js/route.js"></script>
 <script>

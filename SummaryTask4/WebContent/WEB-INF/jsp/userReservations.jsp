@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+     
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
 <!DOCTYPE html>
 <html>
 <head>

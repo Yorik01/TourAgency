@@ -2,6 +2,7 @@ package ua.nure.miroshnichenko.touragency.db.dao.mysql;
 
 import java.util.HashMap;
 
+import ua.nure.miroshnichenko.touragency.db.dao.CommentDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.FacilityDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.HotelDAO;
@@ -72,5 +73,10 @@ public class MysqlDAOFactory extends DAOFactory {
 	@Override
 	public RouteDAO getRouteDAO() {
 		return new MysqlRouteDAO();
+	}
+	
+	@Override
+	public CommentDAO getCommentDAO() {
+		return new MysqlCommentDAO();
 	}
 }

@@ -19,6 +19,6 @@ public interface TourDAO extends DAO<Tour> {
 			List<HotelType> hotelTypes, List<Food> foods, List<Beach> beaches, List<TourType> tourTypes,
 			List<TransportType> transportTypes, List<String> stars) throws DAOException;
 
-	Tour getTourByDateAndHotelName(Date startDate, Date endDate, String hotelName) 
+	Tour getTourByDateAndHotelId(Date startDate, Date endDate, int hotelId) 
 			throws DAOException;
 }

@@ -7,12 +7,13 @@ import java.util.Map;
 import ua.nure.miroshnichenko.touragency.db.entity.Reservation;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.db.entity.User;
+import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 
 public interface TourService extends CRUDService<Tour> {
 
 	List<Tour> filter(Map<String, String[]> values) throws ServiceException;
 	
-	Tour getTourByDateAndHotelName(Date startDate, Date endDate, String hotelName) throws ServiceException;
+	Tour getTourByDateAndHotelId(Date startDate, Date endDate, int hotelId)throws ServiceException;
 	
 	boolean reserve(int tourId, int userId, int peopleCount) throws ServiceException;
 

@@ -1,11 +1,8 @@
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
 
 <head>
-	<title>
-		${title}
-	</title>
-	
+	<title><fmt:message key="${pageName}_jsp.title" /></title>
+
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
 	<link href="font/font-awesome/css/all.css" rel="stylesheet">

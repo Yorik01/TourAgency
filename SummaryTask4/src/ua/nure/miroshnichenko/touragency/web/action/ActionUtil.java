@@ -18,10 +18,8 @@ import com.google.gson.Gson;
 
 import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
-import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.service.CRUDService;
-import ua.nure.miroshnichenko.touragency.service.ServiceException;
-import ua.nure.miroshnichenko.touragency.service.TourService;
+import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 
 public final class ActionUtil {
 	
@@ -93,7 +91,10 @@ public final class ActionUtil {
 	public static String getFirstPhoto(int hotelId, String path) throws IOException {
 		String photo = "";
 		try (Stream<Path> paths = Files.list(Paths.get(path))) {
-			Optional<Path> optional = paths.findFirst();
+			Optional<Path> optional = paths
+				.filter(p -> photoBelongToHotel(hotelId, p))
+				.findFirst();
+			
 			if (optional.isPresent()) {
 				photo = optional.get().getFileName().toString();
 			}

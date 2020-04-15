@@ -12,9 +12,6 @@
 		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 
-
-	<!--============================================================ Controller 
-		============================================================= -->
 	<servlet>
 		<servlet-name>Controller</servlet-name>
 		<servlet-class>ua.nure.miroshnichenko.touragency.web.Controller</servlet-class>
@@ -24,11 +21,8 @@
 		<servlet-name>Controller</servlet-name>
 		<url-pattern>/controller</url-pattern>
 	</servlet-mapping>
-
-
-	<!--============================================================ Encoding 
-		support filter ============================================================= -->
-		
+	
+	<!-- Encoding filter -->
 	<filter>
 		<filter-name>EncodingFilter</filter-name>
 		<filter-class>ua.nure.miroshnichenko.touragency.web.filter.EncodingFilter</filter-class>
@@ -44,12 +38,7 @@
 		<servlet-name>Controller</servlet-name>
 	</filter-mapping>
 		
-
-	<!--============================================================ Security 
-		filter. 1) admin: admin commands 2) client: client commands 3) admin-client: 
-		commands for admin and managers 4) commons: commands for all roles 5) out-of-control: 
-		commands without access control Delimiter - space/tab ============================================================= -->
-
+	<!-- ActionAccess filter -->
 	<filter>
 		<filter-name>ActionAccessFilter</filter-name>
 		<filter-class>ua.nure.miroshnichenko.touragency.web.filter.ActionAccessFilter</filter-class>
@@ -77,33 +66,14 @@
 		</init-param>
 		<init-param>
 			<param-name>out-of-control</param-name>
-			<param-value>login signup</param-value>
+			<param-value>login signup changeLocale</param-value>
 		</init-param>
 	</filter>
 	
-	<filter>
-		<filter-name>LocaleFilter</filter-name>
-		<filter-class>ua.nure.miroshnichenko.touragency.web.filter.LocaleFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>ActionAccessFilter</filter-name>
-		<servlet-name>Controller</servlet-name>
-	</filter-mapping>
-	
-	<filter-mapping>
-		<filter-name>LocaleFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<!--============================================================ Context 
-		listener ============================================================= -->
 	<listener>
 		<listener-class>ua.nure.miroshnichenko.touragency.web.listener.ContextListener</listener-class>
 	</listener>
 
-	<!--============================================================ Error page 
-		============================================================= -->
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/WEB-INF/jsp/error.jsp</location>
@@ -114,9 +84,7 @@
 		<location>/WEB-INF/jsp/page404.jsp</location>
 	</error-page>
 
-
-	<!--============================================================ Context 
-		params ============================================================= -->
+	<!-- Context params -->
 	<context-param>
 		<param-name>locales</param-name>
 		<param-value>/WEB-INF/locales.properties</param-value>

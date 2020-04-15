@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<c:set var="pageName" value="login" />
+
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 
 <body>

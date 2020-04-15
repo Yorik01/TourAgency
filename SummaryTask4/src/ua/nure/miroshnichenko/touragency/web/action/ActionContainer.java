@@ -5,6 +5,42 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import ua.nure.miroshnichenko.touragency.web.action.discount.SetDiscountStepForAllUsers;
+import ua.nure.miroshnichenko.touragency.web.action.discount.SetMaxDiscountAction;
+import ua.nure.miroshnichenko.touragency.web.action.hotel.AllHotelsAction;
+import ua.nure.miroshnichenko.touragency.web.action.hotel.DeleteHotelAction;
+import ua.nure.miroshnichenko.touragency.web.action.hotel.HotelFormAction;
+import ua.nure.miroshnichenko.touragency.web.action.hotel.SaveHotelAction;
+import ua.nure.miroshnichenko.touragency.web.action.reservation.AllReservationsAction;
+import ua.nure.miroshnichenko.touragency.web.action.reservation.ReserveTourAction;
+import ua.nure.miroshnichenko.touragency.web.action.reservation.RevokeReservationAction;
+import ua.nure.miroshnichenko.touragency.web.action.reservation.UserReservationsAction;
+import ua.nure.miroshnichenko.touragency.web.action.route.AllRoutesAction;
+import ua.nure.miroshnichenko.touragency.web.action.route.DeleteRouteAction;
+import ua.nure.miroshnichenko.touragency.web.action.route.RouteFormAction;
+import ua.nure.miroshnichenko.touragency.web.action.route.SaveRouteAction;
+import ua.nure.miroshnichenko.touragency.web.action.tour.AllToursAction;
+import ua.nure.miroshnichenko.touragency.web.action.tour.DeleteTourAction;
+import ua.nure.miroshnichenko.touragency.web.action.tour.FilterTourAction;
+import ua.nure.miroshnichenko.touragency.web.action.tour.FilterToursFormAction;
+import ua.nure.miroshnichenko.touragency.web.action.tour.SaveTourAction;
+import ua.nure.miroshnichenko.touragency.web.action.tour.SetTourFiredAction;
+import ua.nure.miroshnichenko.touragency.web.action.tour.TourFormAction;
+import ua.nure.miroshnichenko.touragency.web.action.tour.TourInfoAction;
+import ua.nure.miroshnichenko.touragency.web.action.transport.AllTransportsAction;
+import ua.nure.miroshnichenko.touragency.web.action.transport.DeleteTransportAction;
+import ua.nure.miroshnichenko.touragency.web.action.transport.SaveTransportAction;
+import ua.nure.miroshnichenko.touragency.web.action.transport.TransportFormAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.AdminPageAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.AllUsersAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.BannUserAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.CreateManagerAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.EditUserAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.LoginAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.SignupAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.UnbannUserAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.UserEditFormAction;
+
 public class ActionContainer {
 	
 	private static final Logger LOG = Logger.getLogger(ActionContainer.class);
@@ -37,7 +73,7 @@ public class ActionContainer {
 		actions.put("allRoutes", new AllRoutesAction());
 		actions.put("allHotels", new AllHotelsAction());
 		actions.put("allTransports", new AllTransportsAction());
-		actions.put("filterTour", new FilterTourAction());
+		actions.put("filterTours", new FilterTourAction());
 		actions.put("filterForm", new FilterToursFormAction());
 		actions.put("tourInfo", new TourInfoAction());
 		actions.put("userReservations", new UserReservationsAction());

@@ -7,7 +7,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
@@ -24,17 +23,11 @@ public class EncodingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		
-		LOG.debug("Filter starts");
-		
-		HttpServletRequest httpRequest = (HttpServletRequest)request;
-		LOG.trace("Request uri --> " + httpRequest.getRequestURI());
-		
 		String requestEncoding = request.getCharacterEncoding();
+
 		if (requestEncoding == null) {
-			LOG.trace("Request encoding = null, set encoding --> " + encoding);
 			request.setCharacterEncoding(encoding);
 		}
-		LOG.debug("Encoding filter finished");		
 		chain.doFilter(request, response);
 	}
 

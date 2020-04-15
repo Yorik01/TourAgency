@@ -1,21 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
-
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
-	<link href="font/font-awesome/css/all.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
-	<title><fmt:message key="admin_jsp.admin" /></title>
-</head>
+
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<c:set var="pageName" value="admin" />
+
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
+
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid" id="admin-content">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-white h-100 sidebar position-fixed">
           <div class="sidebar-sticky">
@@ -23,12 +19,12 @@
               <li class="nav-item mt-4">
                 <a class="nav-link active" href="/TourAgency/controller?action=filterForm">
 					<i class="fa fa-home"></i>
-					<fmt:message key="admin_jsp.main_page" />
+					<fmt:message key="index_jsp.title" />
                 </a>
               </li>
            	</ul>
            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            	<span><fmt:message key="admin_jsp.main_page" /></span>
+            	<span><fmt:message key="admin_jsp.main_info" /></span>
 				<i class="fa fa-info-circle"></i>
         	</h6>
             <ul class="nav flex-column">
@@ -106,10 +102,17 @@
           </div>
         </nav>
 
-        <main class="col-md-9 ml-sm-auto col-lg-10 px-4 admin-content">
-	        <c:if test="${requestScope.form != null}">
-	        	<jsp:include page="${requestScope.form}" />
-	        </c:if>
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-4" id="admin-content">
+	        <c:choose>
+	    	    <c:when test="${requestScope.form != null}">
+		        	<jsp:include page="${requestScope.form}" />
+		        </c:when>
+		        <c:otherwise>
+		        	<div id="admin-no-content">
+			        	<span><fmt:message key="admin_jsp.choose_option" />	</span>
+		        	</div>
+		        </c:otherwise>
+	        </c:choose>
         </main>
       </div>
     </div>
@@ -190,24 +193,7 @@
 	  </div>
 	</div>
 	
-	<div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="common.info" /></h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-			<span id="info-modal-message"></span>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="common.close" /></button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	<%@ include file="/WEB-INF/jsp/infoModal.jsp" %>
 	
 	<div class="modal fade" id="confirm-delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
@@ -229,9 +215,8 @@
 	  </div>
 	</div>
 
-	<script src="js/jquery-3.4.1.min.js" ></script>
-	<script src="js/popper.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+
 	<script src="js/tour.js"></script>
 	
 	<script>

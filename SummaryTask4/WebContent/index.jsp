@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-<c:set var="title" value="<fmt:message key="index_jsp.title" />" />
+<c:set var="pageName" value="index" />
 
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 
 <!DOCTYPE html>
 <html>
 <body>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 	<form id="tour-filter" class="container-fluid form-group mt-5" action="/TourAgency/controller" method="get">
 		<h1 class="mb-5"><fmt:message key="index_jsp.searching_tour" /></h1>
 		<div id="tour-filter-main" class="shadow-sm p-3 bg-white rounded d-flex flex-row justify-content-around">
@@ -233,7 +234,7 @@
 				</div>
 			</div>
 		</div>
-		<input type="hidden" name="action" value="filterTour">
+		<input type="hidden" name="action" value="filterTours">
 	</form>
 		
 	<div id="tour-all" class="p-3">
@@ -244,6 +245,8 @@
 				photo="${tour.value}" />
 		</c:forEach>
 	</div>
+
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 	
 <script src="js/route.js"></script>
 <script>

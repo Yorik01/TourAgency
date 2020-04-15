@@ -1,15 +1,15 @@
 $(document).ready(() => {
-	$('#locale-ru').click(() => {
-		$.post('/TourAgency/controller', {action: 'changeLocale', locale: 'ru'})
+	$('.change-local').click( function(e) {
+		e.preventDefault();
+		
+		let locale = $(this).children('input').val();
+		
+		$.post('/TourAgency/controller', {action: 'changeLocale', locale: locale})
 			.done(() => {
 				window.location.reload();
-			});
-	});
-	
-	$('#locale-en').click(() => {
-		$.post('/TourAgency/controller', {action: 'changeLocale', locale: 'en'})
-			.done(() => {
-				window.location.reload();
+			})
+			.fail(err => {
+				console.error(err);
 			});
 	});
 });

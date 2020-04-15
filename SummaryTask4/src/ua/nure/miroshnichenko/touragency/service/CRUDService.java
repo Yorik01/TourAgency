@@ -3,6 +3,7 @@ package ua.nure.miroshnichenko.touragency.service;
 import java.util.List;
 
 import ua.nure.miroshnichenko.myorm.Entity;
+import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 
 public interface CRUDService<T extends Entity> {
 	

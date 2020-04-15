@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
 		LOG.debug("Controller starts");
 		// extract command name from the request
 		String commandName = request.getParameter("action");
-		System.out.println(commandName);
+
 		LOG.trace("Request parameter: action --> " + commandName);
 		// obtain command object by its name
 		Action action = ActionContainer.get(commandName);

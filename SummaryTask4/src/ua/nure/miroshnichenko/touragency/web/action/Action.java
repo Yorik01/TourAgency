@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.nure.miroshnichenko.touragency.service.ServiceFactory;
+import ua.nure.miroshnichenko.touragency.service.impl.ServiceFactory;
 
 public abstract class Action implements Serializable {
 

@@ -45,7 +45,7 @@ class DBConnectionImpl implements DBConnection {
 			sqlConnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 			makeWait();
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 
@@ -62,7 +62,7 @@ class DBConnectionImpl implements DBConnection {
 				statement.close();
 			}
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getCause());
+			throw new DBConnectionException(e);
 		}
 		lastUsedTime = System.currentTimeMillis();
 	}
@@ -82,7 +82,7 @@ class DBConnectionImpl implements DBConnection {
 			resultSet = statement.executeQuery(query);
 			return resultSet;
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 
@@ -93,7 +93,7 @@ class DBConnectionImpl implements DBConnection {
 			resultSet = ((PreparedStatement) statement).executeQuery();
 			return resultSet;
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 
@@ -103,7 +103,7 @@ class DBConnectionImpl implements DBConnection {
 			statement = sqlConnection.createStatement();
 			return statement.executeUpdate(query) > 0;
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 	
@@ -113,7 +113,7 @@ class DBConnectionImpl implements DBConnection {
 			statement = prepareStatement(query, parametrs);
 			return ((PreparedStatement) statement).executeUpdate() > 0;
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 	
@@ -130,7 +130,7 @@ class DBConnectionImpl implements DBConnection {
 			
 			return null;
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 	
@@ -141,7 +141,7 @@ class DBConnectionImpl implements DBConnection {
 			System.out.println(statement);
 			return ((CallableStatement) statement).execute();
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 
@@ -150,7 +150,7 @@ class DBConnectionImpl implements DBConnection {
 		try {
 			sqlConnection.commit();
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 
@@ -159,7 +159,7 @@ class DBConnectionImpl implements DBConnection {
 		try {
 			sqlConnection.rollback();
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 
@@ -184,7 +184,7 @@ class DBConnectionImpl implements DBConnection {
 		try {
 			sqlConnection.close();
 		} catch (SQLException e) {
-			throw new DBConnectionException(e.getMessage(), e.getCause());
+			throw new DBConnectionException(e);
 		}
 	}
 }

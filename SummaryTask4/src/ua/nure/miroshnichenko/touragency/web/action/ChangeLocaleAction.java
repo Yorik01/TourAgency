@@ -29,7 +29,7 @@ public class ChangeLocaleAction extends Action {
 		} else {
 			throw new ActionException(
 					String.format("The system doesn't support a such locale (%s)", locale));
-		}
+		}	
 		
 		return Path.NO_PATH;
 	}

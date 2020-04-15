@@ -2,6 +2,7 @@ SET NAMES utf8;
 
 USE tour_agency;
 
+DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS reservation;
 DROP TABLE IF EXISTS tour;
 DROP TABLE IF EXISTS transport;
@@ -238,6 +239,23 @@ CREATE TABLE reservation (
 	 REFERENCES users(user_id)
 	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT
+);
+
+CREATE TABLE comment (
+	comment_id INT AUTO_INCREMENT PRIMARY KEY,
+	comment_date DATETIME NOT NULL,
+	comment_text TEXT NOT NULL,
+	comment_mark TINYINT(10) NOT NULL,
+	user_id INT NOT NULL,
+	CONSTRAINT user_id_comment_fk FOREIGN KEY (user_id) 
+	REFERENCES users(user_id)
+		ON DELETE CASCADE
+		ON UPDATE RESTRICT,
+	tour_id INT NOT NULL,
+	CONSTRAINT tour_id_comment_fk FOREIGN KEY (tour_id) 
+	REFERENCES tour(tour_id)
+		ON DELETE CASCADE
+		ON UPDATE RESTRICT
 );
 
 DELIMITER $$

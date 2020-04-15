@@ -49,7 +49,7 @@ public final class Queries {
 	
 	public static final String ALL_FACILITIES = "SELECT facility_id FROM facility";
 	
-	public static final String ALL_SERVICINGS = "SELECT servicing_id FROM servicing";
+	public static final String ALL_SERVICINGS = "SELECT service_id FROM service";
 	
 	public static final String ALL_TOUR_TYPES = "SELECT tour_type_id FROM tour_type";
 	
@@ -59,9 +59,13 @@ public final class Queries {
 	
 	public static final String SET_DISCOUNT_STEP_FOR_ALL_USERS = "UPDATE users SET discount_step = ?";
 	
-	public static final String TOURS_BY_DATE_AND_HOTEL_NAME = "SELECT t FROM tour t "
+	public static final String USER_COMMENTS = "SELECT * FROM comment WHERE user_id = ?";
+	
+	public static final String TOUR_COMMENTS = "SELECT * FROM comment WHERE tour_id = ?";
+	
+	public static final String TOURS_BY_DATE_AND_HOTEL_ID = "SELECT * FROM tour t "
 			+ "INNER JOIN hotel h USING(hotel_id) "
-			+ "WHERE t.start_date = ? AND t.end_date = ? AND h.hotel_name = ?";
+			+ "WHERE t.start_date = ? AND t.end_date = ? AND h.hotel_id = ?";
 	
 	public static final String FILTER_TOUR = "SELECT * FROM tour t "
 			+ "INNER JOIN hotel h USING (hotel_id) "

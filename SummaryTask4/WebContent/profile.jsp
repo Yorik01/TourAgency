@@ -2,21 +2,17 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
-
 <html>
-<head>
-	<meta charset="UTF-8">
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet">
-	<link href="font/font-awesome/css/all.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
-	<title><fmt:message key="profile_jsp.title" /></title>
-</head>
+
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<c:set var="pageName" value="profile" />
+
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
+
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf" %>
-	<div class="container-fluid">
+	<div class="container-fluid" id="profile-main">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-white h-100 sidebar position-fixed">
           <div class="sidebar-sticky">
@@ -44,6 +40,6 @@
         </main>
       </div>
     </div>
-
+	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 </body>
 </html>

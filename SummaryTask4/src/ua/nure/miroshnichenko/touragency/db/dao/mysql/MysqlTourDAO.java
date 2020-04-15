@@ -260,18 +260,18 @@ public class MysqlTourDAO implements TourDAO {
 	}
 	
 	@Override
-	public Tour getTourByDateAndHotelName(Date startDate, Date endDate, String hotelName) throws DAOException {
+	public Tour getTourByDateAndHotelId(Date startDate, Date endDate, int hotelId) throws DAOException {
 		Transaction transaction = null;
 		Tour tour = null;
 		
 		try {
 			transaction = DBUtil.getTransaction();
 			List<Tour> res = transaction.customQuery(
-					Queries.TOURS_BY_DATE_AND_HOTEL_NAME,
+					Queries.TOURS_BY_DATE_AND_HOTEL_ID,
 					Tour.class,
 					startDate,
 					endDate,
-					hotelName);
+					hotelId);
 			if (!res.isEmpty()) {
 				tour = res.get(0);
 				initTour(tour);

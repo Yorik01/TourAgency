@@ -1,19 +1,37 @@
 <%--=========================================================================== 
 Footer (bottom area). 
-===========================================================================--%> 
+===========================================================================--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
+<%@ include file="/WEB-INF/jspf/directive/locale.jspf"%>
 
 <footer class="footer">
-      <div class="container">
-        <span class="text-muted float-left">&copy; <script>document.write(new Date().getFullYear())</script>, Tour agency.</span>
-        <span class="float-right">
-        	<a href=# id="locale-ru">Русский</a>
-        	|
-			<a href="#" id="locale-en">English</a>
-        </span>
-      </div>`
+	<div class="container">
+		<span class="text-muted float-left">&copy; <script>
+			document.write(new Date().getFullYear())
+		</script>
+			Tour agency.
+		</span> 
+		<div class="float-right">
+			<div class="btn-group dropup">
+				<button type="button" class="btn btn-link text-white dropdown-toggle"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					${applicationScope.locales.get(selectedLocale)}</button>
+				<div class="dropdown-menu">
+					<c:forEach items="${applicationScope.locales}" var="locale">
+						<c:if test="${locale.key ne 'main'}">
+							<a class="dropdown-item change-local">
+								<input type="hidden" value="${locale.key}" />	
+								${locale.value}
+							</a>
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
+	`
 </footer>
 <script src="js/locale.js"></script>

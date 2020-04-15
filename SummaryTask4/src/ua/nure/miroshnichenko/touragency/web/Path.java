@@ -1,5 +1,9 @@
 package ua.nure.miroshnichenko.touragency.web;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public final class Path {
 	
 	private Path() {
@@ -46,8 +50,34 @@ public final class Path {
 	public static final String TRANSPORTS_LIST = "/WEB-INF/jsp/transports.jsp";
 	
 	public static final String USER_RESERVATIONS_LIST = "/WEB-INF/jsp/userReservations.jsp";
+
+	public static final Object USER_COMMENTS = "/WEB-INF/jsp/userComments.jsp";
 	
 	public static String getControllerPath(String action) {
 		return String.format(CONTROLLER, action);
+	}
+	
+	public static String getControllerPath(String action, Map<String, Object> params) {
+		StringBuilder url = new StringBuilder(String.format(CONTROLLER,  action));
+
+		if (!params.isEmpty()) {
+			url.append('&');
+			
+			Iterator<Entry<String, Object>> iterator = params.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Entry<String, Object> pair = iterator.next();
+				
+				url
+					.append(pair.getKey())
+					.append('=')
+					.append(pair.getValue());
+			
+				if (iterator.hasNext()) {
+					url.append('&');
+				}
+			}
+		}
+	
+		return url.toString();
 	}
 }

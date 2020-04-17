@@ -42,7 +42,9 @@ public class SaveRouteAction extends Action {
 		Route route = new Route();
 		
 		route.setRouteFromId(fromPlace.getId());
-		route.setRouteToId(toPlace.getId());;
+		route.setRouteToId(toPlace.getId());
+		route.setFrom(fromPlace);
+		route.setTo(toPlace);
 
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
 			int id = Integer.parseInt(req.getParameter("id"));

@@ -44,14 +44,14 @@
 		<filter-class>ua.nure.miroshnichenko.touragency.web.filter.ActionAccessFilter</filter-class>
 		<init-param>
 			<param-name>client</param-name>
-			<param-value>userReservations reserveTour</param-value>
+			<param-value>userReservations reserveTour deleteComment saveComment userComments</param-value>
 		</init-param>
 		<init-param>
 			<param-name>admin</param-name>
 			<param-value>saveHotel saveRoute saveTour saveTransport 
 			 hotelForm routeForm tourForm transportForm createManager allUsers
 			 bannUser unbannUser 
-			 deleteTour deleteRoute deleteTransport deleteHotel</param-value>
+			 deleteTour deleteRoute deleteTransport deleteHotel deleteComment</param-value>
 		</init-param>
 		<init-param>
 			<param-name>admin-manager</param-name>

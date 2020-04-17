@@ -11,4 +11,6 @@ public interface RouteService extends CRUDService<Route> {
 	Place getPlaceByCountryAndCity(String country, String city) throws ServiceException;
 	
 	List<Place> getAllPlaces() throws ServiceException;
+	
+	Route getRouteByPlaces(int placeFromId, int placeToId) throws ServiceException;
 }

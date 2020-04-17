@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import ua.nure.miroshnichenko.touragency.web.action.comment.DeleteCommentAction;
+import ua.nure.miroshnichenko.touragency.web.action.comment.SaveCommentAction;
+import ua.nure.miroshnichenko.touragency.web.action.comment.UserCommentsAction;
 import ua.nure.miroshnichenko.touragency.web.action.discount.SetDiscountStepForAllUsers;
 import ua.nure.miroshnichenko.touragency.web.action.discount.SetMaxDiscountAction;
 import ua.nure.miroshnichenko.touragency.web.action.hotel.AllHotelsAction;
@@ -45,7 +48,7 @@ public class ActionContainer {
 	
 	private static final Logger LOG = Logger.getLogger(ActionContainer.class);
 
-	private static Map<String, Action> actions = new HashMap<>();
+	private static final Map<String, Action> actions = new HashMap<>();
 
 	static {
 		// all actions
@@ -91,6 +94,9 @@ public class ActionContainer {
 		actions.put("unbannUser", new UnbannUserAction());
 		actions.put("setTourFired", new SetTourFiredAction());
 		actions.put("changeLocale", new ChangeLocaleAction());
+		actions.put("saveComment", new SaveCommentAction());
+		actions.put("deleteComment", new DeleteCommentAction());
+		actions.put("userComments", new UserCommentsAction());
 	}
 
 	/**

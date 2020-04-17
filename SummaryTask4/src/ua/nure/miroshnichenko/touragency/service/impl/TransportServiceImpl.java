@@ -65,7 +65,11 @@ public class TransportServiceImpl implements TransportService {
 	public boolean update(Transport transport) throws ServiceException {
 		try {
 			TransportDAO transportDAO = factoryDAO.getTransportDAO();
-			if (isTransportUnique(transport)) {
+			
+			Transport oldTransport = getTransportByCodeAndType(
+					transport.getCode(), transport.getType());
+			
+			if (oldTransport == null || transport.getId() == oldTransport.getId()) {
 				return transportDAO.update(transport);
 			}
 			

@@ -11,18 +11,26 @@
 			<div>
 				<div class="mic-info">
 					<fmt:message key="common.sender" />:
-					 <p>${comment.user.email}</p>${reservation.date}
+					 <p>${comment.user.email}</p>
+					 <p>${comment.date}</p>
+					 <p class="comment-tour-info">${comment.tour.hotel.name} (${comment.tour.startDate} - ${comment.tour.endDate})</p>
 				</div>
 			</div>
 			<div class="comment-text">${comment.text}</div>
 			<div class="comment-mark">${comment.mark}</div>
 			<div class="action">
-				<button type="button" class="btn btn-success btn-xs btn-edit-comment" title="Edit">
-					<i class="fa fa-pencil-alt"></i>
-				</button>
-				<button type="button" class="btn btn-danger btn-delete-comment btn-xs" title="Delete">
-					<i class="fa fa-trash-alt"></i>
-				</button>
+				<c:if test="${user.id eq comment.user.id}">
+					<button type="button" class="btn btn-success btn-xs btn-edit-comment" data-toggle="modal" data-target="#comment-editor-modal">
+						<i class="fa fa-pencil-alt"></i>
+					</button>
+				</c:if>
+				<c:if test="${(user.id eq comment.user.id) or (user.role eq 'ADMIN')}">
+					<button type="button" class="btn btn-danger btn-delete-comment btn-xs" data-toggle="modal" data-target="#confirm-delete-modal">
+						<i class="fa fa-trash-alt"></i>
+					</button>
+				</c:if>
+				<input type="hidden" class="comment-tour-id" value="${comment.tour.id}" />
+				<input type="hidden" class="comment-user-id" value="${comment.user.id}" />
 				<input type="hidden" class="comment-id" value="${comment.id}" />
 			</div>
 		</div>

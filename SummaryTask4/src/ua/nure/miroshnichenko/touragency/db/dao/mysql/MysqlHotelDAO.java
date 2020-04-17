@@ -235,14 +235,15 @@ public class MysqlHotelDAO implements HotelDAO {
 				hotel = res.get(0);
 			}
 
-			List<Servicing> servicings = transaction.customQuery(Queries.HOTEL_SERVICES,
-					Servicing.class, hotel.getId().toString());
-			List<Facility> facilities = transaction.customQuery(Queries.HOTEL_FACILITIES,
-					Facility.class, hotel.getId().toString());
+			if (hotel != null) {
+				List<Servicing> servicings = transaction.customQuery(Queries.HOTEL_SERVICES,
+						Servicing.class, hotel.getId());
+				List<Facility> facilities = transaction.customQuery(Queries.HOTEL_FACILITIES,
+						Facility.class, hotel.getId());
 
-			hotel.setFacilities(new HashSet<>(facilities));
-			hotel.setServicings(new HashSet<>(servicings));
-
+				hotel.setFacilities(new HashSet<>(facilities));
+				hotel.setServicings(new HashSet<>(servicings));
+			}
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
 			throw new DAOException(e);

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
-<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
-
 <%@ page
 	import="ua.nure.miroshnichenko.touragency.db.entity.TypeServicing"%>
 
@@ -251,19 +248,21 @@
 	
 	<c:set var="userComment" value="" />
 	<c:forEach items="${comments}" var="comment">
-		<c:if test="${comment.user.id eq ${sessionScope.user.id}">
+		<c:if test="${comment.user.id eq sessionScope.user.id}">
 			<c:set var="userComment" value="${comment.id}" />
 		</c:if>
 	</c:forEach>
 	
 	<c:choose>
 		<c:when test="${not empty userComment}">
-			<button class="btn btn-success" id="btn-edit-comment"><fmt:message key="tour_jsp.edit_comment" /></button>
-			<input type="hidden" id="comment-user-id" value="${userComment}" />
+			<button class="btn btn-success btn-edit-comment ml-5 mt-3 mb-3" id="btn-open-comment-modal" data-toggle="modal" data-target="#comment-editor-modal">
+			<fmt:message key="tour_jsp.edit_comment" /></button>
+			<input type="hidden" id="comment-id" value="${userComment}" />
 		</c:when>
 		<c:otherwise>
-			<button class="btn btn-success" id="btn-save-comment"><fmt:message key="tour_jsp.save_comment" /></button>
-			<input type="hidden" id="comment-user-id" value="" />
+			<button class="btn btn-success ml-5 mt-3 mb-3" id="btn-open-comment-modal" data-toggle="modal" data-target="#comment-editor-modal">
+			<fmt:message key="tour_jsp.save_comment" /></button>
+			<input type="hidden" id="comment-id" value="" />
 		</c:otherwise>
 	</c:choose>	
 	
@@ -274,50 +273,17 @@
 	<%@ include file="/WEB-INF/jsp/commentModal.jsp" %>
 		
 	<%@ include file="/WEB-INF/jsp/infoModal.jsp" %>	
+	
+	<%@ include file="/WEB-INF/jsp/confirmDeleteModal.jsp" %>
 		
 	<script src="js/tour.js"></script>
-	<script src="js/comment.js"></script>
+	
 	<script>
-		$(document).ready(() => {
-			let firstSlide = $('.carousel-item')[0];
-			$(firstSlide).addClass('active');
-			
-			const tours = JSON.parse('${requestScope.toursJSON}');
-			
-			setTours(tours);
-			
-			const saveCommentUtil = (commentId) => {
-				let tourIdVal = $('#select-tour').val();
-				let commentTextVal = $('#input-comment-text').val();
-				let commentMarkVal = $('#input-comment-mark').val();
-				let userIdVal = "${sessionScope.user.id}";
-				
-				if (commentId === "") {
-					saveComment(
-							userIdVal,
-							tourIdVal,
-							commentTextVsl, 
-							commentValMark);
-				} else {
-					saveComment(
-							userIdVal,
-							tourIdVal,
-							commentTextVsl, 
-							commentValMark,
-							commentId);
-				}
-				
-			};
-			
-			$('#btn-edit-comment').click(() => {
-				let commentId = $('#comment-user-id').val();
-				saveCommentUtil(commentId);	
-			});
-			
-			$('.btn-edit-comment').click(function() {
-				let commentId = $(this).parent('div').children('input')[0].val();
-				saveCommentUtil(commentId);
-			});
+		const tours = JSON.parse('${requestScope.toursJSON}');
+	
+		setTours(tours);
+		
+		setUserId('${sessionScope.user.id}');
 	</script>
 </body>
 </html>

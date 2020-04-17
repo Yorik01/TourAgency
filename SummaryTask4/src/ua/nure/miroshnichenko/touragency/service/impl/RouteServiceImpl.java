@@ -74,6 +74,7 @@ public class RouteServiceImpl implements RouteService {
 	public boolean update(Route route) throws ServiceException {
 		try {
 			RouteDAO routeDAO = factoryDAO.getRouteDAO();
+			
 			if (isRouteUnique(route)) {
 				return routeDAO.update(route);
 			}
@@ -128,6 +129,21 @@ public class RouteServiceImpl implements RouteService {
 		}
 	}
 	
+	@Override
+	public Route getRouteByPlaces(int placeFromId, int placeToId) throws ServiceException {
+		Route route = null;
+		
+		try {
+			RouteDAO routeDAO = factoryDAO.getRouteDAO();
+			route = routeDAO.getRouteByPlaces(placeFromId, placeToId);
+			
+			return route;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
+	
 	private boolean isRouteUnique(Route route) throws ServiceException {
 		Place from = route.getFrom();
 		Place to = route.getTo();
@@ -135,6 +151,8 @@ public class RouteServiceImpl implements RouteService {
 		Place oldFrom = getPlaceByCountryAndCity(from.getCountry(), from.getCity());
 		Place oldTo = getPlaceByCountryAndCity(to.getCountry(), to.getCity());
 		
-		return oldFrom == null && oldTo == null;
+		Route oldRoute = getRouteByPlaces(oldFrom.getId(), oldTo.getId());
+		
+		return oldRoute == null;
 	}
 }

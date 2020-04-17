@@ -46,9 +46,11 @@ public class TourInfoAction extends Action {
 				tour.getHotelId(),
 				ActionUtil.getPhotosFolderPath(req));
 		
+		String toursJSON = ActionUtil.entitiesToJson(tours);
+		
 		req.setAttribute("tour", tour);
 		req.setAttribute("photos", photos);
-		req.setAttribute("toursJSON", tours);
+		req.setAttribute("toursJSON", toursJSON);
 		req.setAttribute("comments", comments);
 		
 		return Path.TOUR_INFO;

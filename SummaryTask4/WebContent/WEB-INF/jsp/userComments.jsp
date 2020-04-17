@@ -39,5 +39,7 @@
         </div>
     </div>
 </div>
+
+<script src="js/comment.js"></script>
 </body>
 </html>

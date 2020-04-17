@@ -10,7 +10,7 @@
 		<tr>
 			<td><fmt:message key="common.type" />: ${tour.type}</td>
 		</tr>
-		<tr><fmt:message key="common.name" />
+		<tr>
 			<td><fmt:message key="common.hotel" />: ${tour.hotel.name}</td>
 		</tr>
 		<tr>
@@ -20,7 +20,7 @@
 			<td><fmt:message key="common.city" />: ${tour.transportTo.route.to.city}</td>
 		</tr>
 		<tr>
-			<td><fmt:message key="common.transport" />: ${transport.code}</td>
+			<td><fmt:message key="common.transport" />: ${tour.transportTo.code}</td>
 		</tr>
 		<tr>
 			<td><fmt:message key="common.status" />: 

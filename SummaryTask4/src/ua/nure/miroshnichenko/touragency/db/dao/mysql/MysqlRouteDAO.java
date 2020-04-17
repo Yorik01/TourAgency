@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ua.nure.miroshnichenko.touragency.db.DBUtil;
+import ua.nure.miroshnichenko.touragency.db.Queries;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.RouteDAO;
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
@@ -141,5 +142,41 @@ public class MysqlRouteDAO implements RouteDAO {
 			}
 		}
 		return result;
+	}
+	
+	@Override
+	public Route getRouteByPlaces(int placeFromId, int placeToId) throws DAOException {
+		Transaction transaction = null;
+		Route route = null;
+
+		try {
+			transaction = DBUtil.getTransaction();
+			List<Route> routes = transaction.customQuery(
+					Queries.ROUTE_BY_PLACES, 
+					Route.class,
+					placeFromId,
+					placeToId);
+			
+			if (!routes.isEmpty()) {
+				route = routes.get(0);
+				
+				Place placeTo = placeDao.find(route.getRouteToId());
+				Place placeFrom = placeDao.find(route.getRouteFromId());
+
+				route.setTo(placeTo);
+				route.setFrom(placeFrom);
+			}
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return route;
 	}
 }

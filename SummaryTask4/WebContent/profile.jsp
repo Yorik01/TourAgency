@@ -29,6 +29,12 @@
 					<fmt:message key="profile_jsp.my_reservations" />
                 </a>
               </li>
+               <li class="nav-item">
+                <a class="nav-link" href="/TourAgency/controller?action=userComments&id=${user.id}">
+				<i class="fa fa-list-alt"></i>
+					<fmt:message key="profile_jsp.my_comments" />
+                </a>
+              </li>
             </ul>
             
           </div>
@@ -40,6 +46,39 @@
         </main>
       </div>
     </div>
+    
+    <c:set var="userComment" value="" />
+	<c:forEach items="${comments}" var="comment">
+		<c:if test="${comment.user.id eq sessionScope.user.id}">
+			<c:set var="userComment" value="${comment.id}" />
+		</c:if>
+	</c:forEach>
+	
+	<c:choose>
+		<c:when test="${not empty userComment}">
+			<input type="hidden" id="comment-id" value="${userComment}" />
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" id="comment-id" value="" />
+		</c:otherwise>
+	</c:choose>	
+    
+    
+    <%@ include file="/WEB-INF/jsp/commentModal.jsp" %>
+		
+	<%@ include file="/WEB-INF/jsp/infoModal.jsp" %>	
+	
+	<%@ include file="/WEB-INF/jsp/confirmDeleteModal.jsp" %>
+		
 	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+
+	<script src="js/tour.js"></script>
+	<script>
+		const tours = JSON.parse('${requestScope.toursJSON}');
+	
+		setTours(tours);
+		
+		setUserId('${sessionScope.user.id}');
+	</script>
 </body>
 </html>

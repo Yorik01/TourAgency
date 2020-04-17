@@ -23,7 +23,7 @@ public class DeleteCommentAction extends Action {
 		
 		CommentService commentService = serviceFactory.getCommentService();
 		
-		int commentId = Integer.parseInt("commentId");
+		int commentId = Integer.parseInt(req.getParameter("commentId"));
 		
 		Comment comment = new Comment();
 		comment.setId(commentId);

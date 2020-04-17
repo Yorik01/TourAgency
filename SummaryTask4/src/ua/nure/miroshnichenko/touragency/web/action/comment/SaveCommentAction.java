@@ -2,7 +2,7 @@ package ua.nure.miroshnichenko.touragency.web.action.comment;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class SaveCommentAction extends Action {
 		String text = req.getParameter("commentText");
 		int mark = Integer.parseInt(req.getParameter("commentMark"));
 		
-		Timestamp timestamp = Timestamp.valueOf(new Date().toString());
+		Timestamp timestamp = Timestamp.from(Instant.now());
 		
 		Comment comment = new Comment();
 		comment.setUserId(userId);

@@ -195,25 +195,7 @@
 	
 	<%@ include file="/WEB-INF/jsp/infoModal.jsp" %>
 	
-	<div class="modal fade" id="confirm-delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="admin_jsp.confirm_deleting" /></h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-			<fmt:message key="admin_jsp.confirm_delete_question" />
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" id="btn-confirm-delete" data-dismiss="modal"><fmt:message key="common.yes" /></button>
-			<button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="common.no" /></button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	<%@ include file="/WEB-INF/jsp/confirmDeleteModal.jsp" %>
 
 	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 

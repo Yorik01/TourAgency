@@ -39,7 +39,7 @@ public class ActionAccessFilter implements Filter {
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+	
 		Access access = accessAllowed(request);
 		switch (access) {
 		case ALLOW:

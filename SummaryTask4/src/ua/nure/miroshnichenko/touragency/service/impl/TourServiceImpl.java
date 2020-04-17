@@ -114,7 +114,13 @@ class TourServiceImpl implements TourService {
 	public boolean update(Tour tour) throws ServiceException {
 		try {
 			TourDAO tourDAO = factoryDAO.geTourDAO();
-			if (isTourUnique(tour)) {
+			
+			Tour oldTour = getTourByDateAndHotelId(
+					tour.getStartDate(),
+					tour.getEndDate(),
+					tour.getHotelId());
+			
+			if (oldTour == null || oldTour.getId() == tour.getId()) {
 				return tourDAO.update(tour);
 			}
 			

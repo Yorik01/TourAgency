@@ -22,6 +22,10 @@ import ua.nure.miroshnichenko.touragency.web.action.route.AllRoutesAction;
 import ua.nure.miroshnichenko.touragency.web.action.route.DeleteRouteAction;
 import ua.nure.miroshnichenko.touragency.web.action.route.RouteFormAction;
 import ua.nure.miroshnichenko.touragency.web.action.route.SaveRouteAction;
+import ua.nure.miroshnichenko.touragency.web.action.statistic.AverageMarkTourStatisticAction;
+import ua.nure.miroshnichenko.touragency.web.action.statistic.ManagerRevenueStatisticAction;
+import ua.nure.miroshnichenko.touragency.web.action.statistic.TourReservationsStatisticAction;
+import ua.nure.miroshnichenko.touragency.web.action.statistic.UserReservationsStatisticAction;
 import ua.nure.miroshnichenko.touragency.web.action.tour.AllToursAction;
 import ua.nure.miroshnichenko.touragency.web.action.tour.DeleteTourAction;
 import ua.nure.miroshnichenko.touragency.web.action.tour.FilterTourAction;
@@ -97,6 +101,10 @@ public class ActionContainer {
 		actions.put("saveComment", new SaveCommentAction());
 		actions.put("deleteComment", new DeleteCommentAction());
 		actions.put("userComments", new UserCommentsAction());
+		actions.put("averageMarkTourStatistic", new AverageMarkTourStatisticAction());
+		actions.put("managerRevenueStatistic", new ManagerRevenueStatisticAction());
+		actions.put("tourReservationsStatistic", new TourReservationsStatisticAction());
+		actions.put("userReservationsStatistic", new UserReservationsStatisticAction());
 	}
 
 	/**

@@ -55,4 +55,6 @@ public abstract class DAOFactory {
 	public abstract RouteDAO getRouteDAO();
 	
 	public abstract CommentDAO getCommentDAO();
+	
+	public abstract StatisticDAO getStatisticDAO();
 }

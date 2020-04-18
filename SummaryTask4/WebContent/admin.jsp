@@ -98,6 +98,36 @@
                			</a>
 		             </li>
             	</ul>
+            	<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            		<span><fmt:message key="admin_jsp.statistic" /></span>
+				 	<i class="fa fa-file-excel"></i>
+    	        </h6>
+	            <ul class="nav flex-column mb-2">
+            		 <li class="nav-item">
+                		<a class="nav-link" href="/TourAgency/controller?action=averageMarkTourStatistic">
+		                <i class="fa fa-users"></i>
+							<fmt:message key="admin_jsp.average_mark_tour_statistic" />
+               			</a>
+		             </li>
+		             <li class="nav-item">
+                		<a class="nav-link" href="/TourAgency/controller?action=managerRevenueStatistic">
+		                <i class="fa fa-users"></i>
+							<fmt:message key="admin_jsp.manager_revenue_statistic" />
+               			</a>
+		             </li>
+		             <li class="nav-item">
+                		<a class="nav-link" href="/TourAgency/controller?action=tourReservationsStatistic">
+		                <i class="fa fa-users"></i>
+							<fmt:message key="admin_jsp.tour_reservations_statistic" />
+               			</a>
+		             </li>
+		             <li class="nav-item">
+                		<a class="nav-link" href="/TourAgency/controller?action=userReservationsStatistic">
+		                <i class="fa fa-users"></i>
+							<fmt:message key="admin_jsp.user_reservations_statistic" />
+               			</a>
+		             </li>
+            	</ul>
             </c:if>
           </div>
         </nav>

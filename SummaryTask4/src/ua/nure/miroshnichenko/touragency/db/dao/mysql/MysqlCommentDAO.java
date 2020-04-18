@@ -31,7 +31,9 @@ public class MysqlCommentDAO implements CommentDAO {
 			transaction = DBUtil.getTransaction();
 			comment = transaction.findByPK(Comment.class, id);
 			
-			initComment(comment);
+			if (comment != null) {
+				initComment(comment);
+			}
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
 			throw new DAOException(e);

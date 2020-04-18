@@ -68,6 +68,34 @@ public final class Queries {
 	public static final String TOURS_BY_DATE_AND_HOTEL_ID = "SELECT * FROM tour t "
 			+ "INNER JOIN hotel h USING(hotel_id) "
 			+ "WHERE t.start_date = ? AND t.end_date = ? AND h.hotel_id = ?";
+
+	public static final String AVERAGE_TOURS_MARKS_STATISTIC = "SELECT h.hotel_name, AVG(c.comment_mark) AS average_mark "
+			+ "FROM tour t "
+			+ "INNER JOIN comment c USING (tour_id) "
+			+ "INNER JOIN hotel h USING (hotel_id) "
+			+ "GROUP BY h.hotel_name";
+	
+	public static final String MANAGERS_REVENUES_STATISTIC = "SELECT u.email, "
+			+ "SUM((100 - t.agency_procent) * ((h.hotel_price + trt.transport_price + trb.transport_price) / 100)) AS revenue "
+			+ "FROM tour t INNER JOIN reservation r USING(tour_id) "
+			+ "INNER JOIN users u USING (user_id) "
+			+ "INNER JOIN hotel h USING (hotel_id) "
+			+ "INNER JOIN transport trt ON t.transport_to_id = trt.transport_id "
+			+ "INNER JOIN transport trb ON trb.transport_id = t.transport_back_id "
+			+ "WHERE u.role_id = 2 "
+			+ "GROUP BY u.email";
+	
+	public static final String TOURS_RESERVATIONS_STATISTIC = "SELECT h.hotel_name, COUNT(r.reservation_id) AS reservations_count "
+			+ "FROM tour t "
+			+ "INNER JOIN hotel h USING (hotel_id) "
+			+ "INNER JOIN reservation r USING (tour_id) "
+			+ "GROUP BY h.hotel_name";
+	
+	public static final String USER_RESERVATIONS_STATISTIC = "SELECT u.email, COUNT(r.reservation_id) AS reservations_count "
+			+ "FROM tour t "
+			+ "INNER JOIN reservation r USING (tour_id) "
+			+ "INNER JOIN users u USING (user_id) "
+			+ "GROUP BY u.email";
 	
 	public static final String FILTER_TOUR = "SELECT * FROM tour t "
 			+ "INNER JOIN hotel h USING (hotel_id) "
@@ -94,7 +122,7 @@ public final class Queries {
 			+ "pt.place_city = ? AND "
 			+ "pf.place_country = 'Ukraine' AND "
 			+ "pf.place_city = ? AND "
-			+ "(h.hotel_price + trt.transport_price + trb.transport_price) <= ? AND "
+			+ "(100 - t.agency_procent) * ((h.hotel_price + trt.transport_price + trb.transport_price) / 100) <= ? AND "
 			+ "trt.max_places - (SELECT COUNT(*) FROM reservation WHERE tour_id = t.tour_id) >= ? AND "
 			+ "h.hotel_max_rooms - (SELECT COUNT(*) FROM reservation WHERE tour_id = t.tour_id) >= ?";
 }

@@ -6,6 +6,7 @@ import ua.nure.miroshnichenko.touragency.service.CommentService;
 import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.HotelService;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
+import ua.nure.miroshnichenko.touragency.service.StatisticService;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.TransportService;
 
@@ -50,5 +51,9 @@ public class ServiceFactory {
 	
 	public CommentService getCommentService() {
 		return new CommentServiceImpl();
+	}
+
+	public StatisticService getStatisticService() {
+		return new StatisticServiceImpl();
 	}
 }

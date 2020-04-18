@@ -5,24 +5,24 @@ import java.math.BigInteger;
 import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.myorm.annotation.Column;
 
-public class UserReservationsStatistic implements Entity {
-
-	private static final long serialVersionUID = -1205940768284589756L;
+public class TourReservationsStatistic implements Entity {
 	
-	@Column("email")
-	private String email;
+	private static final long serialVersionUID = 6597141276960800807L;
+	
+	@Column("hotel_name")
+	private String hotelName;
 	
 	@Column("reservations_count")
 	private BigInteger reservationsCount;
 
-	public String getEmail() {
-		return email;
+	public String getHotelName() {
+		return hotelName;
 	}
-	
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setHotelName(String hotelName) {
+		this.hotelName = hotelName;
 	}
-	
+
 	public BigInteger getReservationsCount() {
 		return reservationsCount;
 	}

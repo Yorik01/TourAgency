@@ -51,8 +51,16 @@ public final class Path {
 	
 	public static final String USER_RESERVATIONS_LIST = "/WEB-INF/jsp/userReservations.jsp";
 
-	public static final Object USER_COMMENTS = "/WEB-INF/jsp/userComments.jsp";
+	public static final String USER_COMMENTS = "/WEB-INF/jsp/userComments.jsp";
 	
+	public static final String AVERAGE_TOUR_MARK_STATISTIC = "/WEB-INF/jsp/statistic/averageTourMark.jsp";
+	
+	public static final String MANAGER_REVENUE_STATISTIC = "/WEB-INF/jsp/statistic/managerRevenue.jsp";
+
+	public static final String TOUR_RESERVAION_STATISTIC = "/WEB-INF/jsp/statistic/tourReservation.jsp";
+
+	public static final String USER_RESERVAION_STATISTIC = "/WEB-INF/jsp/statistic/userReservaion.jsp";
+
 	public static String getControllerPath(String action) {
 		return String.format(CONTROLLER, action);
 	}

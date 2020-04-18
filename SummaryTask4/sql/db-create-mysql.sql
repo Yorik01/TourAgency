@@ -268,7 +268,7 @@ BEGIN
 	DECLARE new_discount DOUBLE;
 	
 	SELECT tour_max_discount INTO max_discount FROM tour t WHERE t.tour_id = tour_id;
-	SELECT IFNULL(MAX(discount), 0) INTO current_discount FROM reservation r WHERE b.user_id = user_id;
+	SELECT IFNULL(MAX(discount), 0) INTO current_discount FROM reservation r WHERE r.user_id = user_id;
 	SELECT discount_step INTO discount_step FROM users u WHERE u.user_id = user_id;
 	
 	SET new_discount = current_discount + discount_step;

@@ -10,6 +10,7 @@ import ua.nure.miroshnichenko.touragency.db.dao.PlaceDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.ReservationDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.RouteDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.ServicingDAO;
+import ua.nure.miroshnichenko.touragency.db.dao.StatisticDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.TourDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.TransportDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.UserDAO;
@@ -78,5 +79,10 @@ public class MysqlDAOFactory extends DAOFactory {
 	@Override
 	public CommentDAO getCommentDAO() {
 		return new MysqlCommentDAO();
+	}
+	
+	@Override
+	public StatisticDAO getStatisticDAO() {
+		return new MysqlStatisticDAO();
 	}
 }

@@ -1,5 +1,8 @@
 package ua.nure.miroshnichenko.myorm.core;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.DriverManager;
 import java.util.Properties;
 
@@ -29,8 +32,15 @@ public class Settings {
 		properties.setProperty("password", password);
 	}
 
-	public Settings() {
-		// TODO read properties from xml
+	public Settings(){ 
+		try (InputStream inputStream = new FileInputStream("app.properties")) {
+			properties = new Properties();
+			properties.load(inputStream);
+			
+			url = properties.getProperty("db.url");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getUrl() {

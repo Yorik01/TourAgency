@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import ua.nure.miroshnichenko.touragency.db.entity.Transport;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.TransportService;
+import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
@@ -25,7 +26,18 @@ public class AllTransportsAction extends Action {
 		
 		TransportService transportService = serviceFactory.getTransportService();
 		
-		List<Transport> transports = ActionUtil.getAllEntities(transportService);
+		String keyword = req.getParameter("keyword");
+		List<Transport> transports;
+		if (keyword != null && !keyword.isEmpty()) {
+			try {
+				transports = transportService.getTransportsByCode(keyword);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			}
+		} else {
+			transports = ActionUtil.getAllEntities(transportService);
+		}
 
 		TourService tourService = serviceFactory.getTourService();
 		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");

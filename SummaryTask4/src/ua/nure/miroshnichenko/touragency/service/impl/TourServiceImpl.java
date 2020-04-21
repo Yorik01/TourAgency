@@ -226,8 +226,8 @@ class TourServiceImpl implements TourService {
 			
 			Tour tour = tourDAO.find(tourId);
 			tour.setFired(status);
-			
-			return tourDAO.save(tour);
+			System.out.println("Fired: " + tour.isFired());
+			return tourDAO.update(tour);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

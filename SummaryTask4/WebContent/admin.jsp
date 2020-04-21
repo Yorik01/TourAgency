@@ -122,7 +122,7 @@
                			</a>
 		             </li>
 		             <li class="nav-item">
-                		<a class="nav-link" href="/TourAgency/controller?action=userReservationsStatistic">
+                		<a class="nav-link mb-5" href="/TourAgency/controller?action=userReservationsStatistic">
 		                <i class="fa fa-users"></i>
 							<fmt:message key="admin_jsp.user_reservations_statistic" />
                			</a>

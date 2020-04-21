@@ -93,13 +93,28 @@ public class TransportServiceImpl implements TransportService {
 		}
 	}
 
+	
+	@Override
+	public List<Transport> getTransportsByCode(String code) throws ServiceException {
+		List<Transport> transports;
+		try {
+			TransportDAO transportDAO = factoryDAO.getTransportDAO();
+			transports = transportDAO.getTransportsByCode(code);
+			
+			return transports;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
+	
 	@Override
 	public Transport getTransportByCodeAndType(String code, TransportType type) throws ServiceException {
 		Transport transport = null;
 
 		try {
 			TransportDAO transportDAO = factoryDAO.getTransportDAO();
-			transport = (Transport) transportDAO.geTransportByCodeAndType(code, type);
+			transport = transportDAO.geTransportByCodeAndType(code, type);
 
 			return transport;
 		} catch (DAOException e) {

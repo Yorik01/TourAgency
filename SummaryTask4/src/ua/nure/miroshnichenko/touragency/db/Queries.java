@@ -65,6 +65,8 @@ public final class Queries {
 	
 	public static final String ROUTE_BY_PLACES = "SELECT * FROM route WHERE route_from = ? AND route_to = ?";
 	
+	public static final String TRANSPORT_BY_CODE = "SELECT * FROM transport WHERE transport_code = ?";
+	
 	public static final String TOURS_BY_DATE_AND_HOTEL_ID = "SELECT * FROM tour t "
 			+ "INNER JOIN hotel h USING(hotel_id) "
 			+ "WHERE t.start_date = ? AND t.end_date = ? AND h.hotel_id = ?";

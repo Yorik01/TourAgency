@@ -66,14 +66,14 @@
 					<input type="hidden" name="id" value="${tour.id}" />
 					<c:choose>
 				 		<c:when test="${tour.isFired() == 0}">
-						 	<input type="hidden" name="action" value="SetTourFired" />
+						 	<input type="hidden" name="action" value="setTourFired" />
 						 	<input type="hidden" name="status" value="1">
 							<button class="btn btn-warning" type="submit">
 								<fmt:message key="common.make_fired" />
 							</button>
 						 </c:when>
 						<c:otherwise>
-							<input type="hidden" name="action" value="SetTourFired" />
+							<input type="hidden" name="action" value="setTourFired" />
 							<input type="hidden" name="status" value="0">
 							<button class="btn btn-warning" type="submit">
 								<fmt:message key="common.make_unfired" />

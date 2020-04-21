@@ -138,6 +138,36 @@ public class MysqlTransportDAO implements TransportDAO {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<Transport> getTransportsByCode(String code) throws DAOException {
+		Transaction transaction = null;
+		List<Transport> transports = new ArrayList<>();
+
+		try {
+			transaction = DBUtil.getTransaction();
+			transports = transaction.customQuery(
+					Queries.TRANSPORT_BY_CODE,
+					Transport.class,
+					code);
+
+			for (Transport transport : transports) {
+				Route route = routeDAO.find(transport.getRouteId());
+				transport.setRoute(route);
+			}
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return transports;
+	}
 
 	@Override
 	public Transport geTransportByCodeAndType(String code, TransportType type)

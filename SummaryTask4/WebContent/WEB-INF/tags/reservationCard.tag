@@ -26,5 +26,18 @@
 		<tr>
 			<td><fmt:message key="common.status" />: ${reservation.status}</td>
 		</tr>
+		<tr>
+			<td>
+				<c:if test="${reservation.status eq 'RESERVED'}">
+					<form method="post" action="/TourAgency/controller">
+						<input type="hidden" name="id" value="${reservation.id}" />
+						<input type="hidden" name="action" value="payReservation" />
+						<button class="btn btn-danger" type="submit">
+							<fmt:message key="common.pay" />
+						</button>
+					</form>
+				</c:if>
+			</td>
+		</tr>
 	</tbody>
 </table>

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Route;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
-import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
@@ -36,8 +35,6 @@ public class DeleteRouteAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		res.sendRedirect(Path.getControllerPath("allRoutes"));
-		
-		return Path.NO_PATH;
+		return "redirect:" + Path.getControllerPath("allRoutes");
 	}
 }

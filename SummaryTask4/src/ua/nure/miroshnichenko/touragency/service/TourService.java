@@ -18,6 +18,8 @@ public interface TourService extends CRUDService<Tour> {
 	boolean reserve(int tourId, int userId, int peopleCount) throws ServiceException;
 
 	boolean revoke(int reservationId) throws ServiceException;
+	
+	boolean pay(int reservationId) throws ServiceException;
 
 	List<Reservation> getAllReserved() throws ServiceException;
 

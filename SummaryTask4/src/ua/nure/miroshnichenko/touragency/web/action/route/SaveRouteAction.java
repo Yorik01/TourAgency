@@ -68,8 +68,6 @@ public class SaveRouteAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		res.sendRedirect(Path.getControllerPath("allRoutes"));
-		
-		return Path.NO_PATH;
+		return "redirect:" + Path.getControllerPath("allRoutes");
 	}
 }

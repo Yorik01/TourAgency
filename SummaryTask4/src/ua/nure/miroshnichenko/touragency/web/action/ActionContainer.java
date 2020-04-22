@@ -15,6 +15,7 @@ import ua.nure.miroshnichenko.touragency.web.action.hotel.DeleteHotelAction;
 import ua.nure.miroshnichenko.touragency.web.action.hotel.HotelFormAction;
 import ua.nure.miroshnichenko.touragency.web.action.hotel.SaveHotelAction;
 import ua.nure.miroshnichenko.touragency.web.action.reservation.AllReservationsAction;
+import ua.nure.miroshnichenko.touragency.web.action.reservation.PayReservationAction;
 import ua.nure.miroshnichenko.touragency.web.action.reservation.ReserveTourAction;
 import ua.nure.miroshnichenko.touragency.web.action.reservation.RevokeReservationAction;
 import ua.nure.miroshnichenko.touragency.web.action.reservation.UserReservationsAction;
@@ -88,6 +89,7 @@ public class ActionContainer {
 		actions.put("userEditForm", new UserEditFormAction());
 		actions.put("reserveTour", new ReserveTourAction());
 		actions.put("revokeReservation", new RevokeReservationAction());
+		actions.put("payReservation", new PayReservationAction());
 		actions.put("allReservations", new AllReservationsAction());
 		actions.put("adminPage", new AdminPageAction());
 		actions.put("setMaxDiscount", new SetMaxDiscountAction());

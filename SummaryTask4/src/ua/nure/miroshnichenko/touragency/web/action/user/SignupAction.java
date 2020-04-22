@@ -40,9 +40,7 @@ public class SignupAction extends Action {
 				HttpSession session = req.getSession();
 				session.setAttribute("user", user);
 				
-				res.sendRedirect(Path.getControllerPath("filterForm"));
-				
-				return Path.NO_PATH;
+				return "redirect:" + Path.getControllerPath("filterForm");			
 			} else {
 				return Path.ERR_PAGE;
 			}

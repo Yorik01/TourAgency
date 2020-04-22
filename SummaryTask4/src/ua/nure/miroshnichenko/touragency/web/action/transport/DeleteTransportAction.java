@@ -36,8 +36,6 @@ public class DeleteTransportAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		res.sendRedirect(Path.getControllerPath("allTransports"));
-		
-		return Path.NO_PATH;
+		return "redirect:" + Path.getControllerPath("allTransports");
 	}
 }

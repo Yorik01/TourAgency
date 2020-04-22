@@ -55,7 +55,10 @@ public class Controller extends HttpServlet {
 		String forward = Path.ERR_PAGE;
 		try {
 			forward = action.execute(request, response);
-			if (!forward.isEmpty()) {
+			
+			if (forward.startsWith("redirect:")) {
+				response.sendRedirect(forward.substring(9));
+			} else {
 				request.getRequestDispatcher(forward).forward(request, response);
 			}
 		} catch (ActionException ex) {

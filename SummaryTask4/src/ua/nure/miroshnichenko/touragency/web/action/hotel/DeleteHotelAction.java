@@ -35,8 +35,6 @@ public class DeleteHotelAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		res.sendRedirect(Path.getControllerPath("allHotels"));
-		
-		return Path.NO_PATH;
+		return "redirect:" + Path.getControllerPath("allHotels");
 	}
 }

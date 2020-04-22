@@ -1,11 +1,15 @@
 package ua.nure.miroshnichenko.touragency.web.action.reservation;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import ua.nure.miroshnichenko.touragency.db.entity.User;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 import ua.nure.miroshnichenko.touragency.web.Path;
@@ -20,18 +24,28 @@ public class RevokeReservationAction extends Action {
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
 
+		HttpSession session = req.getSession();
+
 		TourService tourService = serviceFactory.getTourService();
-		
+
 		int id = Integer.parseInt(req.getParameter("id"));
-		
+
 		try {
 			tourService.revoke(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
-		res.sendRedirect("/TourAgency/controller?action=userReservations&id=2");
-		
-		return Path.NO_PATH;
+
+		User user = (User) session.getAttribute("user");
+
+		if (user != null) {
+			Map<String, Object> params = new HashMap<>();
+			params.put("id", user.getId());
+			
+			return "redirect:" + Path.getControllerPath("allReservations", params);
+		} else {
+			return "redirect:" + Path.LOGIN_PAGE;
+		}
 	}
 }

@@ -76,6 +76,11 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 				DBConnectionImpl connection = iterator.next();
 				if (freePool.size() > startSize) {
 					if (Math.abs(System.currentTimeMillis() - connection.getLastUsedTime()) > allowedWaitingTime) {
+						try {
+							connection.close();
+						} catch (DBConnectionException e) {
+							e.printStackTrace();
+						}
 						iterator.remove();
 					} else {
 						break;

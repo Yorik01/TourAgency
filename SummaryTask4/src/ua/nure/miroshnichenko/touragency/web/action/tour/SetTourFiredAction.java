@@ -32,8 +32,6 @@ public class SetTourFiredAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		res.sendRedirect(Path.getControllerPath("allTours"));
-		
-		return Path.NO_PATH;
+		return "redirect:" + Path.getControllerPath("allTours");
 	}
 }

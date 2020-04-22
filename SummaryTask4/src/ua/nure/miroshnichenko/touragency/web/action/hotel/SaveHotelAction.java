@@ -110,9 +110,8 @@ public class SaveHotelAction extends Action {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
-			res.sendRedirect(Path.getControllerPath("allHotels"));
 			
-			return Path.NO_PATH;
+			return "redirect:" + Path.getControllerPath("allHotels");
 		}
 
 		try {
@@ -124,9 +123,7 @@ public class SaveHotelAction extends Action {
 
 		uploadImgs(req, res, hotel.getId());
 
-		res.sendRedirect(Path.getControllerPath("allHotels"));
-		
-		return Path.NO_PATH;
+		return "redirect:" + Path.getControllerPath("allHotels");
 	}
 
 	private void uploadImgs(HttpServletRequest req, HttpServletResponse res, int hotelId)

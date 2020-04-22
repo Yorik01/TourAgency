@@ -30,8 +30,6 @@ public class UnbannUserAction extends Action {
 			throw new ActionException(e);
 		}
 
-		res.sendRedirect(Path.getControllerPath("adminPage"));
-
-		return Path.NO_PATH;
+		return "redirect:" + Path.getControllerPath("adminPage");
 	}
 }

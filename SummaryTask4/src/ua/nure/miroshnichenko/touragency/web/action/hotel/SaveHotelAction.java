@@ -99,10 +99,10 @@ public class SaveHotelAction extends Action {
 					String[] removedPhotos = req.getParameterValues("deletedPhotos");
 					
 					if (removedPhotos != null) {
-						ActionUtil.deleteHotelPhotos(
-								id,
-								req.getParameterValues("deletedPhotos"),
-								req);
+						//ActionUtil.deleteHotelPhotos(
+							//id,
+								//req.getParameterValues("deletedPhotos"),
+								//req);
 					}
 					uploadImgs(req, res, hotel.getId());
 				}

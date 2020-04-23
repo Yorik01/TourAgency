@@ -1,7 +1,11 @@
 package ua.nure.miroshnichenko.touragency.web.action;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,14 +14,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
 import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
+import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.service.CRUDService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 
@@ -77,9 +88,53 @@ public final class ActionUtil {
 		return request.getServletContext().getInitParameter("photo-storage");
 	}
 	
+	public static void uploadImgs(HttpServletRequest req, HttpServletResponse res, int hotelId)
+			throws IOException, ServletException, ActionException {
+		
+		List<Part> fileParts = req.getParts().stream()
+				.filter(part -> "photo".equals(part.getName()))
+				.collect(Collectors.toList());
+
+		for (Part part : fileParts) {
+			UUID uuid = UUID.randomUUID();
+			String fileName = "hotelPhoto_" + hotelId + "_" + uuid;
+	        
+			String path = getPhotosFolderPath(req);
+			OutputStream out = null;
+			InputStream fileContent = null;
+			File file = new File(path + File.separator + fileName);
+			
+			try {
+				if (file.createNewFile()) {
+					out = new FileOutputStream(file);
+					fileContent = part.getInputStream();
+
+					int read = 0;
+					final byte[] bytes = new byte[1024];
+
+					while ((read = fileContent.read(bytes)) != -1) {
+						out.write(bytes, 0, read);
+					}
+				} else {
+					throw new ActionException("Cannot upload file!");
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			} finally {
+				if (out != null) {
+					out.close();
+				}
+
+				if (fileContent != null) {
+					fileContent.close();
+				}
+			}
+		}
+	}
+	
 	public static List<String> getHotelPhotos(int hotelId, HttpServletRequest request) throws IOException {
 		String path = getPhotosFolderPath(request);
-		
 		List<String> photos = new ArrayList<>();
 		
 		try (Stream<Path> paths = Files.list(Paths.get(path))) {
@@ -106,7 +161,20 @@ public final class ActionUtil {
 		return photo;
 	}
 	
-	public static void deleteHotelPhotos(int hotelId, HttpServletRequest request) throws IOException {
+	public static Map<Tour, String> getTourWithPhoto(List<Tour> tours, HttpServletRequest req) throws IOException {
+		Map<Tour, String> toursWithPhotos = 
+				new TreeMap<>((x, y) -> x.isFired().compareTo(y.isFired()));
+		
+		for (Tour tour : tours) {
+			String photo = ActionUtil.getFirstPhoto(tour.getHotelId(), req);
+
+			toursWithPhotos.put(tour, photo);
+		}
+		
+		return toursWithPhotos;
+	}
+	
+	public static void deleteAllHotelPhotos(int hotelId, HttpServletRequest request) throws IOException {
 		String path = getPhotosFolderPath(request);
 
 		try (Stream<Path> paths = Files.list(Paths.get(path))) {
@@ -116,8 +184,9 @@ public final class ActionUtil {
 		}
 	}
 	
-	public static void deleteHotelPhotos(String[] photos, HttpServletRequest request) {
+	public static void deleteHotelPhotos(HttpServletRequest request) {
 		String path = getPhotosFolderPath(request);
+		String[] photos = request.getParameterValues("deletedPhotos");
 		
 		for (String photo : photos) {
 			File file = new File(path + File.separator + photo);
@@ -127,6 +196,7 @@ public final class ActionUtil {
 	
 	private static boolean photoBelongToHotel(int hotelId, Path path) {
 		String pathName = path.toString();
+
 		String[] pathNameParts = pathName.split("_");
 		return pathNameParts[1].equals(String.valueOf(hotelId));
 	}

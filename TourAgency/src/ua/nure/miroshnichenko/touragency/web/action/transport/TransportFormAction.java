@@ -1,8 +1,6 @@
 package ua.nure.miroshnichenko.touragency.web.action.transport;
 
 import java.io.IOException;
-import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -52,15 +50,16 @@ public class TransportFormAction extends Action {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
-			long takeOffTime = transport.getTakeoff().getTime();
-			long arriveTime = transport.getArrive().getTime();
 			
+			String[] takeOffArr = transport.getTakeoff().toString().split("\\s");
+			String[] arriveArr = transport.getArrive().toString().split("\\s");
+
 			req.setAttribute("transport", transport);
 			
-			req.setAttribute("takeoffTime", new Time(takeOffTime));
-			req.setAttribute("takeoffDate", new Date(takeOffTime));
-			req.setAttribute("arriveTime", new Time(arriveTime));
-			req.setAttribute("arriveDate", new Date(arriveTime));
+			req.setAttribute("takeoffTime", takeOffArr[1]);
+			req.setAttribute("takeoffDate", takeOffArr[0]);
+			req.setAttribute("arriveTime", arriveArr[1]);
+			req.setAttribute("arriveDate", arriveArr[0]);
 		}
 		
 		TourService tourService = serviceFactory.getTourService();

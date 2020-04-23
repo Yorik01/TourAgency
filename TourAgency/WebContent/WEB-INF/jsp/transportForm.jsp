@@ -89,9 +89,13 @@
 		<script src="bootstrap/js/bootstrap-datepicker.min.js"></script>
 		
 		<script>
-			$('#transport-takeoffdate').datepicker();
+			$('#transport-takeoffdate').datepicker({
+			    format: 'yyyy-mm-dd'
+			});
 	    	
-	 		$('#transport-arrivingdate').datepicker();
+	 		$('#transport-arrivingdate').datepicker({
+	 		    format: 'yyyy-mm-dd'
+	 		});
 		</script>
 </body>
 </html>

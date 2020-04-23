@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Queue;
 
+import javax.sound.midi.Soundbank;
+
 /**
  * Implementation of {@link ua.myorm.core.ConnectionPool} interface.
  * 
@@ -74,6 +76,7 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 
 			while (iterator.hasNext()) {
 				DBConnectionImpl connection = iterator.next();
+
 				if (freePool.size() > startSize) {
 					if (Math.abs(System.currentTimeMillis() - connection.getLastUsedTime()) > allowedWaitingTime) {
 						try {
@@ -115,7 +118,6 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 	 */
 	ConnectionsPoolImpl(String url, Properties properties, int startSize, int limit, long collectorSchedule,
 			long allowedWaitingTime) throws ConnectionsPoolException {
-
 		this.limit = limit;
 		this.collectorSchedule = collectorSchedule;
 		this.allowedWaitingTime = allowedWaitingTime;
@@ -154,7 +156,6 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 	@Override
 	public synchronized DBConnection getDBConnection() throws ConnectionsPoolException {
 		DBConnectionImpl connection = null;
-
 		if (freePool.size() == 0) {
 			try {
 				if (size() < limit) {
@@ -216,7 +217,7 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 
 			poolCollector.interrupt();
 		} catch (Exception e) {
-			throw new ConnectionsPoolException(e.getMessage(), e.getCause());
+			throw new ConnectionsPoolException(e);
 		}
 	}
 

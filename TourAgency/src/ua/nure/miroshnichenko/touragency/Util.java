@@ -50,7 +50,7 @@ public final class Util {
 		Iterator<? extends Enum> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			Enum en = iterator.next();
-			result.append(en.ordinal());
+			result.append(en.ordinal() + 1);
 			if(!iterator.hasNext()) {
 				break;
 			}

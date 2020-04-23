@@ -28,14 +28,16 @@
    			</div>
 			<div class="dates d-inline-flex">
 			  <div class="start_date input-group ml-3">
-			    <input class="form-control start_date" type="text" placeholder="<fmt:message key="common.start_date" />" name="startDate"  id="startdate_datepicker">
+			    <input class="form-control start_date" type="text" value="${param.startDate}" placeholder="<fmt:message key="common.start_date" />" name="startDate"  id="startdate_datepicker"
+			    pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd">
 			    <div class="input-group-append">
 			      <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 			    </div>
 			
 			  </div>
 			  <div class="end_date input-group ml-3 mr-3">
-			    <input class="form-control end_date" type="text" name="endDate" placeholder="<fmt:message key="common.end_date" />" id="enddate_datepicker">
+			    <input class="form-control end_date" type="text" value="${param.endDate}" name="endDate" placeholder="<fmt:message key="common.end_date" />" id="enddate_datepicker"
+			    pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd">
 			    <div class="input-group-append">
 			      <span class="fa fa-calendar input-group-text end_date_calendar" aria-hidden="true "></span>
 			    </div>
@@ -43,14 +45,14 @@
 			</div>
        		<div>
 				<select class="form-control" name="peopleCount">
-					<option value="1" selected>1</option>
-					<option value="2" selected>2</option>
-					<option value="3" selected>3</option>
-					<option value="4" selected>4</option>
-					<option value="5" selected>5</option>
-					<option value="6" selected>6</option>
-					<option value="7" selected>7</option>
-					<option value="8" selected>8</option>
+					<option value="1" <c:if test="${param.peopleCount eq 1}">selected</c:if>>1</option>
+					<option value="2" <c:if test="${param.peopleCount eq 2}">selected</c:if>>2</option>
+					<option value="3" <c:if test="${param.peopleCount eq 3}">selected</c:if>>3</option>
+					<option value="4" <c:if test="${param.peopleCount eq 4}">selected</c:if>>4</option>
+					<option value="5" <c:if test="${param.peopleCount eq 5}">selected</c:if>>5</option>
+					<option value="6" <c:if test="${param.peopleCount eq 6}">selected</c:if>>6</option>
+					<option value="7" <c:if test="${param.peopleCount eq 7}">selected</c:if>>7</option>
+					<option value="8" <c:if test="${param.peopleCount eq 8}">selected</c:if>>8</option>
 			  </select>
    			</div>
 			<button class="btn btn-primary" type="submit"><fmt:message key="common.search" /></button>
@@ -61,174 +63,241 @@
 					<h5><fmt:message key="common.hotel_stars" /></h5>
 					<div class="d-inline-flex">
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-						    <input type="checkbox" class="custom-control-input" name="stars" value="1" id="star-1">
+						    <input type="checkbox" class="custom-control-input" name="stars" value="1" id="star-1"
+						    <c:if test="${fn:contains(filterParams.stars, 1)}">checked</c:if>>
 						    <label class="custom-control-label" for="star-1">1</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-						    <input type="checkbox" class="custom-control-input" name="stars" value="2" id="star-2">
+						    <input type="checkbox" class="custom-control-input" name="stars" value="2" id="star-2"
+						    <c:if test="${fn:contains(filterParams.stars, 2)}">checked</c:if>>
 						    <label class="custom-control-label" for="star-2">2</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-						    <input type="checkbox" class="custom-control-input" name="stars" value="3" id="star-3">
+						    <input type="checkbox" class="custom-control-input" name="stars" value="3" id="star-3"
+						    <c:if test="${fn:contains(filterParams.stars, 3)}">checked</c:if>>
 						    <label class="custom-control-label" for="star-3">3</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-						    <input type="checkbox" class="custom-control-input" name="stars" value="4" id="star-4">
+						    <input type="checkbox" class="custom-control-input" name="stars" value="4" id="star-4"
+						    <c:if test="${fn:contains(filterParams.stars, 4)}">checked</c:if>>
 						    <label class="custom-control-label" for="star-4">4</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-						    <input type="checkbox" class="custom-control-input" name="stars" value="5" id="star-5">
+						    <input type="checkbox" class="custom-control-input" name="stars" value="5" id="star-5"
+						    <c:if test="${fn:contains(filterParams.stars, 5)}">checked</c:if>>
 						    <label class="custom-control-label" for="star-5">5</label>
 						</div>
 					</div>
 				</div>
 				<div id="hotel-price">
+					<c:set var="transportType" value="${filterParams.transportType}" />
 					<h5><fmt:message key="index_jsp.max_price" /></h5>
 					<div class="custom-control custom-range">
-						<label for="hotel-max-price" id="hotel-max-price-label">10000</label>
-						<input type="range" min="200" max="100000" value="10000" name="maxPrice" class="custom-range" id="hotel-max-price">
+						<label for="hotel-max-price" id="hotel-max-price-label">${param.maxPrice}</label>
+						<input type="range" min="200" max="100000" value="${param.maxPrice}" name="maxPrice" class="custom-range" id="hotel-max-price">
 					</div>
 				</div>
 				<div id="hotel-transport-type" class="d-flex flex-column">
 					<h5><fmt:message key="common.transport_type" /></h5>
 					<div class="custom-control custom-checkbox my-1 mr-sm-2">
-						<input type="checkbox" class="custom-control-input" name="transportType" value="AIRPLANE" id="transport-air">
+						<input type="checkbox" class="custom-control-input" name="transportType" value="AIRPLANE" id="transport-air"
+						<c:if test="${fn:contains(transportType, 'AIRPLANE')}">checked</c:if>>
 						<label class="custom-control-label" for="transport-air"><fmt:message key="common.plane" /></label>
 					</div>
 					<div class="custom-control custom-checkbox my-1 mr-sm-2">
-						<input type="checkbox" class="custom-control-input" name="transportType" value="BUS" id="transport-bus">
+						<input type="checkbox" class="custom-control-input" name="transportType" value="BUS" id="transport-bus"
+						<c:if test="${fn:contains(transportType, 'BUS')}">checked</c:if>>
 						<label class="custom-control-label" for="transport-bus"><fmt:message key="common.bus" /></label>
 					</div>
 				</div>
 			</div>
 			<hr/>
 			<div class="d-inline-flex justify-content-between">
+			<div id="hotel-type">
+					<c:set var="hotelType" value="${filterParams.hotelType}" />
+					<h5><fmt:message key="common.hotel_type" /></h5>
+					<div class="d-flex flex-column">
+						<div class="custom-control custom-checkbox my-1 mr-sm-2">
+							<input type="checkbox" class="custom-control-input" name="hotelType" value="MOTEL" id="hotel-type-motel"
+							<c:if test="${fn:contains(hotelType, 'MOTEL')}">checked</c:if>>
+							<label class="custom-control-label" for="hotel-type-motel"><fmt:message key="common.motel" /></label>
+						</div>
+						<div class="custom-control custom-checkbox my-1 mr-sm-2">
+							<input type="checkbox" class="custom-control-input" name="hotelType" value="RESORTS" id="hotel-type-resorts"
+							<c:if test="${fn:contains(hotelType, 'RESORTS')}">checked</c:if>>
+							<label class="custom-control-label" for="hotel-type-resorts"><fmt:message key="common.resorts" /></label>
+						</div>
+						<div class="custom-control custom-checkbox my-1 mr-sm-2">
+							<input type="checkbox" class="custom-control-input" name="hotelType" value="HOSTEL" id="hotel-type-hostel"
+							<c:if test="${fn:contains(hotelType, 'HOSTEL')}">checked</c:if>>
+							<label class="custom-control-label" for="hotel-type-hostel"><fmt:message key="common.hostel" /></label>
+						</div>
+						<div class="custom-control custom-checkbox my-1 mr-sm-2">
+							<input type="checkbox" class="custom-control-input" name="hotelType" value="BOUTIQUE" id="hotel-type-boutique"
+							<c:if test="${fn:contains(hotelType, 'BOUTIQUE')}">checked</c:if>>
+							<label class="custom-control-label" for="hotel-type-boutique"><fmt:message key="common.boutique" /></label>
+						</div>
+					</div>
+				</div>
 				<div id="tour-type">
+					<c:set var="tourType" value="${filterParams.tourType}" />
 					<h5><fmt:message key="common.tour_type" /></h5>
 					<div class="d-flex flex-column">
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="tourType" value="RELAX" id="tour-type-relax">
+							<input type="checkbox" class="custom-control-input" name="tourType" value="RELAX" id="tour-type-relax"
+							<c:if test="${fn:contains(tourType, 'RELAX')}">checked</c:if>>
 							<label class="custom-control-label" for="tour-type-relax"><fmt:message key="common.relax" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="tourType" value="EXCURSION" id="tour-type-excursion">
+							<input type="checkbox" class="custom-control-input" name="tourType" value="EXCURSION" id="tour-type-excursion"
+							<c:if test="${fn:contains(tourType, 'EXCURSION')}">checked</c:if>>
 							<label class="custom-control-label" for="tour-type-excursion"><fmt:message key="common.excursion" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="tourType" value="SHOPPING" id="tour-type-shopping">
+							<input type="checkbox" class="custom-control-input" name="tourType" value="SHOPPING" id="tour-type-shopping"
+							<c:if test="${fn:contains(tourType, 'SHOPPING')}">checked</c:if>>
 							<label class="custom-control-label" for="tour-type-shopping"><fmt:message key="common.shopping" /></label>
 						</div>
 					</div>
 				</div>
-				<div id="hotel-food-type">
+				<div id="hotel-food-type" class="mr-5">
+					<c:set var="food" value="${filterParams.food}" />
 					<h5><fmt:message key="common.food" /></h5>
 					<div class="d-flex flex-column">
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="food" value="AL" id="food-al">
+							<input type="checkbox" class="custom-control-input" name="food" value="AL" id="food-al"
+							<c:if test="${fn:contains(food, 'AL')}">checked</c:if>>
 							<label class="custom-control-label" for="food-al">AL</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="food" value="FB" id="food-fb">
+							<input type="checkbox" class="custom-control-input" name="food" value="FB" id="food-fb"
+							<c:if test="${fn:contains(food, 'FB')}">checked</c:if>>
 							<label class="custom-control-label" for="food-fb">FB</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="food" value="HB" id="food-hb">
+							<input type="checkbox" class="custom-control-input" name="food" value="HB" id="food-hb"
+							<c:if test="${fn:contains(food, 'HB')}">checked</c:if>>
 							<label class="custom-control-label" for="food-hb">HB</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="food" value="BB" id="food-bb">
+							<input type="checkbox" class="custom-control-input" name="food" value="BB" id="food-bb"
+							<c:if test="${fn:contains(food, 'BB')}">checked</c:if>>
 							<label class="custom-control-label" for="food-bb">BB</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="food" value="OB" id="food-ob">
+							<input type="checkbox" class="custom-control-input" name="food" value="OB" id="food-ob"
+							<c:if test="${fn:contains(food, 'OB')}">checked</c:if>>
 							<label class="custom-control-label" for="food-ob">OB</label>
-						</div>
-					</div>
-				</div>
-				<div id="hotel-beach-type">
-					<h5><fmt:message key="common.beach" /></h5>
-					<div class="d-flex flex-column">
-						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="beach" value="SAND" id="beach-sand">
-							<label class="custom-control-label" for="beach-sand"><fmt:message key="common.sand" /></label>
-						</div>
-						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="beach" value="PEBBLE" id="beach-pebble">
-							<label class="custom-control-label" for="beach-pebble"><fmt:message key="common.pebble" /></label>
-						</div>
-						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="beach" value="PLATE" id="beach-plate">
-							<label class="custom-control-label" for="beach-plate"><fmt:message key="common.plate" /></label>
-						</div>
-						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="beach" value="SAND_PEBBLE" id="beach-sand-pebble">
-							<label class="custom-control-label" for="beach-sand-pebble"><fmt:message key="common.sand_pebble" /></label>
 						</div>
 					</div>
 				</div>
 			</div>
 			<hr>
 			<div class="d-inline-flex justify-content-between">
+				<c:set var="facility" value="${filterParams.facility}" />
 				<div id="hotel-facilities" class="pr-2">
 					<h5><fmt:message key="common.in_room" /></h5>
 					<div class="d-flex flex-column">
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="facility" value="WIFI" id="facility-wifi">
+							<input type="checkbox" class="custom-control-input" name="facility" value="WIFI" id="facility-wifi"
+							<c:if test="${fn:contains(facility, 'WIFI')}">checked</c:if>>
 							<label class="custom-control-label" for="facility-wifi">wifi</label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="facility" value="MINIBAR" id="facility-minibar">
+							<input type="checkbox" class="custom-control-input" name="facility" value="MINIBAR" id="facility-minibar"
+							<c:if test="${fn:contains(facility, 'MINIBAR')}">checked</c:if>>
 							<label class="custom-control-label" for="facility-minibar"><fmt:message key="common.mini_bar" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="facility" value="HAIRDRYER" id="facility-hairdryer">
+							<input type="checkbox" class="custom-control-input" name="facility" value="HAIRDRYER" id="facility-hairdryer"
+							<c:if test="${fn:contains(facility, 'HAIRDRYER')}">checked</c:if>>
 							<label class="custom-control-label" for="facility-hairdryer"><fmt:message key="common.hairdryer" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="facility" value="CONDITIONER" id="facility-conditioner">
+							<input type="checkbox" class="custom-control-input" name="facility" value="CONDITIONER" id="facility-conditioner"
+							<c:if test="${fn:contains(facility, 'CONDITIONER')}">checked</c:if>>
 							<label class="custom-control-label" for="facility-conditioner"><fmt:message key="common.conditioner" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="facility" value="TV" id="facility-tv">
+							<input type="checkbox" class="custom-control-input" name="facility" value="TV" id="facility-tv"
+							<c:if test="${fn:contains(facility, 'TV')}">checked</c:if>>
 							<label class="custom-control-label" for="facility-tv">TV</label>
 						</div>
 					</div>
 				</div>
 				<div id="hotel-sport" class="pr-2">
+					<c:set var="servicing" value="${filterParams.servicing}" />
 					<h5><fmt:message key="common.sport" /></h5>
 					<div class="d-flex flex-column">
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="servicing" value="GYM" id="hotel-sport-gym">
+							<input type="checkbox" class="custom-control-input" name="servicing" value="GYM" id="hotel-sport-gym"
+							<c:if test="${fn:contains(servicing, 'GYM')}">checked</c:if>>
 							<label class="custom-control-label" for="hotel-sport-gym"><fmt:message key="common.gym" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="servicing" value="FITNES" id="hotel-sport-fitnes">
+							<input type="checkbox" class="custom-control-input" name="servicing" value="FITNES" id="hotel-sport-fitnes"
+							<c:if test="${fn:contains(servicing, 'FITNES')}">checked</c:if>>
 							<label class="custom-control-label" for="hotel-sport-fitnes"><fmt:message key="common.fitnes" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="servicing" value="DIVING" id="hotel-sport-diving">
+							<input type="checkbox" class="custom-control-input" name="servicing" value="DIVING" id="hotel-sport-diving"
+							<c:if test="${fn:contains(servicing, 'DIVING')}">checked</c:if>>
 							<label class="custom-control-label" for="hotel-sport-diving"><fmt:message key="common.diving" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="servicing" value="YOGA" id="hotel-sport-yoga">
+							<input type="checkbox" class="custom-control-input" name="servicing" value="YOGA" id="hotel-sport-yoga"
+							<c:if test="${fn:contains(servicing, 'YOGA')}">checked</c:if>>
 							<label class="custom-control-label" for="hotel-sport-yoga"><fmt:message key="common.yoga" /></label>
 						</div>
 					</div>
 				</div>
 				<div id="hotel-entartainment" class="pr-2">
+					<c:set var="entertainment" value="${filterParams.entertainment}" />
 					<h5><fmt:message key="common.entertainment" /></h5>
 					<div class="d-flex flex-column">
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="servicing" value="AQUAPARK" id="hotel-entartainment-aquapark">
+							<input type="checkbox" class="custom-control-input" name="servicing" value="AQUAPARK" id="hotel-entartainment-aquapark"
+							<c:if test="${fn:contains(servicing, 'AQUAPARK')}">checked</c:if>>
 							<label class="custom-control-label" for="hotel-entartainment-aquapark"><fmt:message key="common.aquapark" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="servicing" value="DISCO" id="hotel-entartainment-disco">
+							<input type="checkbox" class="custom-control-input" name="servicing" value="DISCO" id="hotel-entartainment-disco"
+							<c:if test="${fn:contains(servicing, 'DISCO')}">checked</c:if>>
 							<label class="custom-control-label" for="hotel-entartainment-disco"><fmt:message key="common.disco" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
-							<input type="checkbox" class="custom-control-input" name="servicing" value="RESTAURANT" id="hotel-entartainment-restaurant">
+							<input type="checkbox" class="custom-control-input" name="servicing" value="RESTAURANT" id="hotel-entartainment-restaurant"
+							<c:if test="${fn:contains(servicing, 'RESTAURANT')}">checked</c:if>>
 							<label class="custom-control-label" for="hotel-entartainment-restaurant"><fmt:message key="common.restaurant" /></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="d-inline-flex justify-content-between">
+				<c:set var="beach" value="${filterParams.beach}" />
+				<div id="hotel-beach-type">
+					<h5><fmt:message key="common.beach" /></h5>
+					<div class="d-flex flex-column">
+						<div class="custom-control custom-checkbox my-1 mr-sm-2">
+							<input type="checkbox" class="custom-control-input" name="beach" value="SAND" id="beach-sand"
+							<c:if test="${fn:contains(beach, 'SAND')}">checked</c:if>>
+							<label class="custom-control-label" for="beach-sand"><fmt:message key="common.sand" /></label>
+						</div>
+						<div class="custom-control custom-checkbox my-1 mr-sm-2">
+							<input type="checkbox" class="custom-control-input" name="beach" value="PEBBLE" id="beach-pebble"
+							<c:if test="${fn:contains(beach, 'PEBBLE')}">checked</c:if>>
+							<label class="custom-control-label" for="beach-pebble"><fmt:message key="common.pebble" /></label>
+						</div>
+						<div class="custom-control custom-checkbox my-1 mr-sm-2">
+							<input type="checkbox" class="custom-control-input" name="beach" value="PLATE" id="beach-plate"
+							<c:if test="${fn:contains(beach, 'PLATE')}">checked</c:if>>
+							<label class="custom-control-label" for="beach-plate"><fmt:message key="common.plate" /></label>
+						</div>
+						<div class="custom-control custom-checkbox my-1 mr-sm-2">
+							<input type="checkbox" class="custom-control-input" name="beach" value="SAND_PEBBLE" id="beach-sand-pebble"
+							<c:if test="${fn:contains(beach, 'SAND_PEBBLE')}">checked</c:if>>
+							<label class="custom-control-label" for="beach-sand-pebble"><fmt:message key="common.sand_pebble" /></label>
 						</div>
 					</div>
 				</div>
@@ -251,8 +320,12 @@
 <script src="js/route.js"></script>
 <script>
 $(function () {
-	$("#startdate_datepicker").datepicker();
-	$("#enddate_datepicker").datepicker();
+	$("#startdate_datepicker").datepicker({
+	    format: 'yyyy-mm-dd'
+	});
+	$("#enddate_datepicker").datepicker({
+	    format: 'yyyy-mm-dd'
+	});
 	
 	let hotelMaxPriceLabel = $("#hotel-max-price-label");
 	$("#hotel-max-price").on("input change", function() {

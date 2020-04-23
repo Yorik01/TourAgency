@@ -1,7 +1,6 @@
 package ua.nure.miroshnichenko.touragency.web.action.tour;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,24 +30,20 @@ public class FilterToursFormAction extends Action {
 
 		RouteService routeService = serviceFactory.getRouteService();
 		
-		List<Place> places = null;
 		List<Tour> tours = ActionUtil.getAllEntities(tourService);
 
-		Map<Tour, String> toursWithPhotos = new HashMap<>();
+		List<Place> places = null;
+		Map<Tour, String> toursWithPhotos = null;
 		try {
 			places = routeService.getAllPlaces();
+			tours = tourService.getAll();
 			
-			for (Tour tour : tours) {
-				String photo = ActionUtil.getFirstPhoto(
-						tour.getHotelId(),
-						ActionUtil.getPhotosFolderPath(req));
-
-				toursWithPhotos.put(tour, photo);
-			}
+			toursWithPhotos = ActionUtil.getTourWithPhoto(tours, req);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
 		}
+		
 		String jsonPlaces = ActionUtil.PlacesToJson(places);
 
 		req.setAttribute("tours", toursWithPhotos);

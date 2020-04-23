@@ -12,6 +12,7 @@ import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
+import ua.nure.miroshnichenko.touragency.web.action.ActionUtil;
 
 public class DeleteHotelAction extends Action {
 
@@ -23,13 +24,14 @@ public class DeleteHotelAction extends Action {
 		
 		HotelService hotelService = serviceFactory.getHotelService();
 		
-		Integer id = Integer.parseInt(req.getParameter("id"));
+		int id = Integer.parseInt(req.getParameter("id"));
 		
 		Hotel hotel = new Hotel();
 		hotel.setId(id);
 		
 		try {
 			hotelService.delete(hotel);
+			ActionUtil.deleteAllHotelPhotos(id, req);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);

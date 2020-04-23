@@ -34,7 +34,7 @@ class TransactionFactoryImpl implements TransactionFactory {
 	}
 
 	@Override
-	public Transaction createTransaction() throws TransactionFactoryException {
+	public synchronized Transaction createTransaction() throws TransactionFactoryException {
 		try {
 			return new TransactionImpl(connectionsPool.getDBConnection());
 		} catch (ConnectionsPoolException e) {

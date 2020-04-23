@@ -1,7 +1,11 @@
 package ua.nure.miroshnichenko.touragency.web.action.tour;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +35,15 @@ public class FilterTourAction extends Action {
 
 		List<Place> places = null;
 		List<Tour> tours = null;
+		Map<Tour, String> toursWithPhotos = null;
+
+		Map<String, String[]> params = req.getParameterMap();
+		
 		try {
 			places = routeService.getAllPlaces();
-			tours = tourService.filter(req.getParameterMap());
+			tours = tourService.filter(params);
 			
-			tours.sort((x, y) -> x.isFired().compareTo(y.isFired()));
+			toursWithPhotos = ActionUtil.getTourWithPhoto(tours, req);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
@@ -43,8 +51,14 @@ public class FilterTourAction extends Action {
 		
 		String jsonPlaces = ActionUtil.PlacesToJson(places);
 
-		req.setAttribute("tours", tours);
+		Map<String, List<String>> filterParams = new HashMap<>();
+		for (Entry<String, String[]> entry : params.entrySet()) {
+			filterParams.put(entry.getKey(), Arrays.asList(entry.getValue()));
+		}
+		
+		req.setAttribute("tours", toursWithPhotos);
 		req.setAttribute("places", jsonPlaces);
+		req.setAttribute("filterParams", filterParams);
 		
 		return Path.INDEX_PAGE;
 	}

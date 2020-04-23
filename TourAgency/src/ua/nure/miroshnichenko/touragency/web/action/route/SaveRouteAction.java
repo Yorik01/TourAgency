@@ -24,6 +24,33 @@ public class SaveRouteAction extends Action {
 		
 		RouteService routeService = serviceFactory.getRouteService();
 		
+		Route route = initRoute(req, routeService);
+
+		if(Boolean.parseBoolean(req.getParameter("edit"))) {
+			int id = Integer.parseInt(req.getParameter("id"));
+			
+			route.setId(id);
+			try {
+				routeService.update(route);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				throw new ActionException(e);
+			}
+
+			return "redirect:" + Path.getControllerPath("allRoutes");
+		}
+		
+		try {
+			routeService.save(route);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ActionException(e);
+		}
+		
+		return "redirect:" + Path.getControllerPath("allRoutes");
+	}
+	
+	private Route initRoute(HttpServletRequest req, RouteService routeService) throws ActionException {
 		String countryFrom = req.getParameter("countryFrom");
 		String cityFrom = req.getParameter("cityFrom");
 		
@@ -45,29 +72,7 @@ public class SaveRouteAction extends Action {
 		route.setRouteToId(toPlace.getId());
 		route.setFrom(fromPlace);
 		route.setTo(toPlace);
-
-		if(Boolean.parseBoolean(req.getParameter("edit"))) {
-			int id = Integer.parseInt(req.getParameter("id"));
-			
-			route.setId(id);
-			try {
-				routeService.update(route);
-			} catch (ServiceException e) {
-				e.printStackTrace();
-				throw new ActionException(e);
-			}
-			res.sendRedirect(Path.getControllerPath("allRoutes"));
-			
-			return Path.NO_PATH;
-		}
 		
-		try {
-			routeService.save(route);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			throw new ActionException(e);
-		}
-		
-		return "redirect:" + Path.getControllerPath("allRoutes");
+		return route;
 	}
 }

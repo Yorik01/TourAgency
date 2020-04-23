@@ -57,12 +57,6 @@ public class TourFormAction extends Action {
 				throw new ActionException(e);
 			}
 			
-			String[] startDate = tour.getStartDate().toString().split("-");
-			String[] endDate = tour.getEndDate().toString().split("-");
-			
-			req.setAttribute("startDate", startDate[1] + "/" + startDate[2] + "/" + startDate[0]);
-			req.setAttribute("endDate", endDate[1] + "/" + endDate[2] + "/" + endDate[0]);
-
 			req.setAttribute("tour", tour);
 		}
 		

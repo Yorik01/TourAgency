@@ -109,7 +109,7 @@ public final class Queries {
 			+ "INNER JOIN transport trb ON trb.transport_id = t.transport_back_id "
 			+ "INNER JOIN route rt ON trt.route_id = rt.route_id "
 			+ "INNER JOIN place pt ON rt.route_to = pt.place_id "
-			+ "INNER JOIN place pf ON rt.route_from = pt.place_id WHERE "
+			+ "INNER JOIN place pf ON rt.route_from = pf.place_id WHERE "
 			+ "h.hotel_type_id IN (%s) AND "
 			+ "h.food_id IN (%s) AND "
 			+ "h.beach_id IN (%s) AND "

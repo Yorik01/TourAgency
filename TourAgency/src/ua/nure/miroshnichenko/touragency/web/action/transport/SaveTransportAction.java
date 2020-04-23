@@ -25,32 +25,7 @@ public class SaveTransportAction extends Action {
 
 		TransportService transportService = serviceFactory.getTransportService();
 		
-		String code = req.getParameter("code");
-		String takeoffTime = req.getParameter("takeoffTime");
-		String arrivingTime = req.getParameter("arrivingTime");
-		String[] takeoffDate = req.getParameter("takeoffDate").split("/");
-		String[] arrivingDate = req.getParameter("arrivingDate").split("/");
-		Integer maxPlaces = Integer.valueOf(req.getParameter("maxPlaces"));
-		double price = Double.valueOf(req.getParameter("price"));
-		TransportType type = TransportType.valueOf(req.getParameter("type"));
-		
-		Timestamp arriving = Timestamp.valueOf(
-				arrivingDate[2] + "-" + arrivingDate[0] + "-" + arrivingDate[1]
-				+ " " + arrivingTime + ":00");
-		
-		Timestamp takeoff = Timestamp.valueOf(
-				takeoffDate[2] + "-" + takeoffDate[0] + "-" + takeoffDate[1]
-				+ " " + takeoffTime + ":00");
-		
-		Transport transport = new Transport();
-		
-		transport.setCode(code);
-		transport.setTakeoff(takeoff);
-		transport.setArrive(arriving);
-		transport.setMaxPlaces(maxPlaces);
-		transport.setPrice(price);
-		transport.setType(type);
-		transport.setRouteId(Integer.valueOf(req.getParameter("routeId")));;
+		Transport transport = initTour(req);
 		
 		if(Boolean.parseBoolean(req.getParameter("edit"))) {
 			Integer id = Integer.parseInt(req.getParameter("id"));
@@ -62,9 +37,8 @@ public class SaveTransportAction extends Action {
 				e.printStackTrace();
 				throw new ActionException(e);
 			}
-			res.sendRedirect(Path.getControllerPath("allTransports"));
-			
-			return Path.NO_PATH;
+
+			return "redirect:" + Path.getControllerPath("allTransports");
 		}
 		
 		try {
@@ -75,5 +49,39 @@ public class SaveTransportAction extends Action {
 		}
 		
 		return "redirect:" + Path.getControllerPath("allTransports");
+	}
+	
+	private Transport initTour(HttpServletRequest req) {
+		String code = req.getParameter("code");
+		String takeoffTime = req.getParameter("takeoffTime");
+		String arrivingTime = req.getParameter("arrivingTime");
+		String takeoffDate = req.getParameter("takeoffDate");
+		String arrivingDate = req.getParameter("arrivingDate");
+		Integer maxPlaces = Integer.valueOf(req.getParameter("maxPlaces"));
+		double price = Double.valueOf(req.getParameter("price"));
+		TransportType type = TransportType.valueOf(req.getParameter("type"));
+		
+		Transport transport = new Transport();
+		
+		String takeoffStr =  takeoffDate + " " + takeoffTime;
+		String arriveStr = arrivingDate + " " + arrivingTime;
+		
+		if (!takeoffStr.matches(".+:\\d\\d:\\d\\d")) {
+			takeoffStr += ":00";
+		}
+		
+		if (!arriveStr.matches(".+:\\d\\d:\\d\\d")) {
+			arriveStr += ":00";
+		}
+		
+		transport.setCode(code);
+		transport.setTakeoff(Timestamp.valueOf(takeoffStr));
+		transport.setArrive(Timestamp.valueOf(arriveStr));
+		transport.setMaxPlaces(maxPlaces);
+		transport.setPrice(price);
+		transport.setType(type);
+		transport.setRouteId(Integer.valueOf(req.getParameter("routeId")));
+		
+		return transport;
 	}
 }

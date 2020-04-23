@@ -11,6 +11,9 @@ import javax.servlet.ServletContextListener;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactoryException;
+import ua.nure.miroshnichenko.touragency.db.DBUtil;
+
 public class ContextListener implements ServletContextListener {
 
 	private static final Logger LOG = Logger.getLogger(ContextListener.class);
@@ -18,7 +21,11 @@ public class ContextListener implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		log("Servlet context destruction starts");
-		// no op
+		try {
+			DBUtil.closeConnection();
+		} catch (TransactionFactoryException e) {
+			LOG.error(e);
+		}
 		log("Servlet context destruction finished");
 	}
 

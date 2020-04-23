@@ -44,6 +44,7 @@ class DBConnectionImpl implements DBConnection {
 			sqlConnection.setAutoCommit(false);
 			sqlConnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 			makeWait();
+			System.out.println("DBConnection#created Yo");
 		} catch (SQLException e) {
 			throw new DBConnectionException(e);
 		}
@@ -90,6 +91,7 @@ class DBConnectionImpl implements DBConnection {
 	public ResultSet executeQuery(String query, Object... parametrs) throws DBConnectionException {
 		try {
 			statement = prepareStatement(query, parametrs);
+			System.out.println(statement);
 			resultSet = ((PreparedStatement) statement).executeQuery();
 			return resultSet;
 		} catch (SQLException e) {

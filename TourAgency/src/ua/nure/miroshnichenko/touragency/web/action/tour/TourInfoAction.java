@@ -42,9 +42,7 @@ public class TourInfoAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		photos = ActionUtil.getHotelPhotos(
-				tour.getHotelId(),
-				ActionUtil.getPhotosFolderPath(req));
+		photos = ActionUtil.getHotelPhotos(tour.getHotelId(), req);
 		
 		String toursJSON = ActionUtil.entitiesToJson(tours);
 		

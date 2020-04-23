@@ -267,17 +267,50 @@ BEGIN
 	DECLARE discount_step DOUBLE;
 	DECLARE new_discount DOUBLE;
 	
-	SELECT tour_max_discount INTO max_discount FROM tour t WHERE t.tour_id = tour_id;
-	SELECT IFNULL(MAX(discount), 0) INTO current_discount FROM reservation r WHERE r.user_id = user_id;
-	SELECT discount_step INTO discount_step FROM users u WHERE u.user_id = user_id;
+	DECLARE count_reservations INT;
+	DECLARE free_places INT;
+	
+	SELECT t.tour_max_discount INTO max_discount FROM tour t WHERE t.tour_id = tour_id;
+	SELECT IFNULL(MAX(r.discount), 0) INTO current_discount FROM reservation r WHERE r.user_id = user_id;
+	SELECT u.discount_step INTO discount_step FROM users u WHERE u.user_id = user_id;
+	
+	SELECT COUNT(reservation_id) INTO count_reservations FROM reservation r WHERE r.tour_id = tour_id; 
+	
+	SELECT LEAST(
+			trt.max_places - count_reservations,
+			trb.max_places - count_reservations,
+			h.hotel_max_rooms - count_reservations) 
+	INTO free_places FROM tour t 
+		INNER JOIN transport trt ON t.transport_to_id = trt.transport_id 
+		INNER JOIN transport trb ON t.transport_back_id = trb.transport_id
+		INNER JOIN hotel h USING (hotel_id) 
+			WHERE t.tour_id = tour_id;
 	
 	SET new_discount = current_discount + discount_step;
 	
-	IF new_discount <= max_discount THEN
+	IF free_places IS NULL THEN
+		SIGNAL SQLSTATE '45000'	
+			SET MESSAGE_TEXT = "This tour doesn't exist!";
+	END IF;
+	
+	IF new_discount > max_discount THEN
 		SET new_discount = current_discount;
 	END IF;
 	
-	INSERT INTO reservation VALUES (DEFAULT, NOW(), people_count, new_discount, reservation_status_id, tour_id, user_id);
+	SELECT max_discount;
+	SELECT current_discount;
+	SELECT discount_step;
+	SELECT new_discount;
+	SELECT count_reservations;
+	SELECT free_places;
+
+	IF free_places < people_count THEN
+		INSERT INTO reservation VALUES (DEFAULT, NOW(), people_count, new_discount, reservation_status_id, tour_id, user_id);
+	ELSE
+		SIGNAL SQLSTATE '45001'	
+				SET MESSAGE_TEXT = "There are no free places in the tour!";
+	END IF;
+	
 END$$
 
 DELIMITER ;

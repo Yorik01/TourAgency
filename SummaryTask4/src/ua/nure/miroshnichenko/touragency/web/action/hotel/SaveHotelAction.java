@@ -102,7 +102,7 @@ public class SaveHotelAction extends Action {
 						ActionUtil.deleteHotelPhotos(
 								id,
 								req.getParameterValues("deletedPhotos"),
-								ActionUtil.getPhotosFolderPath(req));
+								req);
 					}
 					uploadImgs(req, res, hotel.getId());
 				}

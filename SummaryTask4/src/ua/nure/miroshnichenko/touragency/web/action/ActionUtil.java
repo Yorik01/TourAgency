@@ -1,6 +1,5 @@
 package ua.nure.miroshnichenko.touragency.web.action;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -77,7 +76,9 @@ public final class ActionUtil {
 		return request.getServletContext().getInitParameter("photo-storage");
 	}
 	
-	public static List<String> getHotelPhotos(int hotelId, String path) throws IOException {
+	public static List<String> getHotelPhotos(int hotelId, HttpServletRequest request) throws IOException {
+		String path = getPhotosFolderPath(request);
+		
 		List<String> photos = new ArrayList<>();
 		
 		try (Stream<Path> paths = Files.list(Paths.get(path))) {
@@ -88,7 +89,9 @@ public final class ActionUtil {
 		return photos;
 	}
 	
-	public static String getFirstPhoto(int hotelId, String path) throws IOException {
+	public static String getFirstPhoto(int hotelId, HttpServletRequest request) throws IOException {
+		String path = getPhotosFolderPath(request);
+		
 		String photo = "";
 		try (Stream<Path> paths = Files.list(Paths.get(path))) {
 			Optional<Path> optional = paths
@@ -102,10 +105,13 @@ public final class ActionUtil {
 		return photo;
 	}
 	
-	public static void deleteHotelPhotos(int hotelId, String[] photos, String path) throws IOException {
-		for (String photo : photos) {
-			File file = new File(path + File.separator + photo);
-			file.delete();
+	public static void deleteHotelPhotos(int hotelId, HttpServletRequest request) throws IOException {
+		String path = getPhotosFolderPath(request);
+
+		try (Stream<Path> paths = Files.list(Paths.get(path))) {
+			paths
+				.filter(p -> photoBelongToHotel(hotelId, p))
+				.forEach(p -> p.toFile().delete());
 		}
 	}
 	

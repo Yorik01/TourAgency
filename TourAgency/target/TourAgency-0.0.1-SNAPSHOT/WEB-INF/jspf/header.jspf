@@ -1,0 +1,18 @@
+<%--=========================================================================== 
+Header (top area). 
+===========================================================================--%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<header id="main-header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <h5 class="my-0 mr-md-auto font-weight-normal">Tour agency</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="/TourAgency/controller?action=filterForm">Search tours</a>
+    <c:if test="${user.role eq 'ADMIN'}">
+    	<a class="p-2 btn btn-info" href="/TourAgency/controller?action=adminPage">Admin panel</a>
+	</c:if>
+  </nav>
+  <a class="btn btn-outline-primary" href="/TourAgency/controller?action=userEditForm">My account</a>
+</header>

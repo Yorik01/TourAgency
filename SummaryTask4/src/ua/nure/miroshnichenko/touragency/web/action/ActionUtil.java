@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.touragency.web.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -112,6 +113,15 @@ public final class ActionUtil {
 			paths
 				.filter(p -> photoBelongToHotel(hotelId, p))
 				.forEach(p -> p.toFile().delete());
+		}
+	}
+	
+	public static void deleteHotelPhotos(String[] photos, HttpServletRequest request) {
+		String path = getPhotosFolderPath(request);
+		
+		for (String photo : photos) {
+			File file = new File(path + File.separator + photo);
+			file.delete();
 		}
 	}
 	

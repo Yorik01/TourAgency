@@ -58,7 +58,7 @@ public class Controller extends HttpServlet {
 			
 			if (forward.startsWith("redirect:")) {
 				response.sendRedirect(forward.substring(9));
-			} else {
+			} else if (!forward.isEmpty()) {
 				request.getRequestDispatcher(forward).forward(request, response);
 			}
 		} catch (ActionException ex) {

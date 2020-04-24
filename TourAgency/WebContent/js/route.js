@@ -10,3 +10,11 @@ const setCities = (cities, DOM) => {
 		DOM.append(`<option value=${city}>${city}</option>`);
 	}
 };
+
+const removeCity = (city, DOM) => {
+    return DOM.each(function() {
+	if ($(this).val() === city) {
+	    $(this).remove();
+	}
+    });
+};

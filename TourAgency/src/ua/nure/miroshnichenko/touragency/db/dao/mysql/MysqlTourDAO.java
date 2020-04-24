@@ -62,7 +62,7 @@ public class MysqlTourDAO implements TourDAO {
 
 		try {
 			transaction = DBUtil.getTransaction();
-			tours = transaction.findAll(Tour.class);
+			tours = transaction.customQuery(Queries.ALL_TOURS, Tour.class);
 
 			for (Tour tour : tours) {
 				initTour(tour);

@@ -29,7 +29,7 @@
 			<div class="dates d-inline-flex">
 			  <div class="start_date input-group ml-3">
 			    <input class="form-control start_date" type="text" value="${param.startDate}" placeholder="<fmt:message key="common.start_date" />" name="startDate"  id="startdate_datepicker"
-			    pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd">
+			    pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd" autocomplete="off">
 			    <div class="input-group-append">
 			      <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 			    </div>
@@ -37,7 +37,7 @@
 			  </div>
 			  <div class="end_date input-group ml-3 mr-3">
 			    <input class="form-control end_date" type="text" value="${param.endDate}" name="endDate" placeholder="<fmt:message key="common.end_date" />" id="enddate_datepicker"
-			    pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd">
+			    pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd" autocomplete="off">
 			    <div class="input-group-append">
 			      <span class="fa fa-calendar input-group-text end_date_calendar" aria-hidden="true "></span>
 			    </div>
@@ -338,15 +338,24 @@ $(function () {
 	let citiesTo = $("#select-city-to");
 	
 	let citiesFrom = $("#select-city-from");
-
 		
 	setCities(places['Ukraine'], citiesFrom);
 
 	delete places['Ukraine'];
+
 	setCountries(places, countryTo);
+
+	<c:if test="${not empty param.toCountry}">
+		countryTo.val('${param.toCountry}');
+		citiesFrom.val('${param.fromCity}');
+	</c:if>
 	
 	selectedCountry = countryTo.children('option:selected').val();
 	setCities(places[selectedCountry], citiesTo);
+	
+	<c:if test="${not empty param.toCountry}">
+		citiesTo.val('${param.toCity}');
+	</c:if>
 	
 	countryTo.change(function() {
 		let selectedCountry = $(this).children('option:selected').val();

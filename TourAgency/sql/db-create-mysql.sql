@@ -2,6 +2,7 @@ SET NAMES utf8;
 
 USE tour_agency;
 
+-- drop all tables
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS reservation;
 DROP TABLE IF EXISTS tour;
@@ -23,12 +24,16 @@ DROP TABLE IF EXISTS hotel_type;
 DROP TABLE IF EXISTS beach;
 DROP TABLE IF EXISTS food;
 
+-- drop store procedure
 DROP PROCEDURE IF EXISTS reserve_tour;
 
+-- roles table
 CREATE TABLE role (
 	role_id INT PRIMARY KEY,
 	role_name VARCHAR(10) NOT NULL UNIQUE
 );
+
+-- users table
 CREATE TABLE users (
 
 	user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,31 +48,37 @@ CREATE TABLE users (
 		ON UPDATE RESTRICT
 );
 
+-- foods table
 CREATE TABLE food (
 	food_id INT PRIMARY KEY,
 	food_type_name VARCHAR(20) NOT NULL UNIQUE
 );
 
+-- beaches table
 CREATE TABLE beach (
 	beach_id INT PRIMARY KEY,
 	beach_type_name VARCHAR(20) NOT NULL UNIQUE
 );
 
+-- hotel types table
 CREATE TABLE hotel_type (
 	hotel_type_id INT PRIMARY KEY,
 	hotel_type_name VARCHAR(20) NOT NULL UNIQUE
 );
 
+-- facilities table
 CREATE TABLE facility (
 	facility_id INT PRIMARY KEY,
 	facility_name VARCHAR(20) NOT NULL UNIQUE
 );
 
+-- service types table
 CREATE TABLE service_type (
 	service_type_id INT PRIMARY KEY,
 	service_type_name VARCHAR(20) NOT NULL UNIQUE
 );
 
+-- services table
 CREATE TABLE service (
 	service_id INT AUTO_INCREMENT PRIMARY KEY,
 	service_name VARCHAR(20) NOT NULL UNIQUE,
@@ -78,6 +89,7 @@ CREATE TABLE service (
 		ON UPDATE RESTRICT
 );
 
+-- hotels table
 CREATE TABLE hotel (
 	hotel_id INT AUTO_INCREMENT PRIMARY KEY,
 	hotel_name VARCHAR(50) NOT NULL UNIQUE,
@@ -105,6 +117,7 @@ CREATE TABLE hotel (
 		ON UPDATE RESTRICT
 );
 
+-- hotel services table
 CREATE TABLE hotel_service (
 	hotel_id INT NOT NULL,
 	service_id INT NOT NULL,
@@ -119,6 +132,7 @@ CREATE TABLE hotel_service (
 	PRIMARY KEY(hotel_id, service_id)
 );
 
+-- hotel facilities table
 CREATE TABLE hotel_facility (
 	hotel_id INT NOT NULL,
 	facility_id INT NOT NULL,
@@ -133,11 +147,13 @@ CREATE TABLE hotel_facility (
 	PRIMARY KEY(hotel_id, facility_id)
 );
 
+-- transport types table
 CREATE TABLE transport_type (
 	transport_type_id INT PRIMARY KEY,
 	transport_type_name VARCHAR(20) NOT NULL UNIQUE
 );
 
+-- places table
 CREATE TABLE place (
 	place_id INT AUTO_INCREMENT PRIMARY KEY,
 	place_country VARCHAR(30) NOT NULL,
@@ -145,6 +161,7 @@ CREATE TABLE place (
 	UNIQUE KEY (place_country, place_city)
 );
 
+-- routes table
 CREATE TABLE route (
 	route_id INT AUTO_INCREMENT PRIMARY KEY,
 	route_from INT NOT NULL,
@@ -159,6 +176,7 @@ CREATE TABLE route (
 		ON UPDATE RESTRICT
 );
 
+-- transports table
 CREATE TABLE transport (
 	transport_id INT AUTO_INCREMENT PRIMARY KEY,
 	transport_code VARCHAR(50) NOT NULL,
@@ -179,11 +197,13 @@ CREATE TABLE transport (
 	UNIQUE KEY (transport_code, transport_type_id)
 );
 
+-- tour types table
 CREATE TABLE tour_type (
 	tour_type_id INT PRIMARY KEY,
 	tour_type_name VARCHAR(20) NOT NULL UNIQUE
 );
 
+-- tours table
 CREATE TABLE tour (
 	tour_id INT AUTO_INCREMENT PRIMARY KEY,
 	agency_procent DOUBLE NOT NULL,
@@ -214,11 +234,13 @@ CREATE TABLE tour (
 	UNIQUE KEY (start_date, end_date, hotel_id)
 );
 
+-- reservation statuses table
 CREATE TABLE reservation_status(
 	reservation_status_id INT PRIMARY KEY,
 	reservation_status_name VARCHAR(20) NOT NULL
 );
 
+-- reservations table
 CREATE TABLE reservation (
 	 reservation_id INT AUTO_INCREMENT PRIMARY KEY,
 	 reserve_date DATETIME NOT NULL,
@@ -241,6 +263,7 @@ CREATE TABLE reservation (
 	 	ON UPDATE RESTRICT
 );
 
+-- comments table
 CREATE TABLE comment (
 	comment_id INT AUTO_INCREMENT PRIMARY KEY,
 	comment_date DATETIME NOT NULL,
@@ -259,7 +282,7 @@ CREATE TABLE comment (
 );
 
 DELIMITER $$
-
+-- stored procedure to reserve a tour
 CREATE PROCEDURE reserve_tour (IN user_id INT, IN tour_id INT, IN people_count INT, IN reservation_status_id INT)
 BEGIN
 	DECLARE max_discount DOUBLE;
@@ -304,7 +327,7 @@ BEGIN
 	SELECT count_reservations;
 	SELECT free_places;
 
-	IF free_places < people_count THEN
+	IF free_places >= people_count THEN
 		INSERT INTO reservation VALUES (DEFAULT, NOW(), people_count, new_discount, reservation_status_id, tour_id, user_id);
 	ELSE
 		SIGNAL SQLSTATE '45001'	
@@ -314,6 +337,11 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+-- creating of indexes
+CREATE INDEX fired_index ON tour(is_fired);
+CREATE INDEX comment_index ON comment(tour_id, comment_date);
+CREATE INDEX reservation_index ON reservation(tour_id);
 
 -- set roles
 INSERT INTO role VALUES (1, "CLIENT");

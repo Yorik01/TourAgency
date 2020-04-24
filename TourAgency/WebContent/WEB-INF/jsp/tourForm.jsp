@@ -29,7 +29,8 @@
 		<div class="form-group">
 			<label for="startdate-datepicker"><fmt:message key="common.start_date" /></label>
 			<div class="input-group date">
-				<input name="startDate" class="form-control" value="${tour.startDate}" type="text"  id="startdate-datepicker">
+				<input name="startDate" class="form-control" value="${tour.startDate}" type="text"  id="startdate-datepicker" 
+				pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd" autocomplete="off">
 				<div class="input-group-append">
 				    <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 				</div>
@@ -38,7 +39,8 @@
 		<div class="form-group">
 			<label for="enddate-datepicker"><fmt:message key="common.end_date" /></label>
 			<div class="input-group date">
-				<input name="endDate" class="form-control" value="${tour.endDate}" type="text" id="enddate-datepicker">
+				<input name="endDate" class="form-control" value="${tour.endDate}" type="text" id="enddate-datepicker" 
+				pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd" autocomplete="off">
 				<div class="input-group-append">
 					<span class="fa fa-calendar input-group-text end_date_calendar" aria-hidden="true "></span>
 				</div>

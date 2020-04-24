@@ -14,22 +14,22 @@
 			<h3>><fmt:message key="common.route" /></h3>
 			<div class="form-group">
 				<label for="select-route-country-from"><fmt:message key="common.country_from" /></label>
-				<select id="select-route-country-from" name="countryFrom" class="form-control" class="route-countries">
+				<select id="select-route-country-from" name="countryFrom" class="form-control" class="route-countries" required>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="select-route-city-from"><fmt:message key="common.city_from" /></label>
-				<select id="select-route-city-from" name="cityFrom" class="form-control">
+				<select id="select-route-city-from" name="cityFrom" class="form-control" required>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="select-route-country-to"><fmt:message key="common.country_to" /></label>
-				<select id="select-route-country-to" name="countryTo" class="form-control" class="route-countries">
+				<select id="select-route-country-to" name="countryTo" class="form-control" class="route-countries" required>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="select-route-city-to"><fmt:message key="common.city_to" /></label>
-				<select id="select-route-city-to" name="cityTo" class="form-control">
+				<select id="select-route-city-to" name="cityTo" class="form-control" required>
 				</select>
 			</div>
 			<c:if test="${param.edit eq 'true'}">
@@ -65,11 +65,25 @@
 			countryFrom.change(function() {
 				let selectedCountry = $(this).children('option:selected').val();
 				setCities(places[selectedCountry], citiesFrom);
+				
+				let selectedCity = citiesFrom.children('option:selected').val();
+				removeCity(selectedCity, citiesTo.children('option'));
+			});
+			
+			citiesFrom.change(function() {
+			   let selectedCountry = countryTo.children('option:selected').val()
+			   setCities(places[selectedCountry], citiesTo);
+			   
+			   let selectedCity = $(this).children('option:selected').val();
+			   removeCity(selectedCity, citiesTo.children('option'));
 			});
 			
 			countryTo.change(function() {
 				let selectedCountry = $(this).children('option:selected').val();
 				setCities(places[selectedCountry], citiesTo);
+				
+				let selectedCity = citiesFrom.children('option:selected').val();
+				removeCity(selectedCity, citiesTo.children('option'));
 			});
 			
 			<c:if test="${param.edit eq 'true'}">
@@ -82,8 +96,8 @@
 				selectedCountry = countryTo.children('option:selected').val();
 				setCities(places[selectedCountry], citiesTo);
 				
-				cityFrom.val("${route.from.city}");
-				cityTo.val("${route.to.city}");
+				citiesFrom.val("${route.from.city}");
+				citiesTo.val("${route.to.city}");
 			</c:if>
 		</script>
 	</body>

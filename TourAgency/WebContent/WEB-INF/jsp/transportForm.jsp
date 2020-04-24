@@ -38,7 +38,8 @@
 				<label for="transport-takeoffdate"><fmt:message key="common.takeoff_date" /></label>
                 <div class='input-group date'>
                 	<br>
-                    <input type='text' name="takeoffDate" value="${takeoffDate}" class="form-control" id='transport-takeoffdate' />
+                    <input type='text' name="takeoffDate" value="${takeoffDate}" class="form-control" id='transport-takeoffdate' 
+                    pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd" autocomplete="off" />
                     <div class="input-group-append">
 			      		<span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 			    	</div>
@@ -51,7 +52,8 @@
 			<div class="form-group">
 				<label for="transport-takeoffdate"><fmt:message key="common.arriving_date" /></label>
                 <div class='input-group date'>
-                    <input type='text' class="form-control" value="${arriveDate}" name="arrivingDate" id='transport-arrivingdate' />
+                    <input type='text' class="form-control" value="${arriveDate}" name="arrivingDate" id='transport-arrivingdate' 
+                    pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))" title="yyyy-mm-dd" autocomplete="off" />
                     <div class="input-group-append">
 			      		<span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true "></span>
 			    	</div>

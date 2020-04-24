@@ -33,6 +33,9 @@
 	</form>
 
 	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
-
+	
+	<script>
+		
+	</script>
 </body>
 </html>

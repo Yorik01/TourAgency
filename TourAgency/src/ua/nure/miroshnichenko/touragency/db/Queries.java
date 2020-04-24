@@ -5,6 +5,8 @@ public final class Queries {
 	private Queries() {
 	}
 	
+	public static final String ALL_TOURS = "SELECT * FROM tour ORDER BY is_fired";
+	
 	public static final String HOTEL_SERVICES = "SELECT *"
 			+ "FROM service s "
 			+ "INNER JOIN hotel_service hs USING (service_id)"
@@ -61,7 +63,7 @@ public final class Queries {
 	
 	public static final String USER_COMMENTS = "SELECT * FROM comment WHERE user_id = ?";
 	
-	public static final String TOUR_COMMENTS = "SELECT * FROM comment WHERE tour_id = ?";
+	public static final String TOUR_COMMENTS = "SELECT * FROM comment WHERE tour_id = ? ORDER BY comment_date";
 	
 	public static final String ROUTE_BY_PLACES = "SELECT * FROM route WHERE route_from = ? AND route_to = ?";
 	
@@ -126,5 +128,6 @@ public final class Queries {
 			+ "pf.place_city = ? AND "
 			+ "(100 - t.agency_procent) * ((h.hotel_price + trt.transport_price + trb.transport_price) / 100) <= ? AND "
 			+ "trt.max_places - (SELECT COUNT(*) FROM reservation WHERE tour_id = t.tour_id) >= ? AND "
-			+ "h.hotel_max_rooms - (SELECT COUNT(*) FROM reservation WHERE tour_id = t.tour_id) >= ?";
+			+ "h.hotel_max_rooms - (SELECT COUNT(*) FROM reservation WHERE tour_id = t.tour_id) >= ? "
+			+ "ORDER BY t.is_fired";
 }

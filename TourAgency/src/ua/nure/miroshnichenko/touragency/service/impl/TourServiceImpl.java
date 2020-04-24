@@ -151,7 +151,7 @@ class TourServiceImpl implements TourService {
 					"reserve_tour",
 					userId, tourId,
 					peopleCount,
-					ReservationStatus.RESERVED.ordinal());
+					ReservationStatus.RESERVED.ordinal() + 1);
 		} catch (TransactionException | TransactionFactoryException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

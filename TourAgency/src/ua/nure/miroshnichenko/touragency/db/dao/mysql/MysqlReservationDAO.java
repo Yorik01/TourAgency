@@ -29,11 +29,7 @@ public class MysqlReservationDAO implements ReservationDAO {
 			transaction = DBUtil.getTransaction();
 			reservation = transaction.findByPK(Reservation.class, id);
 
-			Tour tour = tourDAO.find(reservation.getTourId());
-			User user = userDAO.find(reservation.getUserId());
-
-			reservation.setTour(tour);
-			reservation.setUser(user);
+			initReservation(reservation);
 
 		} catch (TransactionFactoryException | TransactionException e) {
 			e.printStackTrace();
@@ -59,11 +55,7 @@ public class MysqlReservationDAO implements ReservationDAO {
 			reservations = transaction.findAll(Reservation.class);
 
 			for (Reservation reservation : reservations) {
-				Tour tour = tourDAO.find(reservation.getTourId());
-				User user = userDAO.find(reservation.getUserId());
-
-				reservation.setTour(tour);
-				reservation.setUser(user);
+				initReservation(reservation);
 			}
 
 		} catch (TransactionFactoryException | TransactionException e) {
@@ -234,5 +226,13 @@ public class MysqlReservationDAO implements ReservationDAO {
 			}
 		}
 		return result;
+	}
+	
+	private void initReservation(Reservation reservation) throws DAOException {
+		Tour tour = tourDAO.find(reservation.getTourId());
+		User user = userDAO.find(reservation.getUserId());
+
+		reservation.setTour(tour);
+		reservation.setUser(user);
 	}
 }

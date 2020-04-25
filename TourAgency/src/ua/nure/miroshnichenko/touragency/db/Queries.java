@@ -93,7 +93,7 @@ public final class Queries {
 			+ "FROM tour t "
 			+ "INNER JOIN hotel h USING (hotel_id) "
 			+ "INNER JOIN reservation r USING (tour_id) "
-			+ "GROUP BY h.hotel_name";
+			+ "GROUP BY t.tour_id, t.start_date, t.end_date, h.hotel_name";
 	
 	public static final String USER_RESERVATIONS_STATISTIC = "SELECT u.email, COUNT(r.reservation_id) AS reservations_count "
 			+ "FROM tour t "

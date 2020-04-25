@@ -21,7 +21,17 @@
 			<td><fmt:message key="common.date" />: ${reservation.resrveDate}</td>
 		</tr>
 		<tr>
+			<td><fmt:message key="common.people_count" />: ${reservation.peopleCount}</td>
+		</tr>
+		<c:set var="price" value="${reservation.tour.price * reservation.peopleCount}" />
+		<tr>
+			<td><fmt:message key="common.price" />${price}</td>
+		</tr>
+		<tr>
 			<td><fmt:message key="common.discount" />: ${reservation.discount}</td>
+		</tr>
+		<tr>
+			<td><fmt:message key="common.total" />: ${price * (1 - (reservation.discount / 100))}</td>
 		</tr>
 		<tr>
 			<td><fmt:message key="common.status" />: ${reservation.status}</td>

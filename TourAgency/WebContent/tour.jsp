@@ -70,16 +70,21 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<select class="form-control" name="peopleCount">
+								<select class="form-control" id="select-people-count" name="peopleCount">
 									<option value="1" selected>1</option>
-									<option value="2" selected>2</option>
-									<option value="3" selected>3</option>
-									<option value="4" selected>4</option>
-									<option value="5" selected>5</option>
-									<option value="6" selected>6</option>
-									<option value="7" selected>7</option>
-									<option value="8" selected>8</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
 								</select>
+								<br />
+								<span>
+									<fmt:message key="common.total" />: 
+									<span id="total-price-for-reservation">${tour.price}</span>
+								</span>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-outline-secondary"
@@ -165,6 +170,10 @@
 		<div class="ml-5">
 			<span> <span class="tour-info-name mr-2"><fmt:message key="common.name" />:</span> <span
 				class="tour-info-value">${tour.hotel.name}</span>
+			</span>
+			<hr>
+			<span> <span class="tour-info-name mr-2"><fmt:message key="common.hotel_type" />:</span> <span
+				class="tour-info-hotel-type">${tour.hotel.type}</span>
 			</span>
 			<hr>
 			<span> <span class="tour-info-name mr-2"><fmt:message key="common.address" />:</span> <span
@@ -276,8 +285,17 @@
 	
 	<%@ include file="/WEB-INF/jspf/modals/confirmDeleteModal.jspf" %>
 	<script>
-		setUserId('${sessionScope.user.id}');
-		setTourId('${param.id}');
+		$(document).ready(() => {
+		    setUserId('${sessionScope.user.id}');
+			setTourId('${param.id}');
+			
+			const tourPrice = '${tour.price}';
+			
+			$('#select-people-count').change(function () {
+			    let totalPrice = tourPrice * $(this).val()
+			    $('#total-price-for-reservation').text(totalPrice);
+			});
+		});
 	</script>
 </body>
 </html>

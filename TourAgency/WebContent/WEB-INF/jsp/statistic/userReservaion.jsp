@@ -19,7 +19,7 @@
 				<c:forEach items="${statistics}" var="statistic">
 					<tr>
 						<td>${statistic.email}</td>
-						<td>${statistic.revenue}</td>
+						<td>${statistic.reservationsCount}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

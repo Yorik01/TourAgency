@@ -54,6 +54,8 @@ public final class DBUtil {
 	}
 
 	public static void closeConnection() throws TransactionFactoryException {
-		transactionFactory.close();
+		if (transactionFactory != null) {
+			transactionFactory.close();
+		}
 	}
 }

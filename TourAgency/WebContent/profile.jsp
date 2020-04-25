@@ -45,6 +45,7 @@
 	        </c:if>
         </main>
       </div>
+      	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
     </div>
     
     <c:set var="userComment" value="" />
@@ -70,8 +71,6 @@
 	
 	<%@ include file="/WEB-INF/jspf/modals/confirmDeleteModal.jspf" %>
 		
-	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
-
 	<script src="js/tour.js"></script>
 	<script src="js/user.js"></script>
 	<script>

@@ -1,6 +1,5 @@
 package ua.nure.miroshnichenko.touragency.db.statistic;
 
-import java.math.BigInteger;
 import java.sql.Date;
 
 import ua.nure.miroshnichenko.myorm.Entity;
@@ -23,7 +22,7 @@ public class TourReservationsStatistic implements Entity {
 	private Date endDate;
 	
 	@Column("reservations_count")
-	private BigInteger reservationsCount;
+	private Long reservationsCount;
 	
 	public Integer getTourId() {
 		return tourId;
@@ -57,11 +56,11 @@ public class TourReservationsStatistic implements Entity {
 		this.hotelName = hotelName;
 	}
 
-	public BigInteger getReservationsCount() {
+	public Long getReservationsCount() {
 		return reservationsCount;
 	}
 
-	public void setReservationsCount(BigInteger reservationsCount) {
+	public void setReservationsCount(Long reservationsCount) {
 		this.reservationsCount = reservationsCount;
 	}
 }

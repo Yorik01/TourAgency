@@ -168,11 +168,14 @@
 				</div>
 			</c:if>
 		</div>
-		<input type="file" name="photo" multiple />		
+		<div class="form-group">
+			<label for="choose-photos"><fmt:message key="admin_jsp.choose_photos" /></label>
+			<input type="file" id="choose-photos" class="form-control-file" name="photo" multiple />		
+		</div>
 		<c:if test="${param.edit eq 'true'}">
 			<input type="hidden" name="id" value="${hotel.id}">
 		</c:if>
-		<button class="btn btn-primary" type="submit"><fmt:message key="common.save" /></button>
+		<button class="btn btn-primary mt-3" type="submit"><fmt:message key="common.save" /></button>
 	</form>
 
 	<script src="js/jquery-3.4.1.min.js"></script>

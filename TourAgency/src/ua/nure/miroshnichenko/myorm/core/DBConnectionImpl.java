@@ -91,7 +91,6 @@ class DBConnectionImpl implements DBConnection {
 	public ResultSet executeQuery(String query, Object... parametrs) throws DBConnectionException {
 		try {
 			statement = prepareStatement(query, parametrs);
-			System.out.println(statement);
 			resultSet = ((PreparedStatement) statement).executeQuery();
 			return resultSet;
 		} catch (SQLException e) {

@@ -4,11 +4,10 @@
 <%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
 
 <%@ attribute name="tour" required="true" type="ua.nure.miroshnichenko.touragency.db.entity.Tour"%>
-<%@ attribute name="photo" required="true" type="java.lang.String"%>
 
 <div class="card tour-card">
 		<img class="card-img-top"
-			src="/TourAgency/photo/${photo}"
+			src="/TourAgency/photo/${tour.photoLink}"
 			alt="Card image cap">
 		<div class="card-body">
 			<h5 class="card-title">

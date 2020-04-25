@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -90,44 +89,45 @@ public final class ActionUtil {
 	
 	public static void uploadImgs(HttpServletRequest req, HttpServletResponse res, int hotelId)
 			throws IOException, ServletException, ActionException {
-		
 		List<Part> fileParts = req.getParts().stream()
 				.filter(part -> "photo".equals(part.getName()))
 				.collect(Collectors.toList());
-
-		for (Part part : fileParts) {
-			UUID uuid = UUID.randomUUID();
-			String fileName = "hotelPhoto_" + hotelId + "_" + uuid;
-	        
-			String path = getPhotosFolderPath(req);
-			OutputStream out = null;
-			InputStream fileContent = null;
-			File file = new File(path + File.separator + fileName);
-			
-			try {
-				if (file.createNewFile()) {
-					out = new FileOutputStream(file);
-					fileContent = part.getInputStream();
-
-					int read = 0;
-					final byte[] bytes = new byte[1024];
-
-					while ((read = fileContent.read(bytes)) != -1) {
-						out.write(bytes, 0, read);
+		
+		if (!fileParts.isEmpty() && fileParts.get(0).getSize() != 0) {
+			for (Part part : fileParts) {
+				UUID uuid = UUID.randomUUID();
+				String fileName = "hotelPhoto_" + hotelId + "_" + uuid;
+		        
+				String path = getPhotosFolderPath(req);
+				OutputStream out = null;
+				InputStream fileContent = null;
+				File file = new File(path + File.separator + fileName);
+				
+				try {
+					if (file.createNewFile()) {
+						out = new FileOutputStream(file);
+						fileContent = part.getInputStream();
+	
+						int read = 0;
+						final byte[] bytes = new byte[1024];
+	
+						while ((read = fileContent.read(bytes)) != -1) {
+							out.write(bytes, 0, read);
+						}
+					} else {
+						throw new ActionException("Cannot upload file!");
 					}
-				} else {
-					throw new ActionException("Cannot upload file!");
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				throw new ActionException(e);
-			} finally {
-				if (out != null) {
-					out.close();
-				}
-
-				if (fileContent != null) {
-					fileContent.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+					throw new ActionException(e);
+				} finally {
+					if (out != null) {
+						out.close();
+					}
+	
+					if (fileContent != null) {
+						fileContent.close();
+					}
 				}
 			}
 		}
@@ -161,17 +161,11 @@ public final class ActionUtil {
 		return photo;
 	}
 	
-	public static Map<Tour, String> getTourWithPhoto(List<Tour> tours, HttpServletRequest req) throws IOException {
-		Map<Tour, String> toursWithPhotos = 
-				new TreeMap<>((x, y) -> y.isFired().compareTo(x.isFired()));
-		
+	public static void setToursPhotos(List<Tour> tours, HttpServletRequest req) throws IOException {
 		for (Tour tour : tours) {
 			String photo = ActionUtil.getFirstPhoto(tour.getHotelId(), req);
-
-			toursWithPhotos.put(tour, photo);
+			tour.setPhotoLink(photo);
 		}
-		
-		return toursWithPhotos;
 	}
 	
 	public static void deleteAllHotelPhotos(int hotelId, HttpServletRequest request) throws IOException {

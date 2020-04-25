@@ -1,7 +1,5 @@
 package ua.nure.miroshnichenko.touragency.db.statistic;
 
-import java.math.BigInteger;
-
 import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.myorm.annotation.Column;
 
@@ -13,7 +11,7 @@ public class UserReservationsStatistic implements Entity {
 	private String email;
 	
 	@Column("reservations_count")
-	private BigInteger reservationsCount;
+	private Long reservationsCount;
 
 	public String getEmail() {
 		return email;
@@ -23,11 +21,11 @@ public class UserReservationsStatistic implements Entity {
 		this.email = email;
 	}
 	
-	public BigInteger getReservationsCount() {
+	public Long getReservationsCount() {
 		return reservationsCount;
 	}
 
-	public void setReservationsCount(BigInteger reservationsCount) {
+	public void setReservationsCount(Long reservationsCount) {
 		this.reservationsCount = reservationsCount;
 	}
 }

@@ -312,11 +312,11 @@
 		
 	<div id="tour-all" class="p-3">
 		<h1 class="mb-2"><fmt:message key="common.tours" /></h1>
-		<c:forEach items="${requestScope.tours}" var="tour">
-			<t:tourUserCard
-				tour="${tour.key}" 
-				photo="${tour.value}" />
-		</c:forEach>
+		<div class="d-flex flex-wrap justify-content-between">
+			<c:forEach items="${requestScope.tours}" var="tour">
+				<t:tourUserCard tour="${tour}" />
+			</c:forEach>
+		</div>
 	</div>
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>

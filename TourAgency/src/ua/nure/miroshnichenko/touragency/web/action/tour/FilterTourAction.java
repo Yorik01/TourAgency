@@ -35,15 +35,13 @@ public class FilterTourAction extends Action {
 
 		List<Place> places = null;
 		List<Tour> tours = null;
-		Map<Tour, String> toursWithPhotos = null;
 
 		Map<String, String[]> params = req.getParameterMap();
 		
 		try {
 			places = routeService.getAllPlaces();
 			tours = tourService.filter(params);
-			
-			toursWithPhotos = ActionUtil.getTourWithPhoto(tours, req);
+			ActionUtil.setToursPhotos(tours, req);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ActionException(e);
@@ -56,7 +54,7 @@ public class FilterTourAction extends Action {
 			filterParams.put(entry.getKey(), Arrays.asList(entry.getValue()));
 		}
 		
-		req.setAttribute("tours", toursWithPhotos);
+		req.setAttribute("tours", tours);
 		req.setAttribute("places", jsonPlaces);
 		req.setAttribute("filterParams", filterParams);
 		

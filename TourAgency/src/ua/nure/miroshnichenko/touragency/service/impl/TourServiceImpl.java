@@ -160,12 +160,12 @@ class TourServiceImpl implements TourService {
 
 	@Override
 	public boolean revoke(int reservationId) throws ServiceException {
-		return setReservationStatus(reservationId, ReservationStatus.REVOKED);
+		return setReservationStatus(reservationId, ReservationStatus.REVOKED, null);
 	}
 	
 	@Override
-	public boolean pay(int reservationId) throws ServiceException {
-		return setReservationStatus(reservationId, ReservationStatus.BOUGHT);
+	public boolean pay(int reservationId, int managerId) throws ServiceException {
+		return setReservationStatus(reservationId, ReservationStatus.BOUGHT, managerId);
 	}
 
 	@Override
@@ -256,12 +256,13 @@ class TourServiceImpl implements TourService {
 				tour.getHotelId()) == null;
 	}
 	
-	private boolean setReservationStatus(int reservationId, ReservationStatus status) throws ServiceException{
+	private boolean setReservationStatus(int reservationId, ReservationStatus status, Integer managerId) throws ServiceException{
 		try {
 			ReservationDAO dao = factoryDAO.getReservationDAO();
 			Reservation reservation = dao.find(reservationId);
 			
 			reservation.setStatus(status);
+			reservation.setManagerId(managerId);
 			
 			boolean result = dao.update(reservation);
 
@@ -269,7 +270,6 @@ class TourServiceImpl implements TourService {
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
-
 		}
 	}
 }

@@ -6,25 +6,33 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-	</head>
 	<body>
-		<table class="table bg-white table-bordered card mr-3 mt-3">
+		<%@ include file="/WEB-INF/jspf/exportButtons.jspf" %>
+		<table id="statistic-table" class="table table-bordered bg-white mr-3 mt-3">
 			<thead>
 				<tr>
-					<th scope="col">Tour</th>
+					<th scope="col">ID</th>
+					<th scope="col">Start date</th>
+					<th scope="col">End date</th>
+					<th scope="col">Hotel name</th>
 					<th scope="col">Count of reservations</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${statistics}" var="statistic">
 					<tr>
-						<th>${statistic.hotelName}</th>
-						<th>${statistic.reservationsCount}</th>
+						<td>${statistic.tourId}</td>
+						<td>${statistic.startDate}</td>
+						<td>${statistic.endDate}</td>
+						<td>${statistic.hotelName}</td>
+						<td>${statistic.reservationsCount}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>		
 	</body>
+	<script src="js/jspdf.min.js"></script>
+	<script src="js/jspdf.plugin.autotable.min.js"></script>
+	<script src="js/tableHTMLExport.js"></script>
+	<script src="js/reports.js"></script>
 </html>

@@ -1,0 +1,6 @@
+<div class="d-inline-flex mt-2">
+	<button id="csv-export" class="btn btn-secondary mr-2">CSV</button>
+	<button id="pdf-export" class="btn btn-secondary mr-2">PDF</button>
+	<button id="txt-export" class="btn btn-secondary mr-2">TXT</button>
+	<button id="json-export" class="btn btn-secondary mr-2">JSON</button>
+</div>

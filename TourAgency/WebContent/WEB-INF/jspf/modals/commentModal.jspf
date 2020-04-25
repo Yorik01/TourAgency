@@ -22,9 +22,6 @@
 	      </div>
 	      <div class="modal-body">
 			<form class="form-group">
-				<label for="select-tour"><fmt:message key="common.tour" /></label>
-				<select class="form-control" id="select-tour">
-				</select>
 				<label for="input-comment-text"><fmt:message key="common.comment_text" /></label>
 				<input class="form-control" id="input-comment-text" />
 				<label for="input-comment-mark"><fmt:message key="common.comment_mark" /></label>

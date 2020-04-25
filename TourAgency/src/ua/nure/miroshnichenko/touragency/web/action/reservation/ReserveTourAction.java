@@ -38,6 +38,6 @@ public class ReserveTourAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		return Path.INDEX_PAGE;
+		return "redirect:" + Path.getControllerPath("filterForm");
 	}
 }

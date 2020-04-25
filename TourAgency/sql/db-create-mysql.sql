@@ -35,10 +35,9 @@ CREATE TABLE role (
 
 -- users table
 CREATE TABLE users (
-
 	user_id INT AUTO_INCREMENT PRIMARY KEY,
 	email VARCHAR(40) NOT NULL UNIQUE,
-	password VARCHAR(40) NOT NULL,
+	password VARCHAR(256) NOT NULL,
 	is_banned TINYINT(1) NOT NULL,
 	discount_step DOUBLE NOT NULL,
 	role_id INT NOT NULL,
@@ -260,6 +259,11 @@ CREATE TABLE reservation (
 	 CONSTRAINT user_id_fk FOREIGN KEY (user_id)
 	 REFERENCES users(user_id)
 	 	ON DELETE CASCADE
+	 	ON UPDATE RESTRICT,
+	 manager_id INT NULL,
+	 CONSTRAINT manager_id_fk FOREIGN KEY (manager_id)
+	 REFERENCES users(user_id)
+	 	ON DELETE CASCADE
 	 	ON UPDATE RESTRICT
 );
 
@@ -328,7 +332,7 @@ BEGIN
 	SELECT free_places;
 
 	IF free_places >= people_count THEN
-		INSERT INTO reservation VALUES (DEFAULT, NOW(), people_count, new_discount, reservation_status_id, tour_id, user_id);
+		INSERT INTO reservation VALUES (DEFAULT, NOW(), people_count, new_discount, reservation_status_id, tour_id, user_id, NULL);
 	ELSE
 		SIGNAL SQLSTATE '45001'	
 				SET MESSAGE_TEXT = "There are no free places in the tour!";
@@ -417,6 +421,6 @@ INSERT INTO place VALUES (DEFAULT, "Ukraine", "Dnepr");
 INSERT INTO place VALUES (DEFAULT, "Ukraine", "Odesa");
 
 -- set admin for password '1234'
-INSERT INTO users VALUES (DEFAULT, "admin@touragency.com", "81dc9bdb52d04dc20036dbd8313ed055", 0, 0, 3);
+INSERT INTO users VALUES (DEFAULT, "admin@touragency.com", "54726d1fc6e1f5b1e51076b63384d784c56237829386c", 0, 0, 3);
 
 SHOW TABLES;

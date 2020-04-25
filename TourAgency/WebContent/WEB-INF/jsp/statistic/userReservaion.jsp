@@ -6,25 +6,27 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-	</head>
-	<body>
-		<table class="table bg-white table-bordered card mr-3 mt-3">
+		<body>
+		<%@ include file="/WEB-INF/jspf/exportButtons.jspf" %>
+		<table id="statistic-table" class="table table-bordered bg-white mr-3 mt-3">
 			<thead>
 				<tr>
 					<th scope="col">Email</th>
-					<th scope="col">Count of reservations</th>
+					<th scope="col">Revenue</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${statistics}" var="statistic">
 					<tr>
-						<th>${statistic.email}</th>
-						<th>${statistic.reservationsCount}</th>
+						<td>${statistic.email}</td>
+						<td>${statistic.revenue}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>		
 	</body>
+	<script src="js/jspdf.min.js"></script>
+	<script src="js/jspdf.plugin.autotable.min.js"></script>
+	<script src="js/tableHTMLExport.js"></script>
+	<script src="js/reports.js"></script>
 </html>

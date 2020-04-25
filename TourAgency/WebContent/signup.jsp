@@ -29,13 +29,16 @@
 				class="form-text text-muted"></small>
 		</div>
 		<input type="hidden" name="action" value="signup" />
-		<button type="submit" class="btn btn-primary"><fmt:message key="common.signup" /></button>
+		<button type="submit" id="btn-signup" class="btn btn-primary"><fmt:message key="common.signup" /></button>
 	</form>
 
 	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 	
+	<script src="js/user.js"></script>
 	<script>
-		
+		$(document).ready(() => {
+		   setPasswordEqualityEvent('<fmt:message key="common.passwords_equal" />');
+		});
 	</script>
 </body>
 </html>

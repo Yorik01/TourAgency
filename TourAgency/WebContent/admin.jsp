@@ -223,9 +223,9 @@
 	  </div>
 	</div>
 	
-	<%@ include file="/WEB-INF/jsp/infoModal.jsp" %>
+	<%@ include file="/WEB-INF/jspf/modals/infoModal.jspf" %>
 	
-	<%@ include file="/WEB-INF/jsp/confirmDeleteModal.jsp" %>
+	<%@ include file="/WEB-INF/jspf/modals/confirmDeleteModal.jspf" %>
 
 	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 

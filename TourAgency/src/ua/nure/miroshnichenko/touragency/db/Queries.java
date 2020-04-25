@@ -73,23 +73,23 @@ public final class Queries {
 			+ "INNER JOIN hotel h USING(hotel_id) "
 			+ "WHERE t.start_date = ? AND t.end_date = ? AND h.hotel_id = ?";
 
-	public static final String AVERAGE_TOURS_MARKS_STATISTIC = "SELECT h.hotel_name, AVG(c.comment_mark) AS average_mark "
+	public static final String AVERAGE_TOURS_MARKS_STATISTIC = "SELECT t.tour_id, t.start_date, t.end_date, h.hotel_name, AVG(c.comment_mark) AS average_mark "
 			+ "FROM tour t "
 			+ "INNER JOIN comment c USING (tour_id) "
 			+ "INNER JOIN hotel h USING (hotel_id) "
-			+ "GROUP BY h.hotel_name";
+			+ "GROUP BY t.tour_id, t.start_date, t.end_date, h.hotel_name";
 	
 	public static final String MANAGERS_REVENUES_STATISTIC = "SELECT u.email, "
-			+ "SUM((100 - t.agency_procent) * ((h.hotel_price + trt.transport_price + trb.transport_price) / 100)) AS revenue "
+			+ "SUM(r.people_count * ((100 - t.agency_procent) * ((h.hotel_price + trt.transport_price + trb.transport_price) / 100))) AS revenue "
 			+ "FROM tour t INNER JOIN reservation r USING(tour_id) "
-			+ "INNER JOIN users u USING (user_id) "
+			+ "INNER JOIN users u ON u.user_id = r.manager_id "
 			+ "INNER JOIN hotel h USING (hotel_id) "
 			+ "INNER JOIN transport trt ON t.transport_to_id = trt.transport_id "
 			+ "INNER JOIN transport trb ON trb.transport_id = t.transport_back_id "
-			+ "WHERE u.role_id = 2 "
+			+ "WHERE u.role_id IN (2, 3) "
 			+ "GROUP BY u.email";
 	
-	public static final String TOURS_RESERVATIONS_STATISTIC = "SELECT h.hotel_name, COUNT(r.reservation_id) AS reservations_count "
+	public static final String TOURS_RESERVATIONS_STATISTIC = "SELECT t.tour_id, t.start_date, t.end_date, h.hotel_name, COUNT(r.reservation_id) AS reservations_count "
 			+ "FROM tour t "
 			+ "INNER JOIN hotel h USING (hotel_id) "
 			+ "INNER JOIN reservation r USING (tour_id) "

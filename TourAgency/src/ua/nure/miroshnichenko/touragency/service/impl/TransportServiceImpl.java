@@ -15,6 +15,27 @@ public class TransportServiceImpl implements TransportService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
+	private static TransportServiceImpl instance;
+	
+	private TransportServiceImpl () {
+		factoryDAO = DAOFactory.getInstance();
+	}
+	
+	public static synchronized TransportServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new TransportServiceImpl();
+		}
+		return instance;
+	}
+	
+	/**
+	 * Set the DAOFactory implementation using the setter.
+	 * It is used for mock test.
+	 */
+	public void setFactoryDAO(DAOFactory factoryDAO) {
+		this.factoryDAO = factoryDAO;
+	}
+	
 	@Override
 	public Transport get(int id) throws ServiceException {
 		Transport transport = null;

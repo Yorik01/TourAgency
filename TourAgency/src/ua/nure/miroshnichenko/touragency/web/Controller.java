@@ -1,6 +1,7 @@
 package ua.nure.miroshnichenko.touragency.web;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ua.nure.miroshnichenko.touragency.Util;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 import ua.nure.miroshnichenko.touragency.web.action.ActionContainer;
@@ -61,11 +63,10 @@ public class Controller extends HttpServlet {
 			} else if (!forward.isEmpty()) {
 				request.getRequestDispatcher(forward).forward(request, response);
 			}
-		} catch (ActionException ex) {
-			ex.printStackTrace();
-			LOG.error(ex.getMessage());
+		} catch (ActionException e) {
+			LOG.error(e.getMessage());
 			
-			request.setAttribute("errorMessage", ex.getMessage());
+			request.setAttribute("errorMessage", getExceptionMessage(e));
 			request.getRequestDispatcher(forward).forward(request, response);
 		}
 		LOG.trace("Forward address --> " + forward);
@@ -73,5 +74,12 @@ public class Controller extends HttpServlet {
 		LOG.debug("Controller finished, now go to forward address --> " + forward);
 
 		// go to forward
+	}
+	
+	private String getExceptionMessage(ActionException e) {
+		String[] arr = e.getMessage().split("\\s");
+		arr = Arrays.copyOfRange(arr, 1, arr.length);
+		
+		return Util.mergeStrings(arr, " ");
 	}
 }

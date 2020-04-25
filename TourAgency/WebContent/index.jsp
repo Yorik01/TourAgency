@@ -91,10 +91,14 @@
 				</div>
 				<div id="hotel-price">
 					<c:set var="transportType" value="${filterParams.transportType}" />
+					<c:set var="maxPrice" value="10000" />
+					<c:if test="${not empty param.maxPrice}">
+						<c:set var="maxPrice" value="${param.maxPrice}" />
+					</c:if>
 					<h5><fmt:message key="index_jsp.max_price" /></h5>
 					<div class="custom-control custom-range">
-						<label for="hotel-max-price" id="hotel-max-price-label">${param.maxPrice}</label>
-						<input type="range" min="200" max="100000" value="${param.maxPrice}" name="maxPrice" class="custom-range" id="hotel-max-price">
+						<label for="hotel-max-price" id="hotel-max-price-label">${maxPrice}</label>
+						<input type="range" min="200" max="100000" value="${maxPrice}" name="maxPrice" class="custom-range" id="hotel-max-price">
 					</div>
 				</div>
 				<div id="hotel-transport-type" class="d-flex flex-column">
@@ -125,7 +129,7 @@
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
 							<input type="checkbox" class="custom-control-input" name="hotelType" value="RESORTS" id="hotel-type-resorts"
 							<c:if test="${fn:contains(hotelType, 'RESORTS')}">checked</c:if>>
-							<label class="custom-control-label" for="hotel-type-resorts"><fmt:message key="common.resorts" /></label>
+							<label class="custom-control-label" for="hotel-type-resorts"><fmt:message key="common.resort" /></label>
 						</div>
 						<div class="custom-control custom-checkbox my-1 mr-sm-2">
 							<input type="checkbox" class="custom-control-input" name="hotelType" value="HOSTEL" id="hotel-type-hostel"

@@ -12,10 +12,32 @@ import ua.nure.miroshnichenko.touragency.db.entity.User;
 import ua.nure.miroshnichenko.touragency.service.AuthentificationService;
 import ua.nure.miroshnichenko.touragency.service.exception.IncorrectLoginException;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.exception.SignupException;
 
 class AuthentificationServiceImpl implements AuthentificationService {
 
-	private DAOFactory factoryDAO = DAOFactory.getInstance();
+	private DAOFactory factoryDAO;
+	
+	private static AuthentificationServiceImpl instance;
+	
+	private AuthentificationServiceImpl() {
+		factoryDAO = DAOFactory.getInstance();
+	}
+	
+	public static synchronized AuthentificationServiceImpl getInstance() {
+		if (instance == null) {
+			instance = new AuthentificationServiceImpl();
+		}
+		return instance;
+	}
+	
+	/**
+	 * Set the DAOFactory implementation using the setter.
+	 * It is used for mock test.
+	 */
+	public void setFactoryDAO(DAOFactory factoryDAO) {
+		this.factoryDAO = factoryDAO;
+	}
 	
 	@Override
 	public User login(String email, String password) throws ServiceException {
@@ -28,12 +50,10 @@ class AuthentificationServiceImpl implements AuthentificationService {
 				if (user != null) {
 					if (user.getPassword().equals(hash)) {
 						return user;
-					} else {
-						throw new IncorrectLoginException("Incorrect password!!!");
 					}
-				} else {
-					throw new IncorrectLoginException("Incorrect email!!!");
+					throw new IncorrectLoginException("Incorrect password!!!");
 				}
+				throw new IncorrectLoginException("Incorrect email!!!");
 			} catch (DAOException e) {
 				e.printStackTrace();
 				throw new ServiceException(e);
@@ -61,12 +81,10 @@ class AuthentificationServiceImpl implements AuthentificationService {
 					boolean result = userDAO.save(user);
 					
 					return result;
-				} else {
-					throw new ServiceException("Cannot genarate hash of password!!!");
 				}
-			} else {
-				throw new IncorrectLoginException("The user with the same email already exists!");
+				throw new ServiceException("Cannot genarate hash of password!!!");
 			}
+			throw new SignupException("The user with the same email already exists!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -83,7 +101,7 @@ class AuthentificationServiceImpl implements AuthentificationService {
 			
 			User user1 = userDAO.getUserByEmail(email);
 
-			if (user1 == null) {
+			if (user1 == null || user1.getId() == user.getId()) {
 				String hash = hashPassword(password);
 				if (hash != null) {
 					user.setPassword(hash);
@@ -91,12 +109,11 @@ class AuthentificationServiceImpl implements AuthentificationService {
 					boolean result = userDAO.update(user);
 					
 					return result;
-				} else {
-					throw new ServiceException("Cannot genarate hash of password!!!");
 				}
-			} else {
-				throw new IncorrectLoginException("The user with the same email already exists!");
+				throw new ServiceException("Cannot genarate hash of password!!!");
 			}
+			
+			throw new ServiceException("The user with the same email already exists!");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -135,18 +152,20 @@ class AuthentificationServiceImpl implements AuthentificationService {
 		String generatedPassword = null;
 
 		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+
 			md.update(password.getBytes());
 			byte[] bytes = md.digest();
 
 			StringBuilder hash = new StringBuilder();
 			for (int i = 0; i < bytes.length; i++) {
-				hash.append(Integer.toString((bytes[i] & 0xFF) + 0x100, 16).substring(1));
+				hash.append(Integer.toString(bytes[i], 16).substring(1));
 			}
 
 			generatedPassword = hash.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			generatedPassword = null;
 		}
 		return generatedPassword;
 	}

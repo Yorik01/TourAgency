@@ -41,6 +41,11 @@ public class Reservation implements Entity {
 	private Integer userId;
 
 	private User user;
+	
+	@Column("manager_id")
+	private Integer managerId;
+	
+	private User manager;
 
 	public Integer getId() {
 		return id;
@@ -112,5 +117,21 @@ public class Reservation implements Entity {
 	
 	public void setDiscount(Double discount) {
 		this.discount = discount;
+	}
+	
+	public Integer getManagerId() {
+		return managerId;
+	}
+	
+	public void setManagerId(Integer managerId) {
+		this.managerId = managerId;
+	}
+	
+	public User getManager() {
+		return manager;
+	}
+	
+	public void setManager(User manager) {
+		this.manager = manager;
 	}
 }

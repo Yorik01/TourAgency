@@ -163,7 +163,7 @@ public final class ActionUtil {
 	
 	public static Map<Tour, String> getTourWithPhoto(List<Tour> tours, HttpServletRequest req) throws IOException {
 		Map<Tour, String> toursWithPhotos = 
-				new TreeMap<>((x, y) -> x.isFired().compareTo(y.isFired()));
+				new TreeMap<>((x, y) -> y.isFired().compareTo(x.isFired()));
 		
 		for (Tour tour : tours) {
 			String photo = ActionUtil.getFirstPhoto(tour.getHotelId(), req);

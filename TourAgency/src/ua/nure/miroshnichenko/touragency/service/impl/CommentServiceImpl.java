@@ -109,7 +109,7 @@ public class CommentServiceImpl implements CommentService {
 
 		try {
 			CommentDAO commentDAO = factoryDAO.getCommentDAO();
-			comments = commentDAO.getUserComments(tourId);
+			comments = commentDAO.getTourComments(tourId);
 			
 			return comments;
 		} catch (DAOException e) {

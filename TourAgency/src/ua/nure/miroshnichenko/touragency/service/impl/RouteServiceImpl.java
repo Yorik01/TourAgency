@@ -14,15 +14,27 @@ import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 
 public class RouteServiceImpl implements RouteService {
 
-	private static RouteService instance;
+	private static RouteServiceImpl instance;
 	
-	private DAOFactory factoryDAO = DAOFactory.getInstance();
+	private DAOFactory factoryDAO;
 	
-	public static synchronized RouteService getInstance() {
+	private RouteServiceImpl () {
+		factoryDAO = DAOFactory.getInstance();
+	}
+	
+	public static synchronized RouteServiceImpl getInstance() {
 		if(instance == null) {
 			instance = new RouteServiceImpl();
 		}
 		return instance;
+	}
+	
+	/**
+	 * Set the DAOFactory implementation using the setter.
+	 * It is used for mock test.
+	 */
+	public void setFactoryDAO(DAOFactory factoryDAO) {
+		this.factoryDAO = factoryDAO;
 	}
 	
 	@Override
@@ -150,6 +162,14 @@ public class RouteServiceImpl implements RouteService {
 		
 		Place oldFrom = getPlaceByCountryAndCity(from.getCountry(), from.getCity());
 		Place oldTo = getPlaceByCountryAndCity(to.getCountry(), to.getCity());
+		
+		if (oldFrom == null) {
+			return true;
+		}
+		
+		if (oldTo == null) {
+			return true;
+		}
 		
 		Route oldRoute = getRouteByPlaces(oldFrom.getId(), oldTo.getId());
 		

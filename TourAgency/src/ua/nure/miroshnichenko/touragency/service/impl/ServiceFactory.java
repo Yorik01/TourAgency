@@ -13,7 +13,10 @@ import ua.nure.miroshnichenko.touragency.service.TransportService;
 public class ServiceFactory {
 
 	private static ServiceFactory instance;
-
+	
+	private ServiceFactory() {
+	}
+	
 	public static synchronized ServiceFactory getInstance() {
 		if (instance == null) {
 			instance = new ServiceFactory();
@@ -22,7 +25,7 @@ public class ServiceFactory {
 	}
 
 	public AuthentificationService getAuthentificationService() {
-		return new AuthentificationServiceImpl();
+		return AuthentificationServiceImpl.getInstance();
 	}
 
 	public TourService getTourService() {
@@ -42,11 +45,11 @@ public class ServiceFactory {
 	}
 	
 	public TransportService getTransportService() {
-		return new TransportServiceImpl();
+		return TransportServiceImpl.getInstance();
 	}
 	
 	public RouteService getRouteService() {
-		return new RouteServiceImpl();
+		return RouteServiceImpl.getInstance();
 	}
 	
 	public CommentService getCommentService() {

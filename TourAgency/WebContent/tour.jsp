@@ -265,25 +265,19 @@
 			<input type="hidden" id="comment-id" value="" />
 		</c:otherwise>
 	</c:choose>	
-	
-	<%@ include file="/WEB-INF/jsp/userComments.jsp" %>
+		
+	<%@ include file="/WEB-INF/jsp/comment/comments.jsp" %>
 		
 	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 	
-	<%@ include file="/WEB-INF/jsp/commentModal.jsp" %>
+	<%@ include file="/WEB-INF/jspf/modals/commentModal.jspf" %>
 		
-	<%@ include file="/WEB-INF/jsp/infoModal.jsp" %>	
+	<%@ include file="/WEB-INF/jspf/modals/infoModal.jspf" %>	
 	
-	<%@ include file="/WEB-INF/jsp/confirmDeleteModal.jsp" %>
-		
-	<script src="js/tour.js"></script>
-	
+	<%@ include file="/WEB-INF/jspf/modals/confirmDeleteModal.jspf" %>
 	<script>
-		const tours = JSON.parse('${requestScope.toursJSON}');
-	
-		setTours(tours);
-		
 		setUserId('${sessionScope.user.id}');
+		setTourId('${param.id}');
 	</script>
 </body>
 </html>

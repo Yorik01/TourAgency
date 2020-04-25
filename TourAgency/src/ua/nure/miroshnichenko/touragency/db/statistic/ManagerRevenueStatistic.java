@@ -1,7 +1,5 @@
 package ua.nure.miroshnichenko.touragency.db.statistic;
 
-import java.math.BigDecimal;
-
 import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.myorm.annotation.Column;
 
@@ -13,7 +11,7 @@ public class ManagerRevenueStatistic implements Entity {
 	private String email;
 	
 	@Column("revenue")
-	private BigDecimal revenue;
+	private Double revenue;
 
 	public String getEmail() {
 		return email;
@@ -23,11 +21,11 @@ public class ManagerRevenueStatistic implements Entity {
 		this.email = email;
 	}
 	
-	public BigDecimal getRevenue() {
+	public Double getRevenue() {
 		return revenue;
 	}
 
-	public void setRevenue(BigDecimal revenue) {
+	public void setRevenue(Double revenue) {
 		this.revenue = revenue;
 	}
 }

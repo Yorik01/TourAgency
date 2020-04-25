@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<div class="d-flex fex-column">
+	<div class="d-flex flex-column">
 		<c:forEach items="${reservations}" var="reservation">
 			<t:reservationCard
 			reservation="${reservation}"

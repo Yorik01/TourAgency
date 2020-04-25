@@ -64,21 +64,26 @@
 	</c:choose>	
     
     
-    <%@ include file="/WEB-INF/jsp/commentModal.jsp" %>
+    <%@ include file="/WEB-INF/jspf/modals/commentModal.jspf" %>
 		
-	<%@ include file="/WEB-INF/jsp/infoModal.jsp" %>	
+	<%@ include file="/WEB-INF/jspf/modals/infoModal.jspf" %>	
 	
-	<%@ include file="/WEB-INF/jsp/confirmDeleteModal.jsp" %>
+	<%@ include file="/WEB-INF/jspf/modals/confirmDeleteModal.jspf" %>
 		
 	<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 
 	<script src="js/tour.js"></script>
+	<script src="js/user.js"></script>
 	<script>
-		const tours = JSON.parse('${requestScope.toursJSON}');
-	
-		setTours(tours);
-		
-		setUserId('${sessionScope.user.id}');
+		$(document).ready(() => {
+		    const tours = JSON.parse('${requestScope.toursJSON}');
+			
+			setTours(tours);
+			
+			setUserId('${sessionScope.user.id}');
+		    
+		    setPasswordEqualityEvent('<fmt:message key="common.passwords_equal" />');
+		});
 	</script>
 </body>
 </html>

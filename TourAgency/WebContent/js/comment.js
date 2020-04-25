@@ -2,7 +2,13 @@ var userId;
 
 var commentId;
 
+var tourId;
+
 const getCommentId = () => $('#comment-id').val(); 
+
+const setTourId = (id) => {
+    tourId = id;
+};
 
 const setUserId = userIdVal => {
 	userId = userIdVal;
@@ -17,13 +23,12 @@ const fillForm = () => {
 	}
     });
     
-    let tourId = commentCard.find('.comment-tour-id').val();
+    tourId = commentCard.find('.comment-tour-id').val();
     let commentText = commentCard.find('.comment-text').text();
     let commentMark = commentCard.find('.comment-mark').text();
 
     $('#input-comment-text').val(commentText);
     $('#input-comment-mark').val(commentMark);
-    $(`#select-tour option[value=${tourId}]`).prop('selected', 'true');
 }; 
 
 const deleteComment = () => {
@@ -91,20 +96,19 @@ $(document).ready(() => {
 	$(firstSlide).addClass('active');
 	
 	commentId = getCommentId();
-	
+
 	const saveCommentUtil = (commentId) => {
-		let tourIdVal = $('#select-tour').val();
 		let commentTextVal = $('#input-comment-text').val();
 		let commentMarkVal = $('#input-comment-mark').val();
 
 		if (commentId === "") {
 			saveComment(
-					tourIdVal,
+					tourId,
 					commentTextVal, 
 					commentMarkVal);
 		} else {
 			editComment(
-					tourIdVal,
+					tourId,
 					commentTextVal, 
 					commentMarkVal,
 					commentId);

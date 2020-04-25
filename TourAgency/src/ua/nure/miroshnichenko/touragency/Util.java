@@ -44,6 +44,18 @@ public final class Util {
 		return result.toString();
 	}
 	
+	public static String mergeStrings(String[] strings, String delimiter) {
+		StringBuilder res = new StringBuilder();
+		for (int i = 0; i < strings.length; i++) {
+			res.append(strings[i]);
+			
+			if (i != strings.length - 1) {
+				res.append(delimiter);
+			}
+		}
+		return res.toString();
+	}
+	
 	public static String enumListToOrdinalString(List<? extends Enum> list) {
 		StringBuilder result = new StringBuilder();
 

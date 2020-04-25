@@ -43,8 +43,8 @@ class DBConnectionImpl implements DBConnection {
 			sqlConnection = DriverManager.getConnection(url, info);
 			sqlConnection.setAutoCommit(false);
 			sqlConnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+			
 			makeWait();
-			System.out.println("DBConnection#created Yo");
 		} catch (SQLException e) {
 			throw new DBConnectionException(e);
 		}
@@ -140,7 +140,6 @@ class DBConnectionImpl implements DBConnection {
 	public boolean callProcedure(String query, Object... parametrs) throws DBConnectionException {
 		try {
 			statement = prepareCollableStatement(query, parametrs);
-			System.out.println(statement);
 			return ((CallableStatement) statement).execute();
 		} catch (SQLException e) {
 			throw new DBConnectionException(e);

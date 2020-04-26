@@ -4,6 +4,7 @@ import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.ReservationDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.TourDAO;
+import ua.nure.miroshnichenko.touragency.db.dao.UserDAO;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
@@ -35,6 +36,23 @@ class DiscountServiceImpl implements DiscountService {
 		try {
 			ReservationDAO reservationDAO = factoryDAO.getReservationDAO();
 			return reservationDAO.setDiscountStepForAllUsers(step);
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
+	
+	@Override
+	public double getDiscountStep() throws ServiceException {
+		try {
+			UserDAO userDAO = factoryDAO.getUserDAO();
+			Double discountStep = userDAO.getDiscountStep();
+			
+			if (discountStep == null) {
+				throw new ServiceException("Error of getting dsicout step!");
+			}
+			
+			return discountStep;
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

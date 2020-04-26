@@ -29,6 +29,7 @@ import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.service.CRUDService;
+import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 
 public final class ActionUtil {
@@ -54,6 +55,16 @@ public final class ActionUtil {
 
 		String toursJson = ActionUtil.entitiesToJson(tours);
 		req.setAttribute(nameAttr, toursJson);
+	}
+	
+	public static void setDiscountStepInAttribute(DiscountService discountService, HttpServletRequest req) throws ActionException {
+		try {
+			double discountStep = discountService.getDiscountStep();
+			req.setAttribute("currentDiscountStep", discountStep);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ActionException(e);
+		}
 	}
 	
 	public static String entitiesToJson(List<? extends Entity> entities) {

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Route;
+import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.web.Path;
@@ -28,7 +29,10 @@ public class AllRoutesAction extends Action {
 		List<Route> routes = ActionUtil.getAllEntities(routeService);
 		
 		TourService tourService = serviceFactory.getTourService();
+		DiscountService discountService = serviceFactory.getDiscountService();
+		
 		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		ActionUtil.setDiscountStepInAttribute(discountService, req);		
 		
 		req.setAttribute("routes", routes);
 		req.setAttribute("form", Path.ROUTES_LIST);

@@ -11,14 +11,23 @@
 			<div>
 				<div class="mic-info">
 					<fmt:message key="common.sender" />:
-					 <p>${comment.user.email}</p>
-					 <p>${comment.date}</p>
-					 <p class="comment-tour-info">${comment.tour.hotel.name} (${comment.tour.startDate} - ${comment.tour.endDate})</p>
+					 <span>${comment.user.email}</span>
+					 <br />
+					 <fmt:message key="common.date" />:
+					 <span>${comment.date}</span>
+					 <br />
+					 <br />
+					 <fmt:message key="common.tour" />:
+					 <span class="comment-tour-info">${comment.tour.hotel.name} (${comment.tour.startDate} - ${comment.tour.endDate})</span>
 				</div>
 			</div>
-			<div class="comment-text">${comment.text}</div>
-			<div class="comment-mark">${comment.mark}</div>
-			<div class="action">
+			<br />
+			<fmt:message key="common.text" />:
+			<span class="comment-text">${comment.text}</span>
+			<br />
+			<fmt:message key="common.mark" />
+			<span class="comment-mark">${comment.mark}</span>
+			<div class="action mt-2">
 				<c:if test="${user.id eq comment.user.id}">
 					<button type="button" class="btn btn-success btn-xs btn-edit-comment" data-toggle="modal" data-target="#comment-editor-modal">
 						<i class="fa fa-pencil-alt"></i>

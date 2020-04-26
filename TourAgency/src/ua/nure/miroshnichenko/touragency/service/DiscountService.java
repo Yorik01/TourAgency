@@ -7,4 +7,6 @@ public interface DiscountService {
 	boolean setDiscountStep(double step) throws ServiceException;
 	
 	boolean setMaxDiscount(int tourId, double value) throws ServiceException;
+
+	double getDiscountStep() throws ServiceException;
 }

@@ -154,4 +154,27 @@ public class MysqlUserDAO implements UserDAO {
 		}
 		return user;
 	}
+	
+	@Override
+	public Double getDiscountStep() throws DAOException {
+		Transaction transaction = null;
+		Double discountStep = null;
+
+		try {
+			transaction = DBUtil.getTransaction();
+			discountStep = (Double) 
+					transaction.getSingleValue(Queries.DISCOUNT_STEP);
+		} catch (TransactionFactoryException | TransactionException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		} finally {
+			try {
+				DBUtil.close(transaction);
+			} catch (TransactionException e) {
+				e.printStackTrace();
+				throw new DAOException(e);
+			}
+		}
+		return discountStep;
+	}
 }

@@ -72,7 +72,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#set-discountstep-for-all-users-modal">
+                <a class="nav-link" id="open-set-discount-step-modal" href="#" data-toggle="modal" data-target="#set-discountstep-for-all-users-modal">
                 <i class="fa fa-edit"></i>
 					<fmt:message key="admin_jsp.set_step_discount" />
                 </a>
@@ -183,6 +183,10 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
+	      <p>
+	      	<fmt:message key="admin_jsp.step_discount" />
+	      	<span id="current-discount-step">${currentDiscountStep}</span>
+	      </p>
 			<form class="form-group">
 				<label for="set-discountstep-for-all-users"><fmt:message key="admin_jsp.step_discount" /></label>
 				<input class="form-control" type="number" id="set-discountstep-for-all-users"/>
@@ -232,6 +236,8 @@
 	<script src="js/tour.js"></script>
 	
 	<script>
+		const PATH = '/TourAgency/controller';
+	
 		$(document).ready(() => {
 			const tours = JSON.parse('${requestScope.toursJSON}');
 			
@@ -242,35 +248,37 @@
 			$("#btn-set-discountstep-for-all-users").click(() => {
 				let discountStepVal = $("#set-discountstep-for-all-users").val();
 				
-				$.post("/TourAgency/controller",
+				$.post(PATH,
 						{action: 'setDiscountStepForAllUsers', discountStep: discountStepVal})
 					.done(() => {
-						$("#info-modal-message").text("Max discount has been set successfully!");
+						$("#info-modal-message").text('<fmt:message key="admin_jsp.success_set_discount_step" />');
 					})
 					.fail(() => {
-						$("#info-modal-message").text("Error of setting max discount!");
+						$("#info-modal-message").text('<fmt:message key="admin_jsp.error_set_discount_step" />');
 					})
 					.always(() => {
 						$("#info-modal").modal("show");
 					});
 				$("#set-discountstep-for-all-users-modal").modal("hide");
+				window.location.reload(true);
 			});
 			
 			$("#btn-set-maxdiscount").click(() => {
 				let tourIdVal = $("#select-tour").val();
 				let maxDiscountVal = $("#set-maxdiscount").val();
 				
-				$.post("/TourAgency/controller",
+				$.post(PATH,
 						{action: 'setMaxDiscount', tourId: tourIdVal, maxDiscount: maxDiscountVal})
 					.done(() => {
-						$("#info-modal-message").text("Max discount has been set successfully!");
+						$("#info-modal-message").text('<fmt:message key="admin_jsp.success_set_max_discount" />');
 					})
 					.fail(() => {
-						$("#info-modal-message").text("Error of setting max discount!");
+						$("#info-modal-message").text('<fmt:message key="admin_jsp.error_set_max_discount" />');
 					})
 					.always(() => {
 						$("#info-modal").modal("show");
 					});
+				
 				$("#set-maxdiscount-modal").modal("hide");
 			});
 			
@@ -278,13 +286,13 @@
 				let managerEmail = $("#manager-email").val();
 				let managerPassword = $("#manager-password").val();
 				
-				$.post("/TourAgency/controller",
+				$.post(PATH,
 						{action: 'createManager', email: managerEmail, password: managerPassword})
 					.done(() => {
-						$("#info-modal-message").text("The manager has been created successfully!");
+						$("#info-modal-message").text('<fmt:message key="admin_jsp.success_create_manager" />');
 					})
 					.fail(() => {
-						$("#info-modal-message").text("Error of creating the manager!");
+						$("#info-modal-message").text('<fmt:message key="admin_jsp.error_create_manager" />');
 					})
 					.always(() => {
 						$("#info-modal").modal("show");

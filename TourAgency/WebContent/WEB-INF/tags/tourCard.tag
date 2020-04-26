@@ -44,6 +44,9 @@
 			<td><fmt:message key="common.agency_procent" />: ${tour.agencyProcent}</td>
 		</tr>
 		<tr>
+			<td><fmt:message key="common.max_discount" />: ${tour.maxDiscount}</td>
+		</tr>
+		<tr>
 			<td><fmt:message key="common.price" />: ${tour.price}</td>
 		</tr>
 		<tr>

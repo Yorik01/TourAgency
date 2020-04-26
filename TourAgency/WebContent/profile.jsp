@@ -31,7 +31,7 @@
               </li>
                <li class="nav-item">
                 <a class="nav-link" href="/TourAgency/controller?action=userComments&id=${user.id}">
-				<i class="fa fa-list-alt"></i>
+				<i class="fa fa-comment-dots"></i>
 					<fmt:message key="profile_jsp.my_comments" />
                 </a>
               </li>
@@ -80,7 +80,8 @@
 			setTours(tours);
 			
 			setUserId('${sessionScope.user.id}');
-		    
+			setErrMessage('<fmt:message key="common.error_save_comment" />');
+
 		    setPasswordEqualityEvent('<fmt:message key="common.passwords_equal" />');
 		});
 	</script>

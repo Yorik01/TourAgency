@@ -3,7 +3,6 @@ package ua.nure.miroshnichenko.myorm.core.transaction;
 import java.util.List;
 
 import ua.nure.miroshnichenko.myorm.Entity;
-import ua.nure.miroshnichenko.myorm.core.DBConnectionException;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionException;
 
 /**

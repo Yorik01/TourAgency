@@ -184,6 +184,21 @@ class TransactionFactoryImpl implements TransactionFactory {
 				throw new TransactionException(e);
 			}
 		}
+		
+		@Override
+		public Object getSingleValue(String query) throws TransactionException {
+			try {
+				ResultSet resultSet = connection.executeQuery(query);
+				
+				if (resultSet.next()) {
+					return resultSet.getObject(1);
+				}
+				
+				return null;
+			} catch (DBConnectionException | SQLException e) {
+				throw new TransactionException(e);
+			}
+		}
 
 		@Override
 		public <T extends Entity> List<T> findAll(Class<? extends T> type) throws TransactionException {

@@ -69,6 +69,8 @@ public final class Queries {
 	
 	public static final String TRANSPORT_BY_CODE = "SELECT * FROM transport WHERE transport_code = ?";
 	
+	public static final String DISCOUNT_STEP = "SELECT discount_step FROM users LIMIT 1";
+	
 	public static final String TOURS_BY_DATE_AND_HOTEL_ID = "SELECT * FROM tour t "
 			+ "INNER JOIN hotel h USING(hotel_id) "
 			+ "WHERE t.start_date = ? AND t.end_date = ? AND h.hotel_id = ?";

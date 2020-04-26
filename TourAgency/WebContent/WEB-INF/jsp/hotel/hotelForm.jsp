@@ -30,11 +30,13 @@
 		</div>	
 		<div class="form-group">
 			<label for="set-hotel-tel"><fmt:message key="common.telephone" /></label>
-			<input id="set-hotel-tel" name="tel" value="${hotel.tel}" class="form-control" required>
+			<input id="set-hotel-tel" name="tel" value="${hotel.tel}" class="form-control"
+			pattern="\+380\d{9}" title="+380........" required>
 		</div>
 		<div class="form-group">
 			<label for="set-hotel-site"><fmt:message key="common.site" /></label>
-			<input id="set-hotel-site" name="site" value="${hotel.site}" class="form-control" required>
+			<input id="set-hotel-site" name="site" value="${hotel.site}" class="form-control" title="www.example.com"
+			pattern="^((https?|http):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$"  required>
 		</div>
 		<div class="form-group">
 			<label for="set-hotel-stars"><fmt:message key="common.hotel_stars" /></label>
@@ -99,7 +101,7 @@
 			<div class="custom-control custom-checkbox my-1 mr-sm-2">
 				<input class="custom-control-input" name="facilities" value="MINIBAR" type="checkbox" id="choose-falility-minibar"
 				<c:if test="${fn:contains(hotel.facilities, 'MINIBAR')}">checked</c:if>>
-				<label for="choose-falility-minibar" class="custom-control-label"><fmt:message key="common.minibar" /></label>
+				<label for="choose-falility-minibar" class="custom-control-label"><fmt:message key="common.mini_bar" /></label>
 			</div>
 			<div class="custom-control custom-checkbox my-1 mr-sm-2">
 				<input class="custom-control-input" name="facilities" value="HAIRDRYER" type="checkbox" id="choose-falility-hairdryer"

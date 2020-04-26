@@ -6,7 +6,7 @@ $(document).ready(() => {
 		
 		$.post('/TourAgency/controller', {action: 'changeLocale', locale: locale})
 			.done(() => {
-				window.location.reload();
+				window.location.reload(true);
 			})
 			.fail(err => {
 				console.error(err);

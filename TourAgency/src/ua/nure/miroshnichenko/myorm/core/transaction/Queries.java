@@ -39,4 +39,6 @@ interface Queries extends Crud {
 			throws TransactionException;
 	
 	boolean callProcedure(String name, Object...parametrs) throws TransactionException;
+	
+	Object getSingleValue(String query) throws TransactionException; 
 }

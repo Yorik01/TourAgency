@@ -288,6 +288,7 @@
 		$(document).ready(() => {
 		    setUserId('${sessionScope.user.id}');
 			setTourId('${param.id}');
+			setErrMessage('<fmt:message key="common.error_save_comment" />');
 			
 			const tourPrice = '${tour.price}';
 			

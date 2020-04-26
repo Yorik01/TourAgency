@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Reservation;
+import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 import ua.nure.miroshnichenko.touragency.web.Path;
@@ -33,8 +34,11 @@ public class AllReservationsAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		DiscountService discountService = serviceFactory.getDiscountService();
 		
+		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		ActionUtil.setDiscountStepInAttribute(discountService, req);		
+
 		req.setAttribute("reservations", reservations);
 		req.setAttribute("form", Path.RESERVATIONS_LIST);
 		

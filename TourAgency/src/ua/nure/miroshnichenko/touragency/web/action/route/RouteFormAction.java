@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
 import ua.nure.miroshnichenko.touragency.db.entity.Route;
+import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
@@ -52,9 +53,12 @@ public class RouteFormAction extends Action {
 			}
 			req.setAttribute("route", route);
 		}
-		
+
 		TourService tourService = serviceFactory.getTourService();
+		DiscountService discountService = serviceFactory.getDiscountService();
+		
 		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		ActionUtil.setDiscountStepInAttribute(discountService, req);
 		
 		return Path.ADMIN_PAGE;
 	}

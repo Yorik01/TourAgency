@@ -1,8 +1,16 @@
-var userId;
+const PATH = '/TourAgency/controller';
 
-var commentId;
+let errMessage;
 
-var tourId;
+let userId;
+
+let commentId;
+
+let tourId;
+
+const setErrMessage = (msg) => {
+    errMessage = msg;
+};
 
 const getCommentId = () => $('#comment-id').val(); 
 
@@ -33,7 +41,7 @@ const fillForm = () => {
 
 const deleteComment = () => {
   $.post(
-	  '/TourAgency/controller',
+	  PATH,
 	  {
 	      action: 'deleteComment',
 	      commentId: commentId
@@ -43,14 +51,14 @@ const deleteComment = () => {
   	    document.location.reload(true);
   	})
 	.fail(() => {
-	    $("#info-modal-message").text("Error of saving comment!");
+	    $("#info-modal-message").text(errMessage);
 	    $("#info-modal").modal('show');
 	});
 };
 
 const saveComment = (tourId, text, mark) => {
 	$.post(
-			'/TourAgency/controller',
+			PATH,
 			{
 				action: 'saveComment',
 				edit: false,
@@ -64,14 +72,14 @@ const saveComment = (tourId, text, mark) => {
 			document.location.reload(true);
 		})
 		.fail(() => {
-			$("#info-modal-message").text("Error of saving comment!");
+			$("#info-modal-message").text(errMessage);
 			$("#info-modal").modal('show');
 		});
 };
 
 const editComment = (tourId, text, mark, commentId) => {
 	$.post(
-			'/TourAgency/controller',
+			PATH,
 			{
 				action: 'saveComment',
 				edit: true,
@@ -86,7 +94,7 @@ const editComment = (tourId, text, mark, commentId) => {
 			document.location.reload(true);
 		})
 		.fail(() => {
-			$("#info-modal-message").text("Error of saving comment!");
+			$("#info-modal-message").text(errMessage);
 			$("#info-modal").modal('show');
 		});
 };

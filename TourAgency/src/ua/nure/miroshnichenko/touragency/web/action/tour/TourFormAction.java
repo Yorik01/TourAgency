@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import ua.nure.miroshnichenko.touragency.db.entity.Hotel;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.db.entity.Transport;
+import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.HotelService;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.TransportService;
@@ -59,8 +60,11 @@ public class TourFormAction extends Action {
 			
 			req.setAttribute("tour", tour);
 		}
+
+		DiscountService discountService = serviceFactory.getDiscountService();
 		
 		ActionUtil.setAllEntitiesJsonInAttribute(req, tourService, "toursJSON");
+		ActionUtil.setDiscountStepInAttribute(discountService, req);
 		
 		return Path.ADMIN_PAGE;
 	}

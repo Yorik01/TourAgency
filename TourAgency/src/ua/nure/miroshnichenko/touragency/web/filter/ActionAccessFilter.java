@@ -136,7 +136,7 @@ public class ActionAccessFilter implements Filter {
 	 * @return list of parameter values.
 	 */
 	private List<String> asList(String str) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		StringTokenizer st = new StringTokenizer(str);
 		while (st.hasMoreTokens()) {
 			list.add(st.nextToken());

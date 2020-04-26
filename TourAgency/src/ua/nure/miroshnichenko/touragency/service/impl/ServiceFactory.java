@@ -41,7 +41,7 @@ public class ServiceFactory {
 	}
 	
 	public HotelService getHotelService() {
-		return new HotelServiceImpl();
+		return HotelServiceImpl.getInstance();
 	}
 	
 	public TransportService getTransportService() {

@@ -14,6 +14,27 @@ class HotelServiceImpl implements HotelService {
 	
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
+	private static HotelServiceImpl instance;
+	
+	private HotelServiceImpl () {
+		factoryDAO = DAOFactory.getInstance();
+	}
+	
+	public static synchronized HotelServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new HotelServiceImpl();
+		}
+		return instance;
+	}
+	
+	/**
+	 * Set the DAOFactory implementation using the setter.
+	 * It is used for mock test.
+	 */
+	public void setFactoryDAO(DAOFactory factoryDAO) {
+		this.factoryDAO = factoryDAO;
+	}
+	
 	@Override
 	public Hotel get(int id) throws ServiceException {
 		Hotel hotel = null;

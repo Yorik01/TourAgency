@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Queue;
 
-import javax.sound.midi.Soundbank;
-
 /**
  * Implementation of {@link ua.myorm.core.ConnectionPool} interface.
  * 

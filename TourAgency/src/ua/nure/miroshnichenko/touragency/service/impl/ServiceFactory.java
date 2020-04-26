@@ -29,7 +29,7 @@ public class ServiceFactory {
 	}
 
 	public TourService getTourService() {
-		return new TourServiceImpl();
+		return TourServiceImpl.getInstance();
 	}
 
 	public BanningService getBanningService() {
@@ -53,7 +53,7 @@ public class ServiceFactory {
 	}
 	
 	public CommentService getCommentService() {
-		return new CommentServiceImpl();
+		return CommentServiceImpl.getInstance();
 	}
 
 	public StatisticService getStatisticService() {

@@ -33,6 +33,27 @@ class TourServiceImpl implements TourService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
+	private static TourServiceImpl instance;
+	
+	private TourServiceImpl () {
+		factoryDAO = DAOFactory.getInstance();
+	}
+	
+	public static synchronized TourServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new TourServiceImpl();
+		}
+		return instance;
+	}
+	
+	/**
+	 * Set the DAOFactory implementation using the setter.
+	 * It is used for mock test.
+	 */
+	public void setFactoryDAO(DAOFactory factoryDAO) {
+		this.factoryDAO = factoryDAO;
+	}
+	
 	@Override
 	public List<Tour> getAll() throws ServiceException {
 		List<Tour> tours = new ArrayList<>();
@@ -40,7 +61,6 @@ class TourServiceImpl implements TourService {
 		try {
 			TourDAO tourDAO = factoryDAO.geTourDAO();
 			tours = tourDAO.findAll();
-			tours.sort((x, y) -> y.isFired().compareTo(x.isFired()));
 
 			return tours;
 		} catch (DAOException e) {
@@ -218,7 +238,7 @@ class TourServiceImpl implements TourService {
 			
 			Tour tour = tourDAO.find(tourId);
 			tour.setFired(status);
-			System.out.println("Fired: " + tour.isFired());
+
 			return tourDAO.update(tour);
 		} catch (DAOException e) {
 			e.printStackTrace();

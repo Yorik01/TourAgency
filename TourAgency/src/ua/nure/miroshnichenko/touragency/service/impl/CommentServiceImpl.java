@@ -13,6 +13,27 @@ public class CommentServiceImpl implements CommentService {
 
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
+	private static CommentServiceImpl instance;
+	
+	private CommentServiceImpl () {
+		factoryDAO = DAOFactory.getInstance();
+	}
+	
+	public static synchronized CommentServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new CommentServiceImpl();
+		}
+		return instance;
+	}
+	
+	/**
+	 * Set the DAOFactory implementation using the setter.
+	 * It is used for mock test.
+	 */
+	public void setFactoryDAO(DAOFactory factoryDAO) {
+		this.factoryDAO = factoryDAO;
+	}
+	
 	@Override
 	public Comment get(int id) throws ServiceException {
 		Comment comment = null;

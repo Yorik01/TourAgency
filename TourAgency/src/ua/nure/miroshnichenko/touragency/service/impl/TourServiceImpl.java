@@ -46,6 +46,8 @@ class TourServiceImpl implements TourService {
 		return instance;
 	}
 	
+	private static final String reserveTourProcedureName = "reserve_tour";
+	
 	/**
 	 * Set the DAOFactory implementation using the setter.
 	 * It is used for mock test.
@@ -123,7 +125,7 @@ class TourServiceImpl implements TourService {
 				return tourDAO.save(tour);
 			}
 			
-			throw new ServiceException("This tour already exist!");
+			throw new ServiceException(ExceptionMessages.TOUR_EXIST);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -144,7 +146,7 @@ class TourServiceImpl implements TourService {
 				return tourDAO.update(tour);
 			}
 			
-			throw new ServiceException("This tour already exist!");
+			throw new ServiceException(ExceptionMessages.TOUR_EXIST);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -168,7 +170,7 @@ class TourServiceImpl implements TourService {
 	public boolean reserve(int tourId, int userId, int peopleCount) throws ServiceException {
 		try {
 			return DBUtil.callProcedure(
-					"reserve_tour",
+					reserveTourProcedureName,
 					userId, tourId,
 					peopleCount,
 					ReservationStatus.RESERVED.ordinal() + 1);
@@ -237,9 +239,18 @@ class TourServiceImpl implements TourService {
 			TourDAO tourDAO = factoryDAO.geTourDAO();
 			
 			Tour tour = tourDAO.find(tourId);
+			
+			if (status < 0 || status > 1) {
+				throw new ServiceException(ExceptionMessages.TOUR_STATUS_OUT_OF_RANGE);
+			}
+			
+			if (tour == null) {
+				throw new ServiceException(ExceptionMessages.TOUR_NOT_EXIST);
+			}
+			
 			tour.setFired(status);
-
 			return tourDAO.update(tour);
+		
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -281,12 +292,14 @@ class TourServiceImpl implements TourService {
 			ReservationDAO dao = factoryDAO.getReservationDAO();
 			Reservation reservation = dao.find(reservationId);
 			
-			reservation.setStatus(status);
-			reservation.setManagerId(managerId);
+			if (reservation != null) {
+				reservation.setStatus(status);
+				reservation.setManagerId(managerId);
 			
-			boolean result = dao.update(reservation);
-
-			return result;
+				return dao.update(reservation);
+			}
+			
+			throw new ServiceException("");
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

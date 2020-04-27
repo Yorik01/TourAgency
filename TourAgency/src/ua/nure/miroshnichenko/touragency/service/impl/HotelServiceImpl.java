@@ -73,7 +73,7 @@ class HotelServiceImpl implements HotelService {
 				return hotelDAO.save(hotel);
 			}
 			
-			throw new ServiceException("Hotel with this name already exist!");
+			throw new ServiceException(ExceptionMessages.HOTEL_EXIST);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -91,7 +91,7 @@ class HotelServiceImpl implements HotelService {
 				return hotelDAO.update(hotel);
 			}
 			
-			throw new ServiceException("Hotel with this name already exist!");
+			throw new ServiceException(ExceptionMessages.HOTEL_EXIST);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

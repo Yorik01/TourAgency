@@ -22,9 +22,8 @@ class DiscountServiceImpl implements DiscountService {
 			if (tour != null) {
 				tour.setMaxDiscount(value);
 			}
-			boolean result = tourDao.update(tour);
-
-			return result;
+			
+			return tourDao.update(tour);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -49,7 +48,7 @@ class DiscountServiceImpl implements DiscountService {
 			Double discountStep = userDAO.getDiscountStep();
 			
 			if (discountStep == null) {
-				throw new ServiceException("Error of getting dsicout step!");
+				throw new ServiceException(ExceptionMessages.ERROR_DISCOUNT_STEP_SETTING);
 			}
 			
 			return discountStep;

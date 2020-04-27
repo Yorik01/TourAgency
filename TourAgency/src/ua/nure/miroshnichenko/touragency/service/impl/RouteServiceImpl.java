@@ -75,7 +75,7 @@ public class RouteServiceImpl implements RouteService {
 				return routeDAO.save(route);
 			}
 			
-			throw new ServiceException("This route already exist!");
+			throw new ServiceException(ExceptionMessages.ROUTE_EXIST);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -91,7 +91,7 @@ public class RouteServiceImpl implements RouteService {
 				return routeDAO.update(route);
 			}
 			
-			throw new ServiceException("This route already exist!");
+			throw new ServiceException(ExceptionMessages.ROUTE_EXIST);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

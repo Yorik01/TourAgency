@@ -1,5 +1,10 @@
 package ua.nure.miroshnichenko.touragency.web.action;
 
+/**
+ * The container of all actions.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,7 +61,7 @@ public class ActionContainer {
 	private static final Map<String, Action> actions = new HashMap<>();
 
 	static {
-		// all actions
+		// Initialize all actions
 
 		LOG.debug("action container was successfully initialized");
 		LOG.trace("Number of actions --> " + actions.size());

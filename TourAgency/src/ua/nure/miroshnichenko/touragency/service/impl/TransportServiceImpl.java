@@ -75,7 +75,7 @@ public class TransportServiceImpl implements TransportService {
 				return transportDAO.save(transport);
 			}
 			
-			throw new ServiceException("This transport already exist!");
+			throw new ServiceException(ExceptionMessages.TRANSPORT_EXIST);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -94,7 +94,7 @@ public class TransportServiceImpl implements TransportService {
 				return transportDAO.update(transport);
 			}
 			
-			throw new ServiceException("This transport already exist!");
+			throw new ServiceException(ExceptionMessages.TRANSPORT_EXIST);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

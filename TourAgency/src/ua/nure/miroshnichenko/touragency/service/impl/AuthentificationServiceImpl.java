@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.UserDAO;
@@ -16,9 +18,13 @@ import ua.nure.miroshnichenko.touragency.service.exception.SignupException;
 
 class AuthentificationServiceImpl implements AuthentificationService {
 
+	private final Logger LOG = Logger.getLogger(AuthentificationServiceImpl.class);
+	
 	private DAOFactory factoryDAO;
 	
 	private static AuthentificationServiceImpl instance;
+	
+	private final String hashAlgorithm = "SHA-256";
 	
 	private AuthentificationServiceImpl() {
 		factoryDAO = DAOFactory.getInstance();
@@ -49,18 +55,18 @@ class AuthentificationServiceImpl implements AuthentificationService {
 
 				if (user != null) {
 					if (user.getPassword().equals(hash)) {
+						LOG.trace(String.format("The user %s has logged in!", email));
 						return user;
 					}
-					throw new IncorrectLoginException("Incorrect password!!!");
+					throw new IncorrectLoginException(ExceptionMessages.INCORECT_PASSWORD);
 				}
-				throw new IncorrectLoginException("Incorrect email!!!");
+				throw new IncorrectLoginException(ExceptionMessages.INCORRECT_LOGIN);
 			} catch (DAOException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new ServiceException(e);
 			}
-		} else {
-			throw new ServiceException("Cannot genarate hash of password!!!");
-		}
+		} 
+		throw new ServiceException(ExceptionMessages.ERROR_HASH_GENERATE);
 	}
 
 	@Override
@@ -80,13 +86,14 @@ class AuthentificationServiceImpl implements AuthentificationService {
 
 					boolean result = userDAO.save(user);
 					
+					LOG.trace("The new user has been created!");
 					return result;
 				}
-				throw new ServiceException("Cannot genarate hash of password!!!");
+				throw new ServiceException(ExceptionMessages.ERROR_HASH_GENERATE);
 			}
-			throw new SignupException("The user with the same email already exists!");
+			throw new SignupException(ExceptionMessages.USER_EXIST);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -110,12 +117,12 @@ class AuthentificationServiceImpl implements AuthentificationService {
 					
 					return result;
 				}
-				throw new ServiceException("Cannot genarate hash of password!!!");
+				throw new ServiceException(ExceptionMessages.ERROR_HASH_GENERATE);
 			}
 			
-			throw new ServiceException("The user with the same email already exists!");
+			throw new ServiceException(ExceptionMessages.USER_EXIST);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -128,7 +135,7 @@ class AuthentificationServiceImpl implements AuthentificationService {
 
 			return user;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -143,16 +150,16 @@ class AuthentificationServiceImpl implements AuthentificationService {
 			
 			return users;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
 
-	private static String hashPassword(String password) {
+	private String hashPassword(String password) {
 		String generatedPassword = null;
 
 		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			MessageDigest md = MessageDigest.getInstance(hashAlgorithm);
 
 			md.update(password.getBytes());
 			byte[] bytes = md.digest();
@@ -164,7 +171,7 @@ class AuthentificationServiceImpl implements AuthentificationService {
 
 			generatedPassword = hash.toString();
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			generatedPassword = null;
 		}
 		return generatedPassword;

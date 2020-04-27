@@ -32,6 +32,11 @@ import ua.nure.miroshnichenko.touragency.service.CRUDService;
 import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 
+/**
+ * The class contains the utility methods which are used in 'actions layer'. 
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public final class ActionUtil {
 	
 	private static final Gson gson = new Gson();
@@ -39,6 +44,14 @@ public final class ActionUtil {
 	private ActionUtil() {
 	}
 	
+	/**
+	 * The method allow to get all entities from crud service.
+	 * 
+	 * @param crudService service extended 
+	 * {@link ua.nure.miroshnichenko.touragency.service.CrudService}
+	 * 
+	 * @return list of entities
+	 */
 	public static <T extends Entity> List<T> getAllEntities(CRUDService<T> crudService) throws ActionException {
 		List<T> entities;
 		try {
@@ -50,6 +63,17 @@ public final class ActionUtil {
 		return entities;
 	}
 	
+	/**
+	 * The method fetches all entities from crudService then convert 
+	 * these objects in JSON format and insert them into attribute 
+	 * of request.
+	 *  
+	 *  @param req HttpServletRequest.
+	 *  @param crudService service extended 
+	 * {@link ua.nure.miroshnichenko.touragency.service.CrudService}
+	 *  
+	 *  @param nameAttr of the attribute to which the object will be inserted .
+	 */
 	public static void setAllEntitiesJsonInAttribute(HttpServletRequest req, CRUDService<?> crudService, String nameAttr) throws ActionException {
 		List<? extends Entity> tours = ActionUtil.getAllEntities(crudService);
 
@@ -57,6 +81,14 @@ public final class ActionUtil {
 		req.setAttribute(nameAttr, toursJson);
 	}
 	
+	/**
+	 * The method fetches the current discount step from 
+	 * {@link ua.nure.miroshnichenko.touragency.service.DiscountService}
+	 * and set it into request attribute.
+	 * 
+	 * @param discountService {@link ua.nure.miroshnichenko.touragency.service.DiscountService}
+	 * @param req HttpServletRequest.
+	 */
 	public static void setDiscountStepInAttribute(DiscountService discountService, HttpServletRequest req) throws ActionException {
 		try {
 			double discountStep = discountService.getDiscountStep();
@@ -67,6 +99,14 @@ public final class ActionUtil {
 		}
 	}
 	
+	
+	/**
+	 * The method converts a list of entities in JSON format.
+	 * 
+	 *  @param entities a list of entities.
+	 *  
+	 *  @return a JSON format of entities.
+	 */
 	public static String entitiesToJson(List<? extends Entity> entities) {
 		return gson.toJson(entities);
 	}
@@ -75,6 +115,13 @@ public final class ActionUtil {
 		return gson.toJson(placesToMap(places));
 	}
 	
+	/**
+	 * The method converts a list of places in a map 
+	 * where a country is a key and a list of cities is value.
+	 * 
+	 * @param places the list of places.
+	 * @return a map.
+	 */
 	public static Map<String, List<String>> placesToMap(List<Place> places) {
 		Map<String, List<String>> mapPlaces = new HashMap<>();
 		for(Place place : places) {

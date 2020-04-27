@@ -8,18 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.platform.engine.TestTag;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import ua.nure.miroshnichenko.myorm.Entity;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
-import ua.nure.miroshnichenko.touragency.db.entity.Comment;
 import ua.nure.miroshnichenko.touragency.db.entity.Reservation;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.db.entity.User;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
-import ua.nure.miroshnichenko.touragency.web.action.reservation.UserReservationsAction;
 
 public class TourServiceImplTest extends ServiceTest {
 
@@ -56,6 +53,8 @@ private TourServiceImpl service;
 			.thenAnswer(getTourReservationsAnswer());
 		when(reservationDAO.getUserReservations(any(User.class)))
 			.thenAnswer(getUserReservationsAnswer());
+		when(reservationDAO.findAll()).thenReturn(new ArrayList<>());
+		when(reservationDAO.update(any(Reservation.class))).thenReturn(true);
 		
 		service = TourServiceImpl.getInstance();
 		service.setFactoryDAO(factoryDAO);
@@ -234,6 +233,66 @@ private TourServiceImpl service;
 		verify(reservationDAO, times(1)).getTourReservations(tour);
 
 		assertTrue(reservations != null && reservations.isEmpty());
+	}
+	
+	
+	@Test
+	public void getAllReservedTest() throws ServiceException, DAOException {
+		List<Reservation> reservations = service.getAllReserved();
+		
+		verify(factoryDAO, times(1)).getReservationDAO();
+		verify(reservationDAO, times(1)).findAll();
+		
+		assertNotNull(reservations);
+	}
+	
+	@Test
+	public void revokeTest() throws ServiceException, DAOException {
+		boolean res = service.revoke(testReservationId);
+		
+		verifySetReservationStatus(testReservationId);
+		
+		assertTrue(res);
+	}
+	
+	@Test
+	public void payTest() throws DAOException, ServiceException {
+		boolean res = service.revoke(testReservationId);
+		
+		verifySetReservationStatus(testReservationId);
+		
+		assertTrue(res);
+	}
+	
+	@Test
+	public void setTourStatusTest() throws ServiceException, DAOException {
+		boolean res = service.setTourStatus(testId, 0);
+		
+		verifySetTourStatus(testId);
+		
+		assertTrue(res);
+	}
+	
+	@Test(expected = ServiceException.class)
+	public void setTourStatusForUnrealTest() throws ServiceException, DAOException {
+		service.setTourStatus(9, 0);
+	}
+	
+	@Test(expected = ServiceException.class)
+	public void setTourUnrealStatusTest() throws ServiceException, DAOException {
+		service.setTourStatus(testId, 8);
+	}
+	
+	private void verifySetTourStatus(int tourId) throws DAOException {
+		verify(factoryDAO, times(1)).geTourDAO();
+		verify(tourDAO, times(1)).find(tourId);
+		verify(tourDAO, times(1)).update(any(Tour.class));
+	}
+	
+	private void verifySetReservationStatus(int reservationId) throws DAOException {
+		verify(factoryDAO, times(1)).getReservationDAO();
+		verify(reservationDAO, times(1)).find(reservationId);
+		verify(reservationDAO, times(1)).update(any(Reservation.class));
 	}
 	
 	@Override

@@ -10,6 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import ua.nure.miroshnichenko.touragency.web.Path;
 
+/**
+ * The action to change locale.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class ChangeLocaleAction extends Action {
 
 	private static final long serialVersionUID = 2420910525784163519L;

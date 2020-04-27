@@ -26,7 +26,7 @@ public class AuthentificationServiceImplTest extends ServiceTest {
 	private final String testEmail = "testEmail@gmail.com";
 
 	//SHA-256 hash for '1234' password
-	private final String testPassHash = "54726d1fc6e1f5b1e51076b63384d784c56237829386c";
+	private final String testPassHash = "3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
 	
 	private final String testPass = "1234";
 	

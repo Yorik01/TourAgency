@@ -22,11 +22,23 @@ import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactor
 
 public class MysqlHotelDAO implements HotelDAO {
 
-	private ServicingDAO servicingDAO = new MysqlServicingDAO();
+	private ServicingDAO servicingDAO = MysqlServicingDAO.getInstance();
 
-	private FacilityDAO facilityDAO = new MysqlFacilityDAO();
+	private FacilityDAO facilityDAO = MysqlFacilityDAO.getInstance();
 
 	private final Logger LOG = Logger.getLogger(MysqlHotelDAO.class);
+	
+	private static MysqlHotelDAO instance;
+	
+	private MysqlHotelDAO() {
+	}
+	
+	public static synchronized MysqlHotelDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlHotelDAO();
+		}
+		return instance;
+	}
 	
 	@Override
 	public Hotel find(int id) throws DAOException {

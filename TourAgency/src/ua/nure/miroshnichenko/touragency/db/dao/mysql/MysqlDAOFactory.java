@@ -17,56 +17,56 @@ public class MysqlDAOFactory extends DAOFactory {
 
 	@Override
 	public ReservationDAO getReservationDAO() {
-		return new MysqlReservationDAO();
+		return MysqlReservationDAO.getInstance();
 	}
 
 	@Override
 	public UserDAO getUserDAO() {
-		return new MysqlUserDAO();
+		return MysqlUserDAO.getInstance();
 	}
 
 	@Override
 	public TourDAO geTourDAO() {
-		return new MysqlTourDAO();
+		return MysqlTourDAO.getInstance();
 	}
 	
 	@Override
 	public HotelDAO getHotelDAO() {
-		return new MysqlHotelDAO();
+		return MysqlHotelDAO.getInstance();
 	}
 	
 	@Override
 	public TransportDAO getTransportDAO() {
-		return new MysqlTransportDAO();
+		return MysqlTransportDAO.getInstance();
 	}
 	
 	@Override
 	public PlaceDAO getPlaceDAO() {
-		return new MysqlPlaceDAO();
+		return MysqlPlaceDAO.getInstance();
 	}
 	
 	@Override
 	public ServicingDAO getServicingDAO() {
-		return new MysqlServicingDAO();
+		return MysqlServicingDAO.getInstance();
 	}
 	
 	@Override
 	public FacilityDAO getFacilityDAO() {
-		return new MysqlFacilityDAO();
+		return MysqlFacilityDAO.getInstance();
 	}
 	
 	@Override
 	public RouteDAO getRouteDAO() {
-		return new MysqlRouteDAO();
+		return MysqlRouteDAO.getInstance();
 	}
 	
 	@Override
 	public CommentDAO getCommentDAO() {
-		return new MysqlCommentDAO();
+		return MysqlCommentDAO.getInstance();
 	}
 	
 	@Override
 	public StatisticDAO getStatisticDAO() {
-		return new MysqlStatisticDAO();
+		return MysqlStatisticDAO.getInstance();
 	}
 }

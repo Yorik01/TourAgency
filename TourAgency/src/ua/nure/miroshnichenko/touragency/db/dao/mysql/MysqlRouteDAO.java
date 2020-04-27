@@ -17,9 +17,21 @@ import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactor
 
 public class MysqlRouteDAO implements RouteDAO {
 
-	private MysqlPlaceDAO placeDao = new MysqlPlaceDAO();
+	private MysqlPlaceDAO placeDao = MysqlPlaceDAO.getInstance();
 
 	private final Logger LOG = Logger.getLogger(MysqlRouteDAO.class);
+	
+	private static MysqlRouteDAO instance;
+	
+	private MysqlRouteDAO() {
+	}
+	
+	public static synchronized MysqlRouteDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlRouteDAO();
+		}
+		return instance;
+	}
 	
 	@Override
 	public Route find(int id) throws DAOException {

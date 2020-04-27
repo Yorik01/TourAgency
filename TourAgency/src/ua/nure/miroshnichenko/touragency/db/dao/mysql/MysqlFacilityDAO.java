@@ -18,6 +18,18 @@ public class MysqlFacilityDAO implements FacilityDAO {
 
 	private final Logger LOG = Logger.getLogger(MysqlFacilityDAO.class);
 	
+	private static MysqlFacilityDAO instance;
+	
+	private MysqlFacilityDAO() {
+	}
+	
+	public static synchronized MysqlFacilityDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlFacilityDAO();
+		}
+		return instance;
+	}
+	
 	@Override
 	public Facility find(int id) throws DAOException {
 		Transaction transaction = null;

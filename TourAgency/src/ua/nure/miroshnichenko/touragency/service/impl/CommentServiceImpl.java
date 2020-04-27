@@ -77,7 +77,7 @@ public class CommentServiceImpl implements CommentService {
 			
 			if (result) {
 				LOG.trace(String.format(LogginMessages.USER_SAVE_COMMENT,
-						comment.getUser().getEmail(), comment.getTourId()));
+						comment.getUserId(), comment.getTourId()));
 			}
 			return result;
 		} catch (DAOException e) {
@@ -95,7 +95,7 @@ public class CommentServiceImpl implements CommentService {
 			if (result) {
 				LOG.trace(String.format(
 						LogginMessages.USER_UPDATE_COMMENT,
-						comment.getUser().getEmail(), comment.getTourId()));
+						comment.getUserId(), comment.getTourId()));
 			}
 			return result;
 		} catch (DAOException e) {
@@ -113,7 +113,7 @@ public class CommentServiceImpl implements CommentService {
 			if (result) {
 				LOG.trace(String.format(
 						LogginMessages.USER_DELTE_COMMENT,
-						comment.getUser().getEmail(), comment.getTourId()));
+						comment.getUserId(), comment.getTourId()));
 			}
 			
 			return result;

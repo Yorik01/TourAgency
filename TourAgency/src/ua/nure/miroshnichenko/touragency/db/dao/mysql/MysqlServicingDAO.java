@@ -18,6 +18,18 @@ public class MysqlServicingDAO implements ServicingDAO {
 
 	private final Logger LOG = Logger.getLogger(MysqlServicingDAO.class);
 	
+	private static MysqlServicingDAO instance;
+	
+	private MysqlServicingDAO() {
+	}
+	
+	public static synchronized MysqlServicingDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlServicingDAO();
+		}
+		return instance;
+	}
+	
 	@Override
 	public Servicing find(int id) throws DAOException {
 		Transaction transaction = null;

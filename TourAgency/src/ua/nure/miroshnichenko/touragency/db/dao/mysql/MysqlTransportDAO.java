@@ -18,9 +18,21 @@ import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactor
 
 public class MysqlTransportDAO implements TransportDAO {
 
-	private MysqlRouteDAO routeDAO = new MysqlRouteDAO();
+	private MysqlRouteDAO routeDAO = MysqlRouteDAO.getInstance();
 
 	private final Logger LOG = Logger.getLogger(MysqlTransportDAO.class);
+	
+	private static MysqlTransportDAO instance;
+	
+	private MysqlTransportDAO() {
+	}
+	
+	public static synchronized MysqlTransportDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlTransportDAO();
+		}
+		return instance;
+	}
 	
 	@Override
 	public Transport find(int id) throws DAOException {

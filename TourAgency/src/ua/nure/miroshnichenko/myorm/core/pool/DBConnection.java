@@ -1,10 +1,12 @@
-package ua.nure.miroshnichenko.myorm.core;
+package ua.nure.miroshnichenko.myorm.core.pool;
 
 import java.sql.ResultSet;
 
+import ua.nure.miroshnichenko.myorm.core.pool.exception.DBConnectionException;
+
 /**
  * The interface for wrap class of java.sql.Connection. It is used by
- * {@link ua.myorm.core.ConnectionsPool} which controls a life cycle of
+ * {@link ua.nure.miroshnichenko.myorm.core.pool.myorm.core.ConnectionsPool} which controls a life cycle of
  * DBConnection and {@link ua.myorm.core.transaction.Transaction} which are
  * represented more high-level way for working with a database.
  * 

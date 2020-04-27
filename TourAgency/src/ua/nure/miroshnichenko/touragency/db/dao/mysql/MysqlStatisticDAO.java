@@ -21,6 +21,18 @@ public class MysqlStatisticDAO implements StatisticDAO {
 
 	private final Logger LOG = Logger.getLogger(MysqlStatisticDAO.class);
 	
+	private static MysqlStatisticDAO instance;
+	
+	private MysqlStatisticDAO() {
+	}
+	
+	public static synchronized MysqlStatisticDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlStatisticDAO();
+		}
+		return instance;
+	}
+	
 	@Override
 	public List<AverageMarkTourStatistic> getAverageMarkTourStatistics() throws DAOException {
 		Transaction transaction = null;

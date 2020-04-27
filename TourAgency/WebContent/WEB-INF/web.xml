@@ -70,6 +70,12 @@
 		</init-param>
 	</filter>
 	
+	<filter-mapping>
+		<filter-name>ActionAccessFilter</filter-name>
+		<url-pattern>/WEB-INF/jsp/*</url-pattern>
+		<servlet-name>Controller</servlet-name>
+	</filter-mapping>
+	
 	<listener>
 		<listener-class>ua.nure.miroshnichenko.touragency.web.listener.ContextListener</listener-class>
 	</listener>

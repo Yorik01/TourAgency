@@ -420,7 +420,7 @@ INSERT INTO place VALUES (DEFAULT, "Ukraine", "Kiev");
 INSERT INTO place VALUES (DEFAULT, "Ukraine", "Dnepr");
 INSERT INTO place VALUES (DEFAULT, "Ukraine", "Odesa");
 
--- set admin for password '1234'
-INSERT INTO users VALUES (DEFAULT, "admin@touragency.com", "54726d1fc6e1f5b1e51076b63384d784c56237829386c", 0, 0, 3);
+-- set admin with password '1234'
+INSERT INTO users VALUES (DEFAULT, "admin@touragency.com", "3ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", 0, 0, 3);
 
 SHOW TABLES;

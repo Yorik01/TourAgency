@@ -5,14 +5,16 @@ Header (top area).
     pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/locale.jspf" %>
 
 <header id="main-header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
   <h5 class="my-0 mr-md-auto font-weight-normal">Tour agency</h5>
   <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="/TourAgency/controller?action=filterForm">Search tours</a>
+    <a class="p-2 text-dark" href="/TourAgency/controller?action=filterForm"><fmt:message key="header.search_tours" /></a>
     <c:if test="${sessionScope.user.role eq 'ADMIN' || sessionScope.user.role eq 'MANAGER'}">
-    	<a class="p-2 btn btn-info" href="/TourAgency/controller?action=adminPage">Admin panel</a>
+    	<a class="p-2 btn btn-info" href="/TourAgency/controller?action=adminPage"><fmt:message key="header.admin_panel" /></a>
 	</c:if>
   </nav>
-  <a class="btn btn-outline-primary" href="/TourAgency/controller?action=userEditForm">My account</a>
+  <a class="btn btn-outline-primary mr-3" href="/TourAgency/controller?action=userEditForm"><fmt:message key="header.my_account" /></a>
+  <a class="btn btn-outline-secondary" href="/TourAgency/controller?action=logout"><fmt:message key="header.logout" /></a>
 </header>

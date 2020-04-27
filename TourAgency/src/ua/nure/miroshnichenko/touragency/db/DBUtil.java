@@ -8,13 +8,12 @@ import ua.nure.miroshnichenko.myorm.core.transaction.TransactionFactory;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactoryException;
 
+/**
+ * Util class to work with database
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public final class DBUtil {
-
-	private static final String URL = "jdbc:mysql://localhost:3306/tour_agency?serverTimezone=UTC";
-
-	private static final String USER_NAME = "epam_practice";
-
-	private static final String PASSWORD = "1234";
 
 	private static Settings settings;
 
@@ -23,10 +22,11 @@ public final class DBUtil {
 	private static final Logger LOG = Logger.getLogger(DBUtil.class);
 
 	static {
-		settings = new Settings(URL, USER_NAME, PASSWORD);
+		// load db properties from aoo.properties
+		settings = new Settings();
 		try {
 			transactionFactory = settings.getTransactionFactory();
-		} catch (TransactionFactoryException e) {
+		} catch (Exception e) {
 			LOG.error(e);
 		}
 	}
@@ -34,15 +34,21 @@ public final class DBUtil {
 	private DBUtil() {
 	}
 
-	public static void connect() throws TransactionFactoryException {
-		settings = new Settings(URL, USER_NAME, PASSWORD);
-		transactionFactory = settings.getTransactionFactory();
-	}
-
+	/**
+	 * Get transaction.
+	 */
 	public static Transaction getTransaction() throws TransactionFactoryException {
 		return transactionFactory.createTransaction();
 	}
 
+	/**
+	 * Call a stored procedure.
+	 * 
+	 * @param name name of a stored procedure.
+	 * @param parametrs params of a store procedure.
+	 * 
+	 * @return result of working a stored procedure
+	 */
 	public static boolean callProcedure(String name, Object...parametrs) throws TransactionFactoryException, TransactionException {
 		Transaction transaction = getTransaction();
 		boolean result = transaction.callProcedure(name, parametrs);
@@ -51,12 +57,18 @@ public final class DBUtil {
 		return result;
 	}
 	
+	/**
+	 * Close connection
+	 */
 	public static void close(Transaction transaction) throws TransactionException {
 		if (transaction != null) {
 			transaction.close();
 		}
 	}
 
+	/**
+	 * Close all connections in the pool.
+	 */
 	public static void closeConnection() throws TransactionFactoryException {
 		if (transactionFactory != null) {
 			transactionFactory.close();

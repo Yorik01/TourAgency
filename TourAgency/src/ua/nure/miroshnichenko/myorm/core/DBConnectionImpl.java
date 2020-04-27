@@ -8,10 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import ua.nure.miroshnichenko.myorm.core.pool.DBConnection;
+import ua.nure.miroshnichenko.myorm.core.pool.exception.DBConnectionException;
+
 import java.sql.CallableStatement;
 
 /**
- * Implementation of {@link ua.myorm.core.DBConnection} interface.
+ * Implementation of {@link ua.nure.miroshnichenko.myorm.core.pool.myorm.core.DBConnection} interface.
  * 
  * @author Miroshnichenko Y. D
  */
@@ -40,7 +43,10 @@ class DBConnectionImpl implements DBConnection {
 	/* Constructor used only by connections pool to initialize this connection */
 	DBConnectionImpl(String url, Properties info) throws DBConnectionException {
 		try {
-			sqlConnection = DriverManager.getConnection(url, info);
+			sqlConnection = DriverManager.getConnection(
+					url,
+					info.getProperty("db.user"),
+					info.getProperty("db.password"));
 			sqlConnection.setAutoCommit(false);
 			sqlConnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 			

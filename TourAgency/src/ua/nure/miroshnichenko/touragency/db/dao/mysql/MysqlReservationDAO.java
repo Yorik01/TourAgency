@@ -18,11 +18,23 @@ import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactor
 
 public class MysqlReservationDAO implements ReservationDAO {
 
-	private MysqlTourDAO tourDAO = new MysqlTourDAO();
+	private MysqlTourDAO tourDAO = MysqlTourDAO.getInstance();
 
-	private MysqlUserDAO userDAO = new MysqlUserDAO();
+	private MysqlUserDAO userDAO = MysqlUserDAO.getInstance();
 
 	private final Logger LOG = Logger.getLogger(MysqlReservationDAO.class);
+	
+	private static MysqlReservationDAO instance;
+	
+	private MysqlReservationDAO() {
+	}
+	
+	public static synchronized MysqlReservationDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlReservationDAO();
+		}
+		return instance;
+	}
 	
 	@Override
 	public Reservation find(int id) throws DAOException {

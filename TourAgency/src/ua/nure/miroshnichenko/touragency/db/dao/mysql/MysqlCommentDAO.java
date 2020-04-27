@@ -20,11 +20,23 @@ import ua.nure.miroshnichenko.touragency.db.entity.User;
 
 public class MysqlCommentDAO implements CommentDAO {
 
-	private UserDAO userDAO = new MysqlUserDAO();
+	private UserDAO userDAO = MysqlUserDAO.getInstance();
 	
-	private TourDAO tourDAO = new MysqlTourDAO();
+	private TourDAO tourDAO = MysqlTourDAO.getInstance();
 	
 	private final Logger LOG = Logger.getLogger(MysqlCommentDAO.class);
+	
+	private static MysqlCommentDAO instance;
+	
+	private MysqlCommentDAO() {
+	}
+	
+	public static synchronized MysqlCommentDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlCommentDAO();
+		}
+		return instance;
+	}
 	
 	@Override
 	public Comment find(int id) throws DAOException {

@@ -1,4 +1,4 @@
-package ua.nure.miroshnichenko.myorm.core;
+package ua.nure.miroshnichenko.myorm.core.pool.exception;
 
 import ua.nure.miroshnichenko.myorm.MyOrmException;
 

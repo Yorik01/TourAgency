@@ -18,6 +18,18 @@ public class MysqlPlaceDAO implements PlaceDAO {
 
 	private final Logger LOG = Logger.getLogger(MysqlPlaceDAO.class);
 	
+	private static MysqlPlaceDAO instance;
+	
+	private MysqlPlaceDAO() {
+	}
+	
+	public static synchronized MysqlPlaceDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlPlaceDAO();
+		}
+		return instance;
+	}
+	
 	@Override
 	public Place find(int id) throws DAOException {
 		Transaction transaction = null;

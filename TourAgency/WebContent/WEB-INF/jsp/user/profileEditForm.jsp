@@ -10,19 +10,19 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<form action="/TourAgency/controller">
+	<form action="/TourAgency/controller" method="post">
 		<div class="form-group">
 			<label for="input-email"><fmt:message key="common.email" /></label> <input type="email"
 				class="form-control" id="input-email" name="email" value="${user.email}" aria-describedby="emailHelp"
 				placeholder="Enter email">
 		</div>
 		<div class="form-group">
-			<label for="input-password"><fmt:message key="profile_jsp.old_password" /></label> <input type="password"
-				class="form-control" id="input-password" placeholder="Password">
+			<label for="input-old-password"><fmt:message key="profile_jsp.old_password" /></label> <input type="password"
+				class="form-control" name="old-password" id="input-old-password" placeholder="Password">
 		</div>
 		<div class="form-group">
-			<label for="input-repeat-pasword"><fmt:message key="profile_jsp.new_password" /></label> <input
-				type="password" class="form-control" id="input-repeat-password"
+			<label for="input-pasword"><fmt:message key="profile_jsp.new_password" /></label> <input
+				type="password" class="form-control" id="input-password"
 				placeholder="Password" name="password"> <small id="password-help"
 				class="form-text text-muted"></small>
 		</div>

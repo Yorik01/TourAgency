@@ -1,17 +1,19 @@
-package ua.nure.miroshnichenko.myorm.core;
+package ua.nure.miroshnichenko.myorm.core.pool;
+
+import ua.nure.miroshnichenko.myorm.core.pool.exception.ConnectionsPoolException;
 
 /**
  * It controls a pool of connections to database and theirs life cycles.
  * 
  * @author Miroshnichenko Y. D
- * @see {@link ua.myorm.core.DBConnection}
+ * @see {@link ua.nure.miroshnichenko.myorm.core.pool.myorm.core.DBConnection}
  */
 public interface ConnectionsPool extends AutoCloseable {
 
 	/**
 	 * Get a connection from a pool and make it unavailable to be got.
 	 * 
-	 * @return {@link ua.myorm.core.DBConnection}
+	 * @return {@link ua.nure.miroshnichenko.myorm.core.pool.myorm.core.DBConnection}
 	 * @throws ConnectionsPoolException
 	 */
 	DBConnection getDBConnection() throws ConnectionsPoolException;

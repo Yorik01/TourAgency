@@ -28,9 +28,13 @@ public class EditUserAction extends Action {
 
 	private final Logger LOG = Logger.getLogger(EditUserAction.class);
 	
+	private final String INCORRECT_OLD_LOGIN = "common.incorrect_login";
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
+		
+		HttpSession session = req.getSession();
 		
 		AuthentificationService authentificationService = 
 				serviceFactory.getAuthentificationService();
@@ -38,7 +42,14 @@ public class EditUserAction extends Action {
 		int id = Integer.parseInt(req.getParameter("id"));
 		String email = req.getParameter("emal");
 		String password = req.getParameter("password");
+		String oldPassword = req.getParameter("oldPassword");
 		Role role = Role.valueOf(req.getParameter("role"));
+		
+		User oldUser = (User) session.getAttribute("user");
+		
+		if (!oldUser.getPassword().equals(oldPassword)) {
+			throw new ActionException(INCORRECT_OLD_LOGIN);
+		}
 		
 		User user = new User();
 		
@@ -54,7 +65,6 @@ public class EditUserAction extends Action {
 			throw new ActionException(e);
 		}
 		
-		HttpSession session = req.getSession();
 		session.setAttribute("user", user);
 		
 		return Path.PROFILE_PAGE;

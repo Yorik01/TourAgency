@@ -1,5 +1,6 @@
 package ua.nure.miroshnichenko.touragency.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -163,16 +164,16 @@ class AuthentificationServiceImpl implements AuthentificationService {
 		try {
 			MessageDigest md = MessageDigest.getInstance(hashAlgorithm);
 
-			md.update(password.getBytes());
+			md.update(password.getBytes("UTF-8"));
 			byte[] bytes = md.digest();
 
 			StringBuilder hash = new StringBuilder();
 			for (int i = 0; i < bytes.length; i++) {
-				hash.append(Integer.toString(bytes[i], 16).substring(1));
+				hash.append(Integer.toString(0xff & bytes[i], 16));
 			}
 
 			generatedPassword = hash.toString();
-		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			LOG.error(e);
 			generatedPassword = null;
 		}

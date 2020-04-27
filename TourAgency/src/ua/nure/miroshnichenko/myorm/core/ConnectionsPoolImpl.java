@@ -5,6 +5,11 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Queue;
 
+import ua.nure.miroshnichenko.myorm.core.pool.ConnectionsPool;
+import ua.nure.miroshnichenko.myorm.core.pool.DBConnection;
+import ua.nure.miroshnichenko.myorm.core.pool.exception.ConnectionsPoolException;
+import ua.nure.miroshnichenko.myorm.core.pool.exception.DBConnectionException;
+
 /**
  * Implementation of {@link ua.myorm.core.ConnectionPool} interface.
  * 
@@ -110,37 +115,32 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 		}
 	}
 
-	/**
-	 * Constructor sets all properties. It used only by
-	 * {@link #TransactionFactoryImpl}
-	 */
-	ConnectionsPoolImpl(String url, Properties properties, int startSize, int limit, long collectorSchedule,
-			long allowedWaitingTime) throws ConnectionsPoolException {
-		this.limit = limit;
-		this.collectorSchedule = collectorSchedule;
-		this.allowedWaitingTime = allowedWaitingTime;
-		this.startSize = startSize;
-		this.url = url;
-		this.properties = properties;
-
-		createPool(startSize);
-		poolCollector.start();
-	}
-
-	/**
-	 * Constructor sets basic properties and other properties use default values. It
-	 * used only by {@link #TransactionFactoryImpl}
-	 */
-	ConnectionsPoolImpl(String url, Properties properties) throws ConnectionsPoolException {
+	ConnectionsPoolImpl(String url) throws ConnectionsPoolException {
 		limit = DEFAULT_LIMIT;
 		collectorSchedule = DEFAULT_COLLECTOR_SCHEDULE;
 		allowedWaitingTime = DEFAULT_ALLOWED_WAITING_TIME;
 		startSize = DEFAULT_START_SIZE;
 
 		this.url = url;
-		this.properties = properties;
 
 		createPool(DEFAULT_START_SIZE);
+		poolCollector.start();
+	}
+	
+	/**
+	 * Constructor sets basic properties and other properties use default values. It
+	 * used only by {@link #TransactionFactoryImpl}
+	 */
+	ConnectionsPoolImpl(String url, Properties properties) throws ConnectionsPoolException {
+		limit = Integer.parseInt(properties.getProperty("db.pool.limit"));
+		collectorSchedule = Long.parseLong(properties.getProperty("db.pool.collector.schedule"));
+		allowedWaitingTime = Long.parseLong(properties.getProperty("db.pool.allowed"));
+		startSize = Integer.parseInt(properties.getProperty("db.pool.start.size"));
+System.out.println("pool " + startSize);
+		this.url = url;
+		this.properties = properties;
+
+		createPool(startSize);
 		poolCollector.start();
 	}
 

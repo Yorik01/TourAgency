@@ -28,11 +28,23 @@ import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactor
 
 public class MysqlTourDAO implements TourDAO {
 
-	private MysqlTransportDAO transportDAO = new MysqlTransportDAO();
+	private MysqlTransportDAO transportDAO = MysqlTransportDAO.getInstance();
 
-	private MysqlHotelDAO hotelDAO = new MysqlHotelDAO();
+	private MysqlHotelDAO hotelDAO = MysqlHotelDAO.getInstance();
 
 	private final Logger LOG = Logger.getLogger(MysqlTourDAO.class);
+	
+	private static MysqlTourDAO instance;
+	
+	private MysqlTourDAO() {
+	}
+	
+	public static synchronized MysqlTourDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlTourDAO();
+		}
+		return instance;
+	}
 	
 	@Override
 	public Tour find(int id) throws DAOException {

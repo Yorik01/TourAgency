@@ -33,9 +33,9 @@ public class ActionAccessFilter implements Filter {
 	private List<String> commons = new ArrayList<>();
 	private List<String> outOfControl = new ArrayList<>();
 	
-	private final String NO_PERMISSION_MESSAGE = "You do not have permission to access the requested resource";
+	private final String NO_PERMISSION_MESSAGE = "common.no_permissions";
 
-	private final String USER_BANNED_MESSAGE = "Your account is banned!";
+	private final String USER_BANNED_MESSAGE = "common.user_banned";
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {

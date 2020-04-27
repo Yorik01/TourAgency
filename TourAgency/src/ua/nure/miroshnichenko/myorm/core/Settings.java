@@ -1,12 +1,11 @@
 package ua.nure.miroshnichenko.myorm.core;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.DriverManager;
 import java.util.Properties;
 
-import ua.nure.miroshnichenko.myorm.core.transaction.Transaction;
+import ua.nure.miroshnichenko.myorm.core.pool.ConnectionsPool;
+import ua.nure.miroshnichenko.myorm.core.pool.exception.ConnectionsPoolException;
 import ua.nure.miroshnichenko.myorm.core.transaction.TransactionFactory;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactoryException;
 
@@ -33,7 +32,9 @@ public class Settings {
 	}
 
 	public Settings(){ 
-		try (InputStream inputStream = new FileInputStream("app.properties")) {
+		try (InputStream inputStream = Settings.class.
+				getClassLoader().
+				getResourceAsStream("app.properties")) {
 			properties = new Properties();
 			properties.load(inputStream);
 			

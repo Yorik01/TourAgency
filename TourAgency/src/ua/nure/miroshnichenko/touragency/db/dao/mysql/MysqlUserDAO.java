@@ -18,6 +18,18 @@ public class MysqlUserDAO implements UserDAO {
 
 	private final Logger LOG = Logger.getLogger(MysqlUserDAO.class);
 	
+	private static MysqlUserDAO instance;
+	
+	private MysqlUserDAO() {
+	}
+	
+	public static synchronized MysqlUserDAO getInstance() {
+		if (instance == null) {
+			instance = new MysqlUserDAO();
+		}
+		return instance;
+	}
+	
 	@Override
 	public User find(int id) throws DAOException {
 		Transaction transaction = null;

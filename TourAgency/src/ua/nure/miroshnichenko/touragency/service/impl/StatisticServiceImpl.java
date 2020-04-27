@@ -2,6 +2,8 @@ package ua.nure.miroshnichenko.touragency.service.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.StatisticDAO;
@@ -14,7 +16,30 @@ import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 
 class StatisticServiceImpl implements StatisticService {
 
+	private Logger LOG = Logger.getLogger(StatisticServiceImpl.class);
+	
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
+	
+	private static StatisticServiceImpl instance;
+	
+	private StatisticServiceImpl () {
+		factoryDAO = DAOFactory.getInstance();
+	}
+	
+	public static synchronized StatisticServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new StatisticServiceImpl();
+		}
+		return instance;
+	}
+	
+	/**
+	 * Set the DAOFactory implementation using the setter.
+	 * It is used for mock test.
+	 */
+	public void setFactoryDAO(DAOFactory factoryDAO) {
+		this.factoryDAO = factoryDAO;
+	}
 	
 	@Override
 	public List<AverageMarkTourStatistic> getAverageMarkTourStatistics() throws ServiceException {
@@ -23,7 +48,7 @@ class StatisticServiceImpl implements StatisticService {
 			return statisticDAO.getAverageMarkTourStatistics();
 			
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -35,7 +60,7 @@ class StatisticServiceImpl implements StatisticService {
 			return statisticDAO.getManagerRevenueStatistics();
 			
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -47,7 +72,7 @@ class StatisticServiceImpl implements StatisticService {
 			return statisticDAO.geTourReservationsStatistics();
 			
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -59,7 +84,7 @@ class StatisticServiceImpl implements StatisticService {
 			return statisticDAO.getUserReservationsStatistics();
 			
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}

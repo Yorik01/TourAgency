@@ -11,6 +11,7 @@ import ua.nure.miroshnichenko.touragency.db.entity.Place;
 import ua.nure.miroshnichenko.touragency.db.entity.Route;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.ExceptionMessages;
 
 public class RouteServiceImpl implements RouteService {
 

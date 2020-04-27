@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Role;
 import ua.nure.miroshnichenko.touragency.db.entity.User;
 import ua.nure.miroshnichenko.touragency.service.AuthentificationService;
@@ -15,10 +17,17 @@ import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
+/**
+ * The action to edit information about user.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class EditUserAction extends Action {
 
 	private static final long serialVersionUID = -2507178419753890281L;
 
+	private final Logger LOG = Logger.getLogger(EditUserAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -41,7 +50,7 @@ public class EditUserAction extends Action {
 		try {
 			authentificationService.editUser(user);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		

@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Transport;
 import ua.nure.miroshnichenko.touragency.db.entity.TransportType;
 import ua.nure.miroshnichenko.touragency.service.TransportService;
@@ -15,10 +17,17 @@ import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
+/**
+ * The action to save a transport.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class SaveTransportAction extends Action {
 
 	private static final long serialVersionUID = -8768622351135882140L;
 
+	private final Logger LOG = Logger.getLogger(SaveTransportAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -34,7 +43,7 @@ public class SaveTransportAction extends Action {
 			try {
 				transportService.update(transport);
 			} catch (ServiceException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new ActionException(e);
 			}
 

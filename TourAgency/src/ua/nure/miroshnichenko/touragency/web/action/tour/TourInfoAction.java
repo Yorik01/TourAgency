@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Comment;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.service.CommentService;
@@ -17,10 +19,17 @@ import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 import ua.nure.miroshnichenko.touragency.web.action.ActionUtil;
 
+/**
+ * The action to get information about a specific tour.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class TourInfoAction extends Action {
 
 	private static final long serialVersionUID = 1L;
 
+	private final Logger LOG = Logger.getLogger(TourInfoAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -39,6 +48,7 @@ public class TourInfoAction extends Action {
 			tour = tourService.get(id);
 			comments = commentService.getTourComments(id);
 		} catch (ServiceException e) {
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		

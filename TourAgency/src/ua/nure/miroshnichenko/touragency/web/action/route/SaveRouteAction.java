@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
 import ua.nure.miroshnichenko.touragency.db.entity.Route;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
@@ -14,10 +16,17 @@ import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
+/**
+ * The action to save a route.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class SaveRouteAction extends Action {
 
 	private static final long serialVersionUID = -7635684849165292423L;
 
+	private final Logger LOG = Logger.getLogger(SaveRouteAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -33,7 +42,7 @@ public class SaveRouteAction extends Action {
 			try {
 				routeService.update(route);
 			} catch (ServiceException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new ActionException(e);
 			}
 
@@ -43,7 +52,7 @@ public class SaveRouteAction extends Action {
 		try {
 			routeService.save(route);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		
@@ -63,7 +72,7 @@ public class SaveRouteAction extends Action {
 			fromPlace = routeService.getPlaceByCountryAndCity(countryFrom, cityFrom);
 			toPlace = routeService.getPlaceByCountryAndCity(countryTo, cityTo);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		Route route = new Route();

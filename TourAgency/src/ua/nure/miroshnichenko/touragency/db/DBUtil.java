@@ -1,5 +1,7 @@
 package ua.nure.miroshnichenko.touragency.db;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.myorm.core.Settings;
 import ua.nure.miroshnichenko.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.myorm.core.transaction.TransactionFactory;
@@ -17,13 +19,15 @@ public final class DBUtil {
 	private static Settings settings;
 
 	private static TransactionFactory transactionFactory;
+	
+	private static final Logger LOG = Logger.getLogger(DBUtil.class);
 
 	static {
 		settings = new Settings(URL, USER_NAME, PASSWORD);
 		try {
 			transactionFactory = settings.getTransactionFactory();
 		} catch (TransactionFactoryException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 	}
 	

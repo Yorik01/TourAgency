@@ -16,6 +16,11 @@ import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 import ua.nure.miroshnichenko.touragency.web.action.ActionUtil;
 
+/**
+ * The action to get all routes.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class AllRoutesAction extends Action {
 
 	private static final long serialVersionUID = -6981977979437519739L;

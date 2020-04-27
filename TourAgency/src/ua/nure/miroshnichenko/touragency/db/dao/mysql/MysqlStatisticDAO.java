@@ -3,6 +3,8 @@ package ua.nure.miroshnichenko.touragency.db.dao.mysql;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactoryException;
@@ -17,6 +19,8 @@ import ua.nure.miroshnichenko.touragency.db.statistic.UserReservationsStatistic;
 
 public class MysqlStatisticDAO implements StatisticDAO {
 
+	private final Logger LOG = Logger.getLogger(MysqlStatisticDAO.class);
+	
 	@Override
 	public List<AverageMarkTourStatistic> getAverageMarkTourStatistics() throws DAOException {
 		Transaction transaction = null;
@@ -27,13 +31,13 @@ public class MysqlStatisticDAO implements StatisticDAO {
 			averageMarkTourStatistics = transaction.customQuery(
 					Queries.AVERAGE_TOURS_MARKS_STATISTIC, AverageMarkTourStatistic.class);
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -50,13 +54,13 @@ public class MysqlStatisticDAO implements StatisticDAO {
 			managerRevenueStatistics = transaction.customQuery(
 					Queries.MANAGERS_REVENUES_STATISTIC, ManagerRevenueStatistic.class);
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -73,13 +77,13 @@ public class MysqlStatisticDAO implements StatisticDAO {
 			tourReservationsStatistics = transaction.customQuery(
 					Queries.TOURS_RESERVATIONS_STATISTIC, TourReservationsStatistic.class);
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -96,13 +100,13 @@ public class MysqlStatisticDAO implements StatisticDAO {
 			userReservationsStatistics = transaction.customQuery(
 					Queries.USER_RESERVATIONS_STATISTIC, UserReservationsStatistic.class);
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}

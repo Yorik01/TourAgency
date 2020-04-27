@@ -3,6 +3,8 @@ package ua.nure.miroshnichenko.touragency.db.dao.mysql;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.DBUtil;
 import ua.nure.miroshnichenko.touragency.db.Queries;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
@@ -17,6 +19,8 @@ public class MysqlRouteDAO implements RouteDAO {
 
 	private MysqlPlaceDAO placeDao = new MysqlPlaceDAO();
 
+	private final Logger LOG = Logger.getLogger(MysqlRouteDAO.class);
+	
 	@Override
 	public Route find(int id) throws DAOException {
 		Transaction transaction = null;
@@ -32,13 +36,13 @@ public class MysqlRouteDAO implements RouteDAO {
 			route.setTo(placeTo);
 			route.setFrom(placeFrom);
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -62,13 +66,13 @@ public class MysqlRouteDAO implements RouteDAO {
 				route.setFrom(placeFrom);
 			}
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -85,13 +89,13 @@ public class MysqlRouteDAO implements RouteDAO {
 			result = transaction.insert(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -108,13 +112,13 @@ public class MysqlRouteDAO implements RouteDAO {
 			result = transaction.update(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -131,13 +135,13 @@ public class MysqlRouteDAO implements RouteDAO {
 			result = transaction.delete(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -167,13 +171,13 @@ public class MysqlRouteDAO implements RouteDAO {
 				route.setFrom(placeFrom);
 			}
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}

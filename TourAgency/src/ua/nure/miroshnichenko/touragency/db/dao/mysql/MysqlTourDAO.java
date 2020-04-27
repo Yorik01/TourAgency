@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.Util;
 import ua.nure.miroshnichenko.touragency.db.DBUtil;
 import ua.nure.miroshnichenko.touragency.db.Queries;
@@ -30,6 +32,8 @@ public class MysqlTourDAO implements TourDAO {
 
 	private MysqlHotelDAO hotelDAO = new MysqlHotelDAO();
 
+	private final Logger LOG = Logger.getLogger(MysqlTourDAO.class);
+	
 	@Override
 	public Tour find(int id) throws DAOException {
 		Transaction transaction = null;
@@ -42,13 +46,13 @@ public class MysqlTourDAO implements TourDAO {
 			initTour(tour);
 
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -69,13 +73,13 @@ public class MysqlTourDAO implements TourDAO {
 			}
 
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -93,13 +97,13 @@ public class MysqlTourDAO implements TourDAO {
 			transaction.commit();
 
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -117,13 +121,13 @@ public class MysqlTourDAO implements TourDAO {
 			transaction.commit();
 
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -140,13 +144,13 @@ public class MysqlTourDAO implements TourDAO {
 			result = transaction.delete(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -246,13 +250,13 @@ public class MysqlTourDAO implements TourDAO {
 			}
 
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -278,13 +282,13 @@ public class MysqlTourDAO implements TourDAO {
 			}
 
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}

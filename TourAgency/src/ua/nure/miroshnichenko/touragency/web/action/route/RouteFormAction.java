@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Place;
 import ua.nure.miroshnichenko.touragency.db.entity.Route;
 import ua.nure.miroshnichenko.touragency.service.DiscountService;
@@ -18,10 +20,17 @@ import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 import ua.nure.miroshnichenko.touragency.web.action.ActionUtil;
 
+/**
+ * The action to get the from to fill information about route.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class RouteFormAction extends Action {
 
 	private static final long serialVersionUID = 2169010493985383491L;
 
+	private final Logger LOG = Logger.getLogger(RouteFormAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -32,7 +41,7 @@ public class RouteFormAction extends Action {
 		try {
 			places = routeService.getAllPlaces();
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		
@@ -48,7 +57,7 @@ public class RouteFormAction extends Action {
 			try {
 				route = routeService.get(id);
 			} catch (ServiceException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new ActionException(e);
 			}
 			req.setAttribute("route", route);

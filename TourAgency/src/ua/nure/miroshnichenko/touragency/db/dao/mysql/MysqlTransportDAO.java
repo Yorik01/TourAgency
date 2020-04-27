@@ -3,6 +3,8 @@ package ua.nure.miroshnichenko.touragency.db.dao.mysql;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.DBUtil;
 import ua.nure.miroshnichenko.touragency.db.Queries;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
@@ -18,6 +20,8 @@ public class MysqlTransportDAO implements TransportDAO {
 
 	private MysqlRouteDAO routeDAO = new MysqlRouteDAO();
 
+	private final Logger LOG = Logger.getLogger(MysqlTransportDAO.class);
+	
 	@Override
 	public Transport find(int id) throws DAOException {
 		Transaction transaction = null;
@@ -30,13 +34,13 @@ public class MysqlTransportDAO implements TransportDAO {
 			Route route = routeDAO.find(transport.getRouteId());
 			transport.setRoute(route);
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -57,13 +61,13 @@ public class MysqlTransportDAO implements TransportDAO {
 				transport.setRoute(route);
 			}
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -80,13 +84,13 @@ public class MysqlTransportDAO implements TransportDAO {
 			result = transaction.insert(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -103,13 +107,13 @@ public class MysqlTransportDAO implements TransportDAO {
 			result = transaction.update(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -126,13 +130,13 @@ public class MysqlTransportDAO implements TransportDAO {
 			result = transaction.delete(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -156,13 +160,13 @@ public class MysqlTransportDAO implements TransportDAO {
 				transport.setRoute(route);
 			}
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -189,13 +193,13 @@ public class MysqlTransportDAO implements TransportDAO {
 			}
 		
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}

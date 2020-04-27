@@ -1,10 +1,12 @@
-package ua.nure.miroshnichenko.touragency.web.action.user;
+package ua.nure.miroshnichenko.touragency.web.action.admin;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import ua.nure.miroshnichenko.touragency.db.entity.Role;
 import ua.nure.miroshnichenko.touragency.db.entity.User;
@@ -14,10 +16,17 @@ import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
+/**
+ * The action to create a manager.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class CreateManagerAction extends Action {
 
 	private static final long serialVersionUID = 1531131313350404858L;
 
+	private final Logger LOG = Logger.getLogger(CreateManagerAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -37,7 +46,7 @@ public class CreateManagerAction extends Action {
 		try {
 			authentificationService.signup(user);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		

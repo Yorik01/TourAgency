@@ -7,7 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-	import ua.nure.miroshnichenko.touragency.db.entity.Route;
+import org.apache.log4j.Logger;
+
+import ua.nure.miroshnichenko.touragency.db.entity.Route;
 import ua.nure.miroshnichenko.touragency.db.entity.Transport;
 import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.RouteService;
@@ -19,10 +21,18 @@ import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 import ua.nure.miroshnichenko.touragency.web.action.ActionUtil;
 
+/**
+ * The action to get a form to fill information about
+ * a specific transport.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class TransportFormAction extends Action {
 
 	private static final long serialVersionUID = -3690857473192818168L;
 
+	private final Logger LOG = Logger.getLogger(TransportFormAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -48,7 +58,7 @@ public class TransportFormAction extends Action {
 			try {
 				transport = transportService.get(id);
 			} catch (ServiceException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new ActionException(e);
 			}
 			

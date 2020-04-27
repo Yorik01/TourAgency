@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.User;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
@@ -14,10 +16,17 @@ import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
+/**
+ * The action to pay a specific reservation.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class PayReservationAction extends Action {
 
 	private static final long serialVersionUID = -490607545901059328L;
 
+	private final Logger LOG = Logger.getLogger(PayReservationAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -32,7 +41,7 @@ public class PayReservationAction extends Action {
 		try {
 			tourService.pay(id, managerId);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		

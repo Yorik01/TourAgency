@@ -33,11 +33,11 @@ public class ServiceFactory {
 	}
 
 	public BanningService getBanningService() {
-		return new BanningServiceImpl();
+		return BanningServiceImpl.getInstance();
 	}
 
 	public DiscountService getDiscountService() {
-		return new DiscountServiceImpl();
+		return DiscountServiceImpl.getInstance();
 	}
 	
 	public HotelService getHotelService() {
@@ -57,6 +57,6 @@ public class ServiceFactory {
 	}
 
 	public StatisticService getStatisticService() {
-		return new StatisticServiceImpl();
+		return StatisticServiceImpl.getInstance();
 	}
 }

@@ -10,6 +10,11 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import ua.nure.miroshnichenko.touragency.web.action.admin.AdminPageAction;
+import ua.nure.miroshnichenko.touragency.web.action.admin.AllUsersAction;
+import ua.nure.miroshnichenko.touragency.web.action.admin.BannUserAction;
+import ua.nure.miroshnichenko.touragency.web.action.admin.CreateManagerAction;
+import ua.nure.miroshnichenko.touragency.web.action.admin.UnbannUserAction;
 import ua.nure.miroshnichenko.touragency.web.action.comment.DeleteCommentAction;
 import ua.nure.miroshnichenko.touragency.web.action.comment.SaveCommentAction;
 import ua.nure.miroshnichenko.touragency.web.action.comment.UserCommentsAction;
@@ -44,14 +49,10 @@ import ua.nure.miroshnichenko.touragency.web.action.transport.AllTransportsActio
 import ua.nure.miroshnichenko.touragency.web.action.transport.DeleteTransportAction;
 import ua.nure.miroshnichenko.touragency.web.action.transport.SaveTransportAction;
 import ua.nure.miroshnichenko.touragency.web.action.transport.TransportFormAction;
-import ua.nure.miroshnichenko.touragency.web.action.user.AdminPageAction;
-import ua.nure.miroshnichenko.touragency.web.action.user.AllUsersAction;
-import ua.nure.miroshnichenko.touragency.web.action.user.BannUserAction;
-import ua.nure.miroshnichenko.touragency.web.action.user.CreateManagerAction;
 import ua.nure.miroshnichenko.touragency.web.action.user.EditUserAction;
 import ua.nure.miroshnichenko.touragency.web.action.user.LoginAction;
+import ua.nure.miroshnichenko.touragency.web.action.user.LogoutAction;
 import ua.nure.miroshnichenko.touragency.web.action.user.SignupAction;
-import ua.nure.miroshnichenko.touragency.web.action.user.UnbannUserAction;
 import ua.nure.miroshnichenko.touragency.web.action.user.UserEditFormAction;
 
 public class ActionContainer {
@@ -69,6 +70,7 @@ public class ActionContainer {
 		actions.put("no", new NoAction());
 		actions.put("login", new LoginAction());
 		actions.put("signup", new SignupAction());
+		actions.put("logout", new LogoutAction());
 		actions.put("saveHotel", new SaveHotelAction());
 		actions.put("saveTour", new SaveTourAction());
 		actions.put("saveRoute", new SaveRouteAction());

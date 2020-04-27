@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Hotel;
 import ua.nure.miroshnichenko.touragency.service.HotelService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
@@ -14,10 +16,17 @@ import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 import ua.nure.miroshnichenko.touragency.web.action.ActionUtil;
 
+/**
+ * The action to delete a specific hotel.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class DeleteHotelAction extends Action {
 
 	private static final long serialVersionUID = -3937865183784785335L;
 
+	private final Logger LOG = Logger.getLogger(DeleteHotelAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -33,7 +42,7 @@ public class DeleteHotelAction extends Action {
 			hotelService.delete(hotel);
 			ActionUtil.deleteAllHotelPhotos(id, req);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		

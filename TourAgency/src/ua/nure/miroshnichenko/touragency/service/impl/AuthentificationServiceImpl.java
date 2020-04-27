@@ -15,6 +15,8 @@ import ua.nure.miroshnichenko.touragency.service.AuthentificationService;
 import ua.nure.miroshnichenko.touragency.service.exception.IncorrectLoginException;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
 import ua.nure.miroshnichenko.touragency.service.exception.SignupException;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.ExceptionMessages;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.LogginMessages;
 
 class AuthentificationServiceImpl implements AuthentificationService {
 
@@ -55,7 +57,7 @@ class AuthentificationServiceImpl implements AuthentificationService {
 
 				if (user != null) {
 					if (user.getPassword().equals(hash)) {
-						LOG.trace(String.format("The user %s has logged in!", email));
+						LOG.trace(String.format(LogginMessages.USER_LOGGED_IN, email));
 						return user;
 					}
 					throw new IncorrectLoginException(ExceptionMessages.INCORECT_PASSWORD);
@@ -86,7 +88,7 @@ class AuthentificationServiceImpl implements AuthentificationService {
 
 					boolean result = userDAO.save(user);
 					
-					LOG.trace("The new user has been created!");
+					LOG.trace(LogginMessages.USER_CREATED);
 					return result;
 				}
 				throw new ServiceException(ExceptionMessages.ERROR_HASH_GENERATE);

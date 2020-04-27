@@ -3,6 +3,8 @@ package ua.nure.miroshnichenko.touragency.db.dao.mysql;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.DBUtil;
 import ua.nure.miroshnichenko.touragency.db.Queries;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
@@ -14,6 +16,8 @@ import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactor
 
 public class MysqlServicingDAO implements ServicingDAO {
 
+	private final Logger LOG = Logger.getLogger(MysqlServicingDAO.class);
+	
 	@Override
 	public Servicing find(int id) throws DAOException {
 		Transaction transaction = null;
@@ -23,13 +27,13 @@ public class MysqlServicingDAO implements ServicingDAO {
 			transaction = DBUtil.getTransaction();
 			servicing = transaction.findByPK(Servicing.class, id);
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -45,13 +49,13 @@ public class MysqlServicingDAO implements ServicingDAO {
 			transaction = DBUtil.getTransaction();
 			servicings = transaction.findAll(Servicing.class);
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -68,13 +72,13 @@ public class MysqlServicingDAO implements ServicingDAO {
 			result = transaction.insert(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -91,13 +95,13 @@ public class MysqlServicingDAO implements ServicingDAO {
 			result = transaction.update(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -114,13 +118,13 @@ public class MysqlServicingDAO implements ServicingDAO {
 			result = transaction.delete(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -140,13 +144,13 @@ public class MysqlServicingDAO implements ServicingDAO {
 				servicing = res.get(0);
 			}
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}

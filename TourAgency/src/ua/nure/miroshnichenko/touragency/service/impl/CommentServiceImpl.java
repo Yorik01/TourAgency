@@ -2,15 +2,20 @@ package ua.nure.miroshnichenko.touragency.service.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.dao.CommentDAO;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.entity.Comment;
 import ua.nure.miroshnichenko.touragency.service.CommentService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.LogginMessages;
 
 public class CommentServiceImpl implements CommentService {
 
+	private final Logger LOG = Logger.getLogger(CommentServiceImpl.class);
+	
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
 	private static CommentServiceImpl instance;
@@ -44,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
 			
 			return comment;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -59,52 +64,61 @@ public class CommentServiceImpl implements CommentService {
 			
 			return comments;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
 
 	@Override
 	public boolean save(Comment comment) throws ServiceException {
-		boolean result = false;
-
 		try {
 			CommentDAO commentDAO = factoryDAO.getCommentDAO();
-			result = commentDAO.save(comment);
+			boolean result = commentDAO.save(comment);
 			
+			if (result) {
+				LOG.trace(String.format(LogginMessages.USER_SAVE_COMMENT,
+						comment.getUser().getEmail(), comment.getTourId()));
+			}
 			return result;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
 
 	@Override
 	public boolean update(Comment comment) throws ServiceException {
-		boolean result = false;
-
 		try {
 			CommentDAO commentDAO = factoryDAO.getCommentDAO();
-			result = commentDAO.update(comment);
+			boolean result = commentDAO.update(comment);
 			
+			if (result) {
+				LOG.trace(String.format(
+						LogginMessages.USER_UPDATE_COMMENT,
+						comment.getUser().getEmail(), comment.getTourId()));
+			}
 			return result;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
 
 	@Override
 	public boolean delete(Comment comment) throws ServiceException {
-		boolean result = false;
-
 		try {
 			CommentDAO commentDAO = factoryDAO.getCommentDAO();
-			result = commentDAO.delete(comment);
+			boolean result = commentDAO.delete(comment);
+			
+			if (result) {
+				LOG.trace(String.format(
+						LogginMessages.USER_DELTE_COMMENT,
+						comment.getUser().getEmail(), comment.getTourId()));
+			}
 			
 			return result;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -119,7 +133,7 @@ public class CommentServiceImpl implements CommentService {
 			
 			return comments;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -134,7 +148,7 @@ public class CommentServiceImpl implements CommentService {
 			
 			return comments;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}

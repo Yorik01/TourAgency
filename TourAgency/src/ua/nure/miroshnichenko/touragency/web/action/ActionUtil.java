@@ -20,7 +20,6 @@ import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
@@ -141,11 +140,28 @@ public final class ActionUtil {
 		return mapPlaces;
 	}
 	
+	/**
+	 * The method return the path of folder with saved photos of hotels.
+	 * A path places in web.xml.
+	 * 
+	 * @param request HttpServletRequest.
+	 * 
+	 * @return The path of folder with saved photos of hotels.
+	 */
 	public static String getPhotosFolderPath(HttpServletRequest request) {
 		return request.getServletContext().getInitParameter("photo-storage");
 	}
 	
-	public static void uploadImgs(HttpServletRequest req, HttpServletResponse res, int hotelId)
+	/**
+	 * Upload files from multipart request in server with name 'photo'.
+	 * The path of folder is get by {@link #getPhotosFolderPath(HttpServletRequest)}.
+	 * 
+	 * @param req HttpServletRequest.
+	 * @param hotelId id of hotel
+	 * 
+	 * @throws IOException, ServletException, ActionException
+	 */
+	public static void uploadImgs(HttpServletRequest req, int hotelId)
 			throws IOException, ServletException, ActionException {
 		List<Part> fileParts = req.getParts().stream()
 				.filter(part -> "photo".equals(part.getName()))
@@ -191,6 +207,16 @@ public final class ActionUtil {
 		}
 	}
 	
+	/**
+	 * Fetch photos of a specific hotel.
+	 * 
+	 * @param req HttpServletRequest.
+	 * @param hotelId id of hotel.
+	 * 
+	 * @return a list of photos names
+	 * 
+	 * @throws IOException
+	 */
 	public static List<String> getHotelPhotos(int hotelId, HttpServletRequest request) throws IOException {
 		String path = getPhotosFolderPath(request);
 		List<String> photos = new ArrayList<>();
@@ -203,6 +229,16 @@ public final class ActionUtil {
 		return photos;
 	}
 	
+	/**
+	 * The method fetch the first photo of a specific hotel.
+	 * 
+	 * @param req HttpServletRequest.
+	 * @param hotelId id of hotel.
+	 * 
+	 * @return a name of first photo.
+	 * 
+	 * @throws IOException
+	 */
 	public static String getFirstPhoto(int hotelId, HttpServletRequest request) throws IOException {
 		String path = getPhotosFolderPath(request);
 		
@@ -219,6 +255,14 @@ public final class ActionUtil {
 		return photo;
 	}
 	
+	/**
+	 * The method sets a first photo of a hotel for each tours.
+	 * 
+	 * @param req HttpServletRequest.
+	 * @param hotelId id of hotel.
+	 * 
+	 * @throws IOException
+	 */
 	public static void setToursPhotos(List<Tour> tours, HttpServletRequest req) throws IOException {
 		for (Tour tour : tours) {
 			String photo = ActionUtil.getFirstPhoto(tour.getHotelId(), req);
@@ -226,6 +270,14 @@ public final class ActionUtil {
 		}
 	}
 	
+	/**
+	 * The method delete all photos of a specific hotel.
+	 * 
+	 * @param req HttpServletRequest.
+	 * @param hotelId id of hotel.
+	 * 
+	 * @throws IOException
+	 */
 	public static void deleteAllHotelPhotos(int hotelId, HttpServletRequest request) throws IOException {
 		String path = getPhotosFolderPath(request);
 
@@ -236,6 +288,12 @@ public final class ActionUtil {
 		}
 	}
 	
+	/**
+	 * The method delete photos which names contain in attribute 
+	 * values with name 'deletedPhotos'
+	 * 
+	 * @param req HttpServletRequest.
+	 */
 	public static void deleteHotelPhotos(HttpServletRequest request) {
 		String path = getPhotosFolderPath(request);
 		String[] photos = request.getParameterValues("deletedPhotos");
@@ -246,6 +304,15 @@ public final class ActionUtil {
 		}
 	}
 	
+	/**
+	 * Check if photo belong to a specific hotel
+	 * 
+	 * @param path a path of a specific photo
+	 * @param hotelId id of hotel.
+	 * 
+	 * @return result of checking.
+	 * 
+	 */
 	private static boolean photoBelongToHotel(int hotelId, Path path) {
 		String pathName = path.toString();
 

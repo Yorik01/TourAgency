@@ -1,5 +1,7 @@
 package ua.nure.miroshnichenko.touragency.service.impl;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.ReservationDAO;
@@ -8,10 +10,35 @@ import ua.nure.miroshnichenko.touragency.db.dao.UserDAO;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.service.DiscountService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.ExceptionMessages;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.LogginMessages;
 
 class DiscountServiceImpl implements DiscountService {
 
+	private final Logger LOG = Logger.getLogger(DiscountServiceImpl.class);
+	
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
+	
+	private static DiscountServiceImpl instance;
+	
+	private DiscountServiceImpl () {
+		factoryDAO = DAOFactory.getInstance();
+	}
+	
+	public static synchronized DiscountServiceImpl getInstance() {
+		if(instance == null) {
+			instance = new DiscountServiceImpl();
+		}
+		return instance;
+	}
+	
+	/**
+	 * Set the DAOFactory implementation using the setter.
+	 * It is used for mock test.
+	 */
+	public void setFactoryDAO(DAOFactory factoryDAO) {
+		this.factoryDAO = factoryDAO;
+	}
 
 	@Override
 	public boolean setMaxDiscount(int tourId, double value) throws ServiceException {
@@ -23,9 +50,17 @@ class DiscountServiceImpl implements DiscountService {
 				tour.setMaxDiscount(value);
 			}
 			
-			return tourDao.update(tour);
+			boolean res = tourDao.update(tour);
+			
+			if (res) {
+				LOG.trace(String.format(
+						LogginMessages.MAX_DISCOUNT_CHANGED,
+						value));
+			}
+			
+			return res;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -34,9 +69,17 @@ class DiscountServiceImpl implements DiscountService {
 	public boolean setDiscountStep(double step) throws ServiceException {
 		try {
 			ReservationDAO reservationDAO = factoryDAO.getReservationDAO();
-			return reservationDAO.setDiscountStepForAllUsers(step);
+			boolean res = reservationDAO.setDiscountStepForAllUsers(step);
+			
+			if (res) {
+				LOG.trace(String.format(
+						LogginMessages.DISCOUNT_STEP_CHANGED,
+						step));
+			}
+			
+			return res;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -53,7 +96,7 @@ class DiscountServiceImpl implements DiscountService {
 			
 			return discountStep;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}

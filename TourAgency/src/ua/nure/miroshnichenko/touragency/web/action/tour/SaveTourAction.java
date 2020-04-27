@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Hotel;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.db.entity.TourType;
@@ -19,10 +21,17 @@ import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
+/**
+ * The action to save a tour.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class SaveTourAction extends Action {
 
 	private static final long serialVersionUID = -1268399077232461229L;
 
+	private final Logger LOG = Logger.getLogger(SaveTourAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -38,7 +47,7 @@ public class SaveTourAction extends Action {
 			try {
 				tourService.update(tour);
 			} catch (ServiceException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new ActionException(e);
 			}
 			
@@ -48,7 +57,7 @@ public class SaveTourAction extends Action {
 		try {	
 			tourService.save(tour);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		
@@ -75,7 +84,7 @@ public class SaveTourAction extends Action {
 			transportTo = transportService.get(Integer.parseInt(req.getParameter("transportTo")));
 			transportBack = transportService.get(Integer.parseInt(req.getParameter("transportBack")));
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		

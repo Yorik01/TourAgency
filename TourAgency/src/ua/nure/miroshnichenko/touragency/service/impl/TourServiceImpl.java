@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactoryException;
 import ua.nure.miroshnichenko.touragency.db.DBUtil;
@@ -28,9 +30,13 @@ import ua.nure.miroshnichenko.touragency.db.entity.TransportType;
 import ua.nure.miroshnichenko.touragency.db.entity.User;
 import ua.nure.miroshnichenko.touragency.service.TourService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.ExceptionMessages;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.LogginMessages;
 
 class TourServiceImpl implements TourService {
 
+	private final Logger LOG = Logger.getLogger(TourServiceImpl.class);
+	
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
 	private static TourServiceImpl instance;
@@ -66,7 +72,7 @@ class TourServiceImpl implements TourService {
 
 			return tours;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -81,7 +87,7 @@ class TourServiceImpl implements TourService {
 
 			return tour;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -112,7 +118,7 @@ class TourServiceImpl implements TourService {
 			return tours;
 			
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -122,12 +128,17 @@ class TourServiceImpl implements TourService {
 		try {
 			TourDAO tourDAO = factoryDAO.geTourDAO();
 			if (isTourUnique(tour)) {
-				return tourDAO.save(tour);
+				boolean res = tourDAO.save(tour);
+				
+				if (res) {
+					LOG.trace(LogginMessages.TOUR_CREATED);
+				}
+				return res;
 			}
 			
 			throw new ServiceException(ExceptionMessages.TOUR_EXIST);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -143,12 +154,18 @@ class TourServiceImpl implements TourService {
 					tour.getHotelId());
 			
 			if (oldTour == null || oldTour.getId() == tour.getId()) {
-				return tourDAO.update(tour);
+				boolean res = tourDAO.update(tour);
+				
+				if (res) {
+					LOG.trace(String.format(
+							LogginMessages.TOUR_UPDATE, tour.getId()));
+				}
+				return res;
 			}
 			
 			throw new ServiceException(ExceptionMessages.TOUR_EXIST);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -157,11 +174,16 @@ class TourServiceImpl implements TourService {
 	public boolean delete(Tour tour) throws ServiceException {
 		try {
 			TourDAO tourDAO = factoryDAO.geTourDAO();
-			boolean result = tourDAO.delete(tour);
+			boolean res = tourDAO.delete(tour);
+			
+			if (res) {
+				LOG.trace(String.format(
+						LogginMessages.HOTEL_DELETE, tour.getId()));
+			}
 
-			return result;
+			return res;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -169,25 +191,46 @@ class TourServiceImpl implements TourService {
 	@Override
 	public boolean reserve(int tourId, int userId, int peopleCount) throws ServiceException {
 		try {
-			return DBUtil.callProcedure(
+			boolean res = DBUtil.callProcedure(
 					reserveTourProcedureName,
 					userId, tourId,
 					peopleCount,
 					ReservationStatus.RESERVED.ordinal() + 1);
+			
+			if (res) {
+				LOG.trace(String.format(
+						LogginMessages.TOUR_RESERVED, tourId, userId));
+			}
+			
+			return res;
 		} catch (TransactionException | TransactionFactoryException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
 
 	@Override
 	public boolean revoke(int reservationId) throws ServiceException {
-		return setReservationStatus(reservationId, ReservationStatus.REVOKED, null);
+		boolean res = setReservationStatus(reservationId, ReservationStatus.REVOKED, null);
+		
+		if (res) {
+			LOG.trace(String.format(
+					LogginMessages.RESERVETION_REVOKED, reservationId));
+		}
+		
+		return res;
 	}
 	
 	@Override
 	public boolean pay(int reservationId, int managerId) throws ServiceException {
-		return setReservationStatus(reservationId, ReservationStatus.BOUGHT, managerId);
+		boolean res = setReservationStatus(reservationId, ReservationStatus.BOUGHT, managerId);
+		
+		if (res) {
+			LOG.trace(String.format(
+					LogginMessages.RESERVETION_PAYED, reservationId, managerId));
+		}
+		
+		return res;
 	}
 
 	@Override
@@ -201,7 +244,7 @@ class TourServiceImpl implements TourService {
 			
 			return reservations;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 
 		}
@@ -215,7 +258,7 @@ class TourServiceImpl implements TourService {
 
 			return reservations;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -228,7 +271,7 @@ class TourServiceImpl implements TourService {
 
 			return reservations;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -252,7 +295,7 @@ class TourServiceImpl implements TourService {
 			return tourDAO.update(tour);
 		
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -267,7 +310,7 @@ class TourServiceImpl implements TourService {
 
 			return tour;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -301,7 +344,7 @@ class TourServiceImpl implements TourService {
 			
 			throw new ServiceException("");
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}

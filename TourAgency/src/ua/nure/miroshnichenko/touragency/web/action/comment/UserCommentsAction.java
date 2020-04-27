@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Comment;
 import ua.nure.miroshnichenko.touragency.db.entity.Tour;
 import ua.nure.miroshnichenko.touragency.service.CommentService;
@@ -17,10 +19,17 @@ import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 import ua.nure.miroshnichenko.touragency.web.action.ActionUtil;
 
+/**
+ * The action to get comments of a specific user.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class UserCommentsAction extends Action {
 
 	private static final long serialVersionUID = 6407377868716494616L;
 
+	private final Logger LOG = Logger.getLogger(UserCommentsAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -36,7 +45,7 @@ public class UserCommentsAction extends Action {
 			comments = commentService.getUserComments(userId);
 			tours = tourService.getAll();
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		

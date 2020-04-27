@@ -3,6 +3,8 @@ package ua.nure.miroshnichenko.touragency.db.dao.mysql;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.myorm.core.transaction.Transaction;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionException;
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactoryException;
@@ -22,6 +24,8 @@ public class MysqlCommentDAO implements CommentDAO {
 	
 	private TourDAO tourDAO = new MysqlTourDAO();
 	
+	private final Logger LOG = Logger.getLogger(MysqlCommentDAO.class);
+	
 	@Override
 	public Comment find(int id) throws DAOException {
 		Transaction transaction = null;
@@ -35,13 +39,13 @@ public class MysqlCommentDAO implements CommentDAO {
 				initComment(comment);
 			}
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -62,13 +66,13 @@ public class MysqlCommentDAO implements CommentDAO {
 			}
 			
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -86,13 +90,13 @@ public class MysqlCommentDAO implements CommentDAO {
 			
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -110,13 +114,13 @@ public class MysqlCommentDAO implements CommentDAO {
 			
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -134,13 +138,13 @@ public class MysqlCommentDAO implements CommentDAO {
 			
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -162,13 +166,13 @@ public class MysqlCommentDAO implements CommentDAO {
 			}
 	
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -190,13 +194,13 @@ public class MysqlCommentDAO implements CommentDAO {
 			}
 	
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}

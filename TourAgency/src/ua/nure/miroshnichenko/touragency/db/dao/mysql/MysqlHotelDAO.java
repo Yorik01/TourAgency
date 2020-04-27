@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.DBUtil;
 import ua.nure.miroshnichenko.touragency.db.Queries;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
@@ -24,6 +26,8 @@ public class MysqlHotelDAO implements HotelDAO {
 
 	private FacilityDAO facilityDAO = new MysqlFacilityDAO();
 
+	private final Logger LOG = Logger.getLogger(MysqlHotelDAO.class);
+	
 	@Override
 	public Hotel find(int id) throws DAOException {
 		Transaction transaction = null;
@@ -33,22 +37,16 @@ public class MysqlHotelDAO implements HotelDAO {
 			transaction = DBUtil.getTransaction();
 			hotel = transaction.findByPK(Hotel.class, id);
 
-			List<Servicing> servicings = transaction.customQuery(Queries.HOTEL_SERVICES,
-					Servicing.class, hotel.getId().toString());
-			List<Facility> facilities = transaction.customQuery(Queries.HOTEL_FACILITIES,
-					Facility.class, hotel.getId().toString());
-
-			hotel.setFacilities(new HashSet<>(facilities));
-			hotel.setServicings(new HashSet<>(servicings));
+			initHotel(transaction, hotel);
 
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -65,24 +63,17 @@ public class MysqlHotelDAO implements HotelDAO {
 			hotels = transaction.findAll(Hotel.class);
 
 			for (Hotel hotel : hotels) {
-
-				List<Servicing> servicings =transaction.customQuery(Queries.HOTEL_SERVICES,
-						Servicing.class, hotel.getId().toString());
-				List<Facility> facilities = transaction.customQuery(Queries.HOTEL_FACILITIES,
-						Facility.class, hotel.getId().toString());
-
-				hotel.setFacilities(new HashSet<>(facilities));
-				hotel.setServicings(new HashSet<>(servicings));
+				initHotel(transaction, hotel);
 			}
 
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -112,7 +103,7 @@ public class MysqlHotelDAO implements HotelDAO {
 
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			try {
 				transaction.rollback();
 			} catch (TransactionException e1) {
@@ -124,7 +115,7 @@ public class MysqlHotelDAO implements HotelDAO {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -181,11 +172,11 @@ public class MysqlHotelDAO implements HotelDAO {
 			
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			try {
 				transaction.rollback();
 			} catch (TransactionException e1) {
-				e1.printStackTrace();
+				LOG.error(e1);
 				throw new DAOException(e);
 			}
 			throw new DAOException(e);
@@ -193,7 +184,7 @@ public class MysqlHotelDAO implements HotelDAO {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -210,13 +201,13 @@ public class MysqlHotelDAO implements HotelDAO {
 			result = transaction.delete(entity);
 			transaction.commit();
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
@@ -236,25 +227,29 @@ public class MysqlHotelDAO implements HotelDAO {
 			}
 
 			if (hotel != null) {
-				List<Servicing> servicings = transaction.customQuery(Queries.HOTEL_SERVICES,
-						Servicing.class, hotel.getId());
-				List<Facility> facilities = transaction.customQuery(Queries.HOTEL_FACILITIES,
-						Facility.class, hotel.getId());
-
-				hotel.setFacilities(new HashSet<>(facilities));
-				hotel.setServicings(new HashSet<>(servicings));
+				initHotel(transaction, hotel);
 			}
 		} catch (TransactionFactoryException | TransactionException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new DAOException(e);
 		} finally {
 			try {
 				DBUtil.close(transaction);
 			} catch (TransactionException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new DAOException(e);
 			}
 		}
 		return hotel;
+	}
+	
+	private void initHotel(Transaction transaction, Hotel hotel) throws TransactionException {
+		List<Servicing> servicings = transaction.customQuery(Queries.HOTEL_SERVICES,
+				Servicing.class, hotel.getId().toString());
+		List<Facility> facilities = transaction.customQuery(Queries.HOTEL_FACILITIES,
+				Facility.class, hotel.getId().toString());
+
+		hotel.setFacilities(new HashSet<>(facilities));
+		hotel.setServicings(new HashSet<>(servicings));
 	}
 }

@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.statistic.AverageMarkTourStatistic;
 import ua.nure.miroshnichenko.touragency.service.StatisticService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
@@ -14,10 +16,17 @@ import ua.nure.miroshnichenko.touragency.web.Path;
 import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 
+/**
+ * The action to get statistic about average marks of tours.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class AverageMarkTourStatisticAction extends Action {
 
 	private static final long serialVersionUID = 577306661596836834L;
 
+	private final Logger LOG = Logger.getLogger(AverageMarkTourStatisticAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -28,7 +37,7 @@ public class AverageMarkTourStatisticAction extends Action {
 		try {
 			averageMarkTourStatistics = statisticService.getAverageMarkTourStatistics();
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ActionException(e);
 		}
 		

@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.entity.Beach;
 import ua.nure.miroshnichenko.touragency.db.entity.Facility;
 import ua.nure.miroshnichenko.touragency.db.entity.Food;
@@ -22,10 +24,17 @@ import ua.nure.miroshnichenko.touragency.web.action.Action;
 import ua.nure.miroshnichenko.touragency.web.action.ActionException;
 import ua.nure.miroshnichenko.touragency.web.action.ActionUtil;
 
+/**
+ * The action to save a hotel.
+ * 
+ * @author Miroshnichenko Y. D.
+ */
 public class SaveHotelAction extends Action {
 
 	private static final long serialVersionUID = -8849483309313250899L;
 
+	private final Logger LOG = Logger.getLogger(SaveHotelAction.class);
+	
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException, ActionException {
@@ -45,10 +54,10 @@ public class SaveHotelAction extends Action {
 					if (removedPhotos != null) {
 						ActionUtil.deleteHotelPhotos(req);
 					}
-					ActionUtil.uploadImgs(req, res, hotel.getId());
+					ActionUtil.uploadImgs(req, hotel.getId());
 				}
 			} catch (ServiceException e) {
-				e.printStackTrace();
+				LOG.error(e);
 				throw new ActionException(e);
 			}
 			
@@ -62,7 +71,7 @@ public class SaveHotelAction extends Action {
 			throw new ActionException(e);
 		}
 
-		ActionUtil.uploadImgs(req, res, hotel.getId());
+		ActionUtil.uploadImgs(req, hotel.getId());
 
 		return "redirect:" + Path.getControllerPath("allHotels");
 	}

@@ -3,6 +3,8 @@ package ua.nure.miroshnichenko.touragency.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.nure.miroshnichenko.touragency.db.dao.DAOException;
 import ua.nure.miroshnichenko.touragency.db.dao.DAOFactory;
 import ua.nure.miroshnichenko.touragency.db.dao.TransportDAO;
@@ -10,9 +12,13 @@ import ua.nure.miroshnichenko.touragency.db.entity.Transport;
 import ua.nure.miroshnichenko.touragency.db.entity.TransportType;
 import ua.nure.miroshnichenko.touragency.service.TransportService;
 import ua.nure.miroshnichenko.touragency.service.exception.ServiceException;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.ExceptionMessages;
+import ua.nure.miroshnichenko.touragency.service.impl.constants.LogginMessages;
 
 public class TransportServiceImpl implements TransportService {
 
+	private Logger LOG = Logger.getLogger(TransportServiceImpl.class);
+	
 	private DAOFactory factoryDAO = DAOFactory.getInstance();
 	
 	private static TransportServiceImpl instance;
@@ -46,7 +52,7 @@ public class TransportServiceImpl implements TransportService {
 
 			return transport;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 		
@@ -62,7 +68,7 @@ public class TransportServiceImpl implements TransportService {
 
 			return transports;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -72,12 +78,17 @@ public class TransportServiceImpl implements TransportService {
 		try {
 			TransportDAO transportDAO = factoryDAO.getTransportDAO();
 			if (isTransportUnique(transport)) {
-				return transportDAO.save(transport);
+				boolean res = transportDAO.save(transport);
+				
+				if (res) {
+					LOG.trace(LogginMessages.TRANSPORT_CREATED);
+				}
+				return res;
 			}
 			
 			throw new ServiceException(ExceptionMessages.TRANSPORT_EXIST);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -91,12 +102,17 @@ public class TransportServiceImpl implements TransportService {
 					transport.getCode(), transport.getType());
 			
 			if (oldTransport == null || transport.getId() == oldTransport.getId()) {
-				return transportDAO.update(transport);
+				boolean res = transportDAO.update(transport);
+				
+				if (res) {
+					LOG.trace(LogginMessages.TOUR_UPDATE);
+				}
+				return res;
 			}
 			
 			throw new ServiceException(ExceptionMessages.TRANSPORT_EXIST);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -105,11 +121,15 @@ public class TransportServiceImpl implements TransportService {
 	public boolean delete(Transport transport) throws ServiceException {
 		try {
 			TransportDAO transportDAO = factoryDAO.getTransportDAO();
-			boolean result = transportDAO.delete(transport);
+			boolean res = transportDAO.delete(transport);
 
-			return result;
+			if (res) {
+				LOG.trace(LogginMessages.TOUR_DELETE);
+			}
+			
+			return res;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -124,7 +144,7 @@ public class TransportServiceImpl implements TransportService {
 			
 			return transports;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}
@@ -139,7 +159,7 @@ public class TransportServiceImpl implements TransportService {
 
 			return transport;
 		} catch (DAOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			throw new ServiceException(e);
 		}
 	}

@@ -1,4 +1,4 @@
-package ua.nure.miroshnichenko.touragency.service.impl;
+package ua.nure.miroshnichenko.touragency.service.impl.constants;
 
 public final class ExceptionMessages {
 

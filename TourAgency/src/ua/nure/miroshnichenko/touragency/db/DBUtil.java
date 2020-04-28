@@ -22,9 +22,9 @@ public final class DBUtil {
 	private static final Logger LOG = Logger.getLogger(DBUtil.class);
 
 	static {
-		// load db properties from aoo.properties
-		settings = new Settings();
+		// load db properties from app.properties
 		try {
+			settings = new Settings();
 			transactionFactory = settings.getTransactionFactory();
 		} catch (Exception e) {
 			LOG.error(e);

@@ -22,7 +22,7 @@ import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionExcept
 import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactoryException;
 
 /**
- * Implementation of {@link #ua.nure.miroshnichenko.myorm.core.transaction.TransactionFactory}
+ * Implementation of {@link ua.nure.miroshnichenko.myorm.core.transaction.TransactionFactory}
  * 
  * @author Miroshnichenko Y. D
  */
@@ -56,7 +56,7 @@ class TransactionFactoryImpl implements TransactionFactory {
 	}
 
 	/**
-	 * Implementation of {@link #ua.nure.miroshnichenko.myorm.core.transaction.Transaction}
+	 * Implementation of {@link ua.nure.miroshnichenko.myorm.core.transaction.Transaction}
 	 * 
 	 * @author Miroshnichenko Y. D
 	 */
@@ -75,6 +75,7 @@ class TransactionFactoryImpl implements TransactionFactory {
 			try {
 				ResultSet resultSet = connection.executeQuery(query);
 				result = getEntities(resultSet, type);
+				
 				return (List<T>) result;
 			} catch (DBConnectionException | MappingReflectiveException e) {
 				throw new TransactionException(e);
@@ -98,6 +99,7 @@ class TransactionFactoryImpl implements TransactionFactory {
 			try {
 				ResultSet resultSet = connection.executeQuery(query, parametrs);
 				result = getEntities(resultSet, type);
+				
 				return (List<T>) result;
 			} catch (DBConnectionException | MappingReflectiveException e) {
 				throw new TransactionException(e);

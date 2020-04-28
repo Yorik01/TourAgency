@@ -88,9 +88,9 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 							e.printStackTrace();
 						}
 						iterator.remove();
-					} else {
-						break;
 					}
+				} else {
+					break;
 				}
 			}
 		}
@@ -129,14 +129,14 @@ class ConnectionsPoolImpl implements ConnectionsPool {
 	
 	/**
 	 * Constructor sets basic properties and other properties use default values. It
-	 * used only by {@link #TransactionFactoryImpl}
+	 * used only by {@link TransactionFactoryImpl}
 	 */
 	ConnectionsPoolImpl(String url, Properties properties) throws ConnectionsPoolException {
 		limit = Integer.parseInt(properties.getProperty("db.pool.limit"));
 		collectorSchedule = Long.parseLong(properties.getProperty("db.pool.collector.schedule"));
 		allowedWaitingTime = Long.parseLong(properties.getProperty("db.pool.allowed"));
 		startSize = Integer.parseInt(properties.getProperty("db.pool.start.size"));
-System.out.println("pool " + startSize);
+
 		this.url = url;
 		this.properties = properties;
 

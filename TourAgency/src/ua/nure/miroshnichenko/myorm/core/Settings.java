@@ -11,7 +11,7 @@ import ua.nure.miroshnichenko.myorm.core.transaction.exception.TransactionFactor
 
 /**
  * Read all configurations and create
- * {@link #ua.myorm.core.transaction.TransactionFactory} for working with a
+ * {@link ua.myorm.core.transaction.TransactionFactory} for working with a
  * database.
  * 
  * @author Miroshnichenko Y. D
@@ -23,15 +23,8 @@ public class Settings {
 
 	private TransactionFactory transactionFactory;
 
-	public Settings(String url, String user, String password) {
-		this.url = url;
-
-		properties = new Properties();
-		properties.setProperty("user", user);
-		properties.setProperty("password", password);
-	}
-
-	public Settings(){ 
+	// load all settings from app.properties
+	public Settings() throws IOException, ClassNotFoundException { 
 		try (InputStream inputStream = Settings.class.
 				getClassLoader().
 				getResourceAsStream("app.properties")) {
@@ -39,8 +32,11 @@ public class Settings {
 			properties.load(inputStream);
 			
 			url = properties.getProperty("db.url");
-		} catch (IOException e) {
+			
+			Class.forName(properties.getProperty("db.driver"));
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 

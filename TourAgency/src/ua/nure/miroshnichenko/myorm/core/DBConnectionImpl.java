@@ -32,14 +32,6 @@ class DBConnectionImpl implements DBConnection {
 	/* Time when connections pool put this connection into a pool */
 	private long lastUsedTime;
 	
-	static {
-		try {
-			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	/* Constructor used only by connections pool to initialize this connection */
 	DBConnectionImpl(String url, Properties info) throws DBConnectionException {
 		try {

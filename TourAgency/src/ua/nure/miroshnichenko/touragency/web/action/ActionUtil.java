@@ -155,7 +155,7 @@ public final class ActionUtil {
 	/**
 	 * Upload files from multipart request in server with name 'photo'.
 	 * The path of folder is get by {@link #getPhotosFolderPath(HttpServletRequest)}.
-	 * 
+	 * File saves in the next format - hotelPhoto_'ID of hotel'_'unique hash'.
 	 * @param req HttpServletRequest.
 	 * @param hotelId id of hotel
 	 * 
